@@ -613,6 +613,10 @@
     [
       "aa90962a-81b9-423d-8acd-c4e83fa798bb",
       "Root"
+    ],
+    [
+      "bb2a80bd-a98d-4040-85a8-f5c2f3802634",
+      "Power Input"
     ]
   ],
   "text_variables": {}
