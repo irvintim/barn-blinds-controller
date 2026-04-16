@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "barn_shade_controller")(type "KiCad")(uri "${KIPRJMOD}/barn_shade_controller.pretty")(options "")(descr ""))
+)
