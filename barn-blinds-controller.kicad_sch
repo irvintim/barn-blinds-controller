@@ -8035,8 +8035,584 @@
 		)
 	)
 	(sheet
+		(at 51.435 161.925)
+		(size 41.91 26.67)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "3a264230-9604-4127-a232-ac76a818f339")
+		(property "Sheetname" "ESP32-S3"
+			(at 51.435 161.2134 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "esp32-s3.kicad_sch"
+			(at 51.435 189.1796 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "GPIO14" input
+			(at 51.435 166.37 180)
+			(uuid "cb6ddf84-1003-4592-aa6b-d4d3fae955c9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GPIO15" input
+			(at 51.435 168.91 180)
+			(uuid "780fdf12-221f-45c3-bcd1-7246fb91ee37")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GPIO19" input
+			(at 51.435 171.45 180)
+			(uuid "8e465293-607f-412c-8a59-9a960d761942")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GPIO20" input
+			(at 51.435 173.99 180)
+			(uuid "80a5c22d-ef7b-4ae2-bdff-dd2eaca644d6")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_M1_CLOSE" input
+			(at 51.435 176.53 180)
+			(uuid "bf887289-b12f-431e-9cb4-573f30e0776f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_M1_OPEN" input
+			(at 51.435 179.07 180)
+			(uuid "4fa2986d-b067-44f1-8639-00e926f0cdcc")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_M2_CLOSE" input
+			(at 51.435 181.61 180)
+			(uuid "b3b487ea-6a3d-4a63-a824-f374fd2c2bc7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_M2_OPEN" input
+			(at 51.435 184.15 180)
+			(uuid "3b9c9c3c-9a87-4c03-81f0-3d17b0db9ac8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_M3_CLOSE" input
+			(at 93.345 166.37 0)
+			(uuid "fd201133-527f-40dd-a58e-01dd77d6b033")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ISO_M3_OPEN" input
+			(at 93.345 168.91 0)
+			(uuid "1294f75f-cea6-4e2b-8f9b-73b1f8f8a00a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ISO_M4_CLOSE" input
+			(at 93.345 171.45 0)
+			(uuid "78d2a7bf-8c86-4c03-9144-1955b93b1782")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ISO_M4_OPEN" input
+			(at 93.345 173.99 0)
+			(uuid "09b5586c-0177-4481-8c2e-ad5cb36bf658")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ISO_PWM_M1" input
+			(at 93.345 176.53 0)
+			(uuid "825e5b91-f87a-4267-8b69-53a3bc3ec00a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ISO_PWM_M2" input
+			(at 93.345 179.07 0)
+			(uuid "1095f40e-c59d-4263-a53a-e2fb02cc41ca")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ISO_PWM_M3" input
+			(at 93.345 181.61 0)
+			(uuid "fea8c534-f925-4e6b-b6d2-e993390c1a69")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ISO_PWM_M4" input
+			(at 93.345 184.15 0)
+			(uuid "540c6ab1-3397-4512-b03e-beead8035428")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ISO_STBY" input
+			(at 93.345 186.69 0)
+			(uuid "ce25f132-4c48-44df-ae73-9fcab164e130")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 22.86 166.37)
+		(size 12.7 14.605)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "52efa7a4-2a50-492f-ba41-4a5be1c27b4c")
+		(property "Sheetname" "USB-C and 5V Diode-OR"
+			(at 22.86 165.6584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "usb-c-5v.kicad_sch"
+			(at 22.86 181.5596 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "GPIO19" input
+			(at 22.86 171.45 180)
+			(uuid "dbc66f77-247e-4202-a7d1-098b455ad96c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GPIO20" input
+			(at 22.86 175.26 180)
+			(uuid "783e976b-e240-4686-bf7c-2cefed51ae2e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 99.695 163.83)
+		(size 59.69 27.94)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "5abc6c0d-fca0-406e-b928-fa5bf81b9020")
+		(property "Sheetname" "Digital Isolators"
+			(at 99.695 163.1184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "digital_isolators.kicad_sch"
+			(at 99.695 192.3546 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "ISO_M1_CLOSE" input
+			(at 99.695 167.64 180)
+			(uuid "d2060caf-897f-424e-af9a-e27eeaefd354")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_M1_OPEN" input
+			(at 99.695 170.18 180)
+			(uuid "584dd51c-4b04-469a-a125-185b35995694")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_M2_CLOSE" input
+			(at 99.695 172.72 180)
+			(uuid "cc54003a-ec5c-4488-8a38-030e85a9d8e0")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_M2_OPEN" input
+			(at 99.695 175.26 180)
+			(uuid "c6951c3d-4e7a-4584-b16f-472f29a76585")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_M3_CLOSE" input
+			(at 99.695 177.8 180)
+			(uuid "2fd05177-bfa4-4892-ae8c-ef5881e365b7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_M3_OPEN" input
+			(at 99.695 180.34 180)
+			(uuid "1952ae49-97c0-40b2-98d0-2f7e1db3e4ef")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_M4_CLOSE" input
+			(at 99.695 182.88 180)
+			(uuid "01b11b76-0be3-411e-b133-e0bd630cf1a6")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_M4_OPEN" input
+			(at 99.695 185.42 180)
+			(uuid "ceb5c950-a4ea-4d64-b02f-d369e3efa98f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_PWM_M1" input
+			(at 99.695 187.96 180)
+			(uuid "fa87add2-47da-43cb-82b2-c9502e573888")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ISO_PWM_M2" input
+			(at 159.385 166.37 0)
+			(uuid "cf91ac8c-b842-4e9b-9e37-008126ed4d54")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ISO_PWM_M3" input
+			(at 159.385 168.91 0)
+			(uuid "7bbfb61c-c165-449b-acb9-d906882dc53d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ISO_PWM_M4" input
+			(at 159.385 171.45 0)
+			(uuid "81982369-10a8-4034-ae07-649e8b3d3a71")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ISO_STBY" input
+			(at 159.385 173.99 0)
+			(uuid "04090b3c-eca3-46ca-bb8a-15ba5c2714ba")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "M1_AIN1" input
+			(at 159.385 176.53 0)
+			(uuid "69e15e5e-ef49-4770-a9a2-a2bd80a743a7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "M1_AIN2" input
+			(at 159.385 179.07 0)
+			(uuid "642daaac-e3e5-4094-8b4d-1b06c1870268")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "M2-BIN1" input
+			(at 159.385 181.61 0)
+			(uuid "43137c83-d265-4b6c-8ff2-23ac74828180")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "M2_BIN2" input
+			(at 159.385 184.15 0)
+			(uuid "0b1a7a7e-f028-4086-89dc-17f4496eea5e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "M3_AIN1" input
+			(at 159.385 186.69 0)
+			(uuid "4faa02fc-68a0-400f-88a7-0e40dc28df01")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "M3_AIN2" input
+			(at 159.385 189.23 0)
+			(uuid "6cd1b40b-d549-4bea-b597-32b64a915ced")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "M4_BIN1" input
+			(at 118.11 163.83 90)
+			(uuid "8e01a34a-f966-4530-93ad-f6eb4cf5a912")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "M4_BIN2" input
+			(at 120.65 163.83 90)
+			(uuid "0f4b71dc-c4ba-4a81-93c3-ce274d9272e2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PWM_M1" input
+			(at 123.19 163.83 90)
+			(uuid "e6d284ed-9cf0-40f2-8377-5d8a4bbad0b8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PWM_M2" input
+			(at 125.73 163.83 90)
+			(uuid "b0ebfb21-4677-4d53-ae95-4133769da216")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PWM_M3" input
+			(at 128.27 163.83 90)
+			(uuid "fdddc11c-f2f7-48f5-a7ec-44e1a5349c64")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PWM_M4" input
+			(at 130.81 163.83 90)
+			(uuid "133f028d-0175-4d90-bf95-f7f6ddecb88b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "STBY" input
+			(at 133.35 163.83 90)
+			(uuid "0121c7dc-2eab-4f09-8a3a-b4a3380412da")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 24.13 146.685)
-		(size 46.355 34.925)
+		(size 14.605 12.7)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -8060,7 +8636,7 @@
 			)
 		)
 		(property "Sheetfile" "power_input.kicad_sch"
-			(at 24.13 182.1946 0)
+			(at 24.13 159.9696 0)
 			(effects
 				(font
 					(size 1.27 1.27)

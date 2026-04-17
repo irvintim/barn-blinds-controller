@@ -617,6 +617,18 @@
     [
       "bb2a80bd-a98d-4040-85a8-f5c2f3802634",
       "Power Input"
+    ],
+    [
+      "52efa7a4-2a50-492f-ba41-4a5be1c27b4c",
+      "USB-C and 5V Diode-OR"
+    ],
+    [
+      "3a264230-9604-4127-a232-ac76a818f339",
+      "ESP32-S3"
+    ],
+    [
+      "5abc6c0d-fca0-406e-b928-fa5bf81b9020",
+      "Digital Isolators"
     ]
   ],
   "text_variables": {}
