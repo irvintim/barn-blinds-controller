@@ -1144,6 +1144,12 @@
 		(uuid "488a689c-d5d8-4a6d-a9fa-f3013dec98f1")
 	)
 	(junction
+		(at 124.46 82.55)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "58bc7e48-df7e-4ab3-a39c-71c7fa61db52")
+	)
+	(junction
 		(at 172.72 74.93)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1156,22 +1162,16 @@
 		(uuid "958196c0-074b-46d0-943c-b719121fd066")
 	)
 	(junction
-		(at 128.27 74.93)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b7ed4ff8-eceb-436e-8e58-dac5c6010c8d")
-	)
-	(junction
-		(at 128.27 82.55)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "bbe05b11-22be-48ce-8dc6-345c55b83d73")
-	)
-	(junction
 		(at 105.41 82.55)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "db02c4f6-6ca9-432d-b071-3c242d5f045b")
+	)
+	(junction
+		(at 124.46 74.93)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e97e5581-e29a-4635-a90d-c4e15ada3521")
 	)
 	(wire
 		(pts
@@ -1185,7 +1185,7 @@
 	)
 	(wire
 		(pts
-			(xy 105.41 82.55) (xy 128.27 82.55)
+			(xy 105.41 82.55) (xy 124.46 82.55)
 		)
 		(stroke
 			(width 0)
@@ -1205,7 +1205,17 @@
 	)
 	(wire
 		(pts
-			(xy 105.41 74.93) (xy 128.27 74.93)
+			(xy 124.46 74.93) (xy 143.51 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2ba1ea27-12d7-4dea-95c8-9b8529027870")
+	)
+	(wire
+		(pts
+			(xy 105.41 74.93) (xy 124.46 74.93)
 		)
 		(stroke
 			(width 0)
@@ -1255,13 +1265,13 @@
 	)
 	(wire
 		(pts
-			(xy 128.27 74.93) (xy 143.51 74.93)
+			(xy 124.46 82.55) (xy 137.16 82.55)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "7bd15b79-7d1c-4c71-a2f8-35f4cc6f04ce")
+		(uuid "9a2763a0-59ff-4436-a90f-378c805d3eae")
 	)
 	(wire
 		(pts
@@ -1322,16 +1332,6 @@
 			(type default)
 		)
 		(uuid "d845388a-076b-4ae7-a137-c1c1cb76fe8d")
-	)
-	(wire
-		(pts
-			(xy 128.27 82.55) (xy 137.16 82.55)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e19fbd0c-419b-4075-bf6a-d9f89d7a89a7")
 	)
 	(wire
 		(pts
@@ -1422,7 +1422,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Polarized")
-		(at 128.27 78.74 0)
+		(at 124.46 78.74 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1431,7 +1431,7 @@
 		(fields_autoplaced yes)
 		(uuid "0f222e16-d6e2-4741-a9e9-1c090c3ede82")
 		(property "Reference" "C20"
-			(at 132.08 76.5809 0)
+			(at 128.27 76.5809 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1440,7 +1440,7 @@
 			)
 		)
 		(property "Value" "22uF"
-			(at 132.08 79.1209 0)
+			(at 128.27 79.1209 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1448,8 +1448,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 129.2352 82.55 0)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 125.4252 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1458,7 +1458,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 128.27 78.74 0)
+			(at 124.46 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1467,7 +1467,7 @@
 			)
 		)
 		(property "Description" "Polarized capacitor"
-			(at 128.27 78.74 0)
+			(at 124.46 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1591,7 +1591,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 186.3852 82.55 0)
 			(effects
 				(font
@@ -1719,7 +1719,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+12V"
+		(property "Value" "+12V_RAW"
 			(at 105.41 69.85 0)
 			(effects
 				(font
@@ -1776,7 +1776,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7f92a59b-54aa-494b-8d23-fcf83a0a9dea")
-		(property "Reference" "J5"
+		(property "Reference" "J1"
 			(at 85.09 68.58 0)
 			(effects
 				(font
@@ -1784,7 +1784,7 @@
 				)
 			)
 		)
-		(property "Value" "Barrel_Jack"
+		(property "Value" "DC005-T25"
 			(at 85.09 71.12 0)
 			(effects
 				(font
@@ -1792,7 +1792,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
 			(at 86.36 78.486 0)
 			(effects
 				(font
@@ -1828,7 +1828,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/bb2a80bd-a98d-4040-85a8-f5c2f3802634"
-					(reference "J5")
+					(reference "J1")
 					(unit 1)
 				)
 			)
@@ -1995,7 +1995,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x5.4"
 			(at 173.6852 82.55 0)
 			(effects
 				(font

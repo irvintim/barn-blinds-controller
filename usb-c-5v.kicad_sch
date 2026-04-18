@@ -2734,7 +2734,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 77.47 42.418 90)
 			(effects
 				(font
@@ -2804,7 +2804,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 133.0452 59.69 0)
 			(effects
 				(font
@@ -3003,7 +3003,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 73.66 52.578 90)
 			(effects
 				(font
@@ -3063,7 +3063,7 @@
 				)
 			)
 		)
-		(property "Value" "USB_C_Receptacle"
+		(property "Value" "KH-TYPE-C-16P (Kinghelm)"
 			(at 40.64 21.59 0)
 			(effects
 				(font
@@ -3071,7 +3071,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_USB:USB_C_Receptacle_GCT_USB4110"
 			(at 44.45 52.07 0)
 			(effects
 				(font
@@ -3478,7 +3478,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 69.85 29.972 90)
 			(effects
 				(font
@@ -3614,7 +3614,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 108.9152 59.69 0)
 			(effects
 				(font
@@ -3761,7 +3761,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 144.4752 59.69 0)
 			(effects
 				(font
@@ -3960,7 +3960,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 59.69 32.512 90)
 			(effects
 				(font
