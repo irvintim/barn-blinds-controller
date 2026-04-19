@@ -2424,17 +2424,6 @@
 		)
 		(uuid "1f4595f2-507a-4042-928d-75c302733758")
 	)
-	(hierarchical_label "ISO_M2_CLOSE"
-		(shape input)
-		(at 160.02 59.69 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "26cceb58-92b9-4309-9b1f-c86c37d88f71")
-	)
 	(hierarchical_label "GPIO19"
 		(shape input)
 		(at 160.02 67.31 0)
@@ -2446,18 +2435,7 @@
 		)
 		(uuid "27390abf-dd74-45c9-a4c4-328f722df347")
 	)
-	(hierarchical_label "ISO_M4_OPEN"
-		(shape input)
-		(at 68.58 74.93 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "2907484d-191d-4cc6-a04d-c60d6acd1c2a")
-	)
-	(hierarchical_label "ISO_PWM_M3"
+	(hierarchical_label "ISO_PWM_M4"
 		(shape input)
 		(at 68.58 123.19 180)
 		(effects
@@ -2466,18 +2444,7 @@
 			)
 			(justify right)
 		)
-		(uuid "32afc040-1f31-44f8-a35b-b7d12ff3b607")
-	)
-	(hierarchical_label "ISO_STBY"
-		(shape input)
-		(at 160.02 118.11 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "42b3ee40-c341-4087-9f14-74b641001b7c")
+		(uuid "44600cfc-e9c0-4a0c-b3b9-2cbc7c97c2b4")
 	)
 	(hierarchical_label "ISO_M1_CLOSE"
 		(shape input)
@@ -2490,7 +2457,7 @@
 		)
 		(uuid "45bc581a-e45e-4fa7-a16c-770fdcef9599")
 	)
-	(hierarchical_label "ISO_M2_OPEN"
+	(hierarchical_label "ISO_PWM_M1"
 		(shape input)
 		(at 160.02 57.15 0)
 		(effects
@@ -2499,7 +2466,29 @@
 			)
 			(justify left)
 		)
-		(uuid "5d0490af-0910-4f63-b71e-a379d1b0b5da")
+		(uuid "6bb12c7d-4595-4b38-99d8-c9428fcc10f7")
+	)
+	(hierarchical_label "ISO_M4_OPEN"
+		(shape input)
+		(at 68.58 128.27 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7331cb04-a3d1-4d30-9b3a-a3810f69a1dd")
+	)
+	(hierarchical_label "ISO_M2_OPEN"
+		(shape input)
+		(at 160.02 59.69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "761a8c64-a5f5-442d-ba25-6647a25e07a5")
 	)
 	(hierarchical_label "ISO_M1_OPEN"
 		(shape input)
@@ -2512,29 +2501,18 @@
 		)
 		(uuid "7f4e018e-3587-4ea5-bb92-0acb598571cd")
 	)
-	(hierarchical_label "ISO_PWM_M4"
+	(hierarchical_label "ISO_M2_CLOSE"
 		(shape input)
-		(at 160.02 120.65 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "917993b1-2400-460f-b3f9-57add4763b22")
-	)
-	(hierarchical_label "ISO_PWM_M1"
-		(shape input)
-		(at 68.58 128.27 180)
+		(at 68.58 80.01 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right)
 		)
-		(uuid "96d0c47d-c895-4c46-bb6a-fb220e2c8bbf")
+		(uuid "94b21362-a5f3-434b-b1c4-90cc98c4fb39")
 	)
-	(hierarchical_label "ISO_M3_CLOSE"
+	(hierarchical_label "ISO_PWM_M2"
 		(shape input)
 		(at 68.58 77.47 180)
 		(effects
@@ -2543,9 +2521,20 @@
 			)
 			(justify right)
 		)
-		(uuid "b04cab44-00d7-480a-b447-06b954417095")
+		(uuid "a00b30f3-7a74-4278-b3aa-e4e6c35ce08c")
 	)
-	(hierarchical_label "ISO_M4_CLOSE"
+	(hierarchical_label "ISO_M3_OPEN"
+		(shape input)
+		(at 160.02 118.11 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a7c4c1f9-575b-4f33-a46d-a264e036d563")
+	)
+	(hierarchical_label "ISO_M3_CLOSE"
 		(shape input)
 		(at 68.58 72.39 180)
 		(effects
@@ -2554,7 +2543,18 @@
 			)
 			(justify right)
 		)
-		(uuid "b6ae88ba-39b2-42a5-8a25-48b9709ec211")
+		(uuid "be2ce30c-ad96-4af8-87e6-00615675a9f0")
+	)
+	(hierarchical_label "ISO_PWM_M3"
+		(shape input)
+		(at 68.58 74.93 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c3287c11-01e5-4791-a081-569b3c6af99b")
 	)
 	(hierarchical_label "GPIO20"
 		(shape input)
@@ -2567,7 +2567,7 @@
 		)
 		(uuid "d6e6208e-b211-438a-ba34-09f4155c6fa0")
 	)
-	(hierarchical_label "ISO_PWM_M2"
+	(hierarchical_label "ISO_M4_CLOSE"
 		(shape input)
 		(at 68.58 125.73 180)
 		(effects
@@ -2576,18 +2576,18 @@
 			)
 			(justify right)
 		)
-		(uuid "e02eefd7-1824-4d2d-9ad8-c6946a1b6ed3")
+		(uuid "ed1ec89a-286a-4b25-921b-6a4cf97461a6")
 	)
-	(hierarchical_label "ISO_M3_OPEN"
+	(hierarchical_label "ISO_STBY"
 		(shape input)
-		(at 68.58 80.01 180)
+		(at 160.02 120.65 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
-		(uuid "e4719180-054a-4908-b381-dec93fbb5ed4")
+		(uuid "f8ad7b3c-ba49-4ecb-b22f-3d3e5fd170e8")
 	)
 	(symbol
 		(lib_id "Device:C")

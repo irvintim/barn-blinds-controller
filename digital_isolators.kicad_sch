@@ -949,24 +949,24 @@
 		(uuid "7f3faec4-60a5-4c37-a85c-3e969acbc90c")
 	)
 	(no_connect
-		(at 162.56 90.17)
-		(uuid "0e51c6a9-21c5-4014-b884-926f23a51d71")
-	)
-	(no_connect
 		(at 229.87 90.17)
 		(uuid "44c06e49-5336-442b-bf6e-63432426e322")
-	)
-	(no_connect
-		(at 162.56 85.09)
-		(uuid "57b8a4e1-bc42-40a8-831c-76223a4824a4")
 	)
 	(no_connect
 		(at 229.87 92.71)
 		(uuid "b51ed969-1ff4-4ba1-8edf-cda80fee4e68")
 	)
 	(no_connect
-		(at 162.56 87.63)
-		(uuid "c5a1e3c5-c2ea-4402-8512-795aaf112a04")
+		(at 229.87 82.55)
+		(uuid "b6f04093-cb0e-47e0-9816-94850819af69")
+	)
+	(no_connect
+		(at 229.87 85.09)
+		(uuid "cb5a5695-d19b-4896-92b1-a1eb108c9606")
+	)
+	(no_connect
+		(at 229.87 87.63)
+		(uuid "d0eeecab-2ae3-4354-b678-438b227524a4")
 	)
 	(wire
 		(pts
@@ -1199,51 +1199,7 @@
 		)
 		(uuid "06533068-6cfe-46a3-9c2e-e78d1ddade19")
 	)
-	(hierarchical_label "M4_BIN1"
-		(shape input)
-		(at 162.56 77.47 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "18ef707b-1e38-483c-8ae6-990219ec766b")
-	)
-	(hierarchical_label "PWM_M2"
-		(shape input)
-		(at 229.87 82.55 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "1ce0113f-b37e-4d65-bc39-1483e3019a19")
-	)
-	(hierarchical_label "ISO_PWM_M4"
-		(shape input)
-		(at 209.55 87.63 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "2b83daa2-7624-4d1c-9dd0-340258a92ff3")
-	)
-	(hierarchical_label "ISO_M2_CLOSE"
-		(shape input)
-		(at 73.66 83.82 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "4216dc1c-2819-4f89-a2ed-a1e4d8b8d47a")
-	)
-	(hierarchical_label "ISO_STBY"
+	(hierarchical_label "ISO_M3_OPEN"
 		(shape input)
 		(at 142.24 82.55 180)
 		(effects
@@ -1252,9 +1208,42 @@
 			)
 			(justify right)
 		)
-		(uuid "44845610-1e6c-40c9-882e-efca1809cab9")
+		(uuid "067ebfa0-e15d-42ef-8769-632346c3d810")
 	)
-	(hierarchical_label "PWM_M1"
+	(hierarchical_label "ISO_M4_OPEN"
+		(shape input)
+		(at 142.24 85.09 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2811597c-352c-4d37-8275-160eec506347")
+	)
+	(hierarchical_label "ISO_M2_CLOSE"
+		(shape input)
+		(at 73.66 86.36 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2f24ef0f-1830-4674-b7d8-bff9bfc2543d")
+	)
+	(hierarchical_label "M4_BIN2"
+		(shape input)
+		(at 162.56 87.63 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "36ffb7cd-2ad8-4f8e-aae2-0c342e622e7a")
+	)
+	(hierarchical_label "STBY"
 		(shape input)
 		(at 229.87 80.01 0)
 		(effects
@@ -1263,31 +1252,42 @@
 			)
 			(justify left)
 		)
-		(uuid "4e0397bf-99fa-48ec-a030-e7ebf48f0f83")
+		(uuid "3f44ea32-2de9-4ea8-9bde-aaf0cbce8744")
 	)
-	(hierarchical_label "PWM_M3"
+	(hierarchical_label "M3_AIN2"
 		(shape input)
-		(at 229.87 85.09 0)
+		(at 162.56 80.01 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left)
 		)
-		(uuid "4e7b7c83-8e13-426e-acef-3e052a463a08")
+		(uuid "565a6f48-6bda-4064-b34d-f744ec6e7800")
 	)
 	(hierarchical_label "M3_AIN1"
 		(shape input)
-		(at 93.98 86.36 0)
+		(at 162.56 82.55 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left)
 		)
-		(uuid "5cad6f22-a604-45ca-be5d-e0ff3f3939f2")
+		(uuid "64a3c2d3-89ab-46e0-acc6-b701f13ae960")
 	)
-	(hierarchical_label "ISO_M4_CLOSE"
+	(hierarchical_label "PWM_M2"
+		(shape input)
+		(at 93.98 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7dc6636d-0c91-4e69-84a7-e4c7fd3f6ee2")
+	)
+	(hierarchical_label "ISO_M3_CLOSE"
 		(shape input)
 		(at 142.24 80.01 180)
 		(effects
@@ -1296,7 +1296,7 @@
 			)
 			(justify right)
 		)
-		(uuid "7219dfb3-8192-4356-9a67-9868e2ddc625")
+		(uuid "7fa38cde-b39f-40e7-8662-d2cea45f4d29")
 	)
 	(hierarchical_label "ISO_M1_OPEN"
 		(shape input)
@@ -1320,38 +1320,38 @@
 		)
 		(uuid "84c3c48e-93b0-491f-9162-c1c7dca22573")
 	)
-	(hierarchical_label "ISO_PWM_M3"
+	(hierarchical_label "PWM_M3"
 		(shape input)
-		(at 209.55 85.09 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "887469d2-d022-40c9-9764-fb51efebd207")
-	)
-	(hierarchical_label "ISO_M3_OPEN"
-		(shape input)
-		(at 73.66 86.36 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "8a55dcd9-611d-4eb9-b5ff-2f4583cfb1c5")
-	)
-	(hierarchical_label "M4_BIN2"
-		(shape input)
-		(at 162.56 80.01 0)
+		(at 162.56 77.47 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left)
 		)
-		(uuid "8c1ba923-6923-415d-8e50-97f09f690eda")
+		(uuid "8cc19eae-8eb2-4376-b91f-62d53da68fbd")
+	)
+	(hierarchical_label "M2_BIN2"
+		(shape input)
+		(at 93.98 86.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8f0db613-2119-4726-a737-d4ad827ecb50")
+	)
+	(hierarchical_label "PWM_M1"
+		(shape input)
+		(at 93.98 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "92ec9c8b-f06f-4db7-bb36-84f2dd96f405")
 	)
 	(hierarchical_label "ISO_M1_CLOSE"
 		(shape input)
@@ -1364,62 +1364,7 @@
 		)
 		(uuid "981aeafc-1aed-4e62-ba51-0e715ec90596")
 	)
-	(hierarchical_label "M2_BIN2"
-		(shape input)
-		(at 93.98 83.82 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "9fa268c5-0bec-4b41-b41c-e08d7b0f98e1")
-	)
-	(hierarchical_label "M3_AIN2"
-		(shape input)
-		(at 93.98 88.9 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "a3cf9a4a-e4ac-4c4e-bef4-ca1fbeff3e90")
-	)
-	(hierarchical_label "ISO_PWM_M2"
-		(shape input)
-		(at 209.55 82.55 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "bc49481c-5e59-4233-b244-5159a8c2c2cf")
-	)
-	(hierarchical_label "STBY"
-		(shape input)
-		(at 162.56 82.55 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "bc4e4b5f-58da-49d7-b75d-7563ac909455")
-	)
-	(hierarchical_label "ISO_M3_CLOSE"
-		(shape input)
-		(at 73.66 88.9 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "bf9e3f61-bd43-4428-b958-fd329f883a33")
-	)
-	(hierarchical_label "ISO_M2_OPEN"
+	(hierarchical_label "ISO_PWM_M1"
 		(shape input)
 		(at 73.66 81.28 180)
 		(effects
@@ -1428,42 +1373,64 @@
 			)
 			(justify right)
 		)
-		(uuid "d50132aa-6998-45bd-a91a-389810c4a523")
+		(uuid "9bb1e75b-6503-4660-a4bc-af565c5f1ce4")
 	)
-	(hierarchical_label "ISO_M4_OPEN"
+	(hierarchical_label "PWM_M4"
 		(shape input)
-		(at 142.24 77.47 180)
+		(at 162.56 90.17 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a2191936-42f4-42f8-a1bf-14752a6bfd41")
+	)
+	(hierarchical_label "ISO_M4_CLOSE"
+		(shape input)
+		(at 142.24 87.63 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right)
 		)
-		(uuid "e4224c1d-eb6b-493e-b53a-bef6ad975ba1")
+		(uuid "b16262a9-12ad-4f08-8562-b977f86555b7")
 	)
-	(hierarchical_label "PWM_M4"
+	(hierarchical_label "ISO_M2_OPEN"
 		(shape input)
-		(at 229.87 87.63 0)
+		(at 73.66 83.82 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
-		(uuid "e823cce4-e267-4522-bfe2-64fcd23e28b3")
+		(uuid "b31b025b-d395-4879-be33-e5d8c039f016")
 	)
-	(hierarchical_label "M2_BIN1"
+	(hierarchical_label "ISO_PWM_M4"
 		(shape input)
-		(at 93.98 81.28 0)
+		(at 142.24 90.17 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
-		(uuid "ebba5f6f-b2ad-4cc7-ae32-285bdd09779e")
+		(uuid "be5a0c3c-947f-4bf9-b089-663880bcdfb1")
 	)
-	(hierarchical_label "ISO_PWM_M1"
+	(hierarchical_label "ISO_PWM_M2"
+		(shape input)
+		(at 73.66 88.9 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "cc75ed31-55aa-4438-afd6-0f7be1853fcd")
+	)
+	(hierarchical_label "ISO_STBY"
 		(shape input)
 		(at 209.55 80.01 180)
 		(effects
@@ -1472,7 +1439,40 @@
 			)
 			(justify right)
 		)
-		(uuid "fd49e206-a6ad-405b-b1ae-a0a882c65644")
+		(uuid "d41fa7c2-9921-4190-8b2c-8e85b7f513a8")
+	)
+	(hierarchical_label "ISO_PWM_M3"
+		(shape input)
+		(at 142.24 77.47 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e9ad4009-901a-45c9-a6d9-6331c24d4e13")
+	)
+	(hierarchical_label "M2_BIN1"
+		(shape input)
+		(at 93.98 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "eb7999ab-f746-4f4c-bb3c-b071de5e7e82")
+	)
+	(hierarchical_label "M4_BIN1"
+		(shape input)
+		(at 162.56 85.09 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "fd8d3ff1-decc-4846-8271-9dbe0284be62")
 	)
 	(symbol
 		(lib_id "power:+3.3V")
@@ -1914,6 +1914,73 @@
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
 					(reference "#PWR076")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 209.55 82.55 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4d22fc77-4cc3-461a-8331-ecea34276283")
+		(property "Reference" "#PWR088"
+			(at 203.2 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISO"
+			(at 205.74 82.5499 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 209.55 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 209.55 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 209.55 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e407fcf7-f0ef-46dd-b9b7-1502e9cc957e")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
+					(reference "#PWR088")
 					(unit 1)
 				)
 			)
@@ -2742,73 +2809,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 142.24 90.17 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "98a30ee8-ef47-44ea-ac86-58067c4806d3")
-		(property "Reference" "#PWR075"
-			(at 135.89 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND_ISO"
-			(at 138.43 90.1699 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 142.24 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 142.24 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 142.24 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0be78a6f-5292-4815-810f-cf29fc0aa544")
-		)
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR075")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+3.3V")
 		(at 147.32 55.88 0)
 		(unit 1)
@@ -2935,6 +2935,73 @@
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
 					(reference "#PWR062")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 209.55 85.09 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a770deac-6bb7-415d-944f-5e6fdfbc92ce")
+		(property "Reference" "#PWR073"
+			(at 203.2 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISO"
+			(at 205.74 85.0899 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 209.55 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 209.55 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 209.55 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "32e496ee-c68c-4b72-b0a8-25e8bdeea506")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
+					(reference "#PWR073")
 					(unit 1)
 				)
 			)
@@ -3349,16 +3416,16 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 142.24 87.63 270)
+		(at 209.55 87.63 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "da47e404-9f67-4878-9a33-967f0a9190d4")
+		(uuid "d6ebbbd0-a714-4a2c-a698-a80fa05758eb")
 		(property "Reference" "#PWR074"
-			(at 135.89 87.63 0)
+			(at 203.2 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3367,7 +3434,7 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 138.43 87.6299 90)
+			(at 205.74 87.6299 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3376,7 +3443,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 142.24 87.63 0)
+			(at 209.55 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3385,7 +3452,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 142.24 87.63 0)
+			(at 209.55 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3394,7 +3461,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 142.24 87.63 0)
+			(at 209.55 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3403,7 +3470,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "c247f94c-0f19-4308-a55f-3b6df2f16801")
+			(uuid "76c25c7d-c099-43dd-9a3b-affde94baa13")
 		)
 		(instances
 			(project "barn-blinds-controller"
@@ -3675,73 +3742,6 @@
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
 					(reference "C_ISO_E1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 142.24 85.09 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "fdd252d8-2ece-461d-9ee3-f4c2b13d7a84")
-		(property "Reference" "#PWR073"
-			(at 135.89 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND_ISO"
-			(at 138.43 85.0899 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 142.24 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 142.24 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 142.24 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "844c00ff-5ab1-44a3-b38a-53b17128e1b2")
-		)
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR073")
 					(unit 1)
 				)
 			)

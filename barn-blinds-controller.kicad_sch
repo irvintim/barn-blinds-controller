@@ -65,16 +65,6 @@
 		)
 		(uuid "1d61eae0-144e-45b3-988d-dd3b4c9dcdb8")
 	)
-	(label "U3_B01"
-		(at 185.42 101.6 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "2076fedc-4bc4-4b1a-a9d7-467e0bbbc6e7")
-	)
 	(label "M3_AIN2"
 		(at 173.99 44.45 180)
 		(effects
@@ -94,36 +84,6 @@
 			(justify left bottom)
 		)
 		(uuid "23331d96-e711-4578-821f-56a0f49d923c")
-	)
-	(label "U2_A02"
-		(at 185.42 88.9 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "25ce2259-eef9-4979-880b-748d85a51da1")
-	)
-	(label "U3_A02"
-		(at 185.42 99.06 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "271d7b12-890d-41e0-933b-e8a14c3237c8")
-	)
-	(label "U3_A01"
-		(at 219.71 49.53 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "2ae4a605-d5aa-4f24-b5c0-5c1c98438317")
 	)
 	(label "ISO_M3_CLOSE"
 		(at 91.44 82.55 180)
@@ -185,16 +145,6 @@
 		)
 		(uuid "3f41ec17-fca1-4e7a-bcdd-f7638d264d6c")
 	)
-	(label "U3_B02"
-		(at 185.42 104.14 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "47b3c6b7-ce15-46c0-a197-88a1b372027e")
-	)
 	(label "GPIO15"
 		(at 34.29 102.87 180)
 		(effects
@@ -245,16 +195,6 @@
 		)
 		(uuid "62ee0b36-c4fe-4a26-a654-fb66c78b73bd")
 	)
-	(label "U2_A01"
-		(at 219.71 39.37 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "65bc3392-86ed-40ab-aad9-16908cd60636")
-	)
 	(label "ISO_PWM_M2"
 		(at 133.35 40.64 0)
 		(effects
@@ -275,16 +215,6 @@
 		)
 		(uuid "6a22cec5-fc08-4597-bad2-b2bf2c37bde1")
 	)
-	(label "U2_A01"
-		(at 185.42 86.36 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "6a7171ff-ed5f-4a6e-96a6-c5f55f4ffa8e")
-	)
 	(label "ISO_M4_CLOSE"
 		(at 133.35 33.02 0)
 		(effects
@@ -304,26 +234,6 @@
 			(justify left bottom)
 		)
 		(uuid "70093ad4-cfc4-4729-8a2a-c3403b69f997")
-	)
-	(label "U3_A02"
-		(at 219.71 52.07 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7389fed1-4acd-402f-974b-d1e1c7847225")
-	)
-	(label "U3_B01"
-		(at 219.71 54.61 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7549e82c-b0b1-4818-9b11-37495670aa4b")
 	)
 	(label "M4_BIN1"
 		(at 135.89 90.17 0)
@@ -435,26 +345,6 @@
 		)
 		(uuid "96549b22-6d0d-4bc6-b571-c96cf9992150")
 	)
-	(label "U2_B01"
-		(at 185.42 91.44 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "9751cbb7-a9c3-4d42-bfe2-45e1a7f3efc4")
-	)
-	(label "U2_B02"
-		(at 219.71 46.99 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "a22ea157-8a7b-4527-91eb-849e0946fd53")
-	)
 	(label "ISO_M4_OPEN"
 		(at 133.35 35.56 0)
 		(effects
@@ -504,16 +394,6 @@
 			(justify left bottom)
 		)
 		(uuid "b19989ef-af2d-4219-84bc-30cba7ce39ac")
-	)
-	(label "U2_A02"
-		(at 219.71 41.91 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b416dd1b-7659-4623-aa01-2951d7c1ffae")
 	)
 	(label "ISO_STBY"
 		(at 135.89 72.39 0)
@@ -615,7 +495,7 @@
 		)
 		(uuid "cfd7cb2f-aec2-4a26-addc-291a77ff9c30")
 	)
-	(label "M3_BIN2"
+	(label "M2_BIN2"
 		(at 173.99 39.37 180)
 		(effects
 			(font
@@ -624,16 +504,6 @@
 			(justify right bottom)
 		)
 		(uuid "d2ae87e3-1f53-4ed2-bbc3-9d8e017c58fb")
-	)
-	(label "U2_B02"
-		(at 185.42 93.98 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "d567aeac-d01d-4243-8998-8c5363c8db53")
 	)
 	(label "ISO_M2_CLOSE"
 		(at 91.44 77.47 180)
@@ -675,26 +545,6 @@
 		)
 		(uuid "d96d09ba-7162-41a8-a03d-e10c5d0b8d94")
 	)
-	(label "U3_A01"
-		(at 185.42 96.52 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "db9396db-b6d5-4c1e-9245-e67bc6a92a70")
-	)
-	(label "U3_B02"
-		(at 219.71 57.15 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "e35685ea-34f2-47f4-8d56-967f8abdf7b1")
-	)
 	(label "M1_AIN1"
 		(at 173.99 31.75 180)
 		(effects
@@ -724,16 +574,6 @@
 			(justify left bottom)
 		)
 		(uuid "edf3638b-5af2-4ab2-8c4e-0a61fa36995d")
-	)
-	(label "U2_B01"
-		(at 219.71 44.45 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "f2461973-1135-4e86-ad87-2c9438f8e5fd")
 	)
 	(label "M3_AIN1"
 		(at 173.99 41.91 180)
@@ -1131,86 +971,6 @@
 				(justify right)
 			)
 		)
-		(pin "U2_A01" input
-			(at 219.71 39.37 0)
-			(uuid "eacb715a-892b-4d08-8c60-e4b5389dfaa2")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "U2_A02" input
-			(at 219.71 41.91 0)
-			(uuid "bd491ad8-38c3-4a21-a9bd-9f8b62c330ca")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "U2_B01" input
-			(at 219.71 44.45 0)
-			(uuid "3d3dd56d-974a-47d5-81c8-b195579dac26")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "U2_B02" input
-			(at 219.71 46.99 0)
-			(uuid "616d4f52-5500-4250-b297-a16069af92d4")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "U3_A01" input
-			(at 219.71 49.53 0)
-			(uuid "0897bf8e-2a57-43ea-addf-0562c27af81e")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "U3_A02" input
-			(at 219.71 52.07 0)
-			(uuid "1e1645b2-622f-48c9-a99e-fc85bbe69285")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "U3_B01" input
-			(at 219.71 54.61 0)
-			(uuid "038ba113-1ae8-4087-b761-5fadad2176af")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "U3_B02" input
-			(at 219.71 57.15 0)
-			(uuid "299ce6f3-86c6-480c-b520-9be182e0788e")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
 		(pin "M2_BIN1" input
 			(at 173.99 36.83 180)
 			(uuid "025e1581-7b1c-4694-b280-ad2ba378a1ff")
@@ -1230,8 +990,8 @@
 		)
 	)
 	(sheet
-		(at 185.4545 83.3119)
-		(size 19.685 24.638)
+		(at 179.8319 81.535)
+		(size 22.9466 24.129)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -1246,7 +1006,7 @@
 		)
 		(uuid "4857807b-67c7-42cb-aab6-84b757102806")
 		(property "Sheetname" "Motor Outputs"
-			(at 185.4545 82.6003 0)
+			(at 179.8319 80.8234 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1255,92 +1015,12 @@
 			)
 		)
 		(property "Sheetfile" "motor_outputs.kicad_sch"
-			(at 185.4545 108.5345 0)
+			(at 179.8319 106.2486 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-			)
-		)
-		(pin "U2_A01" input
-			(at 185.4545 86.36 180)
-			(uuid "7296cc0e-2694-4fdb-bc85-38e07d96f4ef")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "U2_A02" input
-			(at 185.4545 88.9 180)
-			(uuid "26c7255d-90f3-4718-adbe-2373ab390bb9")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "U2_B01" input
-			(at 185.4545 91.44 180)
-			(uuid "2343834a-1421-466b-85af-e6d795eae2ed")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "U2_B02" input
-			(at 185.4545 93.98 180)
-			(uuid "3e3e9b09-1ed4-4bca-a814-1e0ec723b8c0")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "U3_A01" input
-			(at 185.4545 96.52 180)
-			(uuid "87b78c8e-5cc3-4046-aef8-8e693f1c45f9")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "U3_A02" input
-			(at 185.4545 99.06 180)
-			(uuid "7810856e-a23a-4c8b-936b-43a9fdf7579d")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "U3_B01" input
-			(at 185.4545 101.6 180)
-			(uuid "debfeae4-cb9d-4575-88db-c0449710419d")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "U3_B02" input
-			(at 185.4545 104.14 180)
-			(uuid "220e81c4-a414-4c8e-a64f-5938908424e1")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
 			)
 		)
 		(instances
