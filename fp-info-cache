@@ -1,4 +1,4 @@
-26970179107605411
+26971955760815151
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -106427,3 +106427,10 @@ SW-SMD_4P-L5.1-W5.1-P3.70-LS6.5-TL-2 footprint C318884
 0
 4
 4
+barn_shade_controller
+TerminalBlock_JL271R-35008G01_Spring_1x08_P3.50mm_Horizontal
+Terminal Block WAGO 2601-1108, 8 pins, pitch 3.5mm, size 29.5x14.5mm, drill diameter 1.2mm, pad diameter 2.3mm, https://www.wago.com/global/pcb-terminal-blocks-and-pluggable-connectors/pcb-terminal-block/p/2601-1108, script-generated using https://gitlab.com/kicad/libraries/kicad-footprint-generator/-/tree/master/scripts/TerminalBlock_WAGO
+THT Terminal Block WAGO 2601-1108 pitch 3.5mm size 29.5x14.5mm drill 1.2mm pad 2.3mm
+0
+16
+8
