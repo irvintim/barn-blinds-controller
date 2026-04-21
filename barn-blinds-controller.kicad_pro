@@ -57,7 +57,7 @@
         "version": 2
       },
       "rule_severities": {
-        "annular_width": "ignore",
+        "annular_width": "error",
         "clearance": "error",
         "connection_width": "warning",
         "copper_edge_clearance": "error",
@@ -131,7 +131,7 @@
         "min_text_thickness": 0.08,
         "min_through_hole_diameter": 0.2,
         "min_track_width": 0.0,
-        "min_via_annular_width": 0.1,
+        "min_via_annular_width": 0.05,
         "min_via_diameter": 0.2,
         "solder_mask_to_copper_clearance": 0.0,
         "use_height_for_length_calcs": true
@@ -490,7 +490,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "barn-blinds-controller.step",
       "svg": "",
       "vrml": ""
     },

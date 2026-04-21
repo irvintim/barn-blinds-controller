@@ -1,4 +1,4 @@
-26971955760815151
+26973732542923097
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -106420,6 +106420,13 @@ DCDC_HYBRID_SLC03_TEC2
 0
 10
 5
+barn_shade_controller
+KINGHELM_KH-TYPE-C-16P
+
+
+0
+16
+16
 barn_shade_controller
 SW-SMD_4P-L3.5-W3.0-P1.50-LS4.7
 SW-SMD_4P-L5.1-W5.1-P3.70-LS6.5-TL-2 footprint

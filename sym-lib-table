@@ -2,4 +2,5 @@
   (version 7)
   (lib (name "New_Library")(type "KiCad")(uri "${KIPRJMOD}/New_Library.kicad_sym")(options "")(descr ""))
   (lib (name "slc03a-05")(type "KiCad")(uri "${KIPRJMOD}/slc03a-05.kicad_sym")(options "")(descr ""))
+  (lib (name "KH-TYPE-C-16P")(type "KiCad")(uri "${KIPRJMOD}/KH-TYPE-C-16P/KH-TYPE-C-16P.kicad_sym")(options "")(descr ""))
 )

@@ -1,0 +1,9 @@
+Manufacturer=Mean Well
+PartNumber=SLC03A-05
+PartCategory=Power Supply
+PackageCategory=Other
+PinCount=6
+Version=1.2
+Released=2020-11-14 21:50:35
+Downloaded=2026-04-21 10:22:52
+3D=Y

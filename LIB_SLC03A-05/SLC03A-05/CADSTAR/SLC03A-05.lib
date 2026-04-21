@@ -1,0 +1,16 @@
+.SLC03A-05 :1 ;Isolated DC/DC Converters 9-18Vin 5Vout 600mA DIP16 Reg Iso
+SLC03A05
+*STM PS
+*NGS
+*PLB 1="-VIN" 7="N.C._1" 8="N.C._2" 9="+VOUT" 10="-VOUT" 16="+VIN"
+*MXP 6
+*DFN SLC03A-05
+~!Mouser Part Number (709-SLC03A-05)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/MEAN-WELL/SLC03A-05?qs=5aG0NVq1C4zKZvVvmNhyyA%3D%3D)
+~!Manufacturer_Name (Mean Well)
+~!Manufacturer_Part_Number (SLC03A-05)
+~!Link Datasheet (https://www.arrow.com/en/products/slc03a-05/mean-well-enterprises)
+~!Height (8.8mm)
+~!3D_Model (SLC03A-05)
+SLC03A-05
+1.1!U 7.1!U 8.1!U 9.1!U 10.1!U 16.1!U 

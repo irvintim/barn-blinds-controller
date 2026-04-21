@@ -1,0 +1,133 @@
+;Proteus Design Interchange Format
+(PDIF
+ (vendor "SamacSys Limited")
+ (version 1 0)
+ (library
+  (part "SLC03A-05"
+   (description "Isolated DC/DC Converters 9-18Vin 5Vout 600mA DIP16 Reg Iso")
+   (family "ANA")
+   (package "SLC03A05")
+   (attribute "Datasheet Link" "https://www.arrow.com/en/products/slc03a-05/mean-well-enterprises")
+   (attribute "Geometry.Height" "8.8mm")
+   (attribute "Mouser Part Number" "709-SLC03A-05")
+   (attribute "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/MEAN-WELL/SLC03A-05?qs=5aG0NVq1C4zKZvVvmNhyyA%3D%3D")
+   (attribute "Manufacturer_Name" "Mean Well")
+   (attribute "Manufacturer_Part_Number" "SLC03A-05")
+   (gate
+    (symbol "SLC03A-05")
+    (pin "-VIN" 1 PS)
+    (pin "N.C._1" 7 PS)
+    (pin "N.C._2" 8 PS)
+    (pin "+VOUT" 9 PS)
+    (pin "-VOUT" 10 PS)
+    (pin "+VIN" 16 PS)
+   )
+  )
+  (symbol "SLC03A-05"
+   (units THOU)
+   (origin (pt 0 0))
+   (graphic
+    (stroke 10)
+    (path (pt 200 100) (pt 1100 100) (pt 1100 -300) (pt 200 -300) (pt 200 100) (closed))
+   )
+   (terminal
+    (body (symbol "PIN") (pt 0 0) (rot 0) (mir 0) (visible true))
+    (name (pt 230 0) (rot 0) (just MIDDLE LEFT) (visible true))
+    (number (pt 140 20) (rot 0) (just BOTTOM RIGHT) (visible true)))
+   (terminal
+    (body (symbol "PIN") (pt 0 -100) (rot 0) (mir 0) (visible true))
+    (name (pt 230 0) (rot 0) (just MIDDLE LEFT) (visible true))
+    (number (pt 140 20) (rot 0) (just BOTTOM RIGHT) (visible true)))
+   (terminal
+    (body (symbol "PIN") (pt 0 -200) (rot 0) (mir 0) (visible true))
+    (name (pt 230 0) (rot 0) (just MIDDLE LEFT) (visible true))
+    (number (pt 140 20) (rot 0) (just BOTTOM RIGHT) (visible true)))
+   (terminal
+    (body (symbol "PIN") (pt 1300 -200) (rot 0) (mir X) (visible true))
+    (name (pt 230 0) (rot 0) (just MIDDLE LEFT) (visible true))
+    (number (pt 140 20) (rot 0) (just BOTTOM RIGHT) (visible true)))
+   (terminal
+    (body (symbol "PIN") (pt 1300 -100) (rot 0) (mir X) (visible true))
+    (name (pt 230 0) (rot 0) (just MIDDLE LEFT) (visible true))
+    (number (pt 140 20) (rot 0) (just BOTTOM RIGHT) (visible true)))
+   (terminal
+    (body (symbol "PIN") (pt 1300 0) (rot 0) (mir X) (visible true))
+    (name (pt 230 0) (rot 0) (just MIDDLE LEFT) (visible true))
+    (number (pt 140 20) (rot 0) (just BOTTOM RIGHT) (visible true)))
+  )
+  (symbol "PIN"
+   (units THOU)
+   (origin (pt 0 0))
+   (graphic
+    (stroke 10)
+    (path (pt 0 0) (pt 200 0))))
+  (symbol "PINSHORT"
+   (units THOU)
+   (origin (pt 0 0))
+   (graphic
+    (stroke 10)
+    (path (pt 0 0) (pt 100 0))))
+  (package "SLC03A05"
+   (units MM)
+   (layer TASM
+    (graphic
+     (stroke 0.2)
+     (path
+      (closed true)
+      (pt -2.16 12.03)
+      (pt 19.94 12.03)
+      (pt 19.94 -1.77)
+      (pt -2.16 -1.77)
+      (pt -2.16 12.03))))
+   (layer TSLK
+    (graphic
+     (stroke 0.1)
+     (path
+      (closed true)
+      (pt -2.16 -1.77)
+      (pt 19.94 -1.77)
+      (pt 19.94 12.03)
+      (pt -2.16 12.03)
+      (pt -2.16 -1.77))))
+   (layer OCCA
+    (graphic
+     (stroke 0.1)
+     (path
+      (closed true)
+      (pt -3.16 -2.77)
+      (pt 20.94 -2.77)
+      (pt 20.94 13.03)
+      (pt -3.16 13.03)
+      (pt -3.16 -2.77))))
+   (layer TSLK
+    (graphic
+     (stroke 0.2)
+     (path
+      (closed false)
+      (pt -2.7 0)
+      (arc (pt -2.700 0.000) (pt -2.700 0.050) (pt -2.600 -0.050) (start 180.0) (sweep 180.0))
+      (pt -2.6 0)
+      (arc (pt -2.600 0.000) (pt -2.700 0.050) (pt -2.600 -0.050) (start 180.0) (sweep .0))
+      (pt -2.7 0)
+      (arc (pt -2.700 0.000) (pt -2.700 0.050) (pt -2.600 -0.050) (start 180.0) (sweep 180.0))
+      (pt -2.6 0))))
+   (leg 1 (pt 0.000 0.000) (padstack 0))
+   (leg 7 (pt 15.240 0.000) (padstack 0))
+   (leg 8 (pt 17.780 0.000) (padstack 0))
+   (leg 9 (pt 17.780 10.160) (padstack 0))
+   (leg 10 (pt 15.240 10.160) (padstack 0))
+   (leg 16 (pt 0.000 10.160) (padstack 0))
+   (padstack 0
+    (hole 0.78)
+    (plated true)
+    (pad (layer TCOP) (round 1.337))
+    (pad (layer INNER) (round 1.337))
+    (pad (layer BCOP) (round 1.337))
+   )
+   (model "SLC03A-05.stp"
+    (euler 0 0 0)
+    (offset 0 0 0)
+   )
+  )
+ )
+)
