@@ -2564,7 +2564,7 @@
 				)
 			)
 		)
-		(property "Footprint" "KH-TYPE-C-16P:KINGHELM_KH-TYPE-C-16P"
+		(property "Footprint" "barn_shade_controller:KINGHELM_KH-TYPE-C-16P"
 			(at 54.61 36.83 0)
 			(effects
 				(font
