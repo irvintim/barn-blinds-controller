@@ -1484,7 +1484,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "02cf591d-5247-4da5-b153-627bfdc51aef")
-		(property "Reference" "#PWR057"
+		(property "Reference" "#PWR043"
 			(at 214.63 60.96 0)
 			(effects
 				(font
@@ -1534,7 +1534,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR057")
+					(reference "#PWR043")
 					(unit 1)
 				)
 			)
@@ -1588,6 +1588,15 @@
 			)
 		)
 		(property "Description" "Default high, High-speed, robust EMC, reinforced, six-channel, digital, isolator, SSOP-16"
+			(at 219.71 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C2868628"
 			(at 219.71 87.63 0)
 			(effects
 				(font
@@ -1663,7 +1672,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "21bf6846-4d36-4c38-a011-f5a409ab6fa3")
-		(property "Reference" "#PWR055"
+		(property "Reference" "#PWR026"
 			(at 78.74 58.42 0)
 			(effects
 				(font
@@ -1713,7 +1722,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR055")
+					(reference "#PWR026")
 					(unit 1)
 				)
 			)
@@ -1729,7 +1738,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2cf4e40d-0812-400a-b79c-fffbb251149f")
-		(property "Reference" "#PWR061"
+		(property "Reference" "#PWR028"
 			(at 88.9 57.15 0)
 			(effects
 				(font
@@ -1779,7 +1788,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR061")
+					(reference "#PWR028")
 					(unit 1)
 				)
 			)
@@ -1795,7 +1804,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "36924ab5-f11f-463d-9f5e-ca3ba7afae3d")
-		(property "Reference" "#PWR072"
+		(property "Reference" "#PWR030"
 			(at 102.87 59.69 0)
 			(effects
 				(font
@@ -1846,7 +1855,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR072")
+					(reference "#PWR030")
 					(unit 1)
 				)
 			)
@@ -1862,7 +1871,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3c457275-727f-46cb-b39f-2653b2e9cc5c")
-		(property "Reference" "#PWR076"
+		(property "Reference" "#PWR041"
 			(at 203.2 90.17 0)
 			(effects
 				(font
@@ -1913,7 +1922,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR076")
+					(reference "#PWR041")
 					(unit 1)
 				)
 			)
@@ -1929,7 +1938,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4d22fc77-4cc3-461a-8331-ecea34276283")
-		(property "Reference" "#PWR088"
+		(property "Reference" "#PWR038"
 			(at 203.2 82.55 0)
 			(effects
 				(font
@@ -1980,7 +1989,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR088")
+					(reference "#PWR038")
 					(unit 1)
 				)
 			)
@@ -1996,7 +2005,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5db7670b-91b1-4c68-a3b1-7fadf4aa51c4")
-		(property "Reference" "#PWR064"
+		(property "Reference" "#PWR029"
 			(at 88.9 105.41 0)
 			(effects
 				(font
@@ -2046,7 +2055,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR064")
+					(reference "#PWR029")
 					(unit 1)
 				)
 			)
@@ -2100,6 +2109,15 @@
 			)
 		)
 		(property "Description" "Default high, High-speed, robust EMC, reinforced, six-channel, digital, isolator, SSOP-16"
+			(at 83.82 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C2868628"
 			(at 83.82 83.82 0)
 			(effects
 				(font
@@ -2175,7 +2193,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "714c47ff-3115-4416-878b-6b56a1fa3e22")
-		(property "Reference" "#PWR071"
+		(property "Reference" "#PWR036"
 			(at 171.45 60.96 0)
 			(effects
 				(font
@@ -2226,7 +2244,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR071")
+					(reference "#PWR036")
 					(unit 1)
 				)
 			)
@@ -2242,7 +2260,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7f7709ea-d061-42d5-9bb9-1bb6787b0482")
-		(property "Reference" "#PWR077"
+		(property "Reference" "#PWR042"
 			(at 203.2 92.71 0)
 			(effects
 				(font
@@ -2293,7 +2311,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR077")
+					(reference "#PWR042")
 					(unit 1)
 				)
 			)
@@ -2309,7 +2327,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "813c95e0-b8d3-4066-a025-939d6ee8c05a")
-		(property "Reference" "#PWR066"
+		(property "Reference" "#PWR046"
 			(at 224.79 109.22 0)
 			(effects
 				(font
@@ -2359,7 +2377,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR066")
+					(reference "#PWR046")
 					(unit 1)
 				)
 			)
@@ -2375,7 +2393,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8147ed76-1f5c-4933-a84d-27026cd004fc")
-		(property "Reference" "#PWR068"
+		(property "Reference" "#PWR031"
 			(at 138.43 68.58 0)
 			(effects
 				(font
@@ -2425,7 +2443,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR068")
+					(reference "#PWR031")
 					(unit 1)
 				)
 			)
@@ -2441,7 +2459,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "81f7734b-9470-4783-807a-cd3f9587dc24")
-		(property "Reference" "#PWR069"
+		(property "Reference" "#PWR037"
 			(at 205.74 71.12 0)
 			(effects
 				(font
@@ -2491,7 +2509,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR069")
+					(reference "#PWR037")
 					(unit 1)
 				)
 			)
@@ -2507,7 +2525,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8ca85e31-344c-4279-83bc-81f9cab74614")
-		(property "Reference" "#PWR059"
+		(property "Reference" "#PWR044"
 			(at 214.63 109.22 0)
 			(effects
 				(font
@@ -2557,7 +2575,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR059")
+					(reference "#PWR044")
 					(unit 1)
 				)
 			)
@@ -2611,6 +2629,15 @@
 			)
 		)
 		(property "Description" "Default high, High-speed, robust EMC, reinforced, six-channel, digital, isolator, SSOP-16"
+			(at 152.4 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C2868628"
 			(at 152.4 85.09 0)
 			(effects
 				(font
@@ -2686,7 +2713,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8f4d2eb4-dbad-480f-9fc7-2e6f71463650")
-		(property "Reference" "#PWR060"
+		(property "Reference" "#PWR027"
 			(at 78.74 105.41 0)
 			(effects
 				(font
@@ -2736,7 +2763,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR060")
+					(reference "#PWR027")
 					(unit 1)
 				)
 			)
@@ -2752,7 +2779,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "944134f6-ca4f-42dd-8a87-81bb28f7d197")
-		(property "Reference" "#PWR058"
+		(property "Reference" "#PWR033"
 			(at 147.32 106.68 0)
 			(effects
 				(font
@@ -2802,7 +2829,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR058")
+					(reference "#PWR033")
 					(unit 1)
 				)
 			)
@@ -2818,7 +2845,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9fae4bb2-75f8-4052-94cd-fabdac161bf6")
-		(property "Reference" "#PWR056"
+		(property "Reference" "#PWR032"
 			(at 147.32 59.69 0)
 			(effects
 				(font
@@ -2868,7 +2895,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR056")
+					(reference "#PWR032")
 					(unit 1)
 				)
 			)
@@ -2884,7 +2911,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a3f3f017-1a20-42dc-8724-a51b18bfd063")
-		(property "Reference" "#PWR062"
+		(property "Reference" "#PWR034"
 			(at 157.48 57.15 0)
 			(effects
 				(font
@@ -2934,7 +2961,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR062")
+					(reference "#PWR034")
 					(unit 1)
 				)
 			)
@@ -2950,7 +2977,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a770deac-6bb7-415d-944f-5e6fdfbc92ce")
-		(property "Reference" "#PWR073"
+		(property "Reference" "#PWR039"
 			(at 203.2 85.09 0)
 			(effects
 				(font
@@ -3001,7 +3028,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR073")
+					(reference "#PWR039")
 					(unit 1)
 				)
 			)
@@ -3053,6 +3080,15 @@
 		)
 		(property "Description" "Unpolarized capacitor"
 			(at 73.66 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C1590"
+			(at 73.66 59.69 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3128,6 +3164,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C1590"
+			(at 229.87 63.5 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "2b19f262-c546-4a02-b61c-bd75eb400c79")
 		)
@@ -3153,7 +3198,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bed0c10c-568e-4ad0-84eb-6ddf180ef71e")
-		(property "Reference" "#PWR070"
+		(property "Reference" "#PWR047"
 			(at 238.76 63.5 0)
 			(effects
 				(font
@@ -3204,7 +3249,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR070")
+					(reference "#PWR047")
 					(unit 1)
 				)
 			)
@@ -3256,6 +3301,15 @@
 		)
 		(property "Description" "Unpolarized capacitor"
 			(at 162.56 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C1590"
+			(at 162.56 60.96 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3331,6 +3385,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C1590"
+			(at 142.24 62.23 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "5c546ec9-1202-4d62-a28d-da26c789e854")
 		)
@@ -3399,6 +3462,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C1590"
+			(at 93.98 59.69 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "fc31fcf0-95a1-48df-a8b6-a5bc13c015b0")
 		)
@@ -3424,7 +3496,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d6ebbbd0-a714-4a2c-a698-a80fa05758eb")
-		(property "Reference" "#PWR074"
+		(property "Reference" "#PWR040"
 			(at 203.2 87.63 0)
 			(effects
 				(font
@@ -3475,7 +3547,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR074")
+					(reference "#PWR040")
 					(unit 1)
 				)
 			)
@@ -3491,7 +3563,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "da9f351a-b71f-4245-b2f1-2f34e84769d3")
-		(property "Reference" "#PWR065"
+		(property "Reference" "#PWR035"
 			(at 157.48 106.68 0)
 			(effects
 				(font
@@ -3541,7 +3613,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR065")
+					(reference "#PWR035")
 					(unit 1)
 				)
 			)
@@ -3557,7 +3629,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e1aaae2b-1e7e-4f12-afbd-1446b9991628")
-		(property "Reference" "#PWR063"
+		(property "Reference" "#PWR045"
 			(at 224.79 58.42 0)
 			(effects
 				(font
@@ -3607,7 +3679,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR063")
+					(reference "#PWR045")
 					(unit 1)
 				)
 			)
@@ -3623,7 +3695,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "eae2f9aa-e0d6-4198-8bd9-01135b2e92fe")
-		(property "Reference" "#PWR067"
+		(property "Reference" "#PWR025"
 			(at 68.58 66.04 0)
 			(effects
 				(font
@@ -3673,7 +3745,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR067")
+					(reference "#PWR025")
 					(unit 1)
 				)
 			)
@@ -3725,6 +3797,15 @@
 		)
 		(property "Description" "Unpolarized capacitor"
 			(at 209.55 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C1590"
+			(at 209.55 64.77 90)
 			(effects
 				(font
 					(size 1.27 1.27)
