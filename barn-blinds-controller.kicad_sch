@@ -699,7 +699,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2390ed14-6432-4d22-91e8-74b45540ad98")
-		(property "Reference" "H4"
+		(property "Reference" "H3"
 			(at 275.59 153.6699 0)
 			(effects
 				(font
@@ -747,7 +747,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "H4")
+					(reference "H3")
 					(unit 1)
 				)
 			)
@@ -763,7 +763,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2a9b314a-d3b4-40e8-b4b9-31e949a6a0c7")
-		(property "Reference" "H2"
+		(property "Reference" "H1"
 			(at 20.32 16.5099 0)
 			(effects
 				(font
@@ -811,7 +811,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "H2")
+					(reference "H1")
 					(unit 1)
 				)
 			)
@@ -827,7 +827,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "519d30d3-65fc-44bd-91e9-83c57a26dd28")
-		(property "Reference" "H3"
+		(property "Reference" "H4"
 			(at 276.86 19.0499 0)
 			(effects
 				(font
@@ -875,7 +875,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "H3")
+					(reference "H4")
 					(unit 1)
 				)
 			)
@@ -891,7 +891,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b760cf03-2efd-430c-a6fa-a4c0ed1cd81b")
-		(property "Reference" "H1"
+		(property "Reference" "H2"
 			(at 26.67 184.1499 0)
 			(effects
 				(font
@@ -939,7 +939,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "H1")
+					(reference "H2")
 					(unit 1)
 				)
 			)
