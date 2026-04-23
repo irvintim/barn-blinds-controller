@@ -2270,7 +2270,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22uF"
+		(property "Value" "22uF 10V"
 			(at 135.89 56.2609 0)
 			(effects
 				(font
@@ -2306,7 +2306,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C5674"
+		(property "LCSC" "C29277"
 			(at 132.08 55.88 0)
 			(effects
 				(font

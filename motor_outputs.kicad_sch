@@ -1243,7 +1243,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board no)
+		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "176921c5-2335-44a2-8cad-a7875379f11f")
@@ -1291,7 +1291,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C70114"
+		(property "LCSC" "C69691"
 			(at 69.85 99.06 90)
 			(effects
 				(font
@@ -1321,7 +1321,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board no)
+		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1f392054-6872-46e8-9ee9-b0b2bdad5758")
@@ -1369,7 +1369,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C70114"
+		(property "LCSC" "C69691"
 			(at 67.31 123.19 90)
 			(effects
 				(font
@@ -1640,7 +1640,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board no)
+		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3938c766-c064-4093-a9f6-ee371bd82120")
@@ -1688,7 +1688,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C70114"
+		(property "LCSC" "C69691"
 			(at 69.85 73.66 90)
 			(effects
 				(font
@@ -2540,7 +2540,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board no)
+		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c9632258-0eda-40c2-9341-492cab011a39")
@@ -2588,7 +2588,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C70114"
+		(property "LCSC" "C69691"
 			(at 66.04 54.61 90)
 			(effects
 				(font
