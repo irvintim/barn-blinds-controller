@@ -60,23 +60,19 @@
       ],
       "drc_exclusions": [
         [
-          "clearance|84295817|93664270|7d5f8b49-e574-476a-a9d9-464fe95ee0c6|c347eb7a-694c-4db0-888c-103dd0caebb0",
+          "lib_footprint_mismatch|105000000|98000000|b53534a0-ce78-4490-8e3d-d956d51a7d37|00000000-0000-0000-0000-000000000000",
           ""
         ],
         [
-          "clearance|85120817|93664270|7d5f8b49-e574-476a-a9d9-464fe95ee0c6|e629179e-7d0a-4bf3-9161-2ba55e44a849",
+          "lib_footprint_mismatch|81301388|97991681|6fca305c-5e01-4a59-bec7-c120824036e9|00000000-0000-0000-0000-000000000000",
           ""
         ],
         [
-          "clearance|85120817|94664270|769d06dc-082f-493d-a192-8018481e474a|b0ec7bc4-dbee-4021-b771-cb4377e6563f",
+          "lib_footprint_mismatch|94000000|62750000|72bf7543-5fcb-4b05-b771-a98064838b77|00000000-0000-0000-0000-000000000000",
           ""
         ],
         [
-          "clearance|85170817|94664270|769d06dc-082f-493d-a192-8018481e474a|8ca3af17-9f52-4386-92fc-5cbcd026c5f8",
-          ""
-        ],
-        [
-          "clearance|85269556|96164270|9eec974b-0d01-4dc6-8c13-82e2ffebc0a6|d20e9975-1165-403b-8786-82a0b881c470",
+          "starved_thermal|123000000|67170950|1cb70d5b-73a5-47cf-9c92-0c48f99ddf9c|58ea539d-fa22-45b8-8b5e-49a5b769a2b7|F.Cu",
           ""
         ]
       ],
@@ -150,16 +146,16 @@
         "min_groove_width": 0.0,
         "min_hole_clearance": 0.25,
         "min_hole_to_hole": 0.25,
-        "min_microvia_diameter": 0.2,
-        "min_microvia_drill": 0.1,
+        "min_microvia_diameter": 0.45,
+        "min_microvia_drill": 0.3,
         "min_resolved_spokes": 2,
         "min_silk_clearance": 0.0,
-        "min_text_height": 0.8,
+        "min_text_height": 0.7,
         "min_text_thickness": 0.08,
-        "min_through_hole_diameter": 0.2,
+        "min_through_hole_diameter": 0.3,
         "min_track_width": 0.0,
         "min_via_annular_width": 0.05,
-        "min_via_diameter": 0.3,
+        "min_via_diameter": 0.45,
         "solder_mask_to_copper_clearance": 0.0,
         "use_height_for_length_calcs": true
       },
@@ -507,6 +503,34 @@
         "via_diameter": 0.6,
         "via_drill": 0.3,
         "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "microvia_diameter": 0.45,
+        "microvia_drill": 0.3,
+        "name": "12V",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 1.0,
+        "via_diameter": 0.6,
+        "via_drill": 0.3
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "microvia_diameter": 0.45,
+        "microvia_drill": 0.3,
+        "name": "3.3V",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.3
       }
     ],
     "meta": {
@@ -514,15 +538,60 @@
     },
     "net_colors": null,
     "netclass_assignments": null,
-    "netclass_patterns": []
+    "netclass_patterns": [
+      {
+        "netclass": "12V",
+        "pattern": "U3_B02"
+      },
+      {
+        "netclass": "12V",
+        "pattern": "U2_B02"
+      },
+      {
+        "netclass": "12V",
+        "pattern": "U2_A02"
+      },
+      {
+        "netclass": "12V",
+        "pattern": "U2_B01"
+      },
+      {
+        "netclass": "12V",
+        "pattern": "U2_A01"
+      },
+      {
+        "netclass": "12V",
+        "pattern": "GND_MOTOR"
+      },
+      {
+        "netclass": "12V",
+        "pattern": "U3_A02"
+      },
+      {
+        "netclass": "12V",
+        "pattern": "U3_A01"
+      },
+      {
+        "netclass": "12V",
+        "pattern": "U3_B01"
+      },
+      {
+        "netclass": "12V",
+        "pattern": "+12V"
+      },
+      {
+        "netclass": "12V",
+        "pattern": "+12V_RAW"
+      }
+    ]
   },
   "pcbnew": {
     "last_paths": {
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "gerbers/",
-      "pos_files": "gerbers/",
+      "plot": "gerbers-v1.1/",
+      "pos_files": "gerbers-v1.1/",
       "specctra_dsn": "",
       "step": "barn-blinds-controller.step",
       "svg": "",

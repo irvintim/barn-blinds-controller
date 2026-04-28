@@ -2413,6 +2413,39 @@
 		)
 		(uuid "0428e355-2f48-4dd5-aac5-ced66429e694")
 	)
+	(hierarchical_label "ISO_M1_CLOSE"
+		(shape input)
+		(at 68.58 80.01 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "14b2cb11-1979-4e8c-856b-69ec6fd63ba5")
+	)
+	(hierarchical_label "ISO_M2_OPEN"
+		(shape input)
+		(at 160.02 57.15 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1abc29e8-9f24-4d4a-b197-0497f4d741b2")
+	)
+	(hierarchical_label "ISO_PWM_M1"
+		(shape input)
+		(at 68.58 77.47 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1b05f8f0-c25a-4425-abde-2d873439625a")
+	)
 	(hierarchical_label "GPIO15"
 		(shape input)
 		(at 68.58 64.77 180)
@@ -2435,7 +2468,7 @@
 		)
 		(uuid "27390abf-dd74-45c9-a4c4-328f722df347")
 	)
-	(hierarchical_label "ISO_PWM_M4"
+	(hierarchical_label "ISO_M3_CLOSE"
 		(shape input)
 		(at 68.58 123.19 180)
 		(effects
@@ -2444,108 +2477,20 @@
 			)
 			(justify right)
 		)
-		(uuid "44600cfc-e9c0-4a0c-b3b9-2cbc7c97c2b4")
-	)
-	(hierarchical_label "ISO_M1_CLOSE"
-		(shape input)
-		(at 160.02 77.47 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "45bc581a-e45e-4fa7-a16c-770fdcef9599")
-	)
-	(hierarchical_label "ISO_PWM_M1"
-		(shape input)
-		(at 160.02 57.15 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "6bb12c7d-4595-4b38-99d8-c9428fcc10f7")
-	)
-	(hierarchical_label "ISO_M4_OPEN"
-		(shape input)
-		(at 68.58 128.27 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "7331cb04-a3d1-4d30-9b3a-a3810f69a1dd")
-	)
-	(hierarchical_label "ISO_M2_OPEN"
-		(shape input)
-		(at 160.02 59.69 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "761a8c64-a5f5-442d-ba25-6647a25e07a5")
-	)
-	(hierarchical_label "ISO_M1_OPEN"
-		(shape input)
-		(at 160.02 74.93 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "7f4e018e-3587-4ea5-bb92-0acb598571cd")
-	)
-	(hierarchical_label "ISO_M2_CLOSE"
-		(shape input)
-		(at 68.58 80.01 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "94b21362-a5f3-434b-b1c4-90cc98c4fb39")
-	)
-	(hierarchical_label "ISO_PWM_M2"
-		(shape input)
-		(at 68.58 77.47 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "a00b30f3-7a74-4278-b3aa-e4e6c35ce08c")
-	)
-	(hierarchical_label "ISO_M3_OPEN"
-		(shape input)
-		(at 160.02 118.11 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "a7c4c1f9-575b-4f33-a46d-a264e036d563")
-	)
-	(hierarchical_label "ISO_M3_CLOSE"
-		(shape input)
-		(at 68.58 72.39 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "be2ce30c-ad96-4af8-87e6-00615675a9f0")
+		(uuid "2db769d2-cf7e-4258-b0a7-11f68ae22520")
 	)
 	(hierarchical_label "ISO_PWM_M3"
+		(shape input)
+		(at 160.02 120.65 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "4fe89468-65bc-45c7-9cad-4b40deb79009")
+	)
+	(hierarchical_label "ISO_PWM_M4"
 		(shape input)
 		(at 68.58 74.93 180)
 		(effects
@@ -2554,7 +2499,73 @@
 			)
 			(justify right)
 		)
-		(uuid "c3287c11-01e5-4791-a081-569b3c6af99b")
+		(uuid "653aeaea-e01f-40f7-b13a-b7e05406eaf0")
+	)
+	(hierarchical_label "ISO_M4_CLOSE"
+		(shape input)
+		(at 68.58 72.39 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7344717c-fe9f-453d-ac1c-eed4d5dcd8a2")
+	)
+	(hierarchical_label "ISO_M2_CLOSE"
+		(shape input)
+		(at 160.02 77.47 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7aa2948f-2371-4f5b-be57-2bceeac49fc3")
+	)
+	(hierarchical_label "ISO_STBY"
+		(shape input)
+		(at 68.58 128.27 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9bf91f78-7d72-4aaf-add8-9cfbd74f8cfe")
+	)
+	(hierarchical_label "ISO_M4_OPEN"
+		(shape input)
+		(at 160.02 118.11 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a068a6a4-09fc-4fa5-aced-8513edccae91")
+	)
+	(hierarchical_label "ISO_PWM_M2"
+		(shape input)
+		(at 160.02 74.93 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ad59d93e-e35b-40e5-8505-78f23133557c")
+	)
+	(hierarchical_label "ISO_M1_OPEN"
+		(shape input)
+		(at 160.02 59.69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "cd7393d4-9928-4f58-b96f-c1459b0f7e76")
 	)
 	(hierarchical_label "GPIO20"
 		(shape input)
@@ -2567,7 +2578,7 @@
 		)
 		(uuid "d6e6208e-b211-438a-ba34-09f4155c6fa0")
 	)
-	(hierarchical_label "ISO_M4_CLOSE"
+	(hierarchical_label "ISO_M3_OPEN"
 		(shape input)
 		(at 68.58 125.73 180)
 		(effects
@@ -2576,18 +2587,7 @@
 			)
 			(justify right)
 		)
-		(uuid "ed1ec89a-286a-4b25-921b-6a4cf97461a6")
-	)
-	(hierarchical_label "ISO_STBY"
-		(shape input)
-		(at 160.02 120.65 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "f8ad7b3c-ba49-4ecb-b22f-3d3e5fd170e8")
+		(uuid "f44b0fbe-5de2-4cb2-aecc-d36d7382675f")
 	)
 	(symbol
 		(lib_id "Device:C")
