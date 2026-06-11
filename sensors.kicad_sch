@@ -5,6 +5,113 @@
 	(uuid "eba4ab5f-ed94-4234-a409-7c39641c7548")
 	(paper "A4")
 	(lib_symbols
+		(symbol "Connector:TestPoint"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:C"
 			(pin_numbers
 				(hide yes)
@@ -900,6 +1007,12 @@
 		(color 0 0 0 0)
 		(uuid "679817bb-b033-43ab-a12c-9daf4202f69e")
 	)
+	(junction
+		(at 102.87 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c35de9db-3055-431b-ad92-e548134e8abc")
+	)
 	(no_connect
 		(at 91.44 87.63)
 		(uuid "445afcbe-d1e3-4f5e-b85f-67479c7cc251")
@@ -907,6 +1020,16 @@
 	(no_connect
 		(at 71.12 85.09)
 		(uuid "e1defd8e-7730-4926-a4e8-75e8577d7913")
+	)
+	(wire
+		(pts
+			(xy 110.49 53.34) (xy 110.49 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "12d76bac-f1fe-4b82-82df-c5250fc2221b")
 	)
 	(wire
 		(pts
@@ -920,7 +1043,7 @@
 	)
 	(wire
 		(pts
-			(xy 110.49 43.18) (xy 93.98 43.18)
+			(xy 110.49 43.18) (xy 102.87 43.18)
 		)
 		(stroke
 			(width 0)
@@ -937,6 +1060,16 @@
 			(type default)
 		)
 		(uuid "5e880aef-7be9-4199-ad4d-68cf47874896")
+	)
+	(wire
+		(pts
+			(xy 102.87 43.18) (xy 93.98 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "932d680a-4150-4cc9-8b4b-a79279168840")
 	)
 	(wire
 		(pts
@@ -978,7 +1111,7 @@
 		)
 		(uuid "e724ee3f-1a56-4ed8-b95d-463ab66ba8c0")
 	)
-	(hierarchical_label "GPIO15"
+	(hierarchical_label "TMP235"
 		(shape input)
 		(at 71.12 90.17 180)
 		(effects
@@ -989,7 +1122,7 @@
 		)
 		(uuid "a9f4eded-355d-4419-a8b2-3a6bda3e1590")
 	)
-	(hierarchical_label "GPIO14"
+	(hierarchical_label "ACS723"
 		(shape input)
 		(at 116.84 43.18 0)
 		(effects
@@ -1424,7 +1557,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 110.49 50.8 0)
+		(at 110.49 53.34 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1433,7 +1566,7 @@
 		(fields_autoplaced yes)
 		(uuid "49feb8ce-ca24-4d75-a5ef-e33520118309")
 		(property "Reference" "#PWR087"
-			(at 110.49 57.15 0)
+			(at 110.49 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1442,7 +1575,7 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 110.49 55.88 0)
+			(at 110.49 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1450,7 +1583,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 110.49 50.8 0)
+			(at 110.49 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1459,7 +1592,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 110.49 50.8 0)
+			(at 110.49 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1468,7 +1601,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 110.49 50.8 0)
+			(at 110.49 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1684,6 +1817,73 @@
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/8f0cb6d8-027e-4edb-b8ea-04d7ddb83db1"
 					(reference "#PWR080")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 102.87 43.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9aac616a-9771-4d91-afe2-b67a8b27b356")
+		(property "Reference" "TP4"
+			(at 105.41 38.6079 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "ASC Out"
+			(at 105.41 41.1479 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "barn_shade_controller:TestPoint_Pad_D1.0mm_No_SolderMask"
+			(at 107.95 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 107.95 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 102.87 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cf774256-879f-4303-9d4f-6cccd74cf5dd")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/8f0cb6d8-027e-4edb-b8ea-04d7ddb83db1"
+					(reference "TP4")
 					(unit 1)
 				)
 			)

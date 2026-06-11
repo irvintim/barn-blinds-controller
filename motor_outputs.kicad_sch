@@ -639,18 +639,6 @@
 		)
 	)
 	(junction
-		(at 71.12 54.61)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0b513569-cfa2-44bd-8918-13c8ef909e79")
-	)
-	(junction
-		(at 71.12 46.99)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "179e9ab0-bf33-4e0e-b660-8bdc3458422a")
-	)
-	(junction
 		(at 76.2 106.68)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -679,6 +667,18 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c174e104-82aa-46ad-8b5f-00605faba9f8")
+	)
+	(junction
+		(at 71.12 46.99)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d3b87b6d-2d7d-4e30-9707-136644f4f310")
+	)
+	(junction
+		(at 71.12 54.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d93a38ea-b4d9-4fac-983e-37fc248287fe")
 	)
 	(junction
 		(at 76.2 99.06)
@@ -775,6 +775,16 @@
 			(type default)
 		)
 		(uuid "31543f5a-c777-47b9-95a8-c7cfad49a846")
+	)
+	(wire
+		(pts
+			(xy 71.12 46.99) (xy 99.06 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4844bca7-dbaf-46a2-9bf5-f0baaa702f1a")
 	)
 	(wire
 		(pts
@@ -888,6 +898,16 @@
 	)
 	(wire
 		(pts
+			(xy 71.12 54.61) (xy 96.52 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "af8237eb-f1e2-4e31-9f37-224a32654100")
+	)
+	(wire
+		(pts
 			(xy 73.66 99.06) (xy 76.2 99.06)
 		)
 		(stroke
@@ -895,16 +915,6 @@
 			(type default)
 		)
 		(uuid "bb24d1c2-6bf2-44df-a422-47d857e890b4")
-	)
-	(wire
-		(pts
-			(xy 71.12 54.61) (xy 96.52 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c00239d9-6311-4bb2-8e02-988435d41f51")
 	)
 	(wire
 		(pts
@@ -965,16 +975,6 @@
 			(type default)
 		)
 		(uuid "e5229335-8585-4b51-a73f-851584c44a4a")
-	)
-	(wire
-		(pts
-			(xy 71.12 46.99) (xy 99.06 46.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e6b70351-2971-4757-8c20-ff0a61c420c5")
 	)
 	(wire
 		(pts
@@ -2283,21 +2283,21 @@
 		(fields_autoplaced yes)
 		(uuid "941cea3b-d563-4698-8433-fdc44364e719")
 		(property "Reference" "D4"
-			(at 74.93 52.0701 0)
+			(at 67.31 49.5299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Value" "SMBJ15CA"
-			(at 74.93 49.53 0)
+			(at 67.31 52.07 0)
 			(effects
 				(font
 					(size 0.8 0.8)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Footprint" "PCM_JLCPCB:D_SMB"

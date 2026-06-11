@@ -189,7 +189,7 @@
 		)
 		(uuid "2d2d6cfe-6e7d-4202-9d0a-584dae03ece5")
 	)
-	(label "GPIO20"
+	(label "USB_DP"
 		(at 34.29 63.5 180)
 		(effects
 			(font
@@ -219,7 +219,7 @@
 		)
 		(uuid "354bcff7-db45-4d24-8073-98de177cff8b")
 	)
-	(label "GPIO14"
+	(label "ACS723"
 		(at 34.29 99.06 180)
 		(effects
 			(font
@@ -229,7 +229,7 @@
 		)
 		(uuid "3f41ec17-fca1-4e7a-bcdd-f7638d264d6c")
 	)
-	(label "GPIO15"
+	(label "TMP235"
 		(at 34.29 102.87 180)
 		(effects
 			(font
@@ -439,7 +439,7 @@
 		)
 		(uuid "a7366b9b-5f7d-4872-8899-530bf2032470")
 	)
-	(label "GPIO19"
+	(label "USB_DN"
 		(at 34.29 59.69 180)
 		(effects
 			(font
@@ -459,7 +459,7 @@
 		)
 		(uuid "aa87e9ea-339f-424b-abd2-6efd00035146")
 	)
-	(label "GPIO20"
+	(label "USB_DP"
 		(at 91.44 35.56 180)
 		(effects
 			(font
@@ -509,7 +509,7 @@
 		)
 		(uuid "bee4c667-fbe6-446b-a429-9275c2b48a3f")
 	)
-	(label "GPIO15"
+	(label "TMP235"
 		(at 91.44 30.48 180)
 		(effects
 			(font
@@ -559,7 +559,7 @@
 		)
 		(uuid "c8678a41-e7fe-4ad7-8e13-05946c30bdbf")
 	)
-	(label "GPIO19"
+	(label "USB_DN"
 		(at 91.44 33.02 180)
 		(effects
 			(font
@@ -609,7 +609,7 @@
 		)
 		(uuid "d67e8d73-2ea2-4a5b-b369-743da7f22027")
 	)
-	(label "GPIO14"
+	(label "ACS723"
 		(at 91.44 27.94 180)
 		(effects
 			(font
@@ -979,46 +979,6 @@
 				(justify left top)
 			)
 		)
-		(pin "GPIO14" input
-			(at 91.44 27.94 180)
-			(uuid "cb6ddf84-1003-4592-aa6b-d4d3fae955c9")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "GPIO15" input
-			(at 91.44 30.48 180)
-			(uuid "780fdf12-221f-45c3-bcd1-7246fb91ee37")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "GPIO19" input
-			(at 91.44 33.02 180)
-			(uuid "8e465293-607f-412c-8a59-9a960d761942")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "GPIO20" input
-			(at 91.44 35.56 180)
-			(uuid "80a5c22d-ef7b-4ae2-bdff-dd2eaca644d6")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "ISO_M1_CLOSE" input
 			(at 91.44 38.1 180)
 			(uuid "bf887289-b12f-431e-9cb4-573f30e0776f")
@@ -1147,6 +1107,46 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+			)
+		)
+		(pin "USB_DN" input
+			(at 91.44 33.02 180)
+			(uuid "ac4c8bda-83e2-4441-8756-36d0c59a29f1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "USB_DP" input
+			(at 91.44 35.56 180)
+			(uuid "520d4171-3ac0-45e4-b577-4ea0b7c7d533")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ACS723" input
+			(at 91.44 27.94 180)
+			(uuid "9cf41ca7-cbef-46c6-982d-78d3378de22d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TMP235" input
+			(at 91.44 30.48 180)
+			(uuid "d605ae3f-879b-4f72-be3b-7d1275f1ba9e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 		(instances
@@ -1405,9 +1405,9 @@
 				(justify left top)
 			)
 		)
-		(pin "GPIO19" input
+		(pin "USB_DN" input
 			(at 34.29 59.69 180)
-			(uuid "dbc66f77-247e-4202-a7d1-098b455ad96c")
+			(uuid "7ba83887-87fb-4ce2-88e7-11ad8c4c9041")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1415,9 +1415,9 @@
 				(justify left)
 			)
 		)
-		(pin "GPIO20" input
+		(pin "USB_DP" input
 			(at 34.29 63.5 180)
-			(uuid "783e976b-e240-4686-bf7c-2cefed51ae2e")
+			(uuid "0a19fb09-57be-4c71-8a4c-7f3d4c428c28")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1435,7 +1435,7 @@
 	)
 	(sheet
 		(at 91.44 68.58)
-		(size 44.45 44.45)
+		(size 44.45 40.005)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -1459,7 +1459,7 @@
 			)
 		)
 		(property "Sheetfile" "digital_isolators.kicad_sch"
-			(at 91.44 113.6146 0)
+			(at 91.44 109.1696 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1769,9 +1769,9 @@
 				(justify left top)
 			)
 		)
-		(pin "GPIO14" input
+		(pin "ACS723" input
 			(at 34.29 99.06 180)
-			(uuid "e8795799-1acf-4cd1-a50c-03bfdb4f5393")
+			(uuid "9d269274-264b-4764-9949-06a6d39e1bea")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1779,9 +1779,9 @@
 				(justify left)
 			)
 		)
-		(pin "GPIO15" input
+		(pin "TMP235" input
 			(at 34.29 102.87 180)
-			(uuid "38014b90-4f4c-479d-a916-20409932e748")
+			(uuid "eb25f5af-3cf5-478e-bd16-95f35cd9e61d")
 			(effects
 				(font
 					(size 1.27 1.27)

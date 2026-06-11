@@ -185,6 +185,113 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Connector:TestPoint"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:C"
 			(pin_numbers
 				(hide yes)
@@ -1162,6 +1269,18 @@
 		(uuid "958196c0-074b-46d0-943c-b719121fd066")
 	)
 	(junction
+		(at 88.9 74.93)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9932e597-5df5-4035-8359-652f6bfe3fd7")
+	)
+	(junction
+		(at 168.91 74.93)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d655c135-ef26-4638-a5d1-04fb2592a5d3")
+	)
+	(junction
 		(at 105.41 82.55)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1172,6 +1291,16 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e97e5581-e29a-4635-a90d-c4e15ada3521")
+	)
+	(wire
+		(pts
+			(xy 88.9 74.93) (xy 83.82 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0febfad3-f06c-4129-bc78-63d7c6191eb5")
 	)
 	(wire
 		(pts
@@ -1195,7 +1324,7 @@
 	)
 	(wire
 		(pts
-			(xy 92.71 82.55) (xy 105.41 82.55)
+			(xy 83.82 82.55) (xy 105.41 82.55)
 		)
 		(stroke
 			(width 0)
@@ -1235,7 +1364,7 @@
 	)
 	(wire
 		(pts
-			(xy 172.72 74.93) (xy 166.37 74.93)
+			(xy 172.72 74.93) (xy 168.91 74.93)
 		)
 		(stroke
 			(width 0)
@@ -1245,7 +1374,7 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 74.93) (xy 92.71 74.93)
+			(xy 93.98 74.93) (xy 88.9 74.93)
 		)
 		(stroke
 			(width 0)
@@ -1262,6 +1391,16 @@
 			(type default)
 		)
 		(uuid "7aba094a-dafd-4b48-a2ab-1db7e83a0018")
+	)
+	(wire
+		(pts
+			(xy 168.91 74.93) (xy 166.37 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "980a0329-7e64-47c3-870d-6cbeda10c7ec")
 	)
 	(wire
 		(pts
@@ -1345,7 +1484,7 @@
 	)
 	(wire
 		(pts
-			(xy 92.71 82.55) (xy 92.71 80.01)
+			(xy 83.82 82.55) (xy 83.82 80.01)
 		)
 		(stroke
 			(width 0)
@@ -1504,9 +1643,9 @@
 		(at 151.13 82.55 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom no)
+		(in_bom yes)
 		(on_board yes)
-		(dnp yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3107ba4b-4f97-4635-a31d-a86fb890067e")
 		(property "Reference" "U1"
@@ -1551,7 +1690,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C5899332"
+		(property "LCSC" "C20622657"
 			(at 151.13 82.55 0)
 			(effects
 				(font
@@ -1804,7 +1943,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Barrel_Jack")
-		(at 85.09 77.47 0)
+		(at 76.2 77.47 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1813,15 +1952,15 @@
 		(fields_autoplaced yes)
 		(uuid "7f92a59b-54aa-494b-8d23-fcf83a0a9dea")
 		(property "Reference" "J1"
-			(at 85.09 68.58 0)
+			(at 76.2 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "DC005-T25"
-			(at 85.09 71.12 0)
+		(property "Value" "DC005-T20"
+			(at 76.2 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1829,7 +1968,7 @@
 			)
 		)
 		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
-			(at 86.36 78.486 0)
+			(at 77.47 78.486 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1838,7 +1977,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 86.36 78.486 0)
+			(at 77.47 78.486 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1847,7 +1986,7 @@
 			)
 		)
 		(property "Description" "DC Barrel Jack"
-			(at 85.09 77.47 0)
+			(at 76.2 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1855,8 +1994,8 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C111573"
-			(at 85.09 77.47 0)
+		(property "LCSC" "C111567"
+			(at 76.2 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1874,6 +2013,73 @@
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/bb2a80bd-a98d-4040-85a8-f5c2f3802634"
 					(reference "J1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 88.9 74.93 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "88ced204-2335-4c98-af2c-e5cde3c2acf3")
+		(property "Reference" "TP7"
+			(at 91.44 70.3579 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "12V"
+			(at 91.44 72.8979 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "barn_shade_controller:TestPoint_Pad_D1.0mm_No_SolderMask"
+			(at 93.98 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 93.98 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 88.9 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "73d1c62d-1009-4e41-92cb-3da04cce94cd")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/bb2a80bd-a98d-4040-85a8-f5c2f3802634"
+					(reference "TP7")
 					(unit 1)
 				)
 			)
@@ -2007,6 +2213,73 @@
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/bb2a80bd-a98d-4040-85a8-f5c2f3802634"
 					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 168.91 74.93 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b6fb5121-dbb4-4138-9234-ca17b120d9cf")
+		(property "Reference" "TP8"
+			(at 171.45 70.3579 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "5V_ISO"
+			(at 171.45 72.8979 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "barn_shade_controller:TestPoint_Pad_D1.0mm_No_SolderMask"
+			(at 173.99 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 173.99 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 168.91 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "34aad848-9404-4548-bef6-bfbae1f09970")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/bb2a80bd-a98d-4040-85a8-f5c2f3802634"
+					(reference "TP8")
 					(unit 1)
 				)
 			)
