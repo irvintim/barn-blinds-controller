@@ -1,0 +1,85 @@
+# VSP-WSC-4 Tasmota Setup Commands
+# Run these in the Tasmota console after flashing tasmota32s3cdc
+# Commands can be pasted one at a time or run via the console
+
+# Step 1: Apply the device template
+# This sets the LED pin only -- motor GPIOs are controlled by Berry
+Template {"NAME":"Vesprio WSC-4","GPIO":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,416,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"FLAG":0,"BASE":1}
+Module 0
+
+# Step 2: Enable shutters
+SetOption80 1
+
+# Step 3: Set up 8 virtual relays for 4 shades (2 relays per shade)
+# Relays 1&2 = Shade 1, 3&4 = Shade 2, 5&6 = Shade 3, 7&8 = Shade 4
+# Virtual relays are created by the Berry script via devices_present
+
+# Step 4: Set interlocks so open and close can't be on simultaneously
+Interlock 1,2 3,4 5,6 7,8
+Interlock 1
+
+# Step 5: Set ShutterMode and assign relay pairs
+ShutterMode 1
+ShutterRelay1 1
+ShutterRelay2 3
+ShutterRelay3 5
+ShutterRelay4 7
+
+# Step 6: Set default open/close durations (seconds)
+# Adjust these after timing your actual motors
+ShutterOpenDuration1 60
+ShutterCloseDuration1 60
+ShutterOpenDuration2 60
+ShutterCloseDuration2 60
+ShutterOpenDuration3 60
+ShutterCloseDuration3 60
+ShutterOpenDuration4 60
+ShutterCloseDuration4 60
+
+# Step 7: Set friendly names
+FriendlyName1 Shade 1 Open
+FriendlyName2 Shade 1 Close
+FriendlyName3 Shade 2 Open
+FriendlyName4 Shade 2 Close
+FriendlyName5 Shade 3 Open
+FriendlyName6 Shade 3 Close
+FriendlyName7 Shade 4 Open
+FriendlyName8 Shade 4 Close
+
+ShutterName1 Shade 1
+ShutterName2 Shade 2
+ShutterName3 Shade 3
+ShutterName4 Shade 4
+
+# Step 8: Calibrate motor timing (run after physical installation)
+#
+# For each shade, run the calibration sequence:
+#
+#   ShutterSetClose1     -- tell Tasmota shade 1 is currently fully closed
+#   ShutterOpen1         -- shade will open fully, Tasmota times it automatically
+#   ShutterSetOpen1      -- tell Tasmota shade 1 is now fully open
+#   ShutterClose1        -- shade will close fully, Tasmota times it automatically
+#   ShutterSetClose1     -- confirm fully closed, calibration complete
+#
+# Repeat with ShutterSetClose2/ShutterOpen2 etc. for shades 2, 3, 4.
+# After calibration, open/close durations are saved automatically.
+# Re-run any time a motor or shade is replaced.
+
+# Step 9: Upload autoexec.be via Tools > Manage File System
+# The Berry script handles all GPIO motor control
+
+# Step 10: Set OTA URL for ESPHome migration
+# This allows users to upgrade to ESPHome directly from the Tasmota web UI
+# without needing USB or UART access.
+#
+# To migrate to ESPHome:
+#   1. Go to Tasmota web UI > Firmware Upgrade
+#   2. Either upload the ESPHome .factory.bin directly
+#      OR enter the OTA URL and click Start Upgrade
+#
+# OtaUrl https://firmware.vesprio.io/wsc4/esphome-wsc4-factory.bin
+#
+# (uncomment and update URL once firmware hosting is set up)
+
+# Step 11: Restart
+Restart 1

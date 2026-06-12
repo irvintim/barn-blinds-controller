@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART '1787470'
+CLASS = IO
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Phoenix Contact", "1787470" (!) = "", "1787470", "Other", "651-1787470", "https://www.mouser.co.uk/ProductDetail/Phoenix-Contact/1787470?qs=c9g5C7Q1WQvjhO5zDnXTjg%3D%3D", "1787470", "https://www.arrow.com/en/products/1787470/phoenix-contact?region=nac", "DMCV 1,5/10-G1F-3,5-LR P20THR - PCB headers, nominal cross section: 1.5 mm<sup>2</sup>, color: black, nominal current: 8 A, rated voltage (III/2): 160 V, contact surface: Sn, contact connection type: Pin, number of potentials: 20, number of rows: 2, number of positions: 10, number of connections: 20, product range: DMCV 1,5/..-G1F-THR, pitch: 3.5 mm, mounting: THR soldering / wave soldering, pin layout: Linear pinning, solder pin [P]: 2 mm, number of solder pins per potential: 1, plug-in system: COMBICON DF", "https://www.phoenixcontact.com/en-us/products/pcb-header-dmcv-1510-g1f-35-lr-p20thr-1787470?type=pdf", "10.15 mm"
+END_PART
+
+END.

@@ -1,0 +1,18 @@
+.1054070 :1 ;DMCV 1,5/10-G1F-3,5-LR P35 - PCB headers, nominal cross section: 1.5 mm<sup>2</sup>, color: green, nominal current: 8 A, rated voltage (III/2): 160 V, contact surface: Sn, contact connection type: Pin, number of potentials: 20, number of rows: 2, number of positions: 10, number of connections: 20, product range: DMCV 1,5/..-G1F, pitch: 3.5 mm, mounting: THR soldering / wave soldering, pin layout: Linear pinning, solder pin [P]: 3.5 mm, number of solder pins per potential: 1, plug-in system: COMBICON DFMC 1,
+"1054070"
+*STM J
+*NGS
+*PLB 1="1" 2="2" 3="3" 4="4" 5="5" 6="6" 7="7" 8="8" 9="9" 10="10" 11="11" 12="12" 13="13" 14="14" 15="15" 16="16" 17="17" 18="18" 19="19" 20="20"
+*MXP 20
+*DFN 1054070
+~!Manufacturer_Name (Phoenix Contact)
+~!Manufacturer_Part_Number (1054070)
+~!Mouser Part Number (651-1054070)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Phoenix-Contact/1054070?qs=byeeYqUIh0NdewqB%252B7TATw%3D%3D)
+~!Arrow Part Number (-)
+~!Arrow Price/Stock (-)
+~!Link Datasheet (https://www.phoenixcontact.com/en-us/products/pcb-header-dmcv-1510-g1f-35-lr-p35-1054070?type=pdf)
+~!Height (10.15mm)
+~!3D_Model (1054070)
+"1054070"
+1.1!U 2.1!U 3.1!U 4.1!U 5.1!U 6.1!U 7.1!U 8.1!U 9.1!U 10.1!U 11.1!U 12.1!U 13.1!U 14.1!U 15.1!U 16.1!U 17.1!U 18.1!U 19.1!U 20.1!U 

@@ -1,0 +1,9 @@
+Manufacturer=Phoenix Contact
+PartNumber=1054070
+PartCategory=Connector
+PackageCategory=Other
+PinCount=20
+Version=7.1
+Released=2021-11-30 14:11:02
+Downloaded=2026-06-12 01:27:09
+3D=Y

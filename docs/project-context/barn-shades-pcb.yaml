@@ -1,0 +1,225 @@
+substitutions:
+  device_name: barn-shades
+  friendly_name: Barn Shades
+
+esphome:
+  name: ${device_name}
+  friendly_name: ${friendly_name}
+  on_boot:
+    priority: 700
+    then:
+      - output.turn_on: motor_stby
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: "${friendly_name} Fallback"
+    password: !secret ap_password
+
+captive_portal:
+
+api:
+  encryption:
+    key: !secret api_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+logger:
+
+# Status LED (GPIO16, red)
+light:
+  - platform: status_led
+    name: "Status LED"
+    pin: GPIO16
+
+# STBY -- set HIGH at boot, stays HIGH permanently
+output:
+  - platform: gpio
+    pin: GPIO37
+    id: motor_stby
+
+  # Shade 1 (TB6612 U8, Channel A)
+  - platform: gpio
+    pin: GPIO44
+    id: shade1_open
+  - platform: gpio
+    pin: GPIO42
+    id: shade1_close
+
+  # Shade 2 (TB6612 U8, Channel B)
+  - platform: gpio
+    pin: GPIO43
+    id: shade2_open
+  - platform: gpio
+    pin: GPIO2
+    id: shade2_close
+
+  # Shade 3 (TB6612 U9, Channel A)
+  - platform: gpio
+    pin: GPIO36
+    id: shade3_open
+  - platform: gpio
+    pin: GPIO35
+    id: shade3_close
+
+  # Shade 4 (TB6612 U9, Channel B)
+  - platform: gpio
+    pin: GPIO38
+    id: shade4_open
+  - platform: gpio
+    pin: GPIO39
+    id: shade4_close
+
+cover:
+  - platform: time_based
+    name: "Skylight Shade 1"
+    id: shade_1
+    open_action:
+      - output.turn_on: shade1_open
+      - output.turn_off: shade1_close
+    open_duration: 60s
+    close_action:
+      - output.turn_on: shade1_close
+      - output.turn_off: shade1_open
+    close_duration: 60s
+    stop_action:
+      - output.turn_off: shade1_open
+      - output.turn_off: shade1_close
+
+  - platform: time_based
+    name: "Skylight Shade 2"
+    id: shade_2
+    open_action:
+      - output.turn_on: shade2_open
+      - output.turn_off: shade2_close
+    open_duration: 60s
+    close_action:
+      - output.turn_on: shade2_close
+      - output.turn_off: shade2_open
+    close_duration: 60s
+    stop_action:
+      - output.turn_off: shade2_open
+      - output.turn_off: shade2_close
+
+  - platform: time_based
+    name: "Skylight Shade 3"
+    id: shade_3
+    open_action:
+      - output.turn_on: shade3_open
+      - output.turn_off: shade3_close
+    open_duration: 60s
+    close_action:
+      - output.turn_on: shade3_close
+      - output.turn_off: shade3_open
+    close_duration: 60s
+    stop_action:
+      - output.turn_off: shade3_open
+      - output.turn_off: shade3_close
+
+  - platform: time_based
+    name: "Skylight Shade 4"
+    id: shade_4
+    open_action:
+      - output.turn_on: shade4_open
+      - output.turn_off: shade4_close
+    open_duration: 60s
+    close_action:
+      - output.turn_on: shade4_close
+      - output.turn_off: shade4_open
+    close_duration: 60s
+    stop_action:
+      - output.turn_off: shade4_open
+      - output.turn_off: shade4_close
+
+# Group buttons
+button:
+  - platform: template
+    name: "All Shades Open"
+    on_press:
+      - cover.control:
+          id: shade_1
+          position: 1.0
+      - delay: 200ms
+      - cover.control:
+          id: shade_2
+          position: 1.0
+      - delay: 200ms
+      - cover.control:
+          id: shade_3
+          position: 1.0
+      - delay: 200ms
+      - cover.control:
+          id: shade_4
+          position: 1.0
+
+  - platform: template
+    name: "All Shades Close"
+    on_press:
+      - cover.control:
+          id: shade_1
+          position: 0.0
+      - delay: 200ms
+      - cover.control:
+          id: shade_2
+          position: 0.0
+      - delay: 200ms
+      - cover.control:
+          id: shade_3
+          position: 0.0
+      - delay: 200ms
+      - cover.control:
+          id: shade_4
+          position: 0.0
+
+  - platform: template
+    name: "All Shades Stop"
+    on_press:
+      - cover.stop: shade_1
+      - cover.stop: shade_2
+      - cover.stop: shade_3
+      - cover.stop: shade_4
+
+# ACS723 current sensor (ADC2_CH3 -- may have WiFi noise, monitor in testing)
+sensor:
+  - platform: adc
+    pin: GPIO14
+    name: "Motor Current"
+    id: motor_current
+    update_interval: 100ms
+    attenuation: 11db
+    filters:
+      - sliding_window_moving_average:
+          window_size: 5
+          send_every: 5
+    on_value:
+      then:
+        - if:
+            condition:
+              lambda: 'return x > 2.2;'  # ~1.4A stall threshold (0A=1.65V, sensitivity 400mV/A)
+            then:
+              - logger.log: "Stall detected -- stopping all shades"
+              - cover.stop: shade_1
+              - cover.stop: shade_2
+              - cover.stop: shade_3
+              - cover.stop: shade_4
+
+  # TMP235 temperature sensor (ADC2_CH4 -- may have WiFi noise)
+  - platform: adc
+    pin: GPIO15
+    name: "Controller Temperature"
+    id: controller_temp
+    update_interval: 10s
+    attenuation: 11db
+    filters:
+      # TMP235: 500mV at 0C, 10mV/C
+      - lambda: 'return (x - 0.5) / 0.01;'
+    unit_of_measurement: "°C"
+    device_class: temperature

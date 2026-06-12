@@ -1,0 +1,184 @@
+.FILETYPE CELL_LIBRARY
+.VERSION "02.50"
+.DATE "Friday, June 12, 2026 01:08 AM"
+
+.UNITS MM
+
+.PACKAGE_CELL "1787470"
+ ..PACKAGE_GROUP CONNECTOR
+ ..MOUNT_TYPE THROUGH
+ ..NUMBER_LAYERS 12
+ ..PIN "1"
+  ...XY (0,0)
+  ...PADSTACK "s230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "2"
+  ...XY (3.5,0)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "3"
+  ...XY (7,0)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "4"
+  ...XY (10.5,0)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "5"
+  ...XY (14,0)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "6"
+  ...XY (17.5,0)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "7"
+  ...XY (21,0)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "8"
+  ...XY (24.5,0)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "9"
+  ...XY (28,0)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "10"
+  ...XY (31.5,0)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "11"
+  ...XY (0,-5.5)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "12"
+  ...XY (3.5,-5.5)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "13"
+  ...XY (7,-5.5)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "14"
+  ...XY (10.5,-5.5)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "15"
+  ...XY (14,-5.5)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "16"
+  ...XY (17.5,-5.5)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "17"
+  ...XY (21,-5.5)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "18"
+  ...XY (24.5,-5.5)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "19"
+  ...XY (28,-5.5)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..PIN "20"
+  ...XY (31.5,-5.5)
+  ...PADSTACK "c230h140"
+  ...ROTATION 0
+  ...PIN_OPTIONS NONE
+ ..TEXT "Ref Des"
+  ...TEXT_TYPE REF_DES
+  ...DISPLAY_ATTR
+   ....XY (0,0)
+   ....TEXT_LYR SILKSCREEN_MNT_LYR
+   ....DISPLAY_CONDITION ANY_MOUNT
+   ....HORZ_JUST LEFT
+   ....VERT_JUST BOTTOM
+   ....HEIGHT 1.27
+   ....WIDTH 0.127
+   ....STROKE_WIDTH 0.127
+   ....ROTATION 0
+   ....FONT "VeriBest Gerber 0"
+   ....TEXT_OPTIONS NONE
+ ..TEXT "Part No"
+  ...TEXT_TYPE PARTNO
+  ...DISPLAY_ATTR
+   ....XY (0,0)
+   ....TEXT_LYR ASSEMBLY_MNT_LYR
+   ....DISPLAY_CONDITION ANY_MOUNT
+   ....HORZ_JUST LEFT
+   ....VERT_JUST TOP
+   ....HEIGHT 1.27
+   ....WIDTH 0.127
+   ....STROKE_WIDTH 0.127
+   ....ROTATION 0
+   ....FONT "VeriBest Gerber 0"
+   ....TEXT_OPTIONS NONE
+ ..ASSEMBLY_OUTLINE
+  ...DISPLAY_WIDTH 0.2
+  ...OPTIONS NONE
+  ...SIDE MNT_SIDE
+  ...DISPLAY_CONDITION ANY_MOUNT
+  ...POLYLINE_PATH
+   ....WIDTH 0.2
+   ....XY (-5.25, 2.55)
+          (36.75, 2.55)
+          (36.75, -8.05)
+          (-5.25, -8.05)
+          (-5.25, 2.55)
+ ..SILKSCREEN_OUTLINE
+  ...OPTIONS NONE
+  ...SIDE MNT_SIDE
+  ...DISPLAY_CONDITION ANY_MOUNT
+  ...POLYLINE_PATH
+   ....WIDTH 0.1
+   ....XY (-5.25, 2.55)
+          (36.75, 2.55)
+          (36.75, -8.05)
+          (-5.25, -8.05)
+          (-5.25, 2.55)
+ ..SILKSCREEN_OUTLINE
+  ...OPTIONS NONE
+  ...SIDE MNT_SIDE
+  ...DISPLAY_CONDITION ANY_MOUNT
+  ...CIRCLE_PATH
+   ....WIDTH 0.2
+   ....XY (-5.85, 0)
+   ....RADIUS 0.05
+   ....STYLE SOLIDLINE
+ ..PLACEMENT_OUTLINE
+  ...HEIGHT 10.15
+  ...UNDERSIDE_SPACE 0
+  ...DISPLAY_WIDTH 0
+  ...OPTIONS NONE
+  ...SIDE MNT_SIDE
+  ...DISPLAY_CONDITION ANY_MOUNT
+  ...POLYLINE_PATH
+   ....WIDTH 0.05
+   ....XY (-6.25, 3.55)
+          (37.75, 3.55)
+          (37.75, -9.05)
+          (-6.25, -9.05)
+          (-6.25, 3.55)

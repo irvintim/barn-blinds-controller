@@ -1,0 +1,43 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#SamacSys ECAD Model 1054070
+#/15200355/506064/2.50/20/2/Connector
+DEF 1054070 J 0 30 Y Y 1 F N
+F0 "J" 750 300 50 H V L CNN
+F1 "1054070" 750 200 50 H V L CNN
+F2 "1054070" 750 100 50 H I L CNN
+F3 "https://www.phoenixcontact.com/en-us/products/pcb-header-dmcv-1510-g1f-35-lr-p35-1054070?type=pdf" 750 0 50 H I L CNN
+F4 "DMCV 1,5/10-G1F-3,5-LR P35 - PCB headers, nominal cross section: 1.5 mm<sup>2</sup>, color: green, nominal current: 8 A, rated voltage (III/2): 160 V, contact surface: Sn, contact connection type: Pin, number of potentials: 20, number of rows: 2, number of positions: 10, number of connections: 20, product range: DMCV 1,5/..-G1F, pitch: 3.5 mm, mounting: THR soldering / wave soldering, pin layout: Linear pinning, solder pin [P]: 3.5 mm, number of solder pins per potential: 1, plug-in system: COMBICON DFMC 1," 750 -100 50 H I L CNN "Description"
+F5 "10.15" 750 -200 50 H I L CNN "Height"
+F6 "Phoenix Contact" 750 -300 50 H I L CNN "Manufacturer_Name"
+F7 "1054070" 750 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "651-1054070" 750 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Phoenix-Contact/1054070?qs=byeeYqUIh0NdewqB%252B7TATw%3D%3D" 750 -600 50 H I L CNN "Mouser Price/Stock"
+F10 "" 750 -700 50 H I L CNN "Arrow Part Number"
+F11 "" 750 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+X 1 1 900 0 200 L 50 50 0 0 P
+X 2 2 900 -100 200 L 50 50 0 0 P
+X 3 3 900 -200 200 L 50 50 0 0 P
+X 4 4 900 -300 200 L 50 50 0 0 P
+X 5 5 900 -400 200 L 50 50 0 0 P
+X 6 6 900 -500 200 L 50 50 0 0 P
+X 7 7 900 -600 200 L 50 50 0 0 P
+X 8 8 900 -700 200 L 50 50 0 0 P
+X 9 9 900 -800 200 L 50 50 0 0 P
+X 10 10 900 -900 200 L 50 50 0 0 P
+X 11 11 0 0 200 R 50 50 0 0 P
+X 12 12 0 -100 200 R 50 50 0 0 P
+X 13 13 0 -200 200 R 50 50 0 0 P
+X 14 14 0 -300 200 R 50 50 0 0 P
+X 15 15 0 -400 200 R 50 50 0 0 P
+X 16 16 0 -500 200 R 50 50 0 0 P
+X 17 17 0 -600 200 R 50 50 0 0 P
+X 18 18 0 -700 200 R 50 50 0 0 P
+X 19 19 0 -800 200 R 50 50 0 0 P
+X 20 20 0 -900 200 R 50 50 0 0 P
+P 5 0 1 6 200 100 700 100 700 -1000 200 -1000 200 100 N
+ENDDRAW
+ENDDEF
+#
+#End Library

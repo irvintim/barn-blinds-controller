@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 1787470
+D DMCV 1,5/10-G1F-3,5-LR P20THR - PCB headers, nominal cross section: 1.5 mm<sup>2</sup>, color: black, nominal current: 8 A, rated voltage (III/2): 160 V, contact surface: Sn, contact connection type: Pin, number of potentials: 20, number of rows: 2, number of positions: 10, number of connections: 20, product range: DMCV 1,5/..-G1F-THR, pitch: 3.5 mm, mounting: THR soldering / wave soldering, pin layout: Linear pinning, solder pin [P]: 2 mm, number of solder pins per potential: 1, plug-in system: COMBICON DF
+K
+F https://www.phoenixcontact.com/en-us/products/pcb-header-dmcv-1510-g1f-35-lr-p20thr-1787470?type=pdf
+$ENDCMP
+#
+#End Doc Library

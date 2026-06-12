@@ -1,0 +1,229 @@
+substitutions:
+  device_name: shade-controller
+  friendly_name: Shade Controller
+
+esphome:
+  name: ${device_name}
+  friendly_name: ${friendly_name}
+  name_add_mac_suffix: true  # makes each device unique: shade-controller-a1b2c3
+  project:
+    name: "Vesprio.WSC-4"
+    version: "1.2"
+  on_boot:
+    priority: 700
+    then:
+      - output.turn_on: motor_stby
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
+
+wifi:
+  ap:
+    ssid: "Shade Controller Setup"
+    password: "shadectrl"
+
+improv_ble:
+
+captive_portal:
+
+# Uncomment and fill in after WiFi is configured via Improv BLE
+# wifi:
+#   ssid: !secret wifi_ssid
+#   password: !secret wifi_password
+
+api:
+  encryption:
+    key: !secret api_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+logger:
+
+web_server:
+  port: 80
+  version: 3
+
+status_led:
+  pin: GPIO16
+
+output:
+  - platform: gpio
+    pin: GPIO37
+    id: motor_stby
+
+  - platform: gpio
+    pin: GPIO43
+    id: shade1_open
+  - platform: gpio
+    pin: GPIO2
+    id: shade1_close
+
+  - platform: gpio
+    pin: GPIO44
+    id: shade2_open
+  - platform: gpio
+    pin: GPIO42
+    id: shade2_close
+
+  - platform: gpio
+    pin: GPIO36
+    id: shade3_open
+  - platform: gpio
+    pin: GPIO35
+    id: shade3_close
+
+  - platform: gpio
+    pin: GPIO38
+    id: shade4_open
+  - platform: gpio
+    pin: GPIO39
+    id: shade4_close
+
+cover:
+  - platform: time_based
+    name: "Shade 1"
+    id: shade_1
+    open_action:
+      - output.turn_on: shade1_open
+      - output.turn_off: shade1_close
+    open_duration: 60s
+    close_action:
+      - output.turn_on: shade1_close
+      - output.turn_off: shade1_open
+    close_duration: 60s
+    stop_action:
+      - output.turn_off: shade1_open
+      - output.turn_off: shade1_close
+
+  - platform: time_based
+    name: "Shade 2"
+    id: shade_2
+    open_action:
+      - output.turn_on: shade2_open
+      - output.turn_off: shade2_close
+    open_duration: 60s
+    close_action:
+      - output.turn_on: shade2_close
+      - output.turn_off: shade2_open
+    close_duration: 60s
+    stop_action:
+      - output.turn_off: shade2_open
+      - output.turn_off: shade2_close
+
+  - platform: time_based
+    name: "Shade 3"
+    id: shade_3
+    open_action:
+      - output.turn_on: shade3_open
+      - output.turn_off: shade3_close
+    open_duration: 60s
+    close_action:
+      - output.turn_on: shade3_close
+      - output.turn_off: shade3_open
+    close_duration: 60s
+    stop_action:
+      - output.turn_off: shade3_open
+      - output.turn_off: shade3_close
+
+  - platform: time_based
+    name: "Shade 4"
+    id: shade_4
+    open_action:
+      - output.turn_on: shade4_open
+      - output.turn_off: shade4_close
+    open_duration: 60s
+    close_action:
+      - output.turn_on: shade4_close
+      - output.turn_off: shade4_open
+    close_duration: 60s
+    stop_action:
+      - output.turn_off: shade4_open
+      - output.turn_off: shade4_close
+
+button:
+  - platform: template
+    name: "All Open"
+    on_press:
+      - cover.control:
+          id: shade_1
+          position: 1.0
+      - delay: 200ms
+      - cover.control:
+          id: shade_2
+          position: 1.0
+      - delay: 200ms
+      - cover.control:
+          id: shade_3
+          position: 1.0
+      - delay: 200ms
+      - cover.control:
+          id: shade_4
+          position: 1.0
+
+  - platform: template
+    name: "All Close"
+    on_press:
+      - cover.control:
+          id: shade_1
+          position: 0.0
+      - delay: 200ms
+      - cover.control:
+          id: shade_2
+          position: 0.0
+      - delay: 200ms
+      - cover.control:
+          id: shade_3
+          position: 0.0
+      - delay: 200ms
+      - cover.control:
+          id: shade_4
+          position: 0.0
+
+  - platform: template
+    name: "All Stop"
+    on_press:
+      - cover.stop: shade_1
+      - cover.stop: shade_2
+      - cover.stop: shade_3
+      - cover.stop: shade_4
+
+sensor:
+  - platform: adc
+    pin: GPIO14
+    name: "Motor Current"
+    id: motor_current
+    update_interval: 100ms
+    attenuation: 12db
+    device_class: current
+    filters:
+      - sliding_window_moving_average:
+          window_size: 5
+          send_every: 5
+      - lambda: 'return (x - 1.65) / 0.4;'
+    unit_of_measurement: "A"
+    on_value:
+      then:
+        - if:
+            condition:
+              lambda: 'return x > 1.4;'
+            then:
+              - logger.log: "Stall detected -- stopping all shades"
+              - cover.stop: shade_1
+              - cover.stop: shade_2
+              - cover.stop: shade_3
+              - cover.stop: shade_4
+
+  - platform: adc
+    pin: GPIO15
+    name: "Controller Temperature"
+    id: controller_temp
+    update_interval: 10s
+    attenuation: 12db
+    device_class: temperature
+    filters:
+      - lambda: 'return (x - 0.5) / 0.01;'
+    unit_of_measurement: "°C"

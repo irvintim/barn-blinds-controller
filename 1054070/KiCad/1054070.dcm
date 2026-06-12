@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 1054070
+D DMCV 1,5/10-G1F-3,5-LR P35 - PCB headers, nominal cross section: 1.5 mm<sup>2</sup>, color: green, nominal current: 8 A, rated voltage (III/2): 160 V, contact surface: Sn, contact connection type: Pin, number of potentials: 20, number of rows: 2, number of positions: 10, number of connections: 20, product range: DMCV 1,5/..-G1F, pitch: 3.5 mm, mounting: THR soldering / wave soldering, pin layout: Linear pinning, solder pin [P]: 3.5 mm, number of solder pins per potential: 1, plug-in system: COMBICON DFMC 1,
+K
+F https://www.phoenixcontact.com/en-us/products/pcb-header-dmcv-1510-g1f-35-lr-p35-1054070?type=pdf
+$ENDCMP
+#
+#End Doc Library
