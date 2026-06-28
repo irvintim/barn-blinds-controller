@@ -4,4 +4,5 @@
   (lib (name "slc03a-05")(type "KiCad")(uri "${KIPRJMOD}/slc03a-05.kicad_sym")(options "")(descr ""))
   (lib (name "KH-TYPE-C-16P")(type "KiCad")(uri "${KIPRJMOD}/KH-TYPE-C-16P/KH-TYPE-C-16P.kicad_sym")(options "")(descr ""))
   (lib (name "EEVTG2A221M")(type "KiCad")(uri "${KIPRJMOD}/EEVTG2A221M.kicad_sym")(options "")(descr ""))
+  (lib (name "1054070")(type "KiCad")(uri "${KIPRJMOD}/1054070/KiCad/1054070.kicad_sym")(options "")(descr "Phoenix Contact DMCV 1,5/10-G1F-3,5-LR P35 PCB header"))
 )

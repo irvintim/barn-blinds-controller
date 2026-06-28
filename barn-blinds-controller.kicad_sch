@@ -1839,6 +1839,48 @@
 			)
 		)
 	)
+	(sheet
+		(at 179.8319 111.0)
+		(size 22.9466 20.0)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345")
+		(property "Sheetname" "Switch Inputs"
+			(at 179.8319 110.2884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "switch_inputs.kicad_sch"
+			(at 179.8319 131.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
+					(page "9")
+				)
+			)
+		)
+	)
 	(sheet_instances
 		(path "/"
 			(page "1")
