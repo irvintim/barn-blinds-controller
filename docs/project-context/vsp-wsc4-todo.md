@@ -9,12 +9,15 @@
 - [x] Pinout: pos 1-4 = motors M1-4, pos 5/7/8/10 = SW_UP, pos 6/9 = SW_COM (GND_ISO), pos 15/17/18/20 = SW_DOWN
 - [x] switch_inputs.kicad_sch created (page 9): 8-ch RC+TVS, 4× PRTR5V0U2X + 8× 10kΩ + 8× 100nF
 - [x] All schematic connection bugs fixed; loads and connects correctly
+- [x] USB connector swapped from USB-C (Kinghelm KH-TYPE-C-16P) to Micro-USB in usb-c-5v.kicad_sch — same part/footprint/LCSC (C397452) as used in ../zen32-esphome; removes the CC1/CC2 orientation issue entirely (Micro-USB has no CC lines); CC pulldowns R1/R4 removed; verified via kicad-cli ERC/netlist (2026-06-30)
+- [x] Decided to leave USB power diode-ORed into the single shared 3.3V_ISO rail (powers ESP32 + isolators/sensors) rather than adding a second regulator — see project memory for reasoning (2026-06-30)
 
 ### Still needed — schematic (do these first):
 - [ ] MANUAL: Annotate all refs in switch_inputs.kicad_sch (currently R?/C?/U?), run ERC, cosmetic TVS wire cleanup
+- [ ] MANUAL: Annotate new J2 (Micro-USB) reference and new #PWR? GND_ISO symbol in usb-c-5v.kicad_sch, cosmetic wire cleanup (new wiring was placed programmatically, needs a tidy pass in the GUI)
 - [ ] esp32-s3.kicad_sch: add GPIO4/5/6/8/9/11/12/13 as switch inputs; remap GPIO43→GPIO1, GPIO44→GPIO3 for motors; assign GPIO43=U0TXD, GPIO44=U0RXD
 - [ ] Fix UART header: U1TX/U1RX (GPIO17/18) → U0TX/U0RX (GPIO43/44)
-- [ ] USB-C CC1/CC2 fix (only works in one orientation — likely missing pull-down on one CC line)
+- [ ] PCB footprint: swap J2 footprint from KINGHELM_KH-TYPE-C-16P to Connector_USB:USB_Micro-B_XKB_U254-051T-4BH83-F1S on the board layout (barn-blinds-controller.kicad_pcb still has the old footprint — schematic-only change so far)
 - [ ] Add auto-reset circuit (two transistors + resistors on RTS/DTR lines for reliable flashing)
 - [ ] Make all LEDs software-controllable (status LED, 12V power LED, ESP32 power LED)
 - [ ] Fix test point copper (pads present but no copper on Rev 1.2 boards)
@@ -55,7 +58,7 @@ Goal: support two mounting options from one enclosure — wall mount (keyholes) 
 
 **FreeCAD changes needed in project-case-rev2.FCStd:**
 - [ ] Increase Z height to accommodate 26.75mm mated terminal block (header 13.5mm + plug 13.25mm)
-- [ ] Move USB-C cutout from DIN-rail-side wall to top or bottom edge
+- [ ] Move USB (now Micro-USB, not USB-C — see Rev 1.3 schematic changes above) cutout from DIN-rail-side wall to top or bottom edge
 - [ ] Move status LED cutouts accordingly
 - [ ] Add 3× Ø2.75mm boss holes on back plate for DIN clip (25mm spacing)
 - [ ] Keep existing wall-mount keyholes on back plate

@@ -4,7 +4,235 @@
 	(generator_version "9.0")
 	(uuid "65fcddcb-c388-4e6a-bd2a-90e848f3a494")
 	(paper "A4")
+	(title_block
+		(title "Switch Input Protection")
+		(rev "1.3")
+		(company "Vesprio")
+	)
 	(lib_symbols
+		(symbol "+3.3V_ISO"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "+3.3V_ISO"
+				(at 0 3.556 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "+3.3V_ISO_0_1"
+				(polyline
+					(pts
+						(xy -0.762 0.508) (xy 0 1.016) (xy 0.762 0.508)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 1.016)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+3.3V_ISO_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Device:C"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "C"
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Unpolarized capacitor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "C_0_1"
+				(polyline
+					(pts
+						(xy -1.524 0.508) (xy 1.524 0.508)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_1_1"
+				(pin passive line
+					(at 0 1.524 270)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -1.524 90)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:R"
 			(pin_numbers
 				(hide yes)
@@ -111,26 +339,29 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Device:C"
+		(symbol "GND_ISO"
+			(power)
 			(pin_numbers
 				(hide yes)
 			)
 			(pin_names
-				(offset 0.254)
+				(offset 0)
+				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "C"
-				(at 1.778 0 90)
+			(property "Reference" "#PWR"
+				(at 0 -1.778 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
+					(hide yes)
 				)
 			)
-			(property "Value" "C"
-				(at -1.778 0 90)
+			(property "Value" "GND_ISO"
+				(at 0 -3.81 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -146,7 +377,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "~"
+			(property "Datasheet" ""
 				(at 0 0 0)
 				(effects
 					(font
@@ -155,7 +386,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Unpolarized capacitor"
+			(property "Description" "Power symbol"
 				(at 0 0 0)
 				(effects
 					(font
@@ -164,13 +395,13 @@
 					(hide yes)
 				)
 			)
-			(symbol "C_0_1"
+			(symbol "GND_ISO_0_1"
 				(polyline
 					(pts
-						(xy -1.524 -0.508) (xy 1.524 -0.508)
+						(xy -1.27 -1.27) (xy 1.27 -1.27)
 					)
 					(stroke
-						(width 0.508)
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -179,10 +410,34 @@
 				)
 				(polyline
 					(pts
-						(xy -1.524 0.508) (xy 1.524 0.508)
+						(xy -0.762 -1.778) (xy 0.762 -1.778)
 					)
 					(stroke
-						(width 0.508)
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.254 -2.286) (xy 0.254 -2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -190,10 +445,10 @@
 					)
 				)
 			)
-			(symbol "C_1_1"
-				(pin passive line
-					(at 0 1.524 270)
-					(length 1.016)
+			(symbol "GND_ISO_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
 					(name "~"
 						(effects
 							(font
@@ -209,28 +464,11 @@
 						)
 					)
 				)
-				(pin passive line
-					(at 0 -1.524 90)
-					(length 1.016)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 			)
 			(embedded_fonts no)
 		)
 		(symbol "PRTR5V0U2X"
+			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "U"
@@ -310,42 +548,6 @@
 				)
 			)
 			(symbol "PRTR5V0U2X_1_1"
-				(pin power_in line
-					(at 0 7.62 270)
-					(length 2.54)
-					(name "VCC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 -7.62 90)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin bidirectional line
 					(at -5.08 2.54 0)
 					(length 2.54)
@@ -375,6 +577,42 @@
 						)
 					)
 					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 7.62 270)
+					(length 2.54)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -421,411 +659,698 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "+3.3V_ISO"
-			(power)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -3.175 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "+3.3V_ISO"
-				(at 0 3.556 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "+3.3V_ISO_0_1"
-				(polyline
-					(pts
-						(xy -0.762 0.508) (xy 0 1.016) (xy 0.762 0.508)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 1.016)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+3.3V_ISO_1_1"
-				(pin power_in line
-					(at 0 0 270)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "GND_ISO"
-			(power)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -1.778 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "GND_ISO"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "GND_ISO_0_1"
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 -1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.27 -1.27) (xy 1.27 -1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.762 -1.778) (xy 0.762 -1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.254 -2.286) (xy 0.254 -2.286)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "GND_ISO_1_1"
-				(pin power_in line
-					(at 0 0 270)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-	)
-	(title_block
-		(title "Switch Input Protection")
-		(rev "1.3")
-		(company "Vesprio")
-	)
-	(wire
-		(pts
-			(xy 20.00 20.00) (xy 30.19 20.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "cbf331a5-80ec-464c-835e-6f48ce462fc2")
-	)
-	(wire
-		(pts
-			(xy 37.81 20.00) (xy 42.00 20.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "4e0e00d6-877b-40f5-8f8f-c36d74e9d57a")
 	)
 	(junction
-		(at 42.00 20.00)
+		(at 85.09 113.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "008a5911-640d-4c44-97fc-abbd9c1499d7")
+	)
+	(junction
+		(at 85.09 53.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0982e713-7904-4123-8e9d-e0bf5c65e7ff")
+	)
+	(junction
+		(at 85.09 46.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "28455ee9-3f1f-4265-aa42-5c113868f11b")
+	)
+	(junction
+		(at 85.09 106.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "294d853d-e463-41a9-a521-d1c193e931c1")
+	)
+	(junction
+		(at 85.09 136.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3db301f6-0f80-4f99-bae7-c7ff6213ce4f")
+	)
+	(junction
+		(at 85.09 121.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "55b8cd54-5577-4d26-896a-b919eca4405e")
+	)
+	(junction
+		(at 85.09 98.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7321a462-e33e-4adf-aeb6-4bdd88adddd7")
+	)
+	(junction
+		(at 85.09 76.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7369a666-72d7-4581-997e-13787530f1cd")
+	)
+	(junction
+		(at 85.09 38.58)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "73b3fd47-7116-43bd-9097-2697a5a0014c")
 	)
-	(wire
-		(pts
-			(xy 42.00 20.00) (xy 56.00 20.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "d8b0897a-1751-4654-9e76-a4e56b42748b")
+	(junction
+		(at 85.09 68.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "91b814d2-0adf-4984-b78a-d1c83b771162")
+	)
+	(junction
+		(at 85.09 91.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "941033ba-c2f6-4db5-9235-323a29661588")
+	)
+	(junction
+		(at 85.09 83.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "96361fe3-5e7d-40ff-8281-66ac69c69e64")
+	)
+	(junction
+		(at 85.09 151.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ac4106d4-c921-4643-a265-57ac176d4bad")
+	)
+	(junction
+		(at 85.09 143.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c5e42316-f354-47c2-8f23-0ca85bfa0b02")
+	)
+	(junction
+		(at 85.09 128.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c5f24b30-fb70-43c5-8d31-e70652233e59")
+	)
+	(junction
+		(at 85.09 61.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c9578ef6-785b-49da-ae92-1e80f9af0240")
+	)
+	(no_connect
+		(at 115.71 108.62)
+		(uuid "1a7b4f9f-b905-4cfc-b212-feab6fe27825")
+	)
+	(no_connect
+		(at 115.71 43.54)
+		(uuid "25709280-30db-445c-8b91-31a1bdbaf3a1")
+	)
+	(no_connect
+		(at 115.71 78.62)
+		(uuid "398272c1-34a1-44b3-a6bb-ca9e3a4cef01")
+	)
+	(no_connect
+		(at 115.71 133.54)
+		(uuid "5370868a-93a7-499f-87c5-f0f6b9ebf7d6")
+	)
+	(no_connect
+		(at 115.71 138.62)
+		(uuid "5955abbe-3773-49f7-84f7-13c4b9efa640")
+	)
+	(no_connect
+		(at 115.71 48.62)
+		(uuid "96a505bb-a188-442d-b7ff-21b4cbe5390b")
+	)
+	(no_connect
+		(at 115.71 73.54)
+		(uuid "d8637454-2ba0-496f-8a66-8f738557d452")
+	)
+	(no_connect
+		(at 115.71 103.54)
+		(uuid "e1cd512a-453f-450a-a6a9-b6e486794f73")
 	)
 	(wire
 		(pts
-			(xy 42.00 20.00) (xy 42.00 24.476)
+			(xy 85.09 68.58) (xy 85.09 73.056)
 		)
-		(stroke (width 0) (type default))
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "04f0d5f7-b0f7-4504-ae32-24c1a8f37b2b")
+	)
+	(wire
+		(pts
+			(xy 85.09 128.58) (xy 85.09 133.056)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0593a0ab-8627-4c4e-b85a-14557e925dd3")
+	)
+	(wire
+		(pts
+			(xy 85.09 46.6) (xy 85.09 46.604)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0d20eae9-1102-46fe-9284-a741e54118c3")
+	)
+	(wire
+		(pts
+			(xy 85.09 136.104) (xy 85.09 136.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1fa1ea7d-dfed-4eb0-b39b-d4fdf4fbae40")
+	)
+	(wire
+		(pts
+			(xy 63.09 128.58) (xy 73.28 128.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "20e04aaa-dc7b-4a81-b20f-21861849c8cd")
+	)
+	(wire
+		(pts
+			(xy 85.09 91.6) (xy 85.09 91.604)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "22d3e04f-a402-4a77-8ea0-184c767729ca")
+	)
+	(wire
+		(pts
+			(xy 80.9 113.58) (xy 85.09 113.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "279b3364-2f59-4c2f-aa9e-ba9f1556880b")
+	)
+	(wire
+		(pts
+			(xy 85.09 53.58) (xy 103.01 43.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2a4f37c0-28c3-4b33-beb3-868236972e78")
+	)
+	(wire
+		(pts
+			(xy 63.09 68.58) (xy 73.28 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2a4ff5ee-afa0-42cd-9ace-22b7cf9e0383")
+	)
+	(wire
+		(pts
+			(xy 85.09 98.58) (xy 99.09 98.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "30e58b36-48fa-488b-a3a0-1a40171b5714")
+	)
+	(wire
+		(pts
+			(xy 85.09 151.104) (xy 85.09 151.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "319f5b24-84b5-4bf6-b926-33693a934d4f")
+	)
+	(wire
+		(pts
+			(xy 63.09 53.58) (xy 73.28 53.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "359676e2-1236-4829-875b-e78a9c3be9fa")
+	)
+	(wire
+		(pts
+			(xy 85.09 68.58) (xy 103.01 78.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "373d78fc-00f4-4dc1-8967-d48a8f0629a8")
+	)
+	(wire
+		(pts
+			(xy 85.09 76.6) (xy 85.09 76.604)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3bfb6a64-a91b-48dc-86e7-22de42168521")
+	)
+	(wire
+		(pts
+			(xy 85.09 46.104) (xy 85.09 46.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4cc37b43-ea02-400d-bb65-e16886a7a5b2")
+	)
+	(wire
+		(pts
+			(xy 85.09 76.104) (xy 85.09 76.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4d7b36ab-b0c1-4f2c-b146-518f8d509b26")
+	)
+	(wire
+		(pts
+			(xy 80.9 38.58) (xy 85.09 38.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4e0e00d6-877b-40f5-8f8f-c36d74e9d57a")
+	)
+	(wire
+		(pts
+			(xy 85.09 98.58) (xy 103.01 108.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "53505032-4022-4c9c-a499-3301729e1318")
+	)
+	(wire
+		(pts
+			(xy 85.09 143.58) (xy 85.09 148.056)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "53b844e0-c7f4-4edb-a499-77b7b3a4d4d8")
+	)
+	(wire
+		(pts
+			(xy 85.09 98.58) (xy 85.09 103.056)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6296a7b3-b431-4936-98f0-617268ac1580")
+	)
+	(wire
+		(pts
+			(xy 85.09 151.6) (xy 85.09 151.604)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "69b4ac27-e61c-4eba-8750-5c1558dc300a")
+	)
+	(wire
+		(pts
+			(xy 85.09 106.6) (xy 85.09 106.604)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6a321c4c-24f8-45cb-923a-0007ecddc7c6")
+	)
+	(wire
+		(pts
+			(xy 85.09 113.58) (xy 99.09 113.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75d8fd9d-4615-4cb7-bc46-eedeb7fefab4")
+	)
+	(wire
+		(pts
+			(xy 63.09 143.58) (xy 73.28 143.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7905ea7f-6332-4002-89a8-ae01a0533747")
+	)
+	(wire
+		(pts
+			(xy 63.09 113.58) (xy 73.28 113.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8354204e-5f58-4e7e-88b9-d9f1c4489682")
+	)
+	(wire
+		(pts
+			(xy 85.09 121.6) (xy 85.09 121.604)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8a348c59-8b7d-469f-8ba9-0c1f2faa8611")
+	)
+	(wire
+		(pts
+			(xy 80.9 128.58) (xy 85.09 128.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8c60c761-7bc9-4317-961e-16084529ba7a")
+	)
+	(wire
+		(pts
+			(xy 85.09 38.58) (xy 85.09 43.056)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
 		(uuid "9166d674-c076-47bb-a72d-b3005999b36f")
 	)
 	(wire
 		(pts
-			(xy 42.00 27.524) (xy 42.00 28.024)
+			(xy 85.09 113.58) (xy 103.01 103.54)
 		)
-		(stroke (width 0) (type default))
-		(uuid "4cc37b43-ea02-400d-bb65-e16886a7a5b2")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "93133627-540f-46f1-82f6-7bb729c9f839")
 	)
-	(symbol
-		(lib_id "Device:R")
-		(at 34.00 20.00 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "8402d153-2a20-4746-824a-cdfcde9162ff")
-		(property "Reference" "R1"
-			(at 36.54 18.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
+	(wire
+		(pts
+			(xy 63.09 98.58) (xy 73.28 98.58)
 		)
-		(property "Value" "10k"
-			(at 36.54 21.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
+		(stroke
+			(width 0)
+			(type default)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 34.00 20.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 34.00 20.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "4fae41d1-863f-4069-b18b-2d64fb816e43"))
-		(pin "2" (uuid "4e503fb0-b330-41aa-add6-82764803a540"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "R1")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "96186bbb-e6fd-4997-a2d9-2ccf2b08c4d4")
 	)
-	(symbol
-		(lib_id "Device:C")
-		(at 42.00 26.00 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "9807ecec-1a26-48a8-af5d-572828edf50e")
-		(property "Reference" "C1"
-			(at 44.54 24.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
+	(wire
+		(pts
+			(xy 85.09 38.58) (xy 103.01 48.62)
 		)
-		(property "Value" "100nF"
-			(at 44.54 27.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
+		(stroke
+			(width 0)
+			(type default)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 42.00 26.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 42.00 26.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "d0fc3a94-264d-414f-aad1-0063eaaf9be5"))
-		(pin "2" (uuid "2c7a161e-a9fe-45e5-adad-fa09d2bea34d"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "C1")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "962a3e80-6aeb-4971-a788-a55e9ebd4c93")
 	)
-	(symbol
-		(lib_id "GND_ISO")
-		(at 42.00 28.02 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "190f9d13-72cc-4b8b-8b0d-967c8b546100")
-		(property "Reference" "#PWR"
-			(at 42.00 28.02 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
+	(wire
+		(pts
+			(xy 85.09 83.58) (xy 85.09 88.056)
 		)
-		(property "Value" "GND_ISO"
-			(at 44.54 28.02 0)
-			(effects (font (size 1.27 1.27)))
+		(stroke
+			(width 0)
+			(type default)
 		)
-		(pin "1" (uuid "d70cf86b-85bf-4f5f-b101-af22ac3f6f1e"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "974dc7b2-98c8-4aff-bf1d-2203619a7dbf")
 	)
-	(global_label "SW1_UP"
-		(shape bidirectional)
-		(at 20.00 20.00 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
+	(wire
+		(pts
+			(xy 80.9 98.58) (xy 85.09 98.58)
 		)
-		(uuid "b90b2e5a-e7f4-4e12-ad86-be92a9aab9de")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 10.0000 20.00 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
+		(stroke
+			(width 0)
+			(type default)
 		)
+		(uuid "98dad8ed-8ddc-4bec-ae30-f6a78b7d9e76")
 	)
-	(global_label "GPIO4"
+	(wire
+		(pts
+			(xy 85.09 143.58) (xy 99.09 143.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9a0408b6-d3eb-4233-82b1-b40d8efee6a1")
+	)
+	(wire
+		(pts
+			(xy 80.9 143.58) (xy 85.09 143.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9ffd01a8-018e-4028-860a-6a05f8d99c81")
+	)
+	(wire
+		(pts
+			(xy 80.9 83.58) (xy 85.09 83.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b79632b1-c74d-4c73-965e-ad7a84e3780c")
+	)
+	(wire
+		(pts
+			(xy 85.09 121.104) (xy 85.09 121.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b852b91b-266b-41a8-9e72-fdf0d6044105")
+	)
+	(wire
+		(pts
+			(xy 85.09 68.58) (xy 99.09 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b898f22d-a266-4a2a-872b-61470ecfc99f")
+	)
+	(wire
+		(pts
+			(xy 85.09 128.58) (xy 103.01 138.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bad80bdf-475f-4c67-978c-305fce95d1a9")
+	)
+	(wire
+		(pts
+			(xy 85.09 143.58) (xy 103.01 133.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c1230664-6a6a-4614-88dd-3093d4b76fb5")
+	)
+	(wire
+		(pts
+			(xy 85.09 106.104) (xy 85.09 106.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c634f1ee-e27f-4d41-a209-8dfc9665c33f")
+	)
+	(wire
+		(pts
+			(xy 63.09 83.58) (xy 73.28 83.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c89cd495-4539-4ab0-94f2-edd5c0cf5093")
+	)
+	(wire
+		(pts
+			(xy 85.09 53.58) (xy 99.09 53.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c9567318-f6df-4b30-b117-c5326f67387d")
+	)
+	(wire
+		(pts
+			(xy 63.09 38.58) (xy 73.28 38.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cbf331a5-80ec-464c-835e-6f48ce462fc2")
+	)
+	(wire
+		(pts
+			(xy 85.09 83.58) (xy 99.09 83.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cfd39a51-792c-4733-9749-d144df71f5f7")
+	)
+	(wire
+		(pts
+			(xy 85.09 128.58) (xy 99.09 128.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d126e3b7-09df-4686-8281-8e67475f58b4")
+	)
+	(wire
+		(pts
+			(xy 80.9 53.58) (xy 85.09 53.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4ec3826-ef78-4e26-a589-bdce3072d1d1")
+	)
+	(wire
+		(pts
+			(xy 85.09 136.6) (xy 85.09 136.604)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d5584926-6cdb-4893-a79e-160565c3f68f")
+	)
+	(wire
+		(pts
+			(xy 85.09 61.6) (xy 85.09 61.604)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d69742c4-c5ae-4c2b-a36a-88bc5dd0bc95")
+	)
+	(wire
+		(pts
+			(xy 85.09 38.58) (xy 99.09 38.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d8b0897a-1751-4654-9e76-a4e56b42748b")
+	)
+	(wire
+		(pts
+			(xy 85.09 91.104) (xy 85.09 91.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "deb596e2-75f0-4c73-b510-13926a9a853d")
+	)
+	(wire
+		(pts
+			(xy 85.09 113.58) (xy 85.09 118.056)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e1c15d52-63e6-4e31-bc71-5901f779d5b6")
+	)
+	(wire
+		(pts
+			(xy 85.09 53.58) (xy 85.09 58.056)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e24f524a-97dd-4630-aa46-38165cdce138")
+	)
+	(wire
+		(pts
+			(xy 85.09 61.104) (xy 85.09 61.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e84da68c-5429-4770-a5f3-d437201930aa")
+	)
+	(wire
+		(pts
+			(xy 85.09 83.58) (xy 103.01 73.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f0be7bde-8d13-46cf-8099-44cfc710f182")
+	)
+	(wire
+		(pts
+			(xy 80.9 68.58) (xy 85.09 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fba4fd02-1187-4731-ae16-70ed65f06fb0")
+	)
+	(global_label "GPIO12"
 		(shape output)
-		(at 56.00 20.00 0)
+		(at 99.09 128.58 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -833,9 +1358,9 @@
 			)
 			(justify left)
 		)
-		(uuid "41cecf24-56fc-49d6-88bc-4c2551693712")
+		(uuid "07ac7c81-442c-4f82-a684-5cb7f6bf0407")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.0000 20.00 0)
+			(at 109.09 128.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -845,173 +1370,9 @@
 			)
 		)
 	)
-	(wire
-		(pts
-			(xy 20.00 35.00) (xy 30.19 35.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "359676e2-1236-4829-875b-e78a9c3be9fa")
-	)
-	(wire
-		(pts
-			(xy 37.81 35.00) (xy 42.00 35.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "d4ec3826-ef78-4e26-a589-bdce3072d1d1")
-	)
-	(junction
-		(at 42.00 35.00)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0982e713-7904-4123-8e9d-e0bf5c65e7ff")
-	)
-	(wire
-		(pts
-			(xy 42.00 35.00) (xy 56.00 35.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "c9567318-f6df-4b30-b117-c5326f67387d")
-	)
-	(wire
-		(pts
-			(xy 42.00 35.00) (xy 42.00 39.476)
-		)
-		(stroke (width 0) (type default))
-		(uuid "e24f524a-97dd-4630-aa46-38165cdce138")
-	)
-	(wire
-		(pts
-			(xy 42.00 42.524) (xy 42.00 43.024)
-		)
-		(stroke (width 0) (type default))
-		(uuid "e84da68c-5429-4770-a5f3-d437201930aa")
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 34.00 35.00 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "abac4c7c-e33a-4436-9461-d00be9d0d98c")
-		(property "Reference" "R2"
-			(at 36.54 33.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "10k"
-			(at 36.54 36.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 34.00 35.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 34.00 35.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "0104254d-49bb-4e48-8470-d203d312ad3c"))
-		(pin "2" (uuid "34625fea-8d21-4b07-a7b8-c91eb3fb8f79"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "R2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 42.00 41.00 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "1547d3e3-025c-4ff5-aefe-df9a6cccb4b1")
-		(property "Reference" "C2"
-			(at 44.54 39.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "100nF"
-			(at 44.54 42.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 42.00 41.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 42.00 41.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "1c1cc776-5f5b-4593-afc1-c9209621b0c3"))
-		(pin "2" (uuid "8e001475-0bd2-4cb1-99aa-50a366a6c855"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "C2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GND_ISO")
-		(at 42.00 43.02 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f493ee75-7584-491d-aa43-d4fd995d5562")
-		(property "Reference" "#PWR"
-			(at 42.00 43.02 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Value" "GND_ISO"
-			(at 44.54 43.02 0)
-			(effects (font (size 1.27 1.27)))
-		)
-		(pin "1" (uuid "84ba528b-e00e-417e-bcd9-12a398f58e63"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(global_label "SW1_DOWN"
-		(shape bidirectional)
-		(at 20.00 35.00 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "b1fa3297-d440-4f06-a3a3-56f94e5cd47c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 10.0000 35.00 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "GPIO5"
 		(shape output)
-		(at 56.00 35.00 0)
+		(at 99.09 53.58 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1021,347 +1382,19 @@
 		)
 		(uuid "23855794-ee50-4051-95d9-94490c5b2f72")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.0000 35.00 0)
+			(at 109.09 53.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 				(hide yes)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 20.00 50.00) (xy 30.19 50.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "2a4ff5ee-afa0-42cd-9ace-22b7cf9e0383")
-	)
-	(wire
-		(pts
-			(xy 37.81 50.00) (xy 42.00 50.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "fba4fd02-1187-4731-ae16-70ed65f06fb0")
-	)
-	(junction
-		(at 42.00 50.00)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "91b814d2-0adf-4984-b78a-d1c83b771162")
-	)
-	(wire
-		(pts
-			(xy 42.00 50.00) (xy 56.00 50.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "b898f22d-a266-4a2a-872b-61470ecfc99f")
-	)
-	(wire
-		(pts
-			(xy 42.00 50.00) (xy 42.00 54.476)
-		)
-		(stroke (width 0) (type default))
-		(uuid "04f0d5f7-b0f7-4504-ae32-24c1a8f37b2b")
-	)
-	(wire
-		(pts
-			(xy 42.00 57.524) (xy 42.00 58.024)
-		)
-		(stroke (width 0) (type default))
-		(uuid "4d7b36ab-b0c1-4f2c-b146-518f8d509b26")
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 34.00 50.00 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "19a81f36-a192-49b6-914e-3aede1bad5b2")
-		(property "Reference" "R3"
-			(at 36.54 48.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "10k"
-			(at 36.54 51.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 34.00 50.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 34.00 50.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "51e60c18-043d-4116-a57d-4dea7a4c57b7"))
-		(pin "2" (uuid "58b680dd-a4a0-45df-a551-304575ea25f1"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "R3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 42.00 56.00 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "c45a044a-103c-49e8-a272-e781c6844d1e")
-		(property "Reference" "C3"
-			(at 44.54 54.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "100nF"
-			(at 44.54 57.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 42.00 56.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 42.00 56.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "d46ec340-5b42-446b-8aad-57c7e39f70cc"))
-		(pin "2" (uuid "a53df4d6-33c9-4346-97aa-c5fd03372402"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "C3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GND_ISO")
-		(at 42.00 58.02 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "0d695230-1a73-4df6-9ca3-ae1e49212148")
-		(property "Reference" "#PWR"
-			(at 42.00 58.02 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Value" "GND_ISO"
-			(at 44.54 58.02 0)
-			(effects (font (size 1.27 1.27)))
-		)
-		(pin "1" (uuid "d0f9c72b-a6e2-44ea-b756-88c4cd957556"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(global_label "SW2_UP"
-		(shape bidirectional)
-		(at 20.00 50.00 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "aa992473-4a7e-4423-b9f7-db5eaf4c41a1")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 10.0000 50.00 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "GPIO6"
-		(shape output)
-		(at 56.00 50.00 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "8f8b1997-2a38-4e32-8a8e-817c6f5a56d4")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.0000 50.00 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 20.00 65.00) (xy 30.19 65.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "c89cd495-4539-4ab0-94f2-edd5c0cf5093")
-	)
-	(wire
-		(pts
-			(xy 37.81 65.00) (xy 42.00 65.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "b79632b1-c74d-4c73-965e-ad7a84e3780c")
-	)
-	(junction
-		(at 42.00 65.00)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "96361fe3-5e7d-40ff-8281-66ac69c69e64")
-	)
-	(wire
-		(pts
-			(xy 42.00 65.00) (xy 56.00 65.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "cfd39a51-792c-4733-9749-d144df71f5f7")
-	)
-	(wire
-		(pts
-			(xy 42.00 65.00) (xy 42.00 69.476)
-		)
-		(stroke (width 0) (type default))
-		(uuid "974dc7b2-98c8-4aff-bf1d-2203619a7dbf")
-	)
-	(wire
-		(pts
-			(xy 42.00 72.524) (xy 42.00 73.024)
-		)
-		(stroke (width 0) (type default))
-		(uuid "deb596e2-75f0-4c73-b510-13926a9a853d")
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 34.00 65.00 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "02b00504-6b5a-468e-bd4b-a1908f74af86")
-		(property "Reference" "R4"
-			(at 36.54 63.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "10k"
-			(at 36.54 66.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 34.00 65.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 34.00 65.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "bbe967a9-c0c8-483a-948e-32e3711c8797"))
-		(pin "2" (uuid "bfd5dc69-ec45-409d-9921-61f196b69936"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "R4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 42.00 71.00 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "fbf8d756-4d86-40ad-bedb-ac7a1fd2ddf0")
-		(property "Reference" "C4"
-			(at 44.54 69.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "100nF"
-			(at 44.54 72.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 42.00 71.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 42.00 71.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "9fa623c2-b0d1-4b1b-91c2-cb31348b0804"))
-		(pin "2" (uuid "359a3228-6c45-429f-a422-4571694f0883"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "C4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GND_ISO")
-		(at 42.00 73.02 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "d013d62e-385e-480e-acc2-ddab92e843c5")
-		(property "Reference" "#PWR"
-			(at 42.00 73.02 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Value" "GND_ISO"
-			(at 44.54 73.02 0)
-			(effects (font (size 1.27 1.27)))
-		)
-		(pin "1" (uuid "c8f49cc8-d53c-4dbe-946a-b4c705f914a1"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
-					(unit 1)
-				)
 			)
 		)
 	)
 	(global_label "SW2_DOWN"
 		(shape bidirectional)
-		(at 20.00 65.00 180)
+		(at 63.09 83.58 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1371,7 +1404,7 @@
 		)
 		(uuid "292c1692-4ffe-423a-8164-0c15391f19c5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 10.0000 65.00 0)
+			(at 53.09 83.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1381,173 +1414,9 @@
 			)
 		)
 	)
-	(global_label "GPIO8"
-		(shape output)
-		(at 56.00 65.00 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "78135fa4-56fe-4611-9efa-9973f9f47f65")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.0000 65.00 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 20.00 80.00) (xy 30.19 80.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "96186bbb-e6fd-4997-a2d9-2ccf2b08c4d4")
-	)
-	(wire
-		(pts
-			(xy 37.81 80.00) (xy 42.00 80.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "98dad8ed-8ddc-4bec-ae30-f6a78b7d9e76")
-	)
-	(junction
-		(at 42.00 80.00)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7321a462-e33e-4adf-aeb6-4bdd88adddd7")
-	)
-	(wire
-		(pts
-			(xy 42.00 80.00) (xy 56.00 80.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "30e58b36-48fa-488b-a3a0-1a40171b5714")
-	)
-	(wire
-		(pts
-			(xy 42.00 80.00) (xy 42.00 84.476)
-		)
-		(stroke (width 0) (type default))
-		(uuid "6296a7b3-b431-4936-98f0-617268ac1580")
-	)
-	(wire
-		(pts
-			(xy 42.00 87.524) (xy 42.00 88.024)
-		)
-		(stroke (width 0) (type default))
-		(uuid "c634f1ee-e27f-4d41-a209-8dfc9665c33f")
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 34.00 80.00 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "5e619a5a-177b-479e-850d-83d5d086f3ec")
-		(property "Reference" "R5"
-			(at 36.54 78.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "10k"
-			(at 36.54 81.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 34.00 80.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 34.00 80.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "28662c69-2240-4b4b-9a66-adf750c1a551"))
-		(pin "2" (uuid "6a6efa6b-d426-4c2e-8496-94fda31a8e2b"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "R5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 42.00 86.00 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "430f93a9-4a45-4e51-97fe-d155e365812f")
-		(property "Reference" "C5"
-			(at 44.54 84.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "100nF"
-			(at 44.54 87.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 42.00 86.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 42.00 86.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "99a442cf-919a-474d-82fe-3e0bc9ff7e3b"))
-		(pin "2" (uuid "2e1e6dbc-41e3-4c6b-bca5-6fffd47c82c0"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "C5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GND_ISO")
-		(at 42.00 88.02 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "d170817a-1d92-4b6b-b2bc-d83efd8806b2")
-		(property "Reference" "#PWR"
-			(at 42.00 88.02 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Value" "GND_ISO"
-			(at 44.54 88.02 0)
-			(effects (font (size 1.27 1.27)))
-		)
-		(pin "1" (uuid "49737a73-7049-486b-9891-8ade99d7d6d0"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(global_label "SW3_UP"
+	(global_label "SW4_DOWN"
 		(shape bidirectional)
-		(at 20.00 80.00 180)
+		(at 63.09 143.58 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1555,9 +1424,31 @@
 			)
 			(justify right)
 		)
-		(uuid "8837a047-31b5-4b61-a7c9-92f051f8fca1")
+		(uuid "2fa5270c-44a4-4348-8bac-bd1c6edbb2ce")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 10.0000 80.00 0)
+			(at 53.09 143.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "SW4_UP"
+		(shape bidirectional)
+		(at 63.09 128.58 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "30705972-f288-4e7c-8cc1-802581eac459")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 53.09 128.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1569,7 +1460,7 @@
 	)
 	(global_label "GPIO9"
 		(shape output)
-		(at 56.00 80.00 0)
+		(at 99.09 98.58 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1579,7 +1470,7 @@
 		)
 		(uuid "3ca89749-ebad-416f-9faf-e20ba0e26f22")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.0000 80.00 0)
+			(at 109.09 98.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1589,151 +1480,31 @@
 			)
 		)
 	)
-	(wire
-		(pts
-			(xy 20.00 95.00) (xy 30.19 95.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "8354204e-5f58-4e7e-88b9-d9f1c4489682")
-	)
-	(wire
-		(pts
-			(xy 37.81 95.00) (xy 42.00 95.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "279b3364-2f59-4c2f-aa9e-ba9f1556880b")
-	)
-	(junction
-		(at 42.00 95.00)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "008a5911-640d-4c44-97fc-abbd9c1499d7")
-	)
-	(wire
-		(pts
-			(xy 42.00 95.00) (xy 56.00 95.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "75d8fd9d-4615-4cb7-bc46-eedeb7fefab4")
-	)
-	(wire
-		(pts
-			(xy 42.00 95.00) (xy 42.00 99.476)
-		)
-		(stroke (width 0) (type default))
-		(uuid "e1c15d52-63e6-4e31-bc71-5901f779d5b6")
-	)
-	(wire
-		(pts
-			(xy 42.00 102.524) (xy 42.00 103.024)
-		)
-		(stroke (width 0) (type default))
-		(uuid "b852b91b-266b-41a8-9e72-fdf0d6044105")
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 34.00 95.00 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
+	(global_label "GPIO4"
+		(shape output)
+		(at 99.09 38.58 0)
 		(fields_autoplaced yes)
-		(uuid "9f983512-fe9a-406d-8b28-997ebdddcdd2")
-		(property "Reference" "R6"
-			(at 36.54 93.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "10k"
-			(at 36.54 96.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 34.00 95.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 34.00 95.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "d789dad4-6b59-4486-a220-a2fc974cbfa1"))
-		(pin "2" (uuid "232a8027-3466-4daa-a2d2-a67195d7668e"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "R6")
-					(unit 1)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify left)
 		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 42.00 101.00 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "3755f3e0-093a-4dbe-bc87-61859dae2a48")
-		(property "Reference" "C6"
-			(at 44.54 99.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "100nF"
-			(at 44.54 102.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 42.00 101.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 42.00 101.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "85c7110e-6c99-47df-8c97-893d8df3d038"))
-		(pin "2" (uuid "43e56b4a-9f58-48d0-a20a-fece24b61502"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "C6")
-					(unit 1)
+		(uuid "41cecf24-56fc-49d6-88bc-4c2551693712")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 109.09 38.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GND_ISO")
-		(at 42.00 103.02 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e256c286-0b90-4d89-a865-4c711826ff82")
-		(property "Reference" "#PWR"
-			(at 42.00 103.02 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Value" "GND_ISO"
-			(at 44.54 103.02 0)
-			(effects (font (size 1.27 1.27)))
-		)
-		(pin "1" (uuid "b189d8a6-332f-489f-bd1d-16253367de7a"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
-					(unit 1)
-				)
+				(justify left)
+				(hide yes)
 			)
 		)
 	)
 	(global_label "SW3_DOWN"
 		(shape bidirectional)
-		(at 20.00 95.00 180)
+		(at 63.09 113.58 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1743,7 +1514,7 @@
 		)
 		(uuid "6979a41f-258b-4b06-ab06-ea23dc81a9e4")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 10.0000 95.00 0)
+			(at 53.09 113.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1753,9 +1524,75 @@
 			)
 		)
 	)
+	(global_label "GPIO8"
+		(shape output)
+		(at 99.09 83.58 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "78135fa4-56fe-4611-9efa-9973f9f47f65")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 109.09 83.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "SW3_UP"
+		(shape bidirectional)
+		(at 63.09 98.58 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8837a047-31b5-4b61-a7c9-92f051f8fca1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 53.09 98.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "GPIO6"
+		(shape output)
+		(at 99.09 68.58 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8f8b1997-2a38-4e32-8a8e-817c6f5a56d4")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 109.09 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "GPIO11"
 		(shape output)
-		(at 56.00 95.00 0)
+		(at 99.09 113.58 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1765,7 +1602,7 @@
 		)
 		(uuid "8ff4bda4-aa22-4010-9533-9b9f9a28a559")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.0000 95.00 0)
+			(at 109.09 113.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1775,151 +1612,9 @@
 			)
 		)
 	)
-	(wire
-		(pts
-			(xy 20.00 110.00) (xy 30.19 110.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "20e04aaa-dc7b-4a81-b20f-21861849c8cd")
-	)
-	(wire
-		(pts
-			(xy 37.81 110.00) (xy 42.00 110.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "8c60c761-7bc9-4317-961e-16084529ba7a")
-	)
-	(junction
-		(at 42.00 110.00)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c5f24b30-fb70-43c5-8d31-e70652233e59")
-	)
-	(wire
-		(pts
-			(xy 42.00 110.00) (xy 56.00 110.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "d126e3b7-09df-4686-8281-8e67475f58b4")
-	)
-	(wire
-		(pts
-			(xy 42.00 110.00) (xy 42.00 114.476)
-		)
-		(stroke (width 0) (type default))
-		(uuid "0593a0ab-8627-4c4e-b85a-14557e925dd3")
-	)
-	(wire
-		(pts
-			(xy 42.00 117.524) (xy 42.00 118.024)
-		)
-		(stroke (width 0) (type default))
-		(uuid "1fa1ea7d-dfed-4eb0-b39b-d4fdf4fbae40")
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 34.00 110.00 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "902a24bd-ed7d-419a-9a68-8874e49f2ec0")
-		(property "Reference" "R7"
-			(at 36.54 108.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "10k"
-			(at 36.54 111.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 34.00 110.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 34.00 110.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "3a8ceb2b-eca5-431c-a2d5-7512f38652f0"))
-		(pin "2" (uuid "5d6b85bf-ac11-41c4-b3d9-4f4730311579"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "R7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 42.00 116.00 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e4c948df-3621-46a5-8d16-e5dedb7bc34f")
-		(property "Reference" "C7"
-			(at 44.54 114.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "100nF"
-			(at 44.54 117.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 42.00 116.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 42.00 116.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "f8c4e0d4-fb75-4f95-931b-5fb305967970"))
-		(pin "2" (uuid "d455d5a1-2a03-443e-9e92-5758f7f73b35"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "C7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GND_ISO")
-		(at 42.00 118.02 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "7d180b7a-66c8-4a27-9605-3722d9faf86e")
-		(property "Reference" "#PWR"
-			(at 42.00 118.02 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Value" "GND_ISO"
-			(at 44.54 118.02 0)
-			(effects (font (size 1.27 1.27)))
-		)
-		(pin "1" (uuid "e654eebe-8645-4452-92c5-4c3c5c90a336"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(global_label "SW4_UP"
+	(global_label "SW2_UP"
 		(shape bidirectional)
-		(at 20.00 110.00 180)
+		(at 63.09 68.58 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1927,9 +1622,9 @@
 			)
 			(justify right)
 		)
-		(uuid "30705972-f288-4e7c-8cc1-802581eac459")
+		(uuid "aa992473-4a7e-4423-b9f7-db5eaf4c41a1")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 10.0000 110.00 0)
+			(at 53.09 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1939,173 +1634,9 @@
 			)
 		)
 	)
-	(global_label "GPIO12"
-		(shape output)
-		(at 56.00 110.00 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "07ac7c81-442c-4f82-a684-5cb7f6bf0407")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.0000 110.00 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 20.00 125.00) (xy 30.19 125.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "7905ea7f-6332-4002-89a8-ae01a0533747")
-	)
-	(wire
-		(pts
-			(xy 37.81 125.00) (xy 42.00 125.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "9ffd01a8-018e-4028-860a-6a05f8d99c81")
-	)
-	(junction
-		(at 42.00 125.00)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c5e42316-f354-47c2-8f23-0ca85bfa0b02")
-	)
-	(wire
-		(pts
-			(xy 42.00 125.00) (xy 56.00 125.00)
-		)
-		(stroke (width 0) (type default))
-		(uuid "9a0408b6-d3eb-4233-82b1-b40d8efee6a1")
-	)
-	(wire
-		(pts
-			(xy 42.00 125.00) (xy 42.00 129.476)
-		)
-		(stroke (width 0) (type default))
-		(uuid "53b844e0-c7f4-4edb-a499-77b7b3a4d4d8")
-	)
-	(wire
-		(pts
-			(xy 42.00 132.524) (xy 42.00 133.024)
-		)
-		(stroke (width 0) (type default))
-		(uuid "319f5b24-84b5-4bf6-b926-33693a934d4f")
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 34.00 125.00 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "396b8bad-8344-4ed3-843b-1aa60679f6dc")
-		(property "Reference" "R8"
-			(at 36.54 123.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "10k"
-			(at 36.54 126.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 34.00 125.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 34.00 125.00 90)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "5b0218a5-f302-4015-a0cb-99444923fb30"))
-		(pin "2" (uuid "c229e459-aa87-4c6f-8ae7-0681d606ef8d"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "R8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 42.00 131.00 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "098b7275-7d74-4d4c-b099-338a3a282c50")
-		(property "Reference" "C8"
-			(at 44.54 129.73 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "100nF"
-			(at 44.54 132.27 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 42.00 131.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "~"
-			(at 42.00 131.00 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "1" (uuid "1a4ba578-22c3-4c81-884e-c70529a7df48"))
-		(pin "2" (uuid "a119241d-db92-4d7b-9bf9-f3f328762f0d"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "C8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GND_ISO")
-		(at 42.00 133.02 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c82796b2-024e-4c33-8a0a-b4641b3d9a99")
-		(property "Reference" "#PWR"
-			(at 42.00 133.02 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Value" "GND_ISO"
-			(at 44.54 133.02 0)
-			(effects (font (size 1.27 1.27)))
-		)
-		(pin "1" (uuid "99ecfe86-cef0-4852-8c7b-b732b03b193b"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(global_label "SW4_DOWN"
+	(global_label "SW1_DOWN"
 		(shape bidirectional)
-		(at 20.00 125.00 180)
+		(at 63.09 53.58 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2113,9 +1644,31 @@
 			)
 			(justify right)
 		)
-		(uuid "2fa5270c-44a4-4348-8bac-bd1c6edbb2ce")
+		(uuid "b1fa3297-d440-4f06-a3a3-56f94e5cd47c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 10.0000 125.00 0)
+			(at 53.09 53.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "SW1_UP"
+		(shape bidirectional)
+		(at 63.09 38.58 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b90b2e5a-e7f4-4e12-ad86-be92a9aab9de")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 53.09 38.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2127,7 +1680,7 @@
 	)
 	(global_label "GPIO13"
 		(shape output)
-		(at 56.00 125.00 0)
+		(at 99.09 143.58 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2137,7 +1690,7 @@
 		)
 		(uuid "ffd4820b-4a2a-4d36-a617-55a007f44602")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.0000 125.00 0)
+			(at 109.09 143.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2147,423 +1700,463 @@
 			)
 		)
 	)
-	(wire
-		(pts
-			(xy 42.00 20.00) (xy 59.92 30.04)
+	(symbol
+		(lib_id "Device:R")
+		(at 77.09 83.58 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "02b00504-6b5a-468e-bd4b-a1908f74af86")
+		(property "Reference" "R?"
+			(at 79.63 82.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
 		)
-		(stroke (width 0) (type default))
-		(uuid "962a3e80-6aeb-4971-a788-a55e9ebd4c93")
+		(property "Value" "10k"
+			(at 79.63 84.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 77.09 83.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.09 83.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.09 83.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "bbe967a9-c0c8-483a-948e-32e3711c8797")
+		)
+		(pin "2"
+			(uuid "bfd5dc69-ec45-409d-9921-61f196b69936")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+		)
 	)
-	(wire
-		(pts
-			(xy 42.00 35.00) (xy 59.92 24.96)
+	(symbol
+		(lib_id "Device:C")
+		(at 85.09 149.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "098b7275-7d74-4d4c-b099-338a3a282c50")
+		(property "Reference" "C?"
+			(at 87.63 148.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
 		)
-		(stroke (width 0) (type default))
-		(uuid "2a4f37c0-28c3-4b33-beb3-868236972e78")
+		(property "Value" "100nF"
+			(at 87.63 150.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 85.09 149.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 85.09 149.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 149.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "1a4ba578-22c3-4c81-884e-c70529a7df48")
+		)
+		(pin "2"
+			(uuid "a119241d-db92-4d7b-9bf9-f3f328762f0d")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(symbol
 		(lib_id "GND_ISO")
-		(at 65.00 19.88 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "45aed32e-e9dc-4e7b-a160-457a6feaedc9")
-		(property "Reference" "#PWR"
-			(at 65.00 19.88 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Value" "GND_ISO"
-			(at 67.54 19.88 0)
-			(effects (font (size 1.27 1.27)))
-		)
-		(pin "1" (uuid "d702394b-f45f-4588-8260-f6ec70ccb53b"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "+3.3V_ISO")
-		(at 65.00 35.12 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "28da9d6e-1a61-4f8c-a62c-3bfd59f46779")
-		(property "Reference" "#PWR"
-			(at 65.00 35.12 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Value" "+3.3V_ISO"
-			(at 67.54 35.12 0)
-			(effects (font (size 1.27 1.27)))
-		)
-		(pin "1" (uuid "35723021-7d34-46dc-afda-d12f58df1b5f"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "PRTR5V0U2X")
-		(at 65.00 27.50 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "2d2d9de8-0670-457b-b27a-1eeb9fc5334e")
-		(property "Reference" "U1"
-			(at 79.00 26.23 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "PRTR5V0U2X"
-			(at 79.00 28.77 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-363"
-			(at 65.00 27.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PRTR5V0U2X.pdf"
-			(at 65.00 27.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Manufacturer_Name" "Nexperia"
-			(at 65.00 27.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Manufacturer_Part_Number" "PRTR5V0U2X"
-			(at 65.00 27.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "3" (uuid "34365b3d-80d1-492e-bb88-806813ec6db6"))
-		(pin "1" (uuid "f9b8ca80-eb35-4c4a-8bbe-a0381d09ada5"))
-		(pin "5" (uuid "75097900-909b-4f64-8a9c-674491639f97"))
-		(pin "2" (uuid "20150785-2aa0-443c-b596-1287f29ffec9"))
-		(pin "6" (uuid "0f9711c9-6cfd-49bf-892b-aecc32342fea"))
-		(pin "4" (uuid "92426f1c-5fc0-44d6-ac5a-9daa0e7b10a9"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "U1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(no_connect (at 72.62 30.04) (uuid "96a505bb-a188-442d-b7ff-21b4cbe5390b"))
-	(no_connect (at 72.62 24.96) (uuid "25709280-30db-445c-8b91-31a1bdbaf3a1"))
-	(wire
-		(pts
-			(xy 42.00 50.00) (xy 59.92 60.04)
-		)
-		(stroke (width 0) (type default))
-		(uuid "373d78fc-00f4-4dc1-8967-d48a8f0629a8")
-	)
-	(wire
-		(pts
-			(xy 42.00 65.00) (xy 59.92 54.96)
-		)
-		(stroke (width 0) (type default))
-		(uuid "f0be7bde-8d13-46cf-8099-44cfc710f182")
-	)
-	(symbol
-		(lib_id "GND_ISO")
-		(at 65.00 49.88 0)
+		(at 108.09 68.46 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "0a32a4f5-9c8c-4cdb-a5c3-1d4d4cf78137")
-		(property "Reference" "#PWR"
-			(at 65.00 49.88 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
+		(property "Reference" "#PWR?"
+			(at 108.09 68.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(property "Value" "GND_ISO"
-			(at 67.54 49.88 0)
-			(effects (font (size 1.27 1.27)))
+			(at 110.63 68.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
 		)
-		(pin "1" (uuid "fa265191-b41b-4023-b69e-87e37073ee93"))
+		(property "Footprint" ""
+			(at 108.09 68.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 108.09 68.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 108.09 68.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "fa265191-b41b-4023-b69e-87e37073ee93")
+		)
 		(instances
 			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
 		)
-	)
-	(symbol
-		(lib_id "+3.3V_ISO")
-		(at 65.00 65.12 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e5da1c4e-ea51-49df-a683-5d81db85eb62")
-		(property "Reference" "#PWR"
-			(at 65.00 65.12 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Value" "+3.3V_ISO"
-			(at 67.54 65.12 0)
-			(effects (font (size 1.27 1.27)))
-		)
-		(pin "1" (uuid "297c21c2-d63b-41eb-8359-0dfb74387ddb"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "PRTR5V0U2X")
-		(at 65.00 57.50 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "4ef4acdf-32ca-4c08-b903-4a5e6051de36")
-		(property "Reference" "U2"
-			(at 79.00 56.23 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "PRTR5V0U2X"
-			(at 79.00 58.77 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-363"
-			(at 65.00 57.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PRTR5V0U2X.pdf"
-			(at 65.00 57.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Manufacturer_Name" "Nexperia"
-			(at 65.00 57.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Manufacturer_Part_Number" "PRTR5V0U2X"
-			(at 65.00 57.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "3" (uuid "2e0ffb60-714f-41f5-8d40-47ad5f0bd377"))
-		(pin "1" (uuid "4eae4699-b637-43e5-978e-7acfc25b8d66"))
-		(pin "5" (uuid "70cde919-8c19-4930-bad6-13fe9ef120dd"))
-		(pin "2" (uuid "906d0581-7c9c-4054-a4f1-cb1f6212b1eb"))
-		(pin "6" (uuid "7689c64a-5ca5-4552-8f6d-d0967523a8ef"))
-		(pin "4" (uuid "10a1391c-9068-4171-8c44-370ce5e6b4cb"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "U2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(no_connect (at 72.62 60.04) (uuid "398272c1-34a1-44b3-a6bb-ca9e3a4cef01"))
-	(no_connect (at 72.62 54.96) (uuid "d8637454-2ba0-496f-8a66-8f738557d452"))
-	(wire
-		(pts
-			(xy 42.00 80.00) (xy 59.92 90.04)
-		)
-		(stroke (width 0) (type default))
-		(uuid "53505032-4022-4c9c-a499-3301729e1318")
-	)
-	(wire
-		(pts
-			(xy 42.00 95.00) (xy 59.92 84.96)
-		)
-		(stroke (width 0) (type default))
-		(uuid "93133627-540f-46f1-82f6-7bb729c9f839")
 	)
 	(symbol
 		(lib_id "GND_ISO")
-		(at 65.00 79.88 0)
+		(at 85.09 76.6 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "66eac42a-403d-4534-aff5-4dcae2ffff85")
-		(property "Reference" "#PWR"
-			(at 65.00 79.88 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
+		(uuid "0d695230-1a73-4df6-9ca3-ae1e49212148")
+		(property "Reference" "#PWR?"
+			(at 85.09 76.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(property "Value" "GND_ISO"
-			(at 67.54 79.88 0)
-			(effects (font (size 1.27 1.27)))
+			(at 87.63 76.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
 		)
-		(pin "1" (uuid "9b7c2fa4-b5c3-4be3-a21b-0c6b33f36ccc"))
+		(property "Footprint" ""
+			(at 85.09 76.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 85.09 76.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 76.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d0f9c72b-a6e2-44ea-b756-88c4cd957556")
+		)
 		(instances
 			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "+3.3V_ISO")
-		(at 65.00 95.12 0)
+		(lib_id "Device:C")
+		(at 85.09 59.58 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "75a3ca19-849e-4fc9-bf75-707472c34836")
-		(property "Reference" "#PWR"
-			(at 65.00 95.12 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
+		(fields_autoplaced yes)
+		(uuid "1547d3e3-025c-4ff5-aefe-df9a6cccb4b1")
+		(property "Reference" "C?"
+			(at 87.63 58.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
 		)
-		(property "Value" "+3.3V_ISO"
-			(at 67.54 95.12 0)
-			(effects (font (size 1.27 1.27)))
+		(property "Value" "100nF"
+			(at 87.63 60.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
 		)
-		(pin "1" (uuid "6d347c1f-5e27-40c1-bad6-464db58b3b78"))
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 85.09 59.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 85.09 59.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 59.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "1c1cc776-5f5b-4593-afc1-c9209621b0c3")
+		)
+		(pin "2"
+			(uuid "8e001475-0bd2-4cb1-99aa-50a366a6c855")
+		)
 		(instances
 			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "C?")
 					(unit 1)
 				)
 			)
 		)
-	)
-	(symbol
-		(lib_id "PRTR5V0U2X")
-		(at 65.00 87.50 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "272081ff-347b-4d3e-b961-2795e1e243c9")
-		(property "Reference" "U3"
-			(at 79.00 86.23 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Value" "PRTR5V0U2X"
-			(at 79.00 88.77 0)
-			(effects (font (size 1.27 1.27)) (justify left))
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-363"
-			(at 65.00 87.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PRTR5V0U2X.pdf"
-			(at 65.00 87.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Manufacturer_Name" "Nexperia"
-			(at 65.00 87.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Manufacturer_Part_Number" "PRTR5V0U2X"
-			(at 65.00 87.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(pin "3" (uuid "d2633051-9f37-4fb4-995f-5a8185391fd8"))
-		(pin "1" (uuid "f97c1c86-c2f4-4bfc-8355-2079a655c4bb"))
-		(pin "5" (uuid "f8dbe515-c2d3-497a-96c2-dd1709d0c839"))
-		(pin "2" (uuid "228864a8-07e4-4af3-895a-11f236632a0a"))
-		(pin "6" (uuid "4a448e31-af5e-4a39-be07-94fb9b7fc391"))
-		(pin "4" (uuid "477c5cb6-30c7-4946-a405-91357d7f546c"))
-		(instances
-			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "U3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(no_connect (at 72.62 90.04) (uuid "1a7b4f9f-b905-4cfc-b212-feab6fe27825"))
-	(no_connect (at 72.62 84.96) (uuid "e1cd512a-453f-450a-a6a9-b6e486794f73"))
-	(wire
-		(pts
-			(xy 42.00 110.00) (xy 59.92 120.04)
-		)
-		(stroke (width 0) (type default))
-		(uuid "bad80bdf-475f-4c67-978c-305fce95d1a9")
-	)
-	(wire
-		(pts
-			(xy 42.00 125.00) (xy 59.92 114.96)
-		)
-		(stroke (width 0) (type default))
-		(uuid "c1230664-6a6a-4614-88dd-3093d4b76fb5")
 	)
 	(symbol
 		(lib_id "GND_ISO")
-		(at 65.00 109.88 0)
+		(at 85.09 46.6 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "770ce3c3-1175-4f38-9d8d-335a774792ad")
-		(property "Reference" "#PWR"
-			(at 65.00 109.88 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
+		(uuid "190f9d13-72cc-4b8b-8b0d-967c8b546100")
+		(property "Reference" "#PWR?"
+			(at 85.09 46.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(property "Value" "GND_ISO"
-			(at 67.54 109.88 0)
-			(effects (font (size 1.27 1.27)))
+			(at 87.63 46.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
 		)
-		(pin "1" (uuid "cde00325-5104-444c-9357-69023a529990"))
+		(property "Footprint" ""
+			(at 85.09 46.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 85.09 46.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 46.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d70cf86b-85bf-4f5f-b101-af22ac3f6f1e")
+		)
 		(instances
 			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "+3.3V_ISO")
-		(at 65.00 125.12 0)
+		(lib_id "Device:R")
+		(at 77.09 68.58 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "df3daa1b-57c0-411c-8e51-1aa37eae3fc6")
-		(property "Reference" "#PWR"
-			(at 65.00 125.12 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
+		(fields_autoplaced yes)
+		(uuid "19a81f36-a192-49b6-914e-3aede1bad5b2")
+		(property "Reference" "R?"
+			(at 79.63 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
 		)
-		(property "Value" "+3.3V_ISO"
-			(at 67.54 125.12 0)
-			(effects (font (size 1.27 1.27)))
+		(property "Value" "10k"
+			(at 79.63 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
 		)
-		(pin "1" (uuid "f2f0e27c-c662-4508-93d5-cd59b255c784"))
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 77.09 68.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.09 68.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.09 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "51e60c18-043d-4116-a57d-4dea7a4c57b7")
+		)
+		(pin "2"
+			(uuid "58b680dd-a4a0-45df-a551-304575ea25f1")
+		)
 		(instances
 			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "#PWR")
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "R?")
 					(unit 1)
 				)
 			)
@@ -2571,58 +2164,2028 @@
 	)
 	(symbol
 		(lib_id "PRTR5V0U2X")
-		(at 65.00 117.50 0)
+		(at 108.09 136.08 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "19ad1992-6cc3-4534-9372-d091db48455f")
-		(property "Reference" "U4"
-			(at 79.00 116.23 0)
-			(effects (font (size 1.27 1.27)) (justify left))
+		(property "Reference" "U?"
+			(at 122.09 134.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
 		)
 		(property "Value" "PRTR5V0U2X"
-			(at 79.00 118.77 0)
-			(effects (font (size 1.27 1.27)) (justify left))
+			(at 122.09 137.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-363"
-			(at 65.00 117.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
+			(at 108.09 136.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PRTR5V0U2X.pdf"
-			(at 65.00 117.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
+			(at 108.09 136.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 108.09 136.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
 		)
 		(property "Manufacturer_Name" "Nexperia"
-			(at 65.00 117.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
+			(at 108.09 136.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(property "Manufacturer_Part_Number" "PRTR5V0U2X"
-			(at 65.00 117.50 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
+			(at 108.09 136.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
-		(pin "3" (uuid "60eaf857-b135-455c-a5ba-56abd3d57254"))
-		(pin "1" (uuid "4e0680cd-3ae1-44a9-836a-3f20e02c4f3f"))
-		(pin "5" (uuid "f174cd88-3690-448a-9aee-f3e3369832f0"))
-		(pin "2" (uuid "cea982cc-5866-45db-b539-1ba204442637"))
-		(pin "6" (uuid "e49825d0-2477-491a-9c56-e89047f74a1c"))
-		(pin "4" (uuid "00ed56d8-7e0f-4966-927d-5aacacc0d053"))
+		(pin "3"
+			(uuid "60eaf857-b135-455c-a5ba-56abd3d57254")
+		)
+		(pin "1"
+			(uuid "4e0680cd-3ae1-44a9-836a-3f20e02c4f3f")
+		)
+		(pin "5"
+			(uuid "f174cd88-3690-448a-9aee-f3e3369832f0")
+		)
+		(pin "2"
+			(uuid "cea982cc-5866-45db-b539-1ba204442637")
+		)
+		(pin "6"
+			(uuid "e49825d0-2477-491a-9c56-e89047f74a1c")
+		)
+		(pin "4"
+			(uuid "00ed56d8-7e0f-4966-927d-5aacacc0d053")
+		)
 		(instances
 			(project "barn-blinds-controller"
-				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb"
-					(reference "U4")
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "U?")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(no_connect (at 72.62 120.04) (uuid "5955abbe-3773-49f7-84f7-13c4b9efa640"))
-	(no_connect (at 72.62 114.96) (uuid "5370868a-93a7-499f-87c5-f0f6b9ebf7d6"))
-	(sheet_instances
-		(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
-			(page "9")
+	(symbol
+		(lib_id "PRTR5V0U2X")
+		(at 108.09 106.08 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "272081ff-347b-4d3e-b961-2795e1e243c9")
+		(property "Reference" "U?"
+			(at 122.09 104.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PRTR5V0U2X"
+			(at 122.09 107.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-363"
+			(at 108.09 106.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PRTR5V0U2X.pdf"
+			(at 108.09 106.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 108.09 106.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer_Name" "Nexperia"
+			(at 108.09 106.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "PRTR5V0U2X"
+			(at 108.09 106.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "d2633051-9f37-4fb4-995f-5a8185391fd8")
+		)
+		(pin "1"
+			(uuid "f97c1c86-c2f4-4bfc-8355-2079a655c4bb")
+		)
+		(pin "5"
+			(uuid "f8dbe515-c2d3-497a-96c2-dd1709d0c839")
+		)
+		(pin "2"
+			(uuid "228864a8-07e4-4af3-895a-11f236632a0a")
+		)
+		(pin "6"
+			(uuid "4a448e31-af5e-4a39-be07-94fb9b7fc391")
+		)
+		(pin "4"
+			(uuid "477c5cb6-30c7-4946-a405-91357d7f546c")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "U?")
+					(unit 1)
+				)
+			)
 		)
 	)
-	(embedded_fonts no)
+	(symbol
+		(lib_id "+3.3V_ISO")
+		(at 108.09 53.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "28da9d6e-1a61-4f8c-a62c-3bfd59f46779")
+		(property "Reference" "#PWR?"
+			(at 108.09 53.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V_ISO"
+			(at 110.63 53.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 108.09 53.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 108.09 53.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 108.09 53.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "35723021-7d34-46dc-afda-d12f58df1b5f")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "PRTR5V0U2X")
+		(at 108.09 46.08 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2d2d9de8-0670-457b-b27a-1eeb9fc5334e")
+		(property "Reference" "U?"
+			(at 122.09 44.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PRTR5V0U2X"
+			(at 122.09 47.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-363"
+			(at 108.09 46.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PRTR5V0U2X.pdf"
+			(at 108.09 46.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 108.09 46.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer_Name" "Nexperia"
+			(at 108.09 46.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "PRTR5V0U2X"
+			(at 108.09 46.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "34365b3d-80d1-492e-bb88-806813ec6db6")
+		)
+		(pin "1"
+			(uuid "f9b8ca80-eb35-4c4a-8bbe-a0381d09ada5")
+		)
+		(pin "5"
+			(uuid "75097900-909b-4f64-8a9c-674491639f97")
+		)
+		(pin "2"
+			(uuid "20150785-2aa0-443c-b596-1287f29ffec9")
+		)
+		(pin "6"
+			(uuid "0f9711c9-6cfd-49bf-892b-aecc32342fea")
+		)
+		(pin "4"
+			(uuid "92426f1c-5fc0-44d6-ac5a-9daa0e7b10a9")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "U?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 85.09 119.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3755f3e0-093a-4dbe-bc87-61859dae2a48")
+		(property "Reference" "C?"
+			(at 87.63 118.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 87.63 120.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 85.09 119.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 85.09 119.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 119.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "85c7110e-6c99-47df-8c97-893d8df3d038")
+		)
+		(pin "2"
+			(uuid "43e56b4a-9f58-48d0-a20a-fece24b61502")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 77.09 143.58 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "396b8bad-8344-4ed3-843b-1aa60679f6dc")
+		(property "Reference" "R?"
+			(at 79.63 142.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 79.63 144.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 77.09 143.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.09 143.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.09 143.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "5b0218a5-f302-4015-a0cb-99444923fb30")
+		)
+		(pin "2"
+			(uuid "c229e459-aa87-4c6f-8ae7-0681d606ef8d")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 85.09 104.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "430f93a9-4a45-4e51-97fe-d155e365812f")
+		(property "Reference" "C?"
+			(at 87.63 103.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 87.63 105.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 85.09 104.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 85.09 104.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 104.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "99a442cf-919a-474d-82fe-3e0bc9ff7e3b")
+		)
+		(pin "2"
+			(uuid "2e1e6dbc-41e3-4c6b-bca5-6fffd47c82c0")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GND_ISO")
+		(at 108.09 38.46 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "45aed32e-e9dc-4e7b-a160-457a6feaedc9")
+		(property "Reference" "#PWR?"
+			(at 108.09 38.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISO"
+			(at 110.63 38.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 108.09 38.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 108.09 38.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 108.09 38.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d702394b-f45f-4588-8260-f6ec70ccb53b")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "PRTR5V0U2X")
+		(at 108.09 76.08 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4ef4acdf-32ca-4c08-b903-4a5e6051de36")
+		(property "Reference" "U?"
+			(at 122.09 74.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PRTR5V0U2X"
+			(at 122.09 77.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-363"
+			(at 108.09 76.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PRTR5V0U2X.pdf"
+			(at 108.09 76.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 108.09 76.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer_Name" "Nexperia"
+			(at 108.09 76.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "PRTR5V0U2X"
+			(at 108.09 76.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "2e0ffb60-714f-41f5-8d40-47ad5f0bd377")
+		)
+		(pin "1"
+			(uuid "4eae4699-b637-43e5-978e-7acfc25b8d66")
+		)
+		(pin "5"
+			(uuid "70cde919-8c19-4930-bad6-13fe9ef120dd")
+		)
+		(pin "2"
+			(uuid "906d0581-7c9c-4054-a4f1-cb1f6212b1eb")
+		)
+		(pin "6"
+			(uuid "7689c64a-5ca5-4552-8f6d-d0967523a8ef")
+		)
+		(pin "4"
+			(uuid "10a1391c-9068-4171-8c44-370ce5e6b4cb")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "U?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 77.09 98.58 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5e619a5a-177b-479e-850d-83d5d086f3ec")
+		(property "Reference" "R?"
+			(at 79.63 97.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 79.63 99.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 77.09 98.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.09 98.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.09 98.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "28662c69-2240-4b4b-9a66-adf750c1a551")
+		)
+		(pin "2"
+			(uuid "6a6efa6b-d426-4c2e-8496-94fda31a8e2b")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GND_ISO")
+		(at 108.09 98.46 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "66eac42a-403d-4534-aff5-4dcae2ffff85")
+		(property "Reference" "#PWR?"
+			(at 108.09 98.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISO"
+			(at 110.63 98.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 108.09 98.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 108.09 98.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 108.09 98.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9b7c2fa4-b5c3-4be3-a21b-0c6b33f36ccc")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "+3.3V_ISO")
+		(at 108.09 113.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "75a3ca19-849e-4fc9-bf75-707472c34836")
+		(property "Reference" "#PWR?"
+			(at 108.09 113.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V_ISO"
+			(at 110.63 113.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 108.09 113.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 108.09 113.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 108.09 113.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "6d347c1f-5e27-40c1-bad6-464db58b3b78")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GND_ISO")
+		(at 108.09 128.46 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "770ce3c3-1175-4f38-9d8d-335a774792ad")
+		(property "Reference" "#PWR?"
+			(at 108.09 128.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISO"
+			(at 110.63 128.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 108.09 128.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 108.09 128.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 108.09 128.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "cde00325-5104-444c-9357-69023a529990")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GND_ISO")
+		(at 85.09 136.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7d180b7a-66c8-4a27-9605-3722d9faf86e")
+		(property "Reference" "#PWR?"
+			(at 85.09 136.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISO"
+			(at 87.63 136.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 85.09 136.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 85.09 136.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 136.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e654eebe-8645-4452-92c5-4c3c5c90a336")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 77.09 38.58 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8402d153-2a20-4746-824a-cdfcde9162ff")
+		(property "Reference" "R?"
+			(at 79.63 37.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 79.63 39.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 77.09 38.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.09 38.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.09 38.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4fae41d1-863f-4069-b18b-2d64fb816e43")
+		)
+		(pin "2"
+			(uuid "4e503fb0-b330-41aa-add6-82764803a540")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 77.09 128.58 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "902a24bd-ed7d-419a-9a68-8874e49f2ec0")
+		(property "Reference" "R?"
+			(at 79.63 127.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 79.63 129.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 77.09 128.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.09 128.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.09 128.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3a8ceb2b-eca5-431c-a2d5-7512f38652f0")
+		)
+		(pin "2"
+			(uuid "5d6b85bf-ac11-41c4-b3d9-4f4730311579")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 85.09 44.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9807ecec-1a26-48a8-af5d-572828edf50e")
+		(property "Reference" "C?"
+			(at 87.63 43.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 87.63 45.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 85.09 44.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 85.09 44.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 44.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d0fc3a94-264d-414f-aad1-0063eaaf9be5")
+		)
+		(pin "2"
+			(uuid "2c7a161e-a9fe-45e5-adad-fa09d2bea34d")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 77.09 113.58 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9f983512-fe9a-406d-8b28-997ebdddcdd2")
+		(property "Reference" "R?"
+			(at 79.63 112.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 79.63 114.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 77.09 113.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.09 113.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.09 113.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d789dad4-6b59-4486-a220-a2fc974cbfa1")
+		)
+		(pin "2"
+			(uuid "232a8027-3466-4daa-a2d2-a67195d7668e")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 77.09 53.58 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "abac4c7c-e33a-4436-9461-d00be9d0d98c")
+		(property "Reference" "R?"
+			(at 79.63 52.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 79.63 54.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 77.09 53.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.09 53.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.09 53.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "0104254d-49bb-4e48-8470-d203d312ad3c")
+		)
+		(pin "2"
+			(uuid "34625fea-8d21-4b07-a7b8-c91eb3fb8f79")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 85.09 74.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c45a044a-103c-49e8-a272-e781c6844d1e")
+		(property "Reference" "C?"
+			(at 87.63 73.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 87.63 75.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 85.09 74.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 85.09 74.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 74.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d46ec340-5b42-446b-8aad-57c7e39f70cc")
+		)
+		(pin "2"
+			(uuid "a53df4d6-33c9-4346-97aa-c5fd03372402")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GND_ISO")
+		(at 85.09 151.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c82796b2-024e-4c33-8a0a-b4641b3d9a99")
+		(property "Reference" "#PWR?"
+			(at 85.09 151.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISO"
+			(at 87.63 151.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 85.09 151.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 85.09 151.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 151.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "99ecfe86-cef0-4852-8c7b-b732b03b193b")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GND_ISO")
+		(at 85.09 91.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d013d62e-385e-480e-acc2-ddab92e843c5")
+		(property "Reference" "#PWR?"
+			(at 85.09 91.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISO"
+			(at 87.63 91.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 85.09 91.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 85.09 91.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 91.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "c8f49cc8-d53c-4dbe-946a-b4c705f914a1")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GND_ISO")
+		(at 85.09 106.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d170817a-1d92-4b6b-b2bc-d83efd8806b2")
+		(property "Reference" "#PWR?"
+			(at 85.09 106.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISO"
+			(at 87.63 106.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 85.09 106.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 85.09 106.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 106.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "49737a73-7049-486b-9891-8ade99d7d6d0")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "+3.3V_ISO")
+		(at 108.09 143.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "df3daa1b-57c0-411c-8e51-1aa37eae3fc6")
+		(property "Reference" "#PWR?"
+			(at 108.09 143.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V_ISO"
+			(at 110.63 143.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 108.09 143.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 108.09 143.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 108.09 143.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f2f0e27c-c662-4508-93d5-cd59b255c784")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GND_ISO")
+		(at 85.09 121.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e256c286-0b90-4d89-a865-4c711826ff82")
+		(property "Reference" "#PWR?"
+			(at 85.09 121.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISO"
+			(at 87.63 121.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 85.09 121.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 85.09 121.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 121.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b189d8a6-332f-489f-bd1d-16253367de7a")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 85.09 134.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e4c948df-3621-46a5-8d16-e5dedb7bc34f")
+		(property "Reference" "C?"
+			(at 87.63 133.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 87.63 135.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 85.09 134.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 85.09 134.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 134.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f8c4e0d4-fb75-4f95-931b-5fb305967970")
+		)
+		(pin "2"
+			(uuid "d455d5a1-2a03-443e-9e92-5758f7f73b35")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "+3.3V_ISO")
+		(at 108.09 83.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e5da1c4e-ea51-49df-a683-5d81db85eb62")
+		(property "Reference" "#PWR?"
+			(at 108.09 83.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V_ISO"
+			(at 110.63 83.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 108.09 83.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 108.09 83.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 108.09 83.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "297c21c2-d63b-41eb-8359-0dfb74387ddb")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GND_ISO")
+		(at 85.09 61.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f493ee75-7584-491d-aa43-d4fd995d5562")
+		(property "Reference" "#PWR?"
+			(at 85.09 61.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISO"
+			(at 87.63 61.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 85.09 61.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 85.09 61.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 61.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "84ba528b-e00e-417e-bcd9-12a398f58e63")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 85.09 89.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fbf8d756-4d86-40ad-bedb-ac7a1fd2ddf0")
+		(property "Reference" "C?"
+			(at 87.63 88.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 87.63 90.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 85.09 89.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 85.09 89.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 85.09 89.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9fa623c2-b0d1-4b1b-91c2-cb31348b0804")
+		)
+		(pin "2"
+			(uuid "359a3228-6c45-429f-a422-4571694f0883")
+		)
+		(instances
+			(project "barn-blinds-controller"
+				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
 )

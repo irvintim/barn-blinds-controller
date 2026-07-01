@@ -1840,8 +1840,8 @@
 		)
 	)
 	(sheet
-		(at 179.8319 111.0)
-		(size 22.9466 20.0)
+		(at 179.8319 111)
+		(size 22.9466 20)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)

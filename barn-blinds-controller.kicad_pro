@@ -1022,6 +1022,10 @@
     [
       "8f0cb6d8-027e-4edb-b8ea-04d7ddb83db1",
       "Sensors"
+    ],
+    [
+      "c7a4e8f1-2b3d-4e5f-a6b7-c8d9e0f12345",
+      "Switch Inputs"
     ]
   ],
   "text_variables": {}
