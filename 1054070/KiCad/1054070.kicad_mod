@@ -93,7 +93,7 @@
   (pad 18 thru_hole circle (at 24.5 5.5) (size 1.8 1.8) (drill 1.2) (layers *.Cu *.Mask))
   (pad 19 thru_hole circle (at 28 5.5) (size 1.8 1.8) (drill 1.2) (layers *.Cu *.Mask))
   (pad 20 thru_hole circle (at 31.5 5.5) (size 1.8 1.8) (drill 1.2) (layers *.Cu *.Mask))
-  (model 1054070.stp
+  (model "${KIPRJMOD}/1054070/3D/1054070.stp"
     (at (xyz 0 0 0))
     (scale (xyz 1 1 1))
     (rotate (xyz 0 0 0))
