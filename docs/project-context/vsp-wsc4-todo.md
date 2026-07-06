@@ -11,18 +11,74 @@
 - [x] All schematic connection bugs fixed; loads and connects correctly
 - [x] USB connector swapped from USB-C (Kinghelm KH-TYPE-C-16P) to Micro-USB in usb-c-5v.kicad_sch — same part/footprint/LCSC (C397452) as used in ../zen32-esphome; removes the CC1/CC2 orientation issue entirely (Micro-USB has no CC lines); CC pulldowns R1/R4 removed; verified via kicad-cli ERC/netlist (2026-06-30)
 - [x] Decided to leave USB power diode-ORed into the single shared 3.3V_ISO rail (powers ESP32 + isolators/sensors) rather than adding a second regulator — see project memory for reasoning (2026-06-30)
+- [x] Swapped C2 (isolated 5V bulk cap) from 100uF electrolytic (CP_Elec_6.3x5.4) to 100uF 10V ceramic (C_1210_3225Metric) in power_input.kicad_sch — C11/C12 (1000uF/25V motor rail bulk caps) intentionally left as electrolytic (2026-07-05)
+- [x] Swapped F1-F4 fuses from 1812 (Polyfuse mSMD110, 24V) to 1206 (1206L110/16NR, 16V, LCSC C7542961) in motor_outputs.kicad_sch — same 1.1A hold/2.2A trip rating, smaller footprint to clear the narrower 1054070 terminal block gap (2026-07-05)
+- [x] Swapped D6-D9 TVS diodes from SMBJ15CA (SMB) to SMAJ15CA (SMA, LCSC C223985) in motor_outputs.kicad_sch — same 15V standoff/24.4V clamp, smaller footprint (2026-07-05)
+- [x] Fixed 1054070 terminal block library: added missing 3D STEP model to the project-local `1054070/` library folder (`1054070/3D/1054070.stp`), fixed the model path in `1054070/KiCad/1054070.kicad_mod` to use `${KIPRJMOD}` so it resolves on any machine (2026-07-05)
+- [x] esp32-s3.kicad_sch: wired GPIO4/5/6/8/9/11/12/13 as switch inputs (previously only existed as orphaned labels in switch_inputs.kicad_sch, never reaching the MCU); renamed switch_inputs.kicad_sch labels from pin-number style (`GPIO4`...) to function names (`SW1_UP_IN`...) (2026-07-05)
+- [x] Fixed a mislabeled net: GPIO35/36 were both wired as `ISO_SH2_CLOSED`/`ISO_SH2_OPEN` (duplicate of the real Shade 2 pins), leaving `ISO_SH1_CLOSED`/`ISO_SH1_OPEN` orphaned — corrected to reference Shade 1 (2026-07-05)
+- [x] Fixed UART header: moved J3 (debug header) from GPIO17/U1TXD, GPIO18/U1RXD to GPIO43/U0TXD, GPIO44/U0RXD; freed GPIO43/44 by moving what was on them elsewhere (2026-07-05)
+- [x] Full Rev 1.3 GPIO reassignment completed to eliminate crossed leads during layout — see "Rev 1.3 GPIO Map" below for the final pinout (2026-07-06)
 
 ### Still needed — schematic (do these first):
 - [ ] MANUAL: Annotate all refs in switch_inputs.kicad_sch (currently R?/C?/U?), run ERC, cosmetic TVS wire cleanup
 - [ ] MANUAL: Annotate new J2 (Micro-USB) reference and new #PWR? GND_ISO symbol in usb-c-5v.kicad_sch, cosmetic wire cleanup (new wiring was placed programmatically, needs a tidy pass in the GUI)
-- [ ] esp32-s3.kicad_sch: add GPIO4/5/6/8/9/11/12/13 as switch inputs; remap GPIO43→GPIO1, GPIO44→GPIO3 for motors; assign GPIO43=U0TXD, GPIO44=U0RXD
-- [ ] Fix UART header: U1TX/U1RX (GPIO17/18) → U0TX/U0RX (GPIO43/44)
 - [ ] PCB footprint: swap J2 footprint from KINGHELM_KH-TYPE-C-16P to Connector_USB:USB_Micro-B_XKB_U254-051T-4BH83-F1S on the board layout (barn-blinds-controller.kicad_pcb still has the old footprint — schematic-only change so far)
 - [ ] Add auto-reset circuit (two transistors + resistors on RTS/DTR lines for reliable flashing)
 - [ ] Make all LEDs software-controllable (status LED, 12V power LED, ESP32 power LED)
 - [ ] Fix test point copper (pads present but no copper on Rev 1.2 boards)
 - [ ] Update silkscreen revision to 1.3
 - [ ] Update silkscreen copyright year
+- [ ] PCB layout: swap F1-F4 footprint from 1812 to 1206, C2 from CP_Elec_6.3x5.4 to C_1210_3225Metric, D6-D9 from D_SMB to D_SMA on barn-blinds-controller.kicad_pcb (schematic-only changes so far)
+- [ ] PCB layout: re-route switch input GND_ISO reference and shade/switch GPIO traces to match the final Rev 1.3 GPIO map below
+
+---
+
+## Rev 1.3 GPIO Map (final, as of 2026-07-06)
+
+Reassigned to eliminate crossed leads during PCB layout. Verified against the ESP32-S3-WROOM-1 module pinout with no duplicate assignments, no WiFi/ADC2 conflicts (only TMP235/ACS723 do real analog sensing, both on ADC1), and no strapping-pin or input-only-pin misuse.
+
+| Pin | GPIO | Function | Notes |
+|---|---|---|---|
+| 3 | EN | Reset button | |
+| 4 | GPIO4 | TMP235 Vout | ADC1_CH3 |
+| 5 | GPIO5 | ACS723 VIOUT | ADC1_CH4 |
+| 6 | GPIO6 | *(empty)* | |
+| 7 | GPIO7 | *(empty)* | |
+| 8 | GPIO15 | *(empty)* | |
+| 9 | GPIO16 | Status LED | |
+| 10 | GPIO17 | *(empty)* | freed from old UART header |
+| 11 | GPIO18 | *(empty)* | freed from old UART header |
+| 12 | GPIO8 | *(empty)* | |
+| 13 | GPIO19 | USB D- | native USB |
+| 14 | GPIO20 | USB D+ | native USB |
+| 15 | GPIO3 | SW1_DOWN_IN | switch input |
+| 16 | GPIO46 | SW1_UP_IN | switch input — input-only pin, OK for a switch |
+| 17 | GPIO9 | SW2_DOWN_IN | switch input |
+| 18 | GPIO10 | SW2_UP_IN | switch input |
+| 19 | GPIO11 | SW3_DOWN_IN | switch input |
+| 20 | GPIO12 | SW3_UP_IN | switch input |
+| 21 | GPIO13 | SW4_DOWN_IN | switch input |
+| 22 | GPIO14 | SW4_UP_IN | switch input |
+| 23 | GPIO21 | ISO_SH2_PWM | to isolator U6 |
+| 24 | GPIO47 | ISO_SH2_CLOSED | to isolator U6 |
+| 25 | GPIO48 | ISO_SH2_OPEN | to isolator U6 |
+| 26 | GPIO45 | *(empty)* | strapping pin (VDD_SPI voltage) — deliberately left free |
+| 27 | GPIO0 | BOOT | strapping pin |
+| 28 | GPIO35 | ISO_STBY | to isolator U6 |
+| 29 | GPIO36 | ISO_SH1_OPEN | to isolator U6 |
+| 30 | GPIO37 | ISO_SH1_CLOSED | to isolator U6 |
+| 31 | GPIO38 | ISO_SH1_PWM | to isolator U5 |
+| 32 | GPIO39 | ISO_SH4_PWM | to isolator U4 |
+| 33 | GPIO40 | ISO_SH4_CLOSE | to isolator U4 |
+| 34 | GPIO41 | ISO_SH4_OPEN | to isolator U4 |
+| 35 | GPIO42 | ISO_SH3_OPEN | to isolator U4 |
+| 36 | GPIO44 | U0RXD | debug/UART header J3 |
+| 37 | GPIO43 | U0TXD | debug/UART header J3 |
+| 38 | GPIO2 | ISO_SH3_CLOSED | to isolator U4 — unchanged, not part of this reshuffle |
+| 39 | GPIO1 | ISO_SH3_PWM | to isolator U4 — unchanged, not part of this reshuffle |
+
+GND (pins 1, 40, 41) and 3V3 (pin 2) not listed above.
 
 ---
 

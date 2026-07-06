@@ -78,7 +78,27 @@
       ],
       "drc_exclusions": [
         [
-          "lib_footprint_mismatch|94000000|62750000|72bf7543-5fcb-4b05-b771-a98064838b77|00000000-0000-0000-0000-000000000000",
+          "hole_clearance|80902818|109522841|d3700c0d-10e6-4996-9958-0a4991881dc7|2b61ba45-2f42-4a53-9f78-55f0db9db5f6",
+          ""
+        ],
+        [
+          "hole_clearance|80902818|112322841|4da2a67b-f8fe-402d-a7f7-7a28c7742e98|4e0d1d5c-9da5-4ba2-b4b1-8928b9208589",
+          ""
+        ],
+        [
+          "hole_clearance|81295435|108648009|ba9b9f89-98a1-4771-9014-d2573f4c783e|2b61ba45-2f42-4a53-9f78-55f0db9db5f6",
+          ""
+        ],
+        [
+          "hole_clearance|81295435|113197673|d8627ef4-fe5c-464b-b117-09c0397ae686|4e0d1d5c-9da5-4ba2-b4b1-8928b9208589",
+          ""
+        ],
+        [
+          "text_thickness|114995907|121788820|85f6f8c8-335b-4e9b-96ca-5dad0657156b|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "text_thickness|123495907|121934725|4f0f30fa-d95c-42f7-9b33-1e11126839ce|00000000-0000-0000-0000-000000000000",
           ""
         ]
       ],
@@ -1016,7 +1036,7 @@
         "uuid": "aa90962a-81b9-423d-8acd-c4e83fa798bb"
       }
     ],
-    "used_designators": "SW1-2,C_ISO_A1,C_TMP1,C_ISO_C1,H1-4,R1-17,C_ISO_E1,R_BOOT1,C_VM_B1-2,R_LED1-3,C_ISO_F1,J1-5,#PWR1-117,C_ACS1-2,F1-4,C_VCC_A1-2,C_ISO_D1,TP1-7,C_ISO_B1,C_VM_A1-2,C_FILT1,C1-22,U1-16,D1-10,C_VCC_B1-2",
+    "used_designators": "#PWR1-117,J1-5,C_ISO_F1,R_LED1-3,C_VM_B1-2,R_BOOT1,C_ISO_E1,R1-17,H1-4,C_ISO_C1,C_TMP1,C_ISO_A1,C_VCC_B1-2,D1-10,U1-16,F1-4,C1-22,C_FILT1,C_VM_A1-2,C_ISO_B1,TP1-7,C_VCC_A1-2,C_ISO_D1,C_ACS1-2,SW1-2",
     "variants": []
   },
   "sheets": [
