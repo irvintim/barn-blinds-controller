@@ -1038,7 +1038,7 @@
 			(uuid "a15e9ee5-9853-4140-9fd6-d8265253eb54")
 		)
 		(embedded_fonts no)
-		(model "${KICAD8_3RD_PARTY}/3dmodels/com_github_CDFER_JLCPCB-Kicad-Library/JLCPCB.3dshapes/SW-SMD_4P-L5.1-W5.1-P3.70-LS6.5-TL-2.step"
+		(model "${KIPRJMOD}/SWT0115_020025SSA/SWT0115-020025SSA_revA.STEP"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -1046,7 +1046,7 @@
 				(xyz 1 1 1)
 			)
 			(rotate
-				(xyz 0 0 0)
+				(xyz -90 -0 -0)
 			)
 		)
 	)
@@ -3379,7 +3379,7 @@
 			(uuid "7a01b9b8-7fd1-475f-a03a-80502383ad8c")
 		)
 		(embedded_fonts no)
-		(model "${KICAD8_3RD_PARTY}/3dmodels/com_github_CDFER_JLCPCB-Kicad-Library/JLCPCB.3dshapes/SW-SMD_4P-L5.1-W5.1-P3.70-LS6.5-TL-2.step"
+		(model "${KIPRJMOD}/SWT0115_020025SSA/SWT0115-020025SSA_revA.STEP"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -3387,7 +3387,7 @@
 				(xyz 1 1 1)
 			)
 			(rotate
-				(xyz 0 0 0)
+				(xyz -90 -0 -0)
 			)
 		)
 	)
