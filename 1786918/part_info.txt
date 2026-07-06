@@ -1,0 +1,9 @@
+Manufacturer=Phoenix Contact
+PartNumber=1786918
+PartCategory=Connector
+PackageCategory=Other
+PinCount=20
+Version=4.3
+Released=2022-07-22 19:30:02
+Downloaded=2026-07-06 23:23:15
+3D=Y

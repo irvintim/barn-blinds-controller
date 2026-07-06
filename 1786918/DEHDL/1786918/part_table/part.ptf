@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART '1786918'
+CLASS = IO
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Phoenix Contact", "1786918" (!) = "", "1786918", "Other", "651-1786918", "https://www.mouser.co.uk/ProductDetail/Phoenix-Contact/1786918?qs=c9g5C7Q1WQuZJ7mDX0TZ7A%3D%3D", "DMC 1,5/10-G1-3,5 P20THR - PCB headers, nominal cross section: 1.5 mm<sup>2</sup>, color: black, nominal current: 8 A, rated voltage (III/2): 160 V, contact surface: Sn, contact connection type: Pin, number of potentials: 20, number of rows: 2, number of positions: 10, number of connections: 20, product range: DMC 1,5/..-G1-THR, pitch: 3.5 mm, mounting: THR soldering / wave soldering, pin layout: Linear pinning, solder pin [P]: 2 mm, number of solder pins per potential: 1, plug-in system: COMBICON DFMC 1,5,", "https://www.phoenixcontact.com/en-us/products/pcb-header-dmc-1510-g1-35-p20thr-1786918?type=pdf", "10.95 mm"
+END_PART
+
+END.

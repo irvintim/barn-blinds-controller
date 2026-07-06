@@ -2302,18 +2302,7 @@
 			(uuid "d8627ef4-fe5c-464b-b117-09c0397ae686")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_USB.3dshapes/USB_Micro-B_XKB_U254-051T-4BH83-F1S.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
-		(model "/home/irvin/IdeaProjects/irvintim/zen32-esphome/U254-051T-4BH83-F1S--3DModel-STEP-510211.STEP"
+		(model "${KIPRJMOD}/Connector_USB.3dshapes/USB_Micro-B_XKB_U254-051T-4BH83-F1S.step"
 			(offset
 				(xyz 0 -0.25 0)
 			)
@@ -5138,17 +5127,6 @@
 			(uuid "79a72231-5e13-4796-bd19-2046935895ef")
 		)
 		(embedded_fonts no)
-		(model "1786918.stp"
-			(offset
-				(xyz -2.140000073 -10.49999984 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
 		(model "${KIPRJMOD}/1786918/3D/1786918.stp"
 			(offset
 				(xyz -2 -10.5 0)
