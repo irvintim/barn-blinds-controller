@@ -4,8 +4,8 @@
 Vesprio VSP-WSC-4: 4-channel motorized window shade controller, ESP32-S3-WROOM-1-N4, dual firmware track (ESPHome personal use / Tasmota product). See `docs/project-context/vsp-wsc4-handover.md` for full hardware detail and GPIO map.
 
 ## Current state (as of 2026-07-06)
-- **PCB:** Rev 1.2 assembled and working (ESPHome only; Tasmota broken on Shades 3&4 due to GPIO43/44 = U0TX/RX conflict — fixed in Rev 1.3 schematic)
-- **Schematic:** Rev 1.3 in progress on branch `feature/new-inputs`; USB is now Micro-USB (not USB-C); switch inputs wired to ESP32; full GPIO reassignment done to avoid crossed leads on layout — see `docs/project-context/vsp-wsc4-todo.md` "Rev 1.3 GPIO Map" for the current pinout
+- **PCB:** Rev 1.3 routed and DRC-clean (silkscreen updated to "rev: 1.3"); Rev 1.2 was assembled and working (ESPHome only; Tasmota broken on Shades 3&4 due to GPIO43/44 = U0TX/RX conflict — fixed in Rev 1.3)
+- **Schematic:** Rev 1.3 on branch `feature/new-inputs`; USB is now Micro-USB (not USB-C); switch inputs wired to ESP32; full GPIO reassignment done to avoid crossed leads on layout — see `docs/project-context/vsp-wsc4-todo.md` "Rev 1.3 GPIO Map" for the current pinout
 - **Enclosure:** FreeCAD Rev 2 (`project-case-rev2.FCStd`), 3D printed, test print 2 in progress
 
 ## Rev 1.3 schematic work already done
@@ -21,12 +21,9 @@ Vesprio VSP-WSC-4: 4-channel motorized window shade controller, ESP32-S3-WROOM-1
 - All connection bugs fixed; schematic loads and connects correctly
 
 ## Rev 1.3 schematic work still needed
-- **MANUAL:** Annotate refs (all show as R?/C?/U?), ERC, cosmetic TVS wire cleanup in `switch_inputs.kicad_sch`
-- Add auto-reset circuit (2-transistor RTS/DTR for esptool)
-- Make all LEDs software-controllable
-- Fix test point copper (pads exist, no copper on Rev 1.2)
-- Update silkscreen: revision → 1.3, copyright → 2026
-- PCB layout: apply the schematic-only footprint swaps above (F1-F4, C2, D6-D9) and re-route to match the final GPIO map
+- **Auto-reset circuit — needs a research/discussion pass next session, don't add hardware yet.** User's own TTY/USB adapter has no RTS/DTR (just RX/TX/3.3V/GND + manual BOOT-to-GND via the existing buttons), and they want to understand the RTS/DTR auto-reset workflow before deciding whether to add it (transistors + possibly expanding J3 from 5 to 7 pins). Next session: explain the workflow, check whether native USB (GPIO19/20, USB-Serial-JTAG) already auto-resets on its own, then let user decide scope. Full detail in `docs/project-context/vsp-wsc4-todo.md`.
+- **Make D4 (ESP32 power, white, on `+3.3V_ISO`) and D5 (12V power, blue, on `+12V`/`GND_MOTOR`) software-controllable — confirmed in scope for Rev 1.3, next session should pick this up.** D3 (status) is already GPIO16-driven; D4/D5 are still hardwired directly to their rails. Free GPIOs: 6, 7, 8, 15, 17, 18, 45 (45 is a strapping pin, see todo.md for caveat). Full detail in `docs/project-context/vsp-wsc4-todo.md`.
+- MANUAL: cosmetic TVS wire cleanup in `switch_inputs.kicad_sch` (annotation is done, just needs a tidy pass)
 
 ## Enclosure Rev 3 direction (decided 2026-06-29)
 Redesign the 3D printed box to support **two mounting options**:

@@ -19,18 +19,26 @@
 - [x] Fixed a mislabeled net: GPIO35/36 were both wired as `ISO_SH2_CLOSED`/`ISO_SH2_OPEN` (duplicate of the real Shade 2 pins), leaving `ISO_SH1_CLOSED`/`ISO_SH1_OPEN` orphaned — corrected to reference Shade 1 (2026-07-05)
 - [x] Fixed UART header: moved J3 (debug header) from GPIO17/U1TXD, GPIO18/U1RXD to GPIO43/U0TXD, GPIO44/U0RXD; freed GPIO43/44 by moving what was on them elsewhere (2026-07-05)
 - [x] Full Rev 1.3 GPIO reassignment completed to eliminate crossed leads during layout — see "Rev 1.3 GPIO Map" below for the final pinout (2026-07-06)
+- [x] Annotated all refs in switch_inputs.kicad_sch and usb-c-5v.kicad_sch — zero unannotated (R?/C?/U?) refs remain in either sheet (confirmed 2026-07-06)
+- [x] PCB footprint: J2 swapped to Connector_USB:USB_Micro-B_XKB_U254-051T-4BH83-F1S on the actual board layout (2026-07-06)
+- [x] PCB layout: F1-F4 (Fuse_1206_3216Metric), C2 (C_1210_3225Metric), D6-D9 (D_SMA) footprint swaps present on barn-blinds-controller.kicad_pcb; C11/C12 correctly still CP_Elec_10x10.5 (2026-07-06)
+- [x] PCB fully routed and re-routed to match the final Rev 1.3 GPIO map; DRC clean (only 4 non-blocking `lib_footprint_mismatch` warnings on U4/U5/U6/U10 — local footprint edits differ from library copy, zero errors, zero unconnected pads) (2026-07-06)
+- [x] Update silkscreen revision to 1.3 (confirmed on board: "rev: 1.3") (2026-07-06)
+- [x] Update silkscreen copyright year (confirmed on board: "© Vesprio.io 2026") (2026-07-06)
+- [x] Fixed test point copper — removed the TestPoint footprint that was suppressing solder mask over the TP pads; copper now renders correctly in 3D view (2026-07-06)
 
-### Still needed — schematic (do these first):
-- [ ] MANUAL: Annotate all refs in switch_inputs.kicad_sch (currently R?/C?/U?), run ERC, cosmetic TVS wire cleanup
-- [ ] MANUAL: Annotate new J2 (Micro-USB) reference and new #PWR? GND_ISO symbol in usb-c-5v.kicad_sch, cosmetic wire cleanup (new wiring was placed programmatically, needs a tidy pass in the GUI)
-- [ ] PCB footprint: swap J2 footprint from KINGHELM_KH-TYPE-C-16P to Connector_USB:USB_Micro-B_XKB_U254-051T-4BH83-F1S on the board layout (barn-blinds-controller.kicad_pcb still has the old footprint — schematic-only change so far)
-- [ ] Add auto-reset circuit (two transistors + resistors on RTS/DTR lines for reliable flashing)
-- [ ] Make all LEDs software-controllable (status LED, 12V power LED, ESP32 power LED)
-- [ ] Fix test point copper (pads present but no copper on Rev 1.2 boards)
-- [ ] Update silkscreen revision to 1.3
-- [ ] Update silkscreen copyright year
-- [ ] PCB layout: swap F1-F4 footprint from 1812 to 1206, C2 from CP_Elec_6.3x5.4 to C_1210_3225Metric, D6-D9 from D_SMB to D_SMA on barn-blinds-controller.kicad_pcb (schematic-only changes so far)
-- [ ] PCB layout: re-route switch input GND_ISO reference and shade/switch GPIO traces to match the final Rev 1.3 GPIO map below
+### Still needed — schematic:
+- [ ] **Auto-reset circuit — needs a research/discussion pass next session before any hardware decision. Do not add circuitry yet.**
+  - Goal: let esptool/ESPHome/Tasmota flash and reset the board without the user manually holding BOOT and tapping RESET.
+  - Board has two flashing paths by design: native Micro-USB (GPIO19/20, USB-Serial-JTAG peripheral) and a 5-pin UART header J3 (`U0TXD`, `U0RXD`, `+3.3V_ISO`, `GND_ISO`, `BOOT`/GPIO0 — no RTS/DTR pins currently). Board also has physical BOOT and RESET buttons (SW2, SW1) for manual flashing.
+  - **Open question raised 2026-07-06:** the user's own TTY/USB bridge adapter has no RTS/DTR pins — they only ever connect RX/TX/3.3V/GND and manually ground BOOT, using the existing buttons. They haven't encountered the RTS/DTR auto-reset workflow before and want to understand it better before deciding whether to add any circuitry (transistors, and/or expanding J3 to 7 pins to expose RTS/DTR for adapters that do have them).
+  - Next session should: explain how the classic RTS/DTR auto-reset handshake works and why/when it matters (e.g. relevant mainly for the product track, where random customers' adapters — many common FTDI/CP2102/CH340 boards — do expose RTS/DTR, vs. the user's personal dev adapter which doesn't need it since buttons already work); confirm whether the native USB path already auto-resets on its own (untested so far); then let the user decide whether J3 needs to grow to 7 pins at all, given the answer may simply be "no, buttons are fine."
+- [ ] **Make D4 (ESP32 power, white) and D5 (12V power, blue) LEDs software-controllable — confirmed in scope for Rev 1.3, next session should implement this.**
+  - Current state: D3 (status, red) is already GPIO16-driven — that one's done.
+  - D4 is hardwired directly to `+3.3V_ISO` via R_LED2 (always on whenever 3.3V rail is up) — needs a GPIO-driven switch (transistor/MOSFET or direct GPIO drive through the LED resistor, whichever this design's LED drive convention already uses for D3) instead of a direct tie to the rail.
+  - D5 is hardwired directly to `+12V` via R_LED3 (always on whenever 12V input is present) — same fix needed, referenced to `GND_MOTOR` since it's on the motor-side rail.
+  - Free GPIOs available per the Rev 1.3 GPIO map below: GPIO6, GPIO7, GPIO8, GPIO15, GPIO17, GPIO18, GPIO45 (note GPIO45 is a strapping pin, only use it if the strapping behavior is confirmed harmless the way it was for other signals sharing it before).
+- [ ] MANUAL: cosmetic TVS wire cleanup in switch_inputs.kicad_sch (still worth a tidy pass even though annotation is done)
 
 ---
 
