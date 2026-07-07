@@ -3921,7 +3921,7 @@
 				)
 			)
 		)
-		(property "Footprint" "barn_shade_controller:Phoenix Contact 1786918"
+		(property "Footprint" "barn_shade_controller:1786918"
 			(at 160.02 164.77 0)
 			(hide yes)
 			(show_name no)
