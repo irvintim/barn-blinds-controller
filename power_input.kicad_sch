@@ -1717,7 +1717,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0f222e16-d6e2-4741-a9e9-1c090c3ede82")
-		(property "Reference" "C1"
+		(property "Reference" "C9"
 			(at 128.27 76.5809 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1792,7 +1792,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/bb2a80bd-a98d-4040-85a8-f5c2f3802634"
-					(reference "C1")
+					(reference "C9")
 					(unit 1)
 				)
 			)
@@ -1906,7 +1906,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "59a4e3d5-615b-4f25-9d72-0e9c4cc0190f")
-		(property "Reference" "C3"
+		(property "Reference" "C11"
 			(at 189.23 77.4699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1981,7 +1981,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/bb2a80bd-a98d-4040-85a8-f5c2f3802634"
-					(reference "C3")
+					(reference "C11")
 					(unit 1)
 				)
 			)
@@ -2573,7 +2573,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c780d715-bc18-44f1-8ae9-c8a21ac9d012")
-		(property "Reference" "C2"
+		(property "Reference" "C10"
 			(at 176.53 76.5809 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2648,7 +2648,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/bb2a80bd-a98d-4040-85a8-f5c2f3802634"
-					(reference "C2")
+					(reference "C10")
 					(unit 1)
 				)
 			)

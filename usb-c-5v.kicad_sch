@@ -2396,7 +2396,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "269d8255-7308-4fd5-9129-c2687bc978df")
-		(property "Reference" "R2"
+		(property "Reference" "R9"
 			(at 83.566 44.45 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2469,7 +2469,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/52efa7a4-2a50-492f-ba41-4a5be1c27b4c"
-					(reference "R2")
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -2487,7 +2487,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "26c3dbf2-de87-42d3-9006-f1323bff6919")
-		(property "Reference" "C5"
+		(property "Reference" "C13"
 			(at 144.78 53.7209 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2562,7 +2562,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/52efa7a4-2a50-492f-ba41-4a5be1c27b4c"
-					(reference "C5")
+					(reference "C13")
 					(unit 1)
 				)
 			)
@@ -2657,7 +2657,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "440dd8de-e3b9-4dcd-8976-f15ec7a44e35")
-		(property "Reference" "R1"
+		(property "Reference" "R10"
 			(at 83.82 49.276 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2730,7 +2730,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/52efa7a4-2a50-492f-ba41-4a5be1c27b4c"
-					(reference "R1")
+					(reference "R10")
 					(unit 1)
 				)
 			)
@@ -3236,7 +3236,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "b9110e67-3784-486e-bc42-db63a906569b")
-		(property "Reference" "C4"
+		(property "Reference" "C12"
 			(at 109.982 54.864 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3311,7 +3311,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/52efa7a4-2a50-492f-ba41-4a5be1c27b4c"
-					(reference "C4")
+					(reference "C12")
 					(unit 1)
 				)
 			)
@@ -3429,7 +3429,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d3e267bc-5867-4682-8933-76728775832d")
-		(property "Reference" "C6"
+		(property "Reference" "C14"
 			(at 161.29 54.6099 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3504,7 +3504,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/52efa7a4-2a50-492f-ba41-4a5be1c27b4c"
-					(reference "C6")
+					(reference "C14")
 					(unit 1)
 				)
 			)

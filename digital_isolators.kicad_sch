@@ -2102,7 +2102,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "02cf591d-5247-4da5-b153-627bfdc51aef")
-		(property "Reference" "#PWR043"
+		(property "Reference" "#PWR045"
 			(at 214.63 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -2162,7 +2162,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR043")
+					(reference "#PWR045")
 					(unit 1)
 				)
 			)
@@ -2180,7 +2180,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0c21131e-ee4d-4a91-9d47-089c8f1c5f88")
-		(property "Reference" "#PWR033"
+		(property "Reference" "#PWR035"
 			(at 135.89 80.01 0)
 			(hide yes)
 			(show_name no)
@@ -2241,7 +2241,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR033")
+					(reference "#PWR035")
 					(unit 1)
 				)
 			)
@@ -2395,7 +2395,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "21bf6846-4d36-4c38-a011-f5a409ab6fa3")
-		(property "Reference" "#PWR026"
+		(property "Reference" "#PWR028"
 			(at 78.74 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -2455,7 +2455,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR026")
+					(reference "#PWR028")
 					(unit 1)
 				)
 			)
@@ -2473,7 +2473,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2cf4e40d-0812-400a-b79c-fffbb251149f")
-		(property "Reference" "#PWR028"
+		(property "Reference" "#PWR030"
 			(at 88.9 57.15 0)
 			(hide yes)
 			(show_name no)
@@ -2533,7 +2533,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR028")
+					(reference "#PWR030")
 					(unit 1)
 				)
 			)
@@ -2551,7 +2551,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "36924ab5-f11f-463d-9f5e-ca3ba7afae3d")
-		(property "Reference" "#PWR030"
+		(property "Reference" "#PWR032"
 			(at 102.87 59.69 0)
 			(hide yes)
 			(show_name no)
@@ -2612,7 +2612,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR030")
+					(reference "#PWR032")
 					(unit 1)
 				)
 			)
@@ -2630,7 +2630,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5db7670b-91b1-4c68-a3b1-7fadf4aa51c4")
-		(property "Reference" "#PWR029"
+		(property "Reference" "#PWR031"
 			(at 88.9 105.41 0)
 			(hide yes)
 			(show_name no)
@@ -2690,7 +2690,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR029")
+					(reference "#PWR031")
 					(unit 1)
 				)
 			)
@@ -2844,7 +2844,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "714c47ff-3115-4416-878b-6b56a1fa3e22")
-		(property "Reference" "#PWR041"
+		(property "Reference" "#PWR043"
 			(at 171.45 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -2905,7 +2905,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR041")
+					(reference "#PWR043")
 					(unit 1)
 				)
 			)
@@ -2923,7 +2923,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "71ba247b-000e-4121-b580-f51719e78073")
-		(property "Reference" "#PWR035"
+		(property "Reference" "#PWR037"
 			(at 135.89 85.09 0)
 			(hide yes)
 			(show_name no)
@@ -2984,7 +2984,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR035")
+					(reference "#PWR037")
 					(unit 1)
 				)
 			)
@@ -3002,7 +3002,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7ff4225f-da18-4c31-837d-93c9b3855426")
-		(property "Reference" "#PWR034"
+		(property "Reference" "#PWR036"
 			(at 135.89 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -3063,7 +3063,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR034")
+					(reference "#PWR036")
 					(unit 1)
 				)
 			)
@@ -3081,7 +3081,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "813c95e0-b8d3-4066-a025-939d6ee8c05a")
-		(property "Reference" "#PWR046"
+		(property "Reference" "#PWR048"
 			(at 224.79 109.22 0)
 			(hide yes)
 			(show_name no)
@@ -3141,7 +3141,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR046")
+					(reference "#PWR048")
 					(unit 1)
 				)
 			)
@@ -3159,7 +3159,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8147ed76-1f5c-4933-a84d-27026cd004fc")
-		(property "Reference" "#PWR031"
+		(property "Reference" "#PWR034"
 			(at 138.43 68.58 0)
 			(hide yes)
 			(show_name no)
@@ -3219,7 +3219,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR031")
+					(reference "#PWR034")
 					(unit 1)
 				)
 			)
@@ -3237,7 +3237,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "81f7734b-9470-4783-807a-cd3f9587dc24")
-		(property "Reference" "#PWR042"
+		(property "Reference" "#PWR044"
 			(at 205.74 71.12 0)
 			(hide yes)
 			(show_name no)
@@ -3297,7 +3297,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR042")
+					(reference "#PWR044")
 					(unit 1)
 				)
 			)
@@ -3315,7 +3315,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8ca85e31-344c-4279-83bc-81f9cab74614")
-		(property "Reference" "#PWR044"
+		(property "Reference" "#PWR046"
 			(at 214.63 109.22 0)
 			(hide yes)
 			(show_name no)
@@ -3375,7 +3375,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR044")
+					(reference "#PWR046")
 					(unit 1)
 				)
 			)
@@ -3529,7 +3529,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8f4d2eb4-dbad-480f-9fc7-2e6f71463650")
-		(property "Reference" "#PWR027"
+		(property "Reference" "#PWR029"
 			(at 78.74 105.41 0)
 			(hide yes)
 			(show_name no)
@@ -3589,7 +3589,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR027")
+					(reference "#PWR029")
 					(unit 1)
 				)
 			)
@@ -3607,7 +3607,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "944134f6-ca4f-42dd-8a87-81bb28f7d197")
-		(property "Reference" "#PWR038"
+		(property "Reference" "#PWR040"
 			(at 147.32 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -3667,7 +3667,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR038")
+					(reference "#PWR040")
 					(unit 1)
 				)
 			)
@@ -3685,7 +3685,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9fae4bb2-75f8-4052-94cd-fabdac161bf6")
-		(property "Reference" "#PWR037"
+		(property "Reference" "#PWR039"
 			(at 147.32 59.69 0)
 			(hide yes)
 			(show_name no)
@@ -3745,7 +3745,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR037")
+					(reference "#PWR039")
 					(unit 1)
 				)
 			)
@@ -3763,7 +3763,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a3f3f017-1a20-42dc-8724-a51b18bfd063")
-		(property "Reference" "#PWR039"
+		(property "Reference" "#PWR041"
 			(at 157.48 57.15 0)
 			(hide yes)
 			(show_name no)
@@ -3823,7 +3823,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR039")
+					(reference "#PWR041")
 					(unit 1)
 				)
 			)
@@ -3934,7 +3934,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "adbae08a-4502-44e5-af51-9358986fffc1")
-		(property "Reference" "C_ISO_A1"
+		(property "Reference" "C22"
 			(at 73.66 52.07 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4007,7 +4007,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "C_ISO_A1")
+					(reference "C22")
 					(unit 1)
 				)
 			)
@@ -4025,7 +4025,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "affe72ca-6642-4046-af36-ba7de4c5686b")
-		(property "Reference" "C_ISO_F1"
+		(property "Reference" "C27"
 			(at 229.87 55.88 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4098,7 +4098,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "C_ISO_F1")
+					(reference "C27")
 					(unit 1)
 				)
 			)
@@ -4116,7 +4116,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bed0c10c-568e-4ad0-84eb-6ddf180ef71e")
-		(property "Reference" "#PWR047"
+		(property "Reference" "#PWR049"
 			(at 238.76 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -4177,7 +4177,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR047")
+					(reference "#PWR049")
 					(unit 1)
 				)
 			)
@@ -4195,7 +4195,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ce60f465-1c36-4b92-acd7-a9be0c88130c")
-		(property "Reference" "C_ISO_D1"
+		(property "Reference" "C25"
 			(at 162.56 53.34 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4268,7 +4268,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "C_ISO_D1")
+					(reference "C25")
 					(unit 1)
 				)
 			)
@@ -4286,7 +4286,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cfdd6d7a-fb0b-48ca-b85f-4ccf08defa23")
-		(property "Reference" "C_ISO_C1"
+		(property "Reference" "C24"
 			(at 142.24 54.61 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4359,7 +4359,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "C_ISO_C1")
+					(reference "C24")
 					(unit 1)
 				)
 			)
@@ -4377,7 +4377,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d4c7a8dc-99aa-425d-83bc-63fa97e04c81")
-		(property "Reference" "#PWR036"
+		(property "Reference" "#PWR038"
 			(at 135.89 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -4438,7 +4438,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR036")
+					(reference "#PWR038")
 					(unit 1)
 				)
 			)
@@ -4456,7 +4456,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d68a7542-5a6f-4fcd-a88c-78de87a9c4eb")
-		(property "Reference" "C_ISO_B1"
+		(property "Reference" "C23"
 			(at 93.98 52.07 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4529,7 +4529,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "C_ISO_B1")
+					(reference "C23")
 					(unit 1)
 				)
 			)
@@ -4547,7 +4547,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "da9f351a-b71f-4245-b2f1-2f34e84769d3")
-		(property "Reference" "#PWR040"
+		(property "Reference" "#PWR042"
 			(at 157.48 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -4607,7 +4607,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR040")
+					(reference "#PWR042")
 					(unit 1)
 				)
 			)
@@ -4625,7 +4625,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "deedd4fb-82ca-4b62-95c8-43ac4e09fea5")
-		(property "Reference" "#PWR0120"
+		(property "Reference" "#PWR033"
 			(at 109.22 96.33 0)
 			(hide yes)
 			(show_name no)
@@ -4685,7 +4685,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR0120")
+					(reference "#PWR033")
 					(unit 1)
 				)
 			)
@@ -4703,7 +4703,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e1aaae2b-1e7e-4f12-afbd-1446b9991628")
-		(property "Reference" "#PWR045"
+		(property "Reference" "#PWR047"
 			(at 224.79 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -4763,7 +4763,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR045")
+					(reference "#PWR047")
 					(unit 1)
 				)
 			)
@@ -4781,7 +4781,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "eae2f9aa-e0d6-4198-8bd9-01135b2e92fe")
-		(property "Reference" "#PWR025"
+		(property "Reference" "#PWR027"
 			(at 68.58 66.04 0)
 			(hide yes)
 			(show_name no)
@@ -4841,7 +4841,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "#PWR025")
+					(reference "#PWR027")
 					(unit 1)
 				)
 			)
@@ -4859,7 +4859,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fbcd25b5-5577-4fb3-b387-0ba8a0afa5f7")
-		(property "Reference" "C_ISO_E1"
+		(property "Reference" "C26"
 			(at 209.55 57.15 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4932,7 +4932,7 @@
 		(instances
 			(project "barn-blinds-controller"
 				(path "/aa90962a-81b9-423d-8acd-c4e83fa798bb/5abc6c0d-fca0-406e-b928-fa5bf81b9020"
-					(reference "C_ISO_E1")
+					(reference "C26")
 					(unit 1)
 				)
 			)
