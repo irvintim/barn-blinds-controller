@@ -1,3 +1,34 @@
-# KiCad backup and cache files
+# KiCad backup, cache, and per-user files
 *.bak
 fp-info-cache
+*.kicad_sch-bak
+*.kicad_prl
+~*.lck
+_autosave-*
+
+# FreeCAD backups
+*.FCBak
+
+# Editor/IDE local state
+.history/
+.idea/
+
+# Local backup folders
+barn-blinds-controller-backups/
+production/backups/
+
+# Vendor libraries — install via KiCad Plugin & Content Manager per machine,
+# do not commit (see kicad-multi-machine-setup notes)
+espressif-kicad-addon.zip
+espressif-kicad-library/
+
+# Downloaded vendor archives / old project snapshots
+1597DIN2GY.zip
+KiJLC-main.zip
+barn-blinds-controller.zip
+barn-blinds-controller-v1.1.zip
+
+# Old export scratch (untracked in cleanup 2026-07-07)
+pcb_1.step
+Unnamed-Component_Compound*
+Unnamed-PCB_Compound*
