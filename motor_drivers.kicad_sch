@@ -4713,6 +4713,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C8545"
+			(at 198.12 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "5f6a7b8c-9d0e-4f1a-8b2c-4d5e6f7a8b9c")
 		)

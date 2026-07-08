@@ -5774,6 +5774,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C8545"
+			(at 207.01 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "e9c9b2ca-fb24-445d-8864-78e8a669bd96")
 		)
@@ -7348,6 +7359,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C15849"
+			(at 264.16 38.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "c3d4e5f6-a7b8-4c9d-8e0f-2a3b4c5d6e7f")
 		)
@@ -7511,6 +7533,17 @@
 			)
 		)
 		(property "Description" "0.7A Ic, 20V Vce, Low Voltage High Current NPN Transistor, SOT-23"
+			(at 262.89 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2146"
 			(at 262.89 77.47 0)
 			(hide yes)
 			(show_name no)
@@ -8146,6 +8179,17 @@
 			)
 		)
 		(property "Description" "0.7A Ic, 20V Vce, Low Voltage High Current NPN Transistor, SOT-23"
+			(at 252.73 38.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2146"
 			(at 252.73 38.1 0)
 			(hide yes)
 			(show_name no)

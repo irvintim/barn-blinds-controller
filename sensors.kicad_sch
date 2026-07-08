@@ -2540,7 +2540,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "ACS723xLCTR-05AB"
+		(property "Value" "ACS725LLCTR-05AB-T"
 			(at 85.9633 38.1 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2564,7 +2564,7 @@
 				(justify left)
 			)
 		)
-		(property "Datasheet" "http://www.allegromicro.com/~/media/Files/Datasheets/ACS723-Datasheet.ashx?la=en"
+		(property "Datasheet" "https://www.allegromicro.com/-/media/files/datasheets/acs725-datasheet.pdf"
 			(at 83.82 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -2586,7 +2586,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C2655492"
+		(property "LCSC" "C3684552"
 			(at 83.82 48.26 0)
 			(hide yes)
 			(show_name no)

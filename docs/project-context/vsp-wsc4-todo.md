@@ -6,7 +6,7 @@
 - [x] ACS723 moved to GPIO10 (ADC1_CH9)
 - [x] TMP235 moved to GPIO7 (ADC1_CH6)
 - [x] Terminal block J3: replaced JL271R-35008G01 (8-pin) with Phoenix Contact 1054070 (20-pin dual-row, 3.5mm pitch, JLCPCB C20306292) in motor_outputs.kicad_sch
-- [x] Pinout: pos 1-4 = motors M1-4, pos 5/7/8/10 = SW_UP, pos 6/9 = SW_COM (GND_ISO), pos 15/17/18/20 = SW_DOWN
+- [x] J4 pinout (final, verified against netlist 2026-07-07 — layout-driven, intentional): top row pos 1=SW1_UP, 2=GND_ISO, 3=SW2_UP, 4=SW3_UP, 5=GND_ISO, 6=SW4_UP, 7-10=SHADE1-4_UP; bottom row pos 11=SW1_DOWN, 12=GND_ISO, 13=SW2_DOWN, 14=SW3_DOWN, 15=GND_ISO, 16=SW4_DOWN, 17-20=SHADE1-4_DOWN. Each motor connects across its vertical pair (e.g. Shade 1 = pos 7 + pos 17); each wall switch across its vertical pair with adjacent GND_ISO commons
 - [x] switch_inputs.kicad_sch created (page 9): 8-ch RC+TVS, 4× PRTR5V0U2X + 8× 10kΩ + 8× 100nF
 - [x] All schematic connection bugs fixed; loads and connects correctly
 - [x] USB connector swapped from USB-C (Kinghelm KH-TYPE-C-16P) to Micro-USB in usb-c-5v.kicad_sch — same part/footprint/LCSC (C397452) as used in ../zen32-esphome; removes the CC1/CC2 orientation issue entirely (Micro-USB has no CC lines); CC pulldowns R1/R4 removed; verified via kicad-cli ERC/netlist (2026-06-30)
@@ -26,6 +26,21 @@
 - [x] Update silkscreen revision to 1.3 (confirmed on board: "rev: 1.3") (2026-07-06)
 - [x] Update silkscreen copyright year (confirmed on board: "© Vesprio.io 2026") (2026-07-06)
 - [x] Fixed test point copper — removed the TestPoint footprint that was suppressing solder mask over the TP pads; copper now renders correctly in 3D view (2026-07-06)
+
+### Pre-fab QA review changes (2026-07-07) — schematic done, PCB placement pending:
+- [x] **R1-R8 (switch input series resistors): 10k → 1k (LCSC C21190).** Root cause: inputs rely on ESP32 internal ~45k pull-up; with 10k series, a closed switch divided to 0.6V at the pin vs 0.825V VIL — marginal. With 1k: ~0.1-0.23V worst case. Same 0603 footprint, no layout change.
+- [x] **U11: ACS723LLCTR-05AB → ACS725LLCTR-05AB-T (LCSC C3684552).** ACS723 requires 4.5-5.5V supply but was running at 3.3V (out of spec, though empirically working on Rev 1.2). ACS725 is the native 3.3V version, same SOIC-8 pinout, rated -40~+150°C (attic-safe). **FIRMWARE CHANGE REQUIRED:** sensitivity is 264mV/A (was 400mV/A) — formula becomes `(x - 1.65) / 0.264`; recompute stall threshold (1.4A → 1.65 + 1.4×0.264 ≈ 2.02V, within ADC range at 12dB).
+- [x] **D1: SS34 → SS54 (LCSC C22452).** 3A → 5A input diode headroom for multi-motor load; C22452 is SS54 in the same SMA package — no layout change.
+- [x] **D2 (BAT54C, 200mA) removed — replaced with D10 + D11 (SS34, 3A each, LCSC C8678).** The old BAT54C carried the entire ESP32 load permanently (WiFi bursts 350-500mA vs 200mA rating). Diode-OR topology retained (required: B1205S is unregulated, can't be paralleled with USB directly). D11 = 5V_ISO→5V_OR, D10 = USB VBUS→5V_OR. **PCB: remove D2 (SOT-23), place 2× SMA.**
+- [x] **U16 (PRTR5V0U2X, LCSC C12333) added: USB D+/D- ESD protection.** I/O1→USB_IN_DP, I/O2→USB_IN_DN, VCC→USB_VBUS, GND→GND_ISO. **PCB: place SOT-143 near J2, keep stubs short.**
+- [x] Filled all missing LCSC fields for assembly BOM: C1-C8 = C1525 (100nF 0402), C10 = C2840614 (100uF 25V 1210 — upgraded from 10V rating, same footprint), C17 = C15849 (1uF 0603), Q1/Q2 = C8545 (2N7002), Q3/Q4 = C2146 (S8050), U12-U15 = C12333 (PRTR5V0U2X)
+- [ ] **PCB work remaining:** place/route D10, D11 (2× SMA replacing D2's SOT-23), U16 (SOT-143 near J2); then Update PCB from Schematic (F8). R1-R8, D1, C10, U11 are value/part-number-only changes on unchanged footprints — no layout work.
+
+### Firmware bring-up checklist (Rev 1.3 boards):
+- Enable **internal pull-ups on all 8 switch input GPIOs**: 3, 46, 9, 10, 11, 12, 13, 14. There are no external pull-ups. Note GPIO46 is a strapping pin whose reset default is pull-*down* — the pull-up must be set explicitly in firmware; switches short to GND_ISO so a held switch can never create an invalid boot combination.
+- **GPIO6 (D4 white LED) and GPIO7 (D5 blue LED): drive LOW to turn off, HIGH/floating = on.** Both LEDs are hardware-default-ON from power-up until firmware intervenes (by design — they track raw power).
+- **ACS725 formula:** `amps = (Vout - 1.65) / 0.264` (was /0.4 for ACS723). Update stall detection threshold accordingly.
+- **Serial terminal gotcha:** with the new RTS/DTR auto-reset circuit on J3, any terminal program that asserts DTR without RTS will hold the ESP32 in reset until DTR is released (identical behavior to NodeMCU-style dev boards). esptool/ESPHome/Tasmota flashers handle this correctly; if the board appears dead over a serial monitor, check the monitor's DTR/RTS settings.
 
 ### Still needed — schematic:
 - [ ] **Auto-reset circuit — needs a research/discussion pass next session before any hardware decision. Do not add circuitry yet.**

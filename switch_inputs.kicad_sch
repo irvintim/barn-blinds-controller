@@ -2052,6 +2052,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C1525"
+			(at 86.36 52.324 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "7ced14b3-d430-4a6e-ac66-ddda244e5ce5")
 		)
@@ -2125,6 +2136,17 @@
 		)
 		(property "Description" ""
 			(at 85.09 171.17 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C1525"
+			(at 85.09 171.17 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2245,7 +2267,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "1k"
 			(at 58.42 64.77 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2443,6 +2465,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C1525"
+			(at 86.36 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "49225b49-53ad-45ea-b481-2f95737a756e")
 		)
@@ -2516,6 +2549,17 @@
 		)
 		(property "Description" ""
 			(at 86.36 91.694 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C1525"
+			(at 86.36 91.694 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2678,6 +2722,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C12333"
+			(at 135.89 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "745e65f2-3ada-4ca2-8ec7-353f77ceb09e")
 		)
@@ -2755,6 +2810,17 @@
 			)
 		)
 		(property "Description" "Ultra low capacitance double rail-to-rail ESD protection diode, SOT-143"
+			(at 133.35 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C12333"
 			(at 133.35 152.4 0)
 			(hide yes)
 			(show_name no)
@@ -2844,6 +2910,17 @@
 		)
 		(property "Description" ""
 			(at 86.36 112.014 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C1525"
+			(at 86.36 112.014 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3006,6 +3083,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C12333"
+			(at 135.89 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "e5040c69-71c8-44d8-a260-0cdacecf05b8")
 		)
@@ -3085,6 +3173,17 @@
 		)
 		(property "Description" ""
 			(at 83.82 151.384 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C1525"
+			(at 83.82 151.384 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3205,7 +3304,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "1k"
 			(at 58.42 41.91 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3625,6 +3724,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C1525"
+			(at 85.09 33.274 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "5522796b-8953-472d-becf-db6d7ab78091")
 		)
@@ -3663,7 +3773,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "1k"
 			(at 59.69 121.92 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3744,7 +3854,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "1k"
 			(at 59.69 81.28 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3868,6 +3978,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C12333"
+			(at 133.35 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "7a4ff35b-0230-4c11-8db7-32db4868458a")
 		)
@@ -3912,7 +4033,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "1k"
 			(at 58.42 140.97 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4258,6 +4379,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C1525"
+			(at 86.36 132.334 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "16948ac2-78b0-4cb6-903c-e720ba282f1d")
 		)
@@ -4518,7 +4650,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "1k"
 			(at 59.69 101.6 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4673,7 +4805,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "1k"
 			(at 57.15 22.86 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4754,7 +4886,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "1k"
 			(at 58.42 161.29 90)
 			(show_name no)
 			(do_not_autoplace no)
