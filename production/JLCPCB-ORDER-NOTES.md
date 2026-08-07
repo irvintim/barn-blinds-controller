@@ -65,16 +65,13 @@ H4 (105 °C) would be the ideal attic part but **JLCPCB does not stock it** — 
 non-PSRAM ESP32-S3-WROOM-1 they carry is 85 °C. N4 is the best available and also the
 cheapest ($4.13/1, ~4700 in stock).
 
-## Open item — C33/C34 electrolytics
+## C33/C34 electrolytics — CHECKED 2026-08-07, no action
 
-Not blocking this PCB order (footprint is unchanged either way), but decide before the
-boards are populated. `Capacitor_SMD:CP_Elec_10x10.5`, 1000 µF 25 V, currently C7471896,
-+12 V motor-rail bulk.
-
-**First check whether C7471896 is 85 °C or 105 °C.** If 85 °C, swap it — that's the actual
-risk. If already 105 °C, the upgrade is optional. Target: same 10 × 10.5 mm can, ≥ 25 V,
-~1000 µF, **105 °C, load life ≥ 2000 h (prefer 5000 h+)**. Life math and duty-cycle
-reasoning in CLAUDE.md → "Hot-attic reliability notes".
+C7471896 is **already a 105 °C part**: 1000 µF 25 V, –55~+105 °C, 2000 h @ 105 °C,
+60 mΩ ESR, 1.19 A ripple, D10×L10.5 mm. Duty-cycle-weighted for an attic that works out
+to **~15 year service life**, and ripple self-heating is negligible because these only
+see current during the brief motor runs. **Leave them in.** Full reasoning in
+CLAUDE.md → "Hot-attic reliability notes".
 
 ## Verified correct — no action needed
 

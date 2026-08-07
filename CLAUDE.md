@@ -44,20 +44,15 @@ Then: regenerate gerbers/BOM/CPL (`docs/project-context/jlcpcb-export-steps.md`)
 ## Hot-attic reliability notes (2026-08-07)
 Ranked by how likely each is to actually bite, most-likely first:
 
-1. **C33/C34 — 1000 µF 25 V aluminium electrolytics are the weak link.** The only electrolytics left on the board; everything else is ceramic. They are the +12 V motor-rail bulk/inrush reservoir (`+12V` / `GND_MOTOR`), SMD can, `Capacitor_SMD:CP_Elec_10x10.5`, currently **C7471896**. HF bypass on that rail is already covered by C32/C36/C37 (10 µF 0805) and C38/C39 (0.1 µF 0603), so these two are purely bulk — which means the selection is about **endurance, not ESR finesse**.
+1. **C33/C34 electrolytics — CHECKED 2026-08-07, no change needed.** The only electrolytics left on the board; everything else is ceramic. +12 V motor-rail bulk/inrush reservoir (`+12V` / `GND_MOTOR`), `Capacitor_SMD:CP_Elec_10x10.5`, **C7471896**.
 
-   **First step: check what C7471896 actually is.** If it's an 85 °C part, replace it — that's the real problem. If it's already 105 °C, the upgrade is optional.
+   Actual spec: **1000 µF 25 V, –55 ~ +105 °C, 2000 h @ 105 °C, 60 mΩ ESR @ 100 kHz, 1.19 A ripple, D10×L10.5 mm.** Already a 105 °C part, so the thing that would have been a genuine problem (an 85 °C part) isn't present.
 
-   **Selection criteria for the replacement** (drop-in, no PCB change):
-   - Same 10 × 10.5 mm SMD can, ≥ 25 V, ~1000 µF
-   - **105 °C rated**, load life ≥ 2000 h, prefer 5000 h+
-   - Polymer/hybrid would be better still but 1000 µF/25 V in a 10 mm can is expensive and hard to source — a good 105 °C long-life aluminium is the pragmatic pick
+   Duty-cycle-weighted endurance for an attic (life doubles per 10 °C below rating; modelling 300 h/yr @ 80 °C, 800 @ 60 °C, 3000 @ 40 °C, 4660 @ 20 °C): consumes ~6.7 %/year → **~15 year service life**. A same-can 5000 h part would give ~37 years, which is past the useful life of everything else in the box.
 
-   **What the numbers actually say** (life doubles per 10 °C below rating). Assume the cap sees ~80 °C at attic peak (70 °C ambient + enclosure rise):
-   - 105 °C / 2000 h part → 2000 × 2^2.5 ≈ **11,300 h** at a *sustained* 80 °C ≈ 1.3 years
-   - 105 °C / 5000 h part → ≈ **28,000 h** ≈ 3.2 years
+   **Two reasons the ripple rating is not a concern here:** these caps see ripple only during the brief motor runs (a few tens of seconds a day), not continuously like an SMPS output cap — so ripple self-heating contributes essentially nothing to the thermal budget. And with two in parallel the combined 2.38 A rating (30 mΩ effective ESR) is well above anything the TB6612FNGs draw at the 1.4 A stall threshold.
 
-   But it is never sustained. Weighting a plausible duty cycle — say ~500 h/year at 80 °C and the rest near 30 °C — a 105 °C/2000 h part consumes roughly 7 %/year, i.e. **~15 year life**; a 5000 h part is comfortably beyond the rest of the design. So this is worth doing, but it is a "spend $1 for peace of mind" item, not a crisis. An 85 °C part under the same duty cycle is the one that would genuinely disappoint.
+   **Verdict: leave C7471896 in.** If a 105 °C / 5000 h part in the same 10 × 10.5 mm can happens to be in stock at similar cost, take it as free margin — but do not hold an order for it, and it does not justify any board change.
 2. **ESP32 temperature grade** — resolved: N4 (85 °C) is the best JLCPCB stocks; H4 (105 °C) isn't available. See the section above, including the enclosure-ventilation caveat.
 3. **Surface finish** — ENIG over HASL. Better pad flatness for the SOT-143 (U12-U16), the 0402s and the module's LGA thermal pad; also RoHS-compliant, which matters for the product track. Leaded HASL is fine electrically, this is about assembly yield and compliance.
 4. **Laminate Tg — genuine but the smallest effect of the four.** At ~70 °C operating, every option on JLCPCB's list is far below its Tg, so this is not about surviving the heat. It is about *thermal-cycling fatigue* on plated through-hole barrels across daily attic swings, which matters a bit more here than usual because **96 of 177 vias sit inside SMD pads**. Higher Tg → lower z-axis CTE → less barrel strain per cycle. Board is 4-layer, so the valid choices are JLC-1 (Nan Ya NP-140F / NP-155F) or JLC-4 (up to Shengyi S1000-2M TG170). Best margin: **JLC-4 / S1000-2M TG170**. Minimal change: **JLC-1 / NP-155F**, staying in the already-selected certification family. Honest framing: Tg140 FR-4 ships in millions of hot-environment consumer products; this is cheap insurance, not a fix for a known problem.
