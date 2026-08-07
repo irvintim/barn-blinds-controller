@@ -1040,7 +1040,7 @@
         "uuid": "aa90962a-81b9-423d-8acd-c4e83fa798bb"
       }
     ],
-    "used_designators": "SW1-2,C_ISO_A1,C_TMP1,C_ISO_C1,H1-4,R1-20,C_ISO_E1,R_BOOT1,J1-5,C_VM_B1-2,R_LED1-3,C_ISO_F1,C_ACS1-2,#PWR1-117,TP1-7,C_ISO_D1,C_VCC_A1-2,F1-4,C_ISO_B1,Q1-4,C_VM_A1-2,C_FILT1,C1-22,U1-16,D1-10,C_VCC_B1-2",
+    "used_designators": "C_ACS1-2,C_ISO_F1,R_LED1-3,C_VM_B1-2,J1-5,R_BOOT1,C_ISO_E1,R1-20,H1-4,C_ISO_C1,C_TMP1,C_ISO_A1,SW1-2,C_VCC_B1-2,D1-10,U1-16,F1-4,C1-22,C_FILT1,Q1-4,C_VM_A1-2,C_ISO_B1,C_VCC_A1-2,C_ISO_D1,TP1-7,#PWR1-117",
     "variants": []
   },
   "sheets": [

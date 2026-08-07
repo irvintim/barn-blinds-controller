@@ -6461,7 +6461,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "83e740af-d1bf-4ff1-a0c3-58f2f85e7d4e")
 		(property "Reference" "J3"
 			(at 216.916 90.424 0)
@@ -6505,7 +6505,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x05, script generated"
+		(property "Description" "Generic connector, single row, 01x07, script generated"
 			(at 217.17 105.41 0)
 			(hide yes)
 			(show_name no)

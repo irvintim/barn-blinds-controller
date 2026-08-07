@@ -55,11 +55,17 @@ Done 2026-08-06/07 (PCB / GUI work):
 - [ ] Regenerate gerbers/BOM/CPL if anything changes — `gerbers/` and `gerbers-v1.1/` are both stale (v1.1 era); Fabrication Toolkit run 2026-08-07 as `VSP-WSC-4_1.3`.
 - [ ] Add JLCPCB order remark for U1's shared multi-footprint DC-DC pattern before submitting assembly — see "PICK UP HERE" in CLAUDE.md and `jlcpcb-export-steps.md`.
 
+### Stock-driven part swaps (2026-08-07) — schematic-only, same footprints, PICK UP HERE has full detail:
+- [x] C10: 100uF 25V (C2840614, OOS) → 100uF 16V (C7432790, HGC1210R5107M160NSVK) — same 1210 footprint.
+- [x] U12-U16: PRTR5V0U2X LCSC C12333 (OOS) → C5158049 (UMW/Youtai) — same SOT-143 footprint.
+- [x] **J3 marked DNP.** Its LCSC (C492404) was a leftover 5-pin part mismatched against the 7-pin footprint since the RTS/DTR rework grew it from 5→7 pins; a real 7-pin part wasn't in stock either, and J3 is only a backup flashing path (native USB is primary) — not worth chasing for this run. Fix the LCSC before ever un-DNP'ing it. Stale "01x05" Description text (same root cause) corrected to "01x07."
+- [ ] Regenerate gerbers/BOM/CPL — the `VSP-WSC-4_1.3` archive predates these three changes.
+
 ### Firmware bring-up checklist (Rev 1.3 boards):
 - Enable **internal pull-ups on all 8 switch input GPIOs**: 3, 46, 9, 10, 11, 12, 13, 14. There are no external pull-ups. Note GPIO46 is a strapping pin whose reset default is pull-*down* — the pull-up must be set explicitly in firmware; switches short to GND_ISO so a held switch can never create an invalid boot combination.
 - **GPIO6 (D4 white LED) and GPIO7 (D5 blue LED): drive LOW to turn off, HIGH/floating = on.** Both LEDs are hardware-default-ON from power-up until firmware intervenes (by design — they track raw power).
 - **ACS725 formula:** `amps = (Vout - 1.65) / 0.264` (was /0.4 for ACS723). Update stall detection threshold accordingly.
-- **Serial terminal gotcha:** with the new RTS/DTR auto-reset circuit on J3, any terminal program that asserts DTR without RTS will hold the ESP32 in reset until DTR is released (identical behavior to NodeMCU-style dev boards). esptool/ESPHome/Tasmota flashers handle this correctly; if the board appears dead over a serial monitor, check the monitor's DTR/RTS settings.
+- **Serial terminal gotcha:** with the new RTS/DTR auto-reset circuit on J3, any terminal program that asserts DTR without RTS will hold the ESP32 in reset until DTR is released (identical behavior to NodeMCU-style dev boards). esptool/ESPHome/Tasmota flashers handle this correctly; if the board appears dead over a serial monitor, check the monitor's DTR/RTS settings. **Note: J3 is DNP'd on Rev 1.3 boards from this run — this only applies if it's populated later.** Native USB (GPIO19/20) is the primary/only flash path as shipped.
 
 ### Still needed — schematic:
 - [ ] **Auto-reset circuit — needs a research/discussion pass next session before any hardware decision. Do not add circuitry yet.**

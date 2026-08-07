@@ -3092,7 +3092,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C12333"
+		(property "LCSC" "C5158049"
 			(at 135.89 33.02 0)
 			(hide yes)
 			(show_name no)
@@ -3264,7 +3264,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C12333"
+		(property "LCSC" "C5158049"
 			(at 133.35 152.4 0)
 			(hide yes)
 			(show_name no)
@@ -3619,7 +3619,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C12333"
+		(property "LCSC" "C5158049"
 			(at 135.89 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -4713,7 +4713,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C12333"
+		(property "LCSC" "C5158049"
 			(at 133.35 111.76 0)
 			(hide yes)
 			(show_name no)
