@@ -1,0 +1,38 @@
+(version 1)
+
+# ---------------------------------------------------------------------------
+# Isolation barrier audit rule  --  VSP-WSC-4
+#
+# WHY THIS EXISTS
+#   The board has two supply domains separated by U1 (B1205S-3WR2L isolated
+#   DC-DC), U4/U5/U6 (digital isolators) and U11 (ACS725, isolated Hall sensor):
+#     ISO   = ESP32 / USB / switch inputs   (+3.3V_ISO, +5V_ISO, +5V_OR, GND_ISO)
+#     MOTOR = 12V input and motor drivers   (+12V_RAW, +3.3V_MOTOR, GND_MOTOR)
+#   None of the stock netclasses enforce a gap between them, so plain DRC has
+#   never checked the barrier. This rule makes it visible.
+#
+# CURRENT STATUS (measured 2026-08-05, Rev 1.3)
+#   Minimum ISO-to-MOTOR copper gap is 0.20 mm -- i.e. the global default
+#   clearance, no dedicated barrier. Rev 1.2 (built and working) measured the
+#   same 0.20 mm, so this is inherited, not a Rev 1.3 regression.
+#   At 0.5 mm this rule reports ~400 hits; at 2.0 mm, ~1000.
+#   That is expected: J4 deliberately carries BOTH domains (switch returns are
+#   GND_ISO on pins 2/5/12/15, SHADE pins are motor-side 12V), and the eight
+#   switch nets cross the motor region to reach the ESP32.
+#
+# HOW TO USE IT
+#   Severity is "warning" so it never blocks fabrication. Treat it as an audit
+#   tool for a future revision, not a gate on this one. Because the whole system
+#   is 12V SELV the isolation here is FUNCTIONAL (noise / ground-loop), not a
+#   safety barrier -- there is no shock-hazard reason to hit a specific number.
+#   To silence it entirely: change (severity warning) to (severity ignore).
+#   To audit a redesign: raise the min and work the list down.
+#
+# GOTCHA (cost me an hour): a (condition "...") string MUST be on ONE line.
+#   KiCad parses a multi-line condition without error but it matches NOTHING.
+# ---------------------------------------------------------------------------
+
+(rule "isolation-barrier"
+  (severity warning)
+  (constraint clearance (min 0.5mm))
+  (condition "( A.NetName == '*_ISO' || A.NetName == '+5V_OR' || A.NetName == 'SW*' || A.NetName == 'USB*' || A.NetName == 'ISO_*' || A.NetName == 'EN' || A.NetName == 'BOOT' || A.NetName == 'ACS723' || A.NetName == 'TMP235' || A.NetName == 'U0*' || A.NetName == 'DTR' || A.NetName == 'RTS' || A.NetName == 'LED_D4_EN' || A.NetName == 'LED_D5_CTRL' || A.NetName == 'D4_CATHODE' ) && ( B.NetName == 'GND_MOTOR' || B.NetName == '+12V*' || B.NetName == '+3.3V_MOTOR' || B.NetName == 'SHADE*' || B.NetName == 'SH1_*' || B.NetName == 'SH2_*' || B.NetName == 'SH3_*' || B.NetName == 'SH4_*' || B.NetName == 'STBY' || B.NetName == 'LED_D5_SW' || B.NetName == 'D5_CATHODE' )"))

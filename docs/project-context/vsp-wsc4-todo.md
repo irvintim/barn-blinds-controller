@@ -28,13 +28,31 @@
 - [x] Fixed test point copper — removed the TestPoint footprint that was suppressing solder mask over the TP pads; copper now renders correctly in 3D view (2026-07-06)
 
 ### Pre-fab QA review changes (2026-07-07) — schematic done, PCB placement pending:
-- [x] **R1-R8 (switch input series resistors): 10k → 1k (LCSC C21190).** Root cause: inputs rely on ESP32 internal ~45k pull-up; with 10k series, a closed switch divided to 0.6V at the pin vs 0.825V VIL — marginal. With 1k: ~0.1-0.23V worst case. Same 0603 footprint, no layout change.
+- [x] **R1-R8 (switch input series resistors): 10k → 1k.** Root cause: inputs rely on ESP32 internal ~45k pull-up; with 10k series, a closed switch divided to 0.6V at the pin vs 0.825V VIL — marginal. With 1k: ~0.1-0.23V worst case. Same 0603 footprint, no layout change.
+  - ⚠️ **LCSC discrepancy — decide before ordering.** This line originally specified **C21190**, but the symbols had *no* LCSC field at all (the value change landed, the part number never did — they would have come back unpopulated). Set to **C14676** on 2026-08-05 because that is the exact part R14 already uses for 1K 0603 in this design, so it consolidates to one BOM line / one feeder. If C21190 was chosen deliberately, change R1-R8 in `switch_inputs.kicad_sch` back.
 - [x] **U11: ACS723LLCTR-05AB → ACS725LLCTR-05AB-T (LCSC C3684552).** ACS723 requires 4.5-5.5V supply but was running at 3.3V (out of spec, though empirically working on Rev 1.2). ACS725 is the native 3.3V version, same SOIC-8 pinout, rated -40~+150°C (attic-safe). **FIRMWARE CHANGE REQUIRED:** sensitivity is 264mV/A (was 400mV/A) — formula becomes `(x - 1.65) / 0.264`; recompute stall threshold (1.4A → 1.65 + 1.4×0.264 ≈ 2.02V, within ADC range at 12dB).
 - [x] **D1: SS34 → SS54 (LCSC C22452).** 3A → 5A input diode headroom for multi-motor load; C22452 is SS54 in the same SMA package — no layout change.
 - [x] **D2 (BAT54C, 200mA) removed — replaced with D10 + D11 (SS34, 3A each, LCSC C8678).** The old BAT54C carried the entire ESP32 load permanently (WiFi bursts 350-500mA vs 200mA rating). Diode-OR topology retained (required: B1205S is unregulated, can't be paralleled with USB directly). D11 = 5V_ISO→5V_OR, D10 = USB VBUS→5V_OR. **PCB: remove D2 (SOT-23), place 2× SMA.**
 - [x] **U16 (PRTR5V0U2X, LCSC C12333) added: USB D+/D- ESD protection.** I/O1→USB_IN_DP, I/O2→USB_IN_DN, VCC→USB_VBUS, GND→GND_ISO. **PCB: place SOT-143 near J2, keep stubs short.**
 - [x] Filled all missing LCSC fields for assembly BOM: C1-C8 = C1525 (100nF 0402), C10 = C2840614 (100uF 25V 1210 — upgraded from 10V rating, same footprint), C17 = C15849 (1uF 0603), Q1/Q2 = C8545 (2N7002), Q3/Q4 = C2146 (S8050), U12-U15 = C12333 (PRTR5V0U2X)
-- [ ] **PCB work remaining:** place/route D10, D11 (2× SMA replacing D2's SOT-23), U16 (SOT-143 near J2); then Update PCB from Schematic (F8). R1-R8, D1, C10, U11 are value/part-number-only changes on unchanged footprints — no layout work.
+- [x] **PCB work: DONE 2026-08-05.** D2 removed; D10, D11, U16 placed and routed; F8 sync applied all value changes in place. Verified by footprint-level diff: exactly the intended delta, nothing else moved. DRC 0 errors / 0 unconnected pads. Courtyard checks (normally disabled in this project) re-enabled in a scratch copy — no overlaps on any new part.
+
+### Second QA pass (2026-08-05) — schematic items DONE, PCB items OPEN
+Done and committed (schematic side):
+- [x] R1-R8 given an LCSC part number (see discrepancy note above) — they had none, would have shipped unpopulated.
+- [x] TP1-TP7 set `in_bom no` + `in_pos_files no` — were adding 7 junk lines to the JLCPCB BOM.
+- [x] Removed 4 orphan dangling wire stubs in `switch_inputs.kicad_sch` (netlist verified byte-identical after).
+- [x] Orphan `STBY` hierarchical label in `motor_drivers.kicad_sch` **converted to a global label** (not deleted). ⚠️ It looked like a free-floating orphan but its wire actually carried **U9 pin 19**; deleting it silently dropped U9.19 off the STBY net. Converting keeps the connection and clears the ERC `hier_label_mismatch`.
+- [x] Added **C40-C43** (100nF 0402, C1525) for U12-U15 VCC decoupling.
+- [x] Added `barn-blinds-controller.kicad_dru` isolation-barrier audit rule.
+
+Open (PCB / GUI work — see "PICK UP HERE" in CLAUDE.md for full detail):
+- [ ] Place C40-C43, each within ~2mm of its TVS VCC pin (C40→U12, C41→U13, C42→U14, C43→U15). Currently U12-U15 have their nearest bypass 18-23mm away.
+- [ ] Widen `+5V_OR` from 0.20mm to 0.50mm (8.1mm of its run is at default signal width; it is the ESP32's whole supply).
+- [ ] Move U16 nearer J2 — currently 9.2-9.4mm from the D+/D- pads and on the opposite layer.
+- [ ] Decide J2 (Micro-USB) LCSC part number, or mark hand-solder.
+- [ ] Cosmetic: D11 reference field overlaps D10 silkscreen.
+- [ ] Regenerate gerbers/BOM/CPL — `gerbers/` and `gerbers-v1.1/` are both stale.
 
 ### Firmware bring-up checklist (Rev 1.3 boards):
 - Enable **internal pull-ups on all 8 switch input GPIOs**: 3, 46, 9, 10, 11, 12, 13, 14. There are no external pull-ups. Note GPIO46 is a strapping pin whose reset default is pull-*down* — the pull-up must be set explicitly in firmware; switches short to GND_ISO so a held switch can never create an invalid boot combination.
@@ -53,7 +71,7 @@
   - D4 is hardwired directly to `+3.3V_ISO` via R_LED2 (always on whenever 3.3V rail is up) — needs a GPIO-driven switch (transistor/MOSFET or direct GPIO drive through the LED resistor, whichever this design's LED drive convention already uses for D3) instead of a direct tie to the rail.
   - D5 is hardwired directly to `+12V` via R_LED3 (always on whenever 12V input is present) — same fix needed, referenced to `GND_MOTOR` since it's on the motor-side rail.
   - Free GPIOs available per the Rev 1.3 GPIO map below: GPIO6, GPIO7, GPIO8, GPIO15, GPIO17, GPIO18, GPIO45 (note GPIO45 is a strapping pin, only use it if the strapping behavior is confirmed harmless the way it was for other signals sharing it before).
-- [ ] MANUAL: cosmetic TVS wire cleanup in switch_inputs.kicad_sch (still worth a tidy pass even though annotation is done)
+- [x] MANUAL: TVS wire cleanup in switch_inputs.kicad_sch — 4 orphan dangling stubs removed 2026-08-05. Remaining 37 `endpoint_off_grid` ERC warnings are inherent to this project's `Device:C` symbol variant (pins at ±1.524mm cannot land on a 1.27mm grid) and affect C1-C8 equally; cosmetic only.
 
 ---
 
