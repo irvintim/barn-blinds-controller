@@ -52,14 +52,25 @@ Done 2026-08-06/07 (PCB / GUI work):
 - [x] Moved U16 nearer J2 (center-to-center 6.1mm→4.0mm). Still B.Cu vs J2's F.Cu — accepted trade-off, see "PICK UP HERE" above.
 - [x] J2 LCSC set to C397452 (same Micro-USB part as zen32-esphome). J4 LCSC set to C6652293 — intentional: pre-purchased JLCPCB inventory part, number still needed so JLCPCB places it.
 - [x] D10/D11 silkscreen reference overlap fixed.
-- [ ] Regenerate gerbers/BOM/CPL if anything changes — `gerbers/` and `gerbers-v1.1/` are both stale (v1.1 era); Fabrication Toolkit run 2026-08-07 as `VSP-WSC-4_1.3`.
-- [ ] Add JLCPCB order remark for U1's shared multi-footprint DC-DC pattern before submitting assembly — see "PICK UP HERE" in CLAUDE.md and `jlcpcb-export-steps.md`.
+- [x] Regenerated gerbers/BOM/CPL — Fabrication Toolkit re-run 2026-08-07 12:40 as `VSP-WSC-4_1.3`, fully verified (see below). `gerbers/` and `gerbers-v1.1/` remain stale v1.1-era folders.
+- [x] **U1 assembly remark — deliberately skipped.** Not an oversight: JLCPCB's engineer reaches out with questions on every run of this board anyway, and it has been placed several times without one. Answer text kept in `production/JLCPCB-ORDER-NOTES.md`. **Do not re-flag this.**
 
 ### Stock-driven part swaps (2026-08-07) — schematic-only, same footprints, PICK UP HERE has full detail:
 - [x] C10: 100uF 25V (C2840614, OOS) → 100uF 16V (C7432790, HGC1210R5107M160NSVK) — same 1210 footprint.
 - [x] U12-U16: PRTR5V0U2X LCSC C12333 (OOS) → C5158049 (UMW/Youtai) — same SOT-143 footprint.
 - [x] **J3 marked DNP.** Its LCSC (C492404) was a leftover 5-pin part mismatched against the 7-pin footprint since the RTS/DTR rework grew it from 5→7 pins; a real 7-pin part wasn't in stock either, and J3 is only a backup flashing path (native USB is primary) — not worth chasing for this run. Fix the LCSC before ever un-DNP'ing it. Stale "01x05" Description text (same root cause) corrected to "01x07."
-- [ ] Regenerate gerbers/BOM/CPL — the `VSP-WSC-4_1.3` archive predates these three changes.
+- [x] Regenerated gerbers/BOM/CPL after these three changes — toolkit re-run 2026-08-07 12:40.
+
+### Fabrication output verification (2026-08-07) — all clean, order placed
+- **Gerbers** (`VSP-WSC-4_1.3.zip`): 11 layers (F/In1/In2/B copper, both masks, both silks, both pastes, Edge_Cuts) + PTH/NPTH drills and maps. Edge_Cuts parses to **65.004 × 73.935 mm**, matching the board. PTH min drill **0.300 mm**, matching the ordered spec. CPL shares the gerber coordinate frame.
+- **BOM** (`VSP-WSC-4_1.3_bom.csv`): 40 lines, 106 placements, Quantity column consistent, no missing LCSC, matches the 106 populated board refs. J3 correctly dropped by `EXCLUDE DNP`.
+- **CPL** (`VSP-WSC-4_1.3_positions.csv`): originally carried H1-H4 (mounting holes, nothing to place). **Fixed at the source** — H1-H4 given `in_pos_files no` in the schematic and `exclude_from_pos_files` in the PCB, same as TP1-TP7. Future runs emit 106 rows with no hand-editing; verified by simulating the toolkit's selection rules. DRC after the edit: 0 errors, 0 unconnected pads.
+- **Duplicate designators in JLCPCB's own BOM export — accepted, not fixed.** Their parts-matching flow duplicates designators when one LCSC spans multiple BOM lines (C1590 as `0.1uF`+`0.1uF 25V`; C51927445 as `RESET`+`BOOT`). **Their tool prompts and the user approves the dups each run** — it self-resolves. Pre-merged `VSP-WSC-4_1.3_bom-UPLOAD.csv` exists if ever wanted. **Do not re-flag this.**
+
+### Order placed 2026-08-07 — settings of record
+Gerber `VSP-WSC-4_1.3_Y18` · 5 boards · PCBA both sides, qty 5 · 4-layer, 1 oz outer / 0.5 oz inner · **S1000H TG155 (JLC-4)** · **ENIG 1 U"** · Plugged vias · Confirm Parts Placement **Yes** · Photo Confirmation **Yes** · UL type JLC-4 · depanelled before delivery.
+
+On the placement/photo confirmations, scrutinise the parts whose LCSC was *not* in the proven Rev 1.2 build: **D1, Q1-Q4, U11, U12-U16** (and J2/J4, visually obvious). D6-D9 are bidirectional TVS so rotation is harmless; D10/D11 use C8678 which was in the Rev 1.2 build.
 
 ### Firmware bring-up checklist (Rev 1.3 boards):
 - Enable **internal pull-ups on all 8 switch input GPIOs**: 3, 46, 9, 10, 11, 12, 13, 14. There are no external pull-ups. Note GPIO46 is a strapping pin whose reset default is pull-*down* — the pull-up must be set explicitly in firmware; switches short to GND_ISO so a held switch can never create an invalid boot combination.

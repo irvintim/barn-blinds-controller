@@ -1,8 +1,19 @@
 # JLCPCB order notes — VSP-WSC-4 Rev 1.3
 
-Working checklist for the Rev 1.3 order. Tick items off as they're set in the JLCPCB UI.
+**Order placed 2026-08-07 (gerber `VSP-WSC-4_1.3_Y18`). Nothing outstanding — waiting on boards.**
 
-## Assembly remark — paste this into the "Assembly remark" field
+## Two things deliberately NOT done — do not re-flag these
+
+Both were reviewed and closed by the user from direct experience with this vendor. They
+are settled, not oversights. A future session should not re-raise them.
+
+**1. Assembly remark left empty — intentional.** The concern was that U1's footprint
+(`DCDC_HYBRID_SLC03_TEC2`) overlays three DC-DC hole patterns (silkscreen `M`/`H`/`T`,
+"POPULATE ONE") and the BOM/CPL can't express which set to use. In practice **JLCPCB's
+engineer reaches out with questions on every run of this board anyway**, and it has been
+placed several times without a remark. The hole-set question gets handled in that
+conversation. Keep the text below on hand for answering them, but there is no need to set
+the field.
 
 > U1 uses a shared multi-part footprint (DCDC_HYBRID_SLC03_TEC2) that overlays the
 > hole patterns for three different isolated DC-DC modules. The silkscreen marks the
@@ -12,70 +23,42 @@ Working checklist for the Rev 1.3 order. Tick items off as they're set in the JL
 > from our JLCPCB parts inventory) using the "H" hole set only. Leave the M and T
 > holes empty.
 >
-> The BOM and CPL carry a single position and rotation for the whole footprint, so
-> please use this note to select the correct holes.
->
 > J3 is intentionally DNP (not in the BOM) — please leave it unpopulated.
 
-## Order settings — status as of the 2026-08-07 review (gerber Y18)
+**2. Duplicate designators in JLCPCB's BOM — handled in their UI, not worth engineering
+around.** JLCPCB's parts-matching flow duplicates designators when one LCSC part number
+appears on more than one BOM line; it merges the lines but concatenates the designator
+lists wrongly. Two part numbers trip it here — C1590 (`0.1uF` ×11 and `0.1uF 25V` ×4) and
+C51927445 (`RESET`/SW1 and `BOOT`/SW2) — accounting for all 16 duplicates.
 
-Done:
+**Their BOM tool prompts about the duplicates at upload time and the user approves them,
+so it resolves itself every run.** No file surgery needed.
+
+`VSP-WSC-4_1.3_bom-UPLOAD.csv` (every LCSC collapsed to one line) exists in this folder if
+a pre-merged BOM is ever wanted, but it is **not required** and was not used for this
+order. The permanent fix, if it ever becomes worth it, is to normalise the Value strings in
+the schematic so the toolkit emits one line per part number to begin with.
+
+## Order settings as placed (gerber Y18)
 
 | Setting | Value |
 |---|---|
-| Base Material | ✅ S1000H TG155 (JLC-4) — good pick, Tg155 |
-| Surface Finish | ✅ ENIG, 1 U" gold |
-| Confirm Parts Placement | ✅ Yes |
-| Photo Confirmation | ✅ Yes |
-| UL Type | ✅ JLC-4, consistent with the material |
+| Base Material | S1000H TG155 (JLC-4) — Tg155, good thermal-cycling margin |
+| Surface Finish | ENIG, 1 U" gold |
+| Confirm Parts Placement | Yes |
+| Photo Confirmation | Yes |
+| UL Type | JLC-4, consistent with the laminate |
+| Layers / copper | 4 layer, 1 oz outer / 0.5 oz inner |
+| Via Covering | Plugged |
+| Qty | 5 PCB + 5 PCBA, both sides |
 
-Still outstanding:
+## Files used for this order
 
-| Setting | Current | Change to | Why |
-|---|---|---|---|
-| **Assembly remark** | **No** | **Paste the text above** | U1 hole-set ambiguity; JLCPCB cannot infer it from BOM/CPL. Outstanding across three reviews now |
-| **BOM file** | **`bom.xls`** (122 placements, 16 dupes) | **`VSP-WSC-4_1.3_bom-UPLOAD.csv`** | See root cause below |
-| Product Description | `jlcpcb_missing_text/...` | Fill it in | Unfilled field; usually feeds the customs declaration |
-| Part Placement file | not shown in the summary | confirm it is `VSP-WSC-4_1.3_positions.csv` | The H1-H4-corrected version, 106 rows |
-
-## Which files to upload
-
-| File | Status |
+| File | Verified |
 |---|---|
-| `VSP-WSC-4_1.3.zip` | gerbers — 11 layers + PTH/NPTH drills, outline 65.004 × 73.935 mm, PTH min drill 0.300 mm |
-| **`VSP-WSC-4_1.3_bom-UPLOAD.csv`** | **use this one** — 38 lines, 106 placements, one line per LCSC |
-| `VSP-WSC-4_1.3_positions.csv` | 106 rows, matches the BOM exactly |
-
-**Do NOT upload `bom.xls`.** It is JLCPCB's own assembly-order export and it carries 122
-placements with 16 duplicate designators. Re-downloaded 2026-08-07 15:48, still wrong.
-
-### Root cause of the duplicate designators — SOLVED 2026-08-07
-
-Not a Fabrication Toolkit bug (an earlier note in this file said it was; that was wrong —
-the toolkit's BOM has never contained duplicates). **JLCPCB's parts-matching flow
-duplicates designators when one LCSC part number appears on more than one BOM line.** It
-merges the lines but concatenates the designator lists incorrectly.
-
-Exactly two part numbers were affected, and they account for all 16 duplicates:
-
-| LCSC | Toolkit emitted two lines | Result |
-|---|---|---|
-| C1590 | `0.1uF` (×11) and `0.1uF 25V` (×4) | 15 designators listed twice |
-| C51927445 | `RESET` (SW1) and `BOOT` (SW2) | SW1, SW2 listed twice |
-
-**The fix is to pre-merge, so JLCPCB has nothing to merge.**
-`VSP-WSC-4_1.3_bom-UPLOAD.csv` is the toolkit BOM with every LCSC collapsed to exactly one
-line — C1590 → 15 designators, C51927445 → 2. Verified: no duplicate designators, no LCSC
-on more than one line, 106 placements matching the board.
-
-**This will recur on every toolkit run** — the split lines come from the schematic using
-different Value strings (`0.1uF` vs `0.1uF 25V`, `RESET` vs `BOOT`) for parts that share a
-part number. Either regenerate the merged file each time, or normalise those Value strings
-in the schematic so the toolkit emits one line to begin with.
-
-Superseded, do not upload: `bom.xls`, `bom.xlsx`, `bom.csv`, `bom-ORIGINAL-with-dupes.xls`,
-and the raw `VSP-WSC-4_1.3_bom.csv` (correct, but it is the split-line version that trips
-the JLCPCB merge).
+| `VSP-WSC-4_1.3.zip` | 11 layers + PTH/NPTH drills, outline 65.004 × 73.935 mm, PTH min drill 0.300 mm |
+| `VSP-WSC-4_1.3_bom.csv` | 40 lines, 106 placements, matches the board |
+| `VSP-WSC-4_1.3_positions.csv` | 106 rows, matches the BOM exactly (H1-H4 excluded) |
 
 ## ESP32 variant — RESOLVED 2026-08-07, no action
 
@@ -99,9 +82,9 @@ to **~15 year service life**, and ripple self-heating is negligible because thes
 see current during the brief motor runs. **Leave them in.** Full reasoning in
 CLAUDE.md → "Hot-attic reliability notes".
 
-## Placement preview — what to actually look at
+## Placement preview / photo confirmation — what to actually look at
 
-You have "Confirm Parts Placement" turned on, so use it deliberately. The toolkit applied
+Both "Confirm Parts Placement" and "Photo Confirmation" are on, so use them. The toolkit applied
 JLCPCB rotation corrections to **20 of 36 polarity-critical parts** (`AUTO TRANSLATE: true`).
 Those corrections are internally consistent — every part sharing an LCSC number got the
 same delta — and the same toolkit produced the Rev 1.2 boards that assembled correctly, so
