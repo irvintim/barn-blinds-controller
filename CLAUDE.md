@@ -21,13 +21,38 @@ Board and schematic are done. One manual step remains, plus a few accepted trade
 
 Then: regenerate gerbers/BOM/CPL (`docs/project-context/jlcpcb-export-steps.md`) — the C10/U12-U16/J3 changes above aren't in the `VSP-WSC-4_1.3` archive yet, so re-run Fabrication Toolkit before ordering. `gerbers/` and `gerbers-v1.1/` folders are stale (v1.1 era) regardless.
 
+## ESP32 variant selection — READ BEFORE ORDERING MODULES
+Deployment is a **hot attic**, so the module's ambient temperature grade matters. From the ESP32-S3-WROOM-1 datasheet Table 1 (p3, `C2913197.pdf` / `C2913202.pdf` in repo root — note **both files are byte-identical**, LCSC serves one family datasheet for every variant, so the PDF cannot tell you which LCSC code is which):
+
+| Variant | Flash | PSRAM | Ambient |
+|---|---|---|---|
+| **H4** | 4 MB Quad | none | **–40 ~ 105 °C** |
+| N4 / N8 / N16 | 4/8/16 MB Quad | none | –40 ~ 85 °C |
+| N4R2 / N8R2 / N16R2 | 4/8/16 MB | 2 MB **Quad** | –40 ~ 85 °C |
+| N4R8 / N8R8 / N16R8 / N16R16V | 4/8/16 MB | 8/16 MB **Octal** | **–40 ~ 65 °C** |
+
+**Two hard rules for this board:**
+1. **Never an R8 or R16V (Octal PSRAM) part.** Datasheet Table 3 footnote b (p12): on modules with Octal SPI PSRAM, *"pins IO35, IO36, IO37 are connected to the module's internal Octal SPI PSRAM and cannot be used for other functions."* This design drives all three — module pins 28/29/30 carry `ISO_STBY`, `ISO_SH1_OPEN`, `ISO_SH1_CLOSED`. An R8 part kills Shade 1 and the motor-driver standby line. Those variants are also only rated to 65 °C, which a hot attic exceeds. Quad-PSRAM (R2) parts do *not* have this restriction, but there is no reason to pay for PSRAM here.
+2. **Prefer H4 over N4.** Same 4 MB Quad flash and no PSRAM, but 105 °C vs 85 °C ambient. Same footprint and pinout — no board change. If H4 isn't stocked at JLCPCB, N4 at 85 °C is still adequate for a 60–70 °C attic, just with less margin.
+
+**Unresolved:** which of C2913197 / C2913202 is which variant. The datasheets can't answer it. Confirm against the LCSC product page title (or the module's own laser-etched ordering code) before committing — the schematic, PCB and BOM currently all carry **C2913197**.
+
+## Hot-attic reliability notes (2026-08-07)
+Ranked by how likely each is to actually bite, most-likely first:
+
+1. **C33/C34 — 1000 µF 25 V aluminium electrolytics (C7471896, CP_Elec_10x10.5) are the weak link.** Electrolytic life roughly halves per +10 °C. These are almost certainly what fails first in an attic, long before anything else on this list. Check the part's temperature rating and rated hours; a 105 °C long-life part (or a polymer/hybrid) is the single highest-value reliability upgrade available. Note these are the only electrolytics left on the board — everything else is ceramic.
+2. **ESP32 temperature grade** — see above, H4 buys 20 °C of margin for a part swap and no layout change.
+3. **Surface finish** — ENIG over HASL. Better pad flatness for the SOT-143 (U12-U16), the 0402s and the module's LGA thermal pad; also RoHS-compliant, which matters for the product track. Leaded HASL is fine electrically, this is about assembly yield and compliance.
+4. **Laminate Tg — genuine but the smallest effect of the four.** At ~70 °C operating, every option on JLCPCB's list is far below its Tg, so this is not about surviving the heat. It is about *thermal-cycling fatigue* on plated through-hole barrels across daily attic swings, which matters a bit more here than usual because **96 of 177 vias sit inside SMD pads**. Higher Tg → lower z-axis CTE → less barrel strain per cycle. Board is 4-layer, so the valid choices are JLC-1 (Nan Ya NP-140F / NP-155F) or JLC-4 (up to Shengyi S1000-2M TG170). Best margin: **JLC-4 / S1000-2M TG170**. Minimal change: **JLC-1 / NP-155F**, staying in the already-selected certification family. Honest framing: Tg140 FR-4 ships in millions of hot-environment consumer products; this is cheap insurance, not a fix for a known problem.
+
 ## Rev 1.3 schematic work already done
 - ACS723 on GPIO5 (ADC1_CH4), TMP235 on GPIO4 (ADC1_CH3) — both moved off ADC2 to avoid WiFi noise, then relocated again during the layout-driven GPIO reshuffle (see full map in vsp-wsc4-todo.md)
 - Terminal block J4: **Phoenix Contact 1786918** (20-pin dual-row 3.5mm, right-angle — cable exits sideways, not up); mating terminal block is 1790182; both ECAD/3D libraries committed in project-local `1786918/` and `1790182/` folders
   - Pinout (final, layout-driven): top row 1=SW1_UP, 2=GND_ISO, 3=SW2_UP, 4=SW3_UP, 5=GND_ISO, 6=SW4_UP, 7-10=SHADE1-4_UP; bottom row 11=SW1_DOWN, 12=GND_ISO, 13=SW2_DOWN, 14=SW3_DOWN, 15=GND_ISO, 16=SW4_DOWN, 17-20=SHADE1-4_DOWN (motors and switches connect across vertical pairs)
 - `switch_inputs.kicad_sch` created (page 9): 8-channel RC+TVS protection, 4× PRTR5V0U2X + 8× **1kΩ R0603** (note: 0603, not 0402 as previously recorded here; LCSC C14676) + 8× 100nF C0402, plus **C40-C43** 100nF TVS VCC decoupling added 2026-08-05; wired through to ESP32 GPIOs (function-named labels, e.g. `SW1_UP_IN`, not raw pin numbers)
   - Topology is connector → **1k series R** → node shared by 100nF cap + PRTR5V0U2X I/O + ESP32 GPIO. The TVS is on the **MCU side** of the series resistor (R limits surge current into the TVS; TVS clamps right at the pin being protected). Note this is the opposite convention from U16 on USB, which sits on the *connector* side of R9/R10 — both are valid, just be aware they differ.
-  - **No external pull-ups.** Switches pull to GND_ISO, so firmware MUST enable internal pull-ups on all 8. Two land on strapping pins: **GPIO46** (SW1_UP) and **GPIO3** (SW1_DOWN). Both verified safe — GPIO46 is input-only on the S3 and reads LOW at boot whether the switch is open (internal pull-down) or closed (tied to GND); GPIO3's JTAG-select default is unaffected.
+  - **No external pull-ups.** Switches pull to GND_ISO, so firmware MUST enable internal pull-ups on all 8. Two land on strapping pins: **GPIO46** (SW1_UP) and **GPIO3** (SW1_DOWN). Both verified safe against the datasheet (Table 4, p13): GPIO46's reset default is **pull-down = 0**, and the switch also pulls to GND, so GPIO46 reads 0 at boot either way — a held switch can never produce an invalid boot-mode combination. GPIO3 defaults floating and only selects the JTAG signal source, which is unaffected.
+    - Correction (2026-08-07): an earlier note here claimed GPIO46 is *input-only* on the ESP32-S3. That is **wrong** — datasheet Table 3 lists IO46 (pin 16) as type **I/O/T**, a full bidirectional GPIO. The safety conclusion above is unchanged, but GPIO46 can be driven as an output if ever needed.
 - USB-C swapped to Micro-USB; native USB on GPIO19/20
 - Smaller footprints for the tight terminal-block area: F1-F4 fuses 1812→1206 (1206L110/16NR), D6-D9 TVS SMBJ15CA→SMAJ15CA, C2 bulk cap electrolytic→ceramic (C11/C12 motor bulk caps intentionally left as-is)
 - UART debug header (J3) moved from GPIO17/18 (U1TX/RX) to GPIO43/44 (U0TX/RX); GPIO43/44's prior signals relocated elsewhere in the GPIO reshuffle
@@ -77,7 +102,7 @@ Redesign the 3D printed box to support **two mounting options**:
 | Terminal block header J4 (PCB) | Phoenix Contact 1786918 | in user's JLCPCB parts inventory (pre-purchased) | 20-pin dual-row 3.5mm right-angle THR; assembled by JLCPCB |
 | Mating terminal block (wire side) | Phoenix Contact 1790182 | — (Mouser, user has stock) | plugs into J4, not board-mounted |
 | DIN rail clip | Phoenix Contact USA 10 1201578 | — | Ordered 2026-06-29, screw-on |
-| ESP32 module | ESP32-S3-WROOM-1-N4 | C2913202 | |
+| ESP32 module | ESP32-S3-WROOM-1-**H4** (see note) | schematic/BOM currently C2913197; this table previously said C2913202 | **–40~105 °C** grade — chosen for the hot attic. See "ESP32 variant selection" below. |
 | DC-DC isolated | Heniper B1205S-3WR2L | C20622657 | |
 
 ## Key files
