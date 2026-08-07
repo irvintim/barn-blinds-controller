@@ -28,28 +28,30 @@ Working checklist for the Rev 1.3 order. Tick items off as they're set in the JL
 | Product Description | `jlcpcb_missing_text/...` | **Fill it in** | Unfilled field; usually feeds the customs declaration |
 | BOM file | `bom.xls` (had 16 duplicate designators) | **`bom.xlsx`** (corrected) | See below |
 
-## BOM correction (done 2026-08-07)
+## Which files to upload (toolkit re-run 2026-08-07 12:40)
 
-The Fabrication Toolkit export contained **16 duplicate designator entries** — the source
-files are clean, every refdes is unique in both schematic and PCB, so this was purely an
-export artifact:
+Upload the **Fabrication Toolkit** outputs, all verified clean:
 
-- `0.1uF` / C1590 — 29 entries for 15 real parts (C11, C15, C18, C21-C27, C30, C31, C38, C39 each listed twice)
-- `RESET` / C51927445 — 4 entries for 2 real parts (SW1, SW2 each twice)
+| File | Status |
+|---|---|
+| `VSP-WSC-4_1.3.zip` | gerbers — 11 layers + PTH/NPTH drills, verified |
+| `VSP-WSC-4_1.3_bom.csv` | 40 lines, 106 placements, zero duplicates |
+| `VSP-WSC-4_1.3_positions.csv` | 106 rows, matches BOM exactly (H1-H4 removed) |
 
-Also corrected the stale Comment on C10, which read `100uF25V` while both schematic and
-PCB say `100uF 16V`. The LCSC (C7432790) was already the correct 16 V part, so this was
-description-only — JLCPCB places by part number.
+**Correction to earlier guidance in this file.** The 16 duplicate designators found on
+2026-08-07 were **not** produced by the Fabrication Toolkit. The toolkit's own
+`VSP-WSC-4_1.3_bom.csv` has never contained duplicates — checked against the previously
+committed copy. The duplicated file was `bom.xls`, whose header is
+`Comment | Designator | Footprint | JLCPCB Part #` — the **JLCPCB Assembly Order** format,
+i.e. a file that came back from JLCPCB's own parts-matching flow after upload.
 
-Files:
-- `bom.xlsx` / `bom.csv` — **corrected, upload one of these**
-- `bom-ORIGINAL-with-dupes.xls` — the original, kept for reference
-- Verified: 38 lines, **106 placements**, zero duplicate designators, exactly matching the
-  106 populated refs on the board. Correctly excluded: H1-H4 (mounting holes), J3 (DNP),
-  TP1-TP7 (test points).
+So the earlier note here saying "re-run the toolkit and it will likely reappear" was
+wrong. What to actually watch: **if you download and re-upload JLCPCB's own assembly-order
+BOM, re-check it for duplicate designators.** Uploading the toolkit's CSV directly avoids
+the problem entirely.
 
-**If you re-run Fabrication Toolkit, re-check for this duplication before uploading** —
-it will likely reappear.
+Superseded files kept only for reference: `bom.xls`, `bom.xlsx`, `bom.csv`,
+`bom-ORIGINAL-with-dupes.xls`. **Do not upload these** — use the `VSP-WSC-4_1.3_*` set.
 
 ## ESP32 variant — RESOLVED 2026-08-07, no action
 
@@ -72,6 +74,31 @@ C7471896 is **already a 105 °C part**: 1000 µF 25 V, –55~+105 °C, 2000 h @ 
 to **~15 year service life**, and ripple self-heating is negligible because these only
 see current during the brief motor runs. **Leave them in.** Full reasoning in
 CLAUDE.md → "Hot-attic reliability notes".
+
+## Placement preview — what to actually look at
+
+You have "Confirm Parts Placement" turned on, so use it deliberately. The toolkit applied
+JLCPCB rotation corrections to **20 of 36 polarity-critical parts** (`AUTO TRANSLATE: true`).
+Those corrections are internally consistent — every part sharing an LCSC number got the
+same delta — and the same toolkit produced the Rev 1.2 boards that assembled correctly, so
+the mechanism is proven. What can't be verified offline is absolute correctness against
+JLCPCB's own orientation library.
+
+Focus the review on parts whose **LCSC number was not in the proven Rev 1.2 build**, since
+those have no track record with this workflow:
+
+| Part | Why it matters |
+|---|---|
+| **D1** (SS54, C22452) | Input protection diode, new PN. Reversed = board never powers up |
+| **Q1, Q2** (2N7002, C8545) | LED drive MOSFETs |
+| **Q3, Q4** (S8050, C2146) | RTS/DTR auto-reset transistors, new circuit |
+| **U11** (ACS725, C3684552) | Current sensor, changed from ACS723 |
+| **U12-U16** (PRTR5V0U2X, C5158049) | ESD arrays — never built before, and the PN changed |
+| **J2, J4** | Connectors; orientation is visually obvious, easy win |
+
+Lower risk, no need to dwell: **D6-D9 (SMAJ15CA) are bidirectional TVS** — the `CA` suffix
+means rotation is electrically harmless. **D10/D11** use C8678, which *was* in the Rev 1.2
+build. **C40-C43** and the other new ceramics are non-polarised.
 
 ## Verified correct — no action needed
 
