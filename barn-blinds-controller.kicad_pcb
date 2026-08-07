@@ -11448,7 +11448,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x05, script generated"
+		(property "Description" "Generic connector, single row, 01x07, script generated"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -11482,7 +11482,7 @@
 				(pins "1" "2" "3" "4" "5" "6" "7")
 			)
 		)
-		(attr through_hole)
+		(attr through_hole dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
 			(start -1.38 -1.38)
