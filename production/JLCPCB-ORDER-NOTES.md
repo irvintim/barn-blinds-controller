@@ -24,7 +24,7 @@ Working checklist for the Rev 1.3 order. Tick items off as they're set in the JL
 | Assembly remark | No | **Paste the text above** | U1 hole-set ambiguity; JLCPCB cannot infer it from BOM/CPL |
 | Confirm Parts Placement | No | **Yes** | First run of a revision with newly placed parts + the U1 ambiguity |
 | Surface Finish | HASL (with lead) | **ENIG** | Pad flatness for SOT-143 / 0402 / module LGA pad; RoHS for the product track |
-| Base Material | JLC-1 Nan Ya NP-140F | **JLC-4 Shengyi S1000-2M TG170** (best) or **JLC-1 NP-155F** (minimal change) | Thermal-cycling margin in an attic; 96 of 177 vias are in-pad. Lowest-impact of the changes — see CLAUDE.md "Hot-attic reliability notes" |
+| Base Material | JLC-1 Nan Ya NP-140F | **JLC-4 Shengyi S1000-2M TG170** (best) or **JLC-1 NP-155F** (minimal change) | Thermal-cycling margin in an attic; 96 of 177 vias are in-pad. Lowest-impact of the changes — see CLAUDE.md "Hot-attic reliability notes". Board is 4-layer, so only JLC-1 and JLC-4 are valid certification types; JLC-2/3 are single/two-layer only |
 | Product Description | `jlcpcb_missing_text/...` | **Fill it in** | Unfilled field; usually feeds the customs declaration |
 | BOM file | `bom.xls` (had 16 duplicate designators) | **`bom.xlsx`** (corrected) | See below |
 
@@ -51,14 +51,30 @@ Files:
 **If you re-run Fabrication Toolkit, re-check for this duplication before uploading** —
 it will likely reappear.
 
-## Still to confirm before modules are ordered
+## ESP32 variant — RESOLVED 2026-08-07, no action
 
-**ESP32 variant.** The design drives module pins 28/29/30 = GPIO35/36/37, which any
-Octal-PSRAM (R8 / R16V) variant consumes internally — that would kill Shade 1 and the
-driver standby line, and those parts are only rated to 65 °C anyway. Prefer the **H4**
-(4 MB, no PSRAM, –40~105 °C) for the attic. Confirm which variant C2913197 actually is;
-the datasheets in the repo root are byte-identical and cannot answer it. Full detail in
-CLAUDE.md → "ESP32 variant selection".
+**C2913197 = ESP32-S3-WROOM-1-N4. The board is correct, leave it alone.**
+
+The docs were what was wrong: CLAUDE.md's key-parts table listed C2913202, which is the
+**N16R8** — Octal PSRAM (consumes IO35/36/37, which this design drives as ISO_STBY /
+ISO_SH1_OPEN / ISO_SH1_CLOSED) and rated only –40~65 °C. Had anyone "fixed" the schematic
+to match the docs, it would have broken Shade 1 and the driver standby line and put the
+module below attic temperature. Table now corrected.
+
+H4 (105 °C) would be the ideal attic part but **JLCPCB does not stock it** — every
+non-PSRAM ESP32-S3-WROOM-1 they carry is 85 °C. N4 is the best available and also the
+cheapest ($4.13/1, ~4700 in stock).
+
+## Open item — C33/C34 electrolytics
+
+Not blocking this PCB order (footprint is unchanged either way), but decide before the
+boards are populated. `Capacitor_SMD:CP_Elec_10x10.5`, 1000 µF 25 V, currently C7471896,
++12 V motor-rail bulk.
+
+**First check whether C7471896 is 85 °C or 105 °C.** If 85 °C, swap it — that's the actual
+risk. If already 105 °C, the upgrade is optional. Target: same 10 × 10.5 mm can, ≥ 25 V,
+~1000 µF, **105 °C, load life ≥ 2000 h (prefer 5000 h+)**. Life math and duty-cycle
+reasoning in CLAUDE.md → "Hot-attic reliability notes".
 
 ## Verified correct — no action needed
 

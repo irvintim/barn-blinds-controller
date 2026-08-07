@@ -21,27 +21,44 @@ Board and schematic are done. One manual step remains, plus a few accepted trade
 
 Then: regenerate gerbers/BOM/CPL (`docs/project-context/jlcpcb-export-steps.md`) — the C10/U12-U16/J3 changes above aren't in the `VSP-WSC-4_1.3` archive yet, so re-run Fabrication Toolkit before ordering. `gerbers/` and `gerbers-v1.1/` folders are stale (v1.1 era) regardless.
 
-## ESP32 variant selection — READ BEFORE ORDERING MODULES
-Deployment is a **hot attic**, so the module's ambient temperature grade matters. From the ESP32-S3-WROOM-1 datasheet Table 1 (p3, `C2913197.pdf` / `C2913202.pdf` in repo root — note **both files are byte-identical**, LCSC serves one family datasheet for every variant, so the PDF cannot tell you which LCSC code is which):
+## ESP32 variant selection — RESOLVED 2026-08-07, but read before changing the part
+**Verdict: the board is correct. Keep C2913197. The documentation was the thing that was wrong.**
 
-| Variant | Flash | PSRAM | Ambient |
-|---|---|---|---|
-| **H4** | 4 MB Quad | none | **–40 ~ 105 °C** |
-| N4 / N8 / N16 | 4/8/16 MB Quad | none | –40 ~ 85 °C |
-| N4R2 / N8R2 / N16R2 | 4/8/16 MB | 2 MB **Quad** | –40 ~ 85 °C |
-| N4R8 / N8R8 / N16R8 / N16R16V | 4/8/16 MB | 8/16 MB **Octal** | **–40 ~ 65 °C** |
+| LCSC | Variant | Flash | PSRAM | Ambient | |
+|---|---|---|---|---|---|
+| **C2913197** | **ESP32-S3-WROOM-1-N4** | 4 MB Quad | none | –40 ~ 85 °C | ✅ **what the design uses — correct** |
+| C2913202 | ESP32-S3-WROOM-1-**N16R8** | 16 MB Quad | 8 MB **Octal** | –40 ~ 65 °C | ❌ what this file's key-parts table wrongly listed |
 
-**Two hard rules for this board:**
-1. **Never an R8 or R16V (Octal PSRAM) part.** Datasheet Table 3 footnote b (p12): on modules with Octal SPI PSRAM, *"pins IO35, IO36, IO37 are connected to the module's internal Octal SPI PSRAM and cannot be used for other functions."* This design drives all three — module pins 28/29/30 carry `ISO_STBY`, `ISO_SH1_OPEN`, `ISO_SH1_CLOSED`. An R8 part kills Shade 1 and the motor-driver standby line. Those variants are also only rated to 65 °C, which a hot attic exceeds. Quad-PSRAM (R2) parts do *not* have this restriction, but there is no reason to pay for PSRAM here.
-2. **Prefer H4 over N4.** Same 4 MB Quad flash and no PSRAM, but 105 °C vs 85 °C ambient. Same footprint and pinout — no board change. If H4 isn't stocked at JLCPCB, N4 at 85 °C is still adequate for a 60–70 °C attic, just with less margin.
+**Near-miss worth remembering.** Had anyone "corrected" the schematic to match the old docs, the N16R8 would have broken the board two ways: its Octal PSRAM consumes IO35/IO36/IO37 (datasheet Table 3 footnote b, p12 — *"connected to the module's internal Octal SPI PSRAM and cannot be used for other functions"*), which this design drives as `ISO_STBY`, `ISO_SH1_OPEN`, `ISO_SH1_CLOSED` on module pins 28/29/30 — losing Shade 1 and motor-driver standby — and it is rated only to **65 °C**, below what a hot attic reaches.
 
-**Unresolved:** which of C2913197 / C2913202 is which variant. The datasheets can't answer it. Confirm against the LCSC product page title (or the module's own laser-etched ordering code) before committing — the schematic, PCB and BOM currently all carry **C2913197**.
+**Rules if the part is ever re-sourced:**
+- **Never an R8 / R16V (Octal PSRAM) part** — steals IO35/36/37 *and* only 65 °C rated.
+- R2 (Quad PSRAM) parts don't have the pin restriction and are 85 °C, but there's no reason to pay for PSRAM here.
+- **H4** (4 MB, no PSRAM, –40~105 °C) would be the ideal attic part, but **JLCPCB does not stock it** (checked 2026-08-07 — no H4 in the ESP32-S3-WROOM-1 inventory at all). Every non-PSRAM option JLCPCB carries is 85 °C.
+- So **N4 / C2913197 is the best available choice**, and it's also the cheapest at $4.13/1 with ~4700 in stock.
+
+**Thermal caveat to carry into enclosure Rev 3:** the 85 °C figure is *ambient around the module*. Inside a sealed 3D-printed box in an attic, internal air runs hotter than attic ambient because of the board's own dissipation (LDO drop, DC-DC losses, driver quiescent, LEDs). A 60–70 °C attic plus enclosure rise eats into the 85 °C margin. Worth some ventilation in the Rev 3 design, and worth not mounting the box at the peak-heat ridge line.
+
+## Hot-attic reliability notes (2026-08-07)
 
 ## Hot-attic reliability notes (2026-08-07)
 Ranked by how likely each is to actually bite, most-likely first:
 
-1. **C33/C34 — 1000 µF 25 V aluminium electrolytics (C7471896, CP_Elec_10x10.5) are the weak link.** Electrolytic life roughly halves per +10 °C. These are almost certainly what fails first in an attic, long before anything else on this list. Check the part's temperature rating and rated hours; a 105 °C long-life part (or a polymer/hybrid) is the single highest-value reliability upgrade available. Note these are the only electrolytics left on the board — everything else is ceramic.
-2. **ESP32 temperature grade** — see above, H4 buys 20 °C of margin for a part swap and no layout change.
+1. **C33/C34 — 1000 µF 25 V aluminium electrolytics are the weak link.** The only electrolytics left on the board; everything else is ceramic. They are the +12 V motor-rail bulk/inrush reservoir (`+12V` / `GND_MOTOR`), SMD can, `Capacitor_SMD:CP_Elec_10x10.5`, currently **C7471896**. HF bypass on that rail is already covered by C32/C36/C37 (10 µF 0805) and C38/C39 (0.1 µF 0603), so these two are purely bulk — which means the selection is about **endurance, not ESR finesse**.
+
+   **First step: check what C7471896 actually is.** If it's an 85 °C part, replace it — that's the real problem. If it's already 105 °C, the upgrade is optional.
+
+   **Selection criteria for the replacement** (drop-in, no PCB change):
+   - Same 10 × 10.5 mm SMD can, ≥ 25 V, ~1000 µF
+   - **105 °C rated**, load life ≥ 2000 h, prefer 5000 h+
+   - Polymer/hybrid would be better still but 1000 µF/25 V in a 10 mm can is expensive and hard to source — a good 105 °C long-life aluminium is the pragmatic pick
+
+   **What the numbers actually say** (life doubles per 10 °C below rating). Assume the cap sees ~80 °C at attic peak (70 °C ambient + enclosure rise):
+   - 105 °C / 2000 h part → 2000 × 2^2.5 ≈ **11,300 h** at a *sustained* 80 °C ≈ 1.3 years
+   - 105 °C / 5000 h part → ≈ **28,000 h** ≈ 3.2 years
+
+   But it is never sustained. Weighting a plausible duty cycle — say ~500 h/year at 80 °C and the rest near 30 °C — a 105 °C/2000 h part consumes roughly 7 %/year, i.e. **~15 year life**; a 5000 h part is comfortably beyond the rest of the design. So this is worth doing, but it is a "spend $1 for peace of mind" item, not a crisis. An 85 °C part under the same duty cycle is the one that would genuinely disappoint.
+2. **ESP32 temperature grade** — resolved: N4 (85 °C) is the best JLCPCB stocks; H4 (105 °C) isn't available. See the section above, including the enclosure-ventilation caveat.
 3. **Surface finish** — ENIG over HASL. Better pad flatness for the SOT-143 (U12-U16), the 0402s and the module's LGA thermal pad; also RoHS-compliant, which matters for the product track. Leaded HASL is fine electrically, this is about assembly yield and compliance.
 4. **Laminate Tg — genuine but the smallest effect of the four.** At ~70 °C operating, every option on JLCPCB's list is far below its Tg, so this is not about surviving the heat. It is about *thermal-cycling fatigue* on plated through-hole barrels across daily attic swings, which matters a bit more here than usual because **96 of 177 vias sit inside SMD pads**. Higher Tg → lower z-axis CTE → less barrel strain per cycle. Board is 4-layer, so the valid choices are JLC-1 (Nan Ya NP-140F / NP-155F) or JLC-4 (up to Shengyi S1000-2M TG170). Best margin: **JLC-4 / S1000-2M TG170**. Minimal change: **JLC-1 / NP-155F**, staying in the already-selected certification family. Honest framing: Tg140 FR-4 ships in millions of hot-environment consumer products; this is cheap insurance, not a fix for a known problem.
 
@@ -102,7 +119,7 @@ Redesign the 3D printed box to support **two mounting options**:
 | Terminal block header J4 (PCB) | Phoenix Contact 1786918 | in user's JLCPCB parts inventory (pre-purchased) | 20-pin dual-row 3.5mm right-angle THR; assembled by JLCPCB |
 | Mating terminal block (wire side) | Phoenix Contact 1790182 | — (Mouser, user has stock) | plugs into J4, not board-mounted |
 | DIN rail clip | Phoenix Contact USA 10 1201578 | — | Ordered 2026-06-29, screw-on |
-| ESP32 module | ESP32-S3-WROOM-1-**H4** (see note) | schematic/BOM currently C2913197; this table previously said C2913202 | **–40~105 °C** grade — chosen for the hot attic. See "ESP32 variant selection" below. |
+| ESP32 module | ESP32-S3-WROOM-1-**N4** | **C2913197** ✅ correct — verified 2026-08-07 | –40~85 °C. **This table used to say C2913202, which is the N16R8** — see "ESP32 variant selection" below before ever changing it. |
 | DC-DC isolated | Heniper B1205S-3WR2L | C20622657 | |
 
 ## Key files
