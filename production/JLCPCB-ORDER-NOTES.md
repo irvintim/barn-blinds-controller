@@ -17,41 +17,65 @@ Working checklist for the Rev 1.3 order. Tick items off as they're set in the JL
 >
 > J3 is intentionally DNP (not in the BOM) — please leave it unpopulated.
 
-## Order settings to change from the current draft
+## Order settings — status as of the 2026-08-07 review (gerber Y18)
+
+Done:
+
+| Setting | Value |
+|---|---|
+| Base Material | ✅ S1000H TG155 (JLC-4) — good pick, Tg155 |
+| Surface Finish | ✅ ENIG, 1 U" gold |
+| Confirm Parts Placement | ✅ Yes |
+| Photo Confirmation | ✅ Yes |
+| UL Type | ✅ JLC-4, consistent with the material |
+
+Still outstanding:
 
 | Setting | Current | Change to | Why |
 |---|---|---|---|
-| Assembly remark | No | **Paste the text above** | U1 hole-set ambiguity; JLCPCB cannot infer it from BOM/CPL |
-| Confirm Parts Placement | No | **Yes** | First run of a revision with newly placed parts + the U1 ambiguity |
-| Surface Finish | HASL (with lead) | **ENIG** | Pad flatness for SOT-143 / 0402 / module LGA pad; RoHS for the product track |
-| Base Material | JLC-1 Nan Ya NP-140F | **JLC-4 Shengyi S1000-2M TG170** (best) or **JLC-1 NP-155F** (minimal change) | Thermal-cycling margin in an attic; 96 of 177 vias are in-pad. Lowest-impact of the changes — see CLAUDE.md "Hot-attic reliability notes". Board is 4-layer, so only JLC-1 and JLC-4 are valid certification types; JLC-2/3 are single/two-layer only |
-| Product Description | `jlcpcb_missing_text/...` | **Fill it in** | Unfilled field; usually feeds the customs declaration |
-| BOM file | `bom.xls` (had 16 duplicate designators) | **`bom.xlsx`** (corrected) | See below |
+| **Assembly remark** | **No** | **Paste the text above** | U1 hole-set ambiguity; JLCPCB cannot infer it from BOM/CPL. Outstanding across three reviews now |
+| **BOM file** | **`bom.xls`** (122 placements, 16 dupes) | **`VSP-WSC-4_1.3_bom-UPLOAD.csv`** | See root cause below |
+| Product Description | `jlcpcb_missing_text/...` | Fill it in | Unfilled field; usually feeds the customs declaration |
+| Part Placement file | not shown in the summary | confirm it is `VSP-WSC-4_1.3_positions.csv` | The H1-H4-corrected version, 106 rows |
 
-## Which files to upload (toolkit re-run 2026-08-07 12:40)
-
-Upload the **Fabrication Toolkit** outputs, all verified clean:
+## Which files to upload
 
 | File | Status |
 |---|---|
-| `VSP-WSC-4_1.3.zip` | gerbers — 11 layers + PTH/NPTH drills, verified |
-| `VSP-WSC-4_1.3_bom.csv` | 40 lines, 106 placements, zero duplicates |
-| `VSP-WSC-4_1.3_positions.csv` | 106 rows, matches BOM exactly (H1-H4 removed) |
+| `VSP-WSC-4_1.3.zip` | gerbers — 11 layers + PTH/NPTH drills, outline 65.004 × 73.935 mm, PTH min drill 0.300 mm |
+| **`VSP-WSC-4_1.3_bom-UPLOAD.csv`** | **use this one** — 38 lines, 106 placements, one line per LCSC |
+| `VSP-WSC-4_1.3_positions.csv` | 106 rows, matches the BOM exactly |
 
-**Correction to earlier guidance in this file.** The 16 duplicate designators found on
-2026-08-07 were **not** produced by the Fabrication Toolkit. The toolkit's own
-`VSP-WSC-4_1.3_bom.csv` has never contained duplicates — checked against the previously
-committed copy. The duplicated file was `bom.xls`, whose header is
-`Comment | Designator | Footprint | JLCPCB Part #` — the **JLCPCB Assembly Order** format,
-i.e. a file that came back from JLCPCB's own parts-matching flow after upload.
+**Do NOT upload `bom.xls`.** It is JLCPCB's own assembly-order export and it carries 122
+placements with 16 duplicate designators. Re-downloaded 2026-08-07 15:48, still wrong.
 
-So the earlier note here saying "re-run the toolkit and it will likely reappear" was
-wrong. What to actually watch: **if you download and re-upload JLCPCB's own assembly-order
-BOM, re-check it for duplicate designators.** Uploading the toolkit's CSV directly avoids
-the problem entirely.
+### Root cause of the duplicate designators — SOLVED 2026-08-07
 
-Superseded files kept only for reference: `bom.xls`, `bom.xlsx`, `bom.csv`,
-`bom-ORIGINAL-with-dupes.xls`. **Do not upload these** — use the `VSP-WSC-4_1.3_*` set.
+Not a Fabrication Toolkit bug (an earlier note in this file said it was; that was wrong —
+the toolkit's BOM has never contained duplicates). **JLCPCB's parts-matching flow
+duplicates designators when one LCSC part number appears on more than one BOM line.** It
+merges the lines but concatenates the designator lists incorrectly.
+
+Exactly two part numbers were affected, and they account for all 16 duplicates:
+
+| LCSC | Toolkit emitted two lines | Result |
+|---|---|---|
+| C1590 | `0.1uF` (×11) and `0.1uF 25V` (×4) | 15 designators listed twice |
+| C51927445 | `RESET` (SW1) and `BOOT` (SW2) | SW1, SW2 listed twice |
+
+**The fix is to pre-merge, so JLCPCB has nothing to merge.**
+`VSP-WSC-4_1.3_bom-UPLOAD.csv` is the toolkit BOM with every LCSC collapsed to exactly one
+line — C1590 → 15 designators, C51927445 → 2. Verified: no duplicate designators, no LCSC
+on more than one line, 106 placements matching the board.
+
+**This will recur on every toolkit run** — the split lines come from the schematic using
+different Value strings (`0.1uF` vs `0.1uF 25V`, `RESET` vs `BOOT`) for parts that share a
+part number. Either regenerate the merged file each time, or normalise those Value strings
+in the schematic so the toolkit emits one line to begin with.
+
+Superseded, do not upload: `bom.xls`, `bom.xlsx`, `bom.csv`, `bom-ORIGINAL-with-dupes.xls`,
+and the raw `VSP-WSC-4_1.3_bom.csv` (correct, but it is the split-line version that trips
+the JLCPCB merge).
 
 ## ESP32 variant — RESOLVED 2026-08-07, no action
 
