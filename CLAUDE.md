@@ -3,22 +3,21 @@
 ## What this is
 Vesprio VSP-WSC-4: 4-channel motorized window shade controller, ESP32-S3-WROOM-1-N4, dual firmware track (ESPHome personal use / Tasmota product). See `docs/project-context/vsp-wsc4-handover.md` for full hardware detail and GPIO map.
 
-## Current state (as of 2026-08-05)
-- **PCB:** Rev 1.3, **F8 sync from schematic is DONE** — D2 removed, D10/D11/U16 placed and routed, R1-R8/D1/C10/U11 values updated in place. DRC: **0 errors, 0 unconnected pads**, 114 footprints. Rev 1.2 was assembled and working (ESPHome only; Tasmota broken on Shades 3&4 due to GPIO43/44 = U0TX/RX conflict — fixed in Rev 1.3)
-- **Schematic:** Rev 1.3 passed a full pre-fab QA review (2026-07-07) plus a second physical/layout QA pass (2026-08-05, see below). ERC errors down to 5, all benign (4× missing PWR_FLAG, 1× J2-GND/U1-(-Vout) both-power-output which is correct by design).
+## Current state (as of 2026-08-07)
+- **PCB:** Rev 1.3, **fab-ready.** All PICK UP HERE items from the 2026-08-05 QA pass are done: C40-C43 placed (~1.8-2.6mm from U12-U15 pin 4), +5V_OR/USB_VBUS widened, U16 moved closer to J2, D10/D11 silkscreen fixed, LCSC added for J2 (C397452) and J4 (C6652293 — pre-purchased JLCPCB inventory part, number needed so JLCPCB places it). DRC: 0 unconnected pads, 0 real errors, 114 footprints. Rev 1.2 was assembled and working (ESPHome only; Tasmota broken on Shades 3&4 due to GPIO43/44 = U0TX/RX conflict — fixed in Rev 1.3).
+- **Fabrication Toolkit run 2026-08-07** — archive `VSP-WSC-4_1.3`. See "Before submitting the JLCPCB order" below for one manual step still needed at order time.
+- **Schematic:** Rev 1.3 passed a full pre-fab QA review (2026-07-07) plus two physical/layout QA passes (2026-08-05 and 2026-08-06/07, see below). ERC errors steady at 5, all benign (4× missing PWR_FLAG, 1× J2-GND/U1-(-Vout) both-power-output which is correct by design).
 - **Also in Rev 1.3:** D4/D5 LEDs software-controllable (GPIO6/7, hardware-default-ON; D5 crosses isolation via spare U5 channel); RTS/DTR auto-reset on 7-pin J3 (Espressif reference two-transistor circuit); Micro-USB (not USB-C); switch inputs wired to ESP32 — see todo.md "Rev 1.3 GPIO Map" for pinout and "Firmware bring-up checklist" before first flash
 - **Enclosure:** FreeCAD Rev 2 (`project-case-rev2.FCStd`), 3D printed, test print 2 in progress
 
-## PICK UP HERE — remaining work before sending Rev 1.3 to JLCPCB
-Schematic-side items from the 2026-08-05 QA pass are **done and committed**. What is left is all PCB/GUI work:
+## PICK UP HERE — before submitting the JLCPCB order
+Board and schematic are done. One manual step remains, plus two accepted trade-offs to know about:
 
-1. **Place C40-C43** (new, 100nF 0402, LCSC C1525) — TVS VCC decoupling, one per PRTR5V0U2X. They exist in `switch_inputs.kicad_sch` (bottom of sheet, ~Y=190) but have no board position yet. Run F8, then place **each within ~2mm of its device's VCC pin (pin 4)**: C40→U12, C41→U13, C42→U14, C43→U15. Reason: U12-U15 currently have their nearest +3.3V_ISO bypass **18-23mm away**; the PRTR5V0U2X shunts ESD into VCC and has nowhere local to dump it. This is the highest-value fix left — the switch inputs are new in Rev 1.3 and have never been validated on hardware.
-2. **Widen `+5V_OR`** — 8.1mm of its 14mm run is 0.20mm (default signal width); the rest is 0.50mm. This is the ESP32's entire supply (500mA WiFi bursts). Bump to 0.50mm. Not a failure at 0.20mm (~1A capable, ~20mV drop) but it has no margin and is inconsistent with the other rails (+5V_ISO 0.50mm, +12V_RAW 1.00mm). Optional: `USB_VBUS` is 26.3mm all at 0.20mm — 0.40mm would be better.
-3. **Move U16 closer to J2** — currently **9.2-9.4mm** from J2's D+/D- pads and on the opposite copper layer (U16 B.Cu / J2 F.Cu). Topology is right (it IS on the connector side of R9/R10, which sit 37mm away near the ESP32), but a 9mm stub plus a layer change badly undercuts ESD performance. Ideally sits directly under J2 on B.Cu.
-4. **Decide J2 LCSC** — J2 (Micro-USB) has no LCSC part number. Hand-solder, or pick a part? J4 having no LCSC is intentional (pre-purchased inventory part).
-5. Cosmetic: D11's reference field overlaps D10's silkscreen outline.
+1. **U1's DC-DC footprint is a shared multi-part pattern — add an assembly order remark.** `DCDC_HYBRID_SLC03_TEC2` shares holes across Mean Well SLC03A-05 / Traco TBA 2-1211 / Heniper B1205S-3WR2L (silkscreen `M`/`H`/`T` letters + "POPULATE ONE"). This run uses the **Heniper (LCSC C20622657, in your JLCPCB inventory)**. BOM/CPL only carry one position+rotation for the whole footprint — there's no field for "use this subset of holes," so JLCPCB's assembly team needs an explicit note or they won't know to use the `H` holes. Full detail in `docs/project-context/jlcpcb-export-steps.md`. (Electrically safe regardless — same-numbered pads share nets — but do add the remark so the right physical part goes in the right holes.)
+2. **Accepted trade-off — USB_VBUS/J2 hole clearance exclusion.** One `hole_clearance` DRC error (0.20mm vs 0.25mm rule, at J2's own NPTH mounting hole) is suppressed via exclusion. Confirmed it's capped by the connector's own pad geometry, not trace routing — same category as 4 other pre-existing accepted exclusions on this connector footprint. Not fixable without a different Micro-USB footprint.
+3. **Accepted trade-off — U16 via stub.** U16 (USB ESD protection) sits on B.Cu while J2 is F.Cu, so its D+/D- routing crosses layers via a ~2mm stub each side rather than a direct trace. Fine for a Full-Speed, occasional-use flashing port; revisit only if it ever causes a field problem — fixing it properly means moving U16 to F.Cu, which is a bigger rework.
 
-Then: regenerate gerbers/BOM/CPL (`docs/project-context/jlcpcb-export-steps.md`) — the `gerbers/` and `gerbers-v1.1/` folders are both stale (v1.1 era).
+Then: regenerate gerbers/BOM/CPL if anything changes (`docs/project-context/jlcpcb-export-steps.md`) — the `gerbers/` and `gerbers-v1.1/` folders are both stale (v1.1 era); `VSP-WSC-4_1.3` is the current archive.
 
 ## Rev 1.3 schematic work already done
 - ACS723 on GPIO5 (ADC1_CH4), TMP235 on GPIO4 (ADC1_CH3) — both moved off ADC2 to avoid WiFi noise, then relocated again during the layout-driven GPIO reshuffle (see full map in vsp-wsc4-todo.md)

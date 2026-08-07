@@ -46,13 +46,14 @@ Done and committed (schematic side):
 - [x] Added **C40-C43** (100nF 0402, C1525) for U12-U15 VCC decoupling.
 - [x] Added `barn-blinds-controller.kicad_dru` isolation-barrier audit rule.
 
-Open (PCB / GUI work — see "PICK UP HERE" in CLAUDE.md for full detail):
-- [ ] Place C40-C43, each within ~2mm of its TVS VCC pin (C40→U12, C41→U13, C42→U14, C43→U15). Currently U12-U15 have their nearest bypass 18-23mm away.
-- [ ] Widen `+5V_OR` from 0.20mm to 0.50mm (8.1mm of its run is at default signal width; it is the ESP32's whole supply).
-- [ ] Move U16 nearer J2 — currently 9.2-9.4mm from the D+/D- pads and on the opposite layer.
-- [ ] Decide J2 (Micro-USB) LCSC part number, or mark hand-solder.
-- [ ] Cosmetic: D11 reference field overlaps D10 silkscreen.
-- [ ] Regenerate gerbers/BOM/CPL — `gerbers/` and `gerbers-v1.1/` are both stale.
+Done 2026-08-06/07 (PCB / GUI work):
+- [x] Placed C40-C43, ~1.8-2.6mm from each TVS VCC pin (C40→U12, C41→U13, C42→U14, C43→U15).
+- [x] Widened `+5V_OR` to 0.5mm (one negligible 0.565mm stub still at 0.2mm, not worth chasing) and `USB_VBUS` to 0.4mm.
+- [x] Moved U16 nearer J2 (center-to-center 6.1mm→4.0mm). Still B.Cu vs J2's F.Cu — accepted trade-off, see "PICK UP HERE" above.
+- [x] J2 LCSC set to C397452 (same Micro-USB part as zen32-esphome). J4 LCSC set to C6652293 — intentional: pre-purchased JLCPCB inventory part, number still needed so JLCPCB places it.
+- [x] D10/D11 silkscreen reference overlap fixed.
+- [ ] Regenerate gerbers/BOM/CPL if anything changes — `gerbers/` and `gerbers-v1.1/` are both stale (v1.1 era); Fabrication Toolkit run 2026-08-07 as `VSP-WSC-4_1.3`.
+- [ ] Add JLCPCB order remark for U1's shared multi-footprint DC-DC pattern before submitting assembly — see "PICK UP HERE" in CLAUDE.md and `jlcpcb-export-steps.md`.
 
 ### Firmware bring-up checklist (Rev 1.3 boards):
 - Enable **internal pull-ups on all 8 switch input GPIOs**: 3, 46, 9, 10, 11, 12, 13, 14. There are no external pull-ups. Note GPIO46 is a strapping pin whose reset default is pull-*down* — the pull-up must be set explicitly in firmware; switches short to GND_ISO so a held switch can never create an invalid boot combination.

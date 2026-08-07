@@ -4,7 +4,15 @@
 
 - Fabrication Toolkit plugin installed (Plugin and Content Manager > search "JLC")
 - LCSC part numbers in the `LCSC` field of each schematic symbol
-- U7 DCDC marked DNP in footprint fabrication attributes
+
+## U1 — hybrid DC-DC footprint, needs a manual assembly note
+
+`DCDC_HYBRID_SLC03_TEC2` (used by U1) is **one footprint that shares holes across three pin-compatible isolated DC-DC modules** — Mean Well SLC03A-05, Traco TBA 2-1211, and Heniper B1205S-3WR2L — silkscreened with per-hole `M`/`H`/`T` letters and a "POPULATE ONE" note. **This run uses the Heniper (LCSC C20622657, in your JLCPCB inventory) — populate only the holes marked `H`.**
+
+- Electrically this is safe either way: pads sharing a number (2/2, 3/3, 4/4) are tied to the same net regardless of which physical hole is used, so there's no shorting/miswiring risk. Lead spacing is also part-specific, so the wrong holes likely won't physically accept the part's leads.
+- What it *doesn't* do automatically: the BOM/CPL only carry one reference position + rotation for the whole footprint — there's no standard field for "populate this subset of holes." JLCPCB's assembly team won't know to use the `H` holes unless you tell them.
+- **Action: add an order remark/special-instruction when submitting for assembly** — e.g. "U1 is a shared multi-footprint THT pattern; populate only the 4 holes marked H (Heniper) on the top silkscreen; leave M and T holes empty."
+- The `H` hole spacing in the footprint (2.54mm input pair, then 5.08mm-spaced output pins) reads as a standard isolated-DC-DC SIP-4 layout — consistent with what's expected, but I couldn't pull a clean copy of Heniper's mechanical drawing to confirm byte-exact, so do a quick visual check against the datasheet (or the physical part) before it goes out.
 
 ## Steps
 
@@ -54,7 +62,6 @@ Use this table to determine the correction needed based on what you see in the J
 ## Notes
 
 - The `LCSC` field name is a recognized fallback — no renaming needed
-- U7 hybrid DCDC footprint: populate one only (Heniper B1205S-3WR2L, LCSC C20622657)
 - Always verify the JLCPCB placement preview before confirming the order
 
 ---
@@ -114,7 +121,7 @@ Use this table to determine the correction needed based on what you see in the J
 6. Upload CPL CSV
 7. Review component matches — confirm LCSC part numbers are correct
 8. Review the placement viewer carefully — fix any rotation issues before confirming
-9. Mark hand-solder / DNP parts as needed (U7 DCDC hybrid footprint — populate one only)
+9. Mark hand-solder / DNP parts as needed
 
 ## Notes
 

@@ -3674,6 +3674,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C397452"
+			(at 45.72 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "SH"
 			(uuid "de9502cc-d740-4c1d-aef8-7cffa1f70ad3")
 		)
