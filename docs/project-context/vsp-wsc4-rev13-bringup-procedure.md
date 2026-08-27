@@ -52,6 +52,23 @@ it sits on B.Cu while J2 is on F.Cu, so D+/D− cross layers through a ~2 mm via
 stub each side. That was an accepted trade-off, not a known defect, but it is
 the first thing to suspect if enumeration is flaky rather than absent.
 
+### 1.1a Expected build figures
+
+The config was compiled clean on 2026-08-27 with ESPHome 2026.8.1. Compare
+against these — a large deviation means your toolchain resolved something
+differently:
+
+```
+RAM:   31.6% (108111 / 341760 bytes)
+Flash: 48.0% (881035 / 1835008 bytes)
+```
+
+**That 1835008-byte flash figure is the useful one.** It is the app partition
+size for a 4 MB flash with OTA, which confirms `flash_size: 4MB` took effect.
+If you see roughly double that, the override did not apply and the image will
+not fit the N4. RAM at 341760 bytes total likewise confirms no PSRAM was
+brought in.
+
 ### 1.2 Console
 
 Logs come over the same USB port via the S3's USB-Serial-JTAG peripheral
