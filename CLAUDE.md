@@ -27,8 +27,20 @@ Next action: work the **"Firmware bring-up checklist"** in `docs/project-context
 - **U1 is the Heniper B1205S-3WR2L (C20622657), on the `H` hole set** of the shared `DCDC_HYBRID_SLC03_TEC2` footprint.
 - **C10 is 100 µF 16 V (C7432790)** and **U12-U16 are C5158049**, both stock-driven substitutions made at order time. Same footprints, no board change.
 
-### Git state
-`release/v1.3` tracks this revision; the annotated tag **`v1.3-fab`** (commit `3bc6a34`) pins the exact source the boards were built from. Bring-up fixes go on the branch — leave the tag alone so the as-fabbed state stays recoverable. `main` was fast-forwarded to match on 2026-08-27.
+### Git state and release convention
+Standardized 2026-08-27. Every shipped revision gets **both**:
+- a `release/vX.Y` branch — a moving marker that may absorb later fixes for that revision
+- an annotated `vX.Y-fab` tag — **frozen** at the exact commit the boards were built from
+
+| Revision | Branch | Tag | Commit |
+|---|---|---|---|
+| 1.0/1.1 | `release/v1.0` | `v1.0-fab` | `41bff59` (2026-04-24) |
+| 1.2 | `release/v1.2` | `v1.2-fab` | `b2b59b3` (2026-06-11) |
+| 1.3 | `release/v1.3` | `v1.3-fab` | `3bc6a34` (2026-08-07) |
+
+Bring-up fixes go on the branch — **never move a `-fab` tag**, or the as-fabbed state stops being recoverable. `main` was fast-forwarded to current on 2026-08-27; history is fully linear with no merge commits, so release branches fast-forward cleanly.
+
+Pruned 2026-08-27: `feature/rework-vias` (fully merged, 0 unique commits vs `main`; its work is in `release/v1.2`'s history at `45e6a61`/`6322e81`). Note it enlarged vias and rerouted — it did **not** remove via-in-pad; 96 of 177 vias still sit inside SMD pads, which is why laminate Tg appears in the hot-attic notes.
 
 ### Two things deliberately NOT done — do not re-flag them
 Both were closed by the user from direct experience with this vendor. They are settled decisions, not oversights.
