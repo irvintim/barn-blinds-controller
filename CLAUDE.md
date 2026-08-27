@@ -3,16 +3,32 @@
 ## What this is
 Vesprio VSP-WSC-4: 4-channel motorized window shade controller, ESP32-S3-WROOM-1-N4, dual firmware track (ESPHome personal use / Tasmota product). See `docs/project-context/vsp-wsc4-handover.md` for full hardware detail and GPIO map.
 
-## Current state (as of 2026-08-07)
-- **STATUS: Rev 1.3 ordered from JLCPCB 2026-08-07. Waiting on boards.** Next action is bring-up on arrival — see "Firmware bring-up checklist" in `docs/project-context/vsp-wsc4-todo.md`, and note the **ACS725 formula change** (`amps = (Vout - 1.65) / 0.264`) is required before current sensing works.
+## Current state (as of 2026-08-27)
+- **STATUS: Rev 1.3 boards received from JLCPCB 2026-08-27. Bring-up in progress.** Work the "Firmware bring-up checklist" in `docs/project-context/vsp-wsc4-todo.md`. The **ACS725 formula change** (`amps = (Vout - 1.65) / 0.264`, was `/0.4` for the ACS723) is required before current sensing reads correctly — update the stall-detection threshold with it.
+- **Flash via native USB (J2 Micro-USB, GPIO19/20) — that is the only path on these boards, because J3 is DNP'd.** See PICK UP HERE below.
 - **PCB:** Rev 1.3, **fab-ready.** All PICK UP HERE items from the 2026-08-05 QA pass are done: C40-C43 placed (~1.8-2.6mm from U12-U15 pin 4), +5V_OR/USB_VBUS widened, U16 moved closer to J2, D10/D11 silkscreen fixed, LCSC added for J2 (C397452) and J4 (C6652293 — pre-purchased JLCPCB inventory part, number needed so JLCPCB places it). DRC: 0 unconnected pads, 0 real errors, 114 footprints. Rev 1.2 was assembled and working (ESPHome only; Tasmota broken on Shades 3&4 due to GPIO43/44 = U0TX/RX conflict — fixed in Rev 1.3).
-- **Fabrication Toolkit run 2026-08-07** — archive `VSP-WSC-4_1.3`. See "Before submitting the JLCPCB order" below for one manual step still needed at order time.
+- **Fabrication Toolkit run 2026-08-07** — archive `VSP-WSC-4_1.3`. These are the outputs the boards were built from; re-run the toolkit only if the PCB changes.
 - **Schematic:** Rev 1.3 passed a full pre-fab QA review (2026-07-07) plus two physical/layout QA passes (2026-08-05 and 2026-08-06/07, see below). ERC errors steady at 5, all benign (4× missing PWR_FLAG, 1× J2-GND/U1-(-Vout) both-power-output which is correct by design).
 - **Also in Rev 1.3:** D4/D5 LEDs software-controllable (GPIO6/7, hardware-default-ON; D5 crosses isolation via spare U5 channel); RTS/DTR auto-reset on 7-pin J3 (Espressif reference two-transistor circuit); Micro-USB (not USB-C); switch inputs wired to ESP32 — see todo.md "Rev 1.3 GPIO Map" for pinout and "Firmware bring-up checklist" before first flash
 - **Enclosure:** FreeCAD Rev 2 (`project-case-rev2.FCStd`), 3D printed, test print 2 in progress
 
-## PICK UP HERE — order is placed, waiting on boards
-**Rev 1.3 was ordered from JLCPCB on 2026-08-07** (gerber `VSP-WSC-4_1.3_Y18`, 5 boards, PCBA both sides, S1000H TG155 / ENIG, Confirm Parts Placement + Photo Confirmation both on). Nothing is outstanding. Next action is on arrival: bring-up per the "Firmware bring-up checklist" in `docs/project-context/vsp-wsc4-todo.md`.
+## PICK UP HERE — boards in hand, bring-up is the work
+**Rev 1.3 boards arrived 2026-08-27.** Ordered from JLCPCB 2026-08-07: gerber `VSP-WSC-4_1.3_Y18`, 5 boards, PCBA both sides, S1000H TG155 / ENIG, Confirm Parts Placement + Photo Confirmation both on.
+
+Next action: work the **"Firmware bring-up checklist"** in `docs/project-context/vsp-wsc4-todo.md`. The four things that will bite first, in order:
+
+1. **ACS725 formula:** `amps = (Vout - 1.65) / 0.264`. The old ACS723 divisor was `0.4` — current sensing reads wrong until this changes, and the stall threshold moves with it.
+2. **Internal pull-ups on all 8 switch GPIOs** (3, 46, 9, 10, 11, 12, 13, 14). There are no external pull-ups; switches short to GND_ISO. GPIO46 is a strapping pin defaulting to pull-*down*, so its pull-up must be set explicitly.
+3. **D4 (GPIO6, white) and D5 (GPIO7, blue) are hardware-default-ON** and stay on until firmware drives them LOW. That is by design — they track raw power.
+4. **Tasmota is the thing actually being validated here.** Rev 1.2 worked under ESPHome but Tasmota's Shutters 3 & 4 were broken by the GPIO43/44 = U0TX/RX conflict. Rev 1.3 moved those signals, so confirming all four shutters work under Tasmota is the point of this build.
+
+### As-built quirks of this specific run — check these before debugging anything
+- **J3 (UART/RTS-DTR header) is DNP'd — not populated.** Native USB (GPIO19/20) is the only flash path as shipped. The RTS/DTR auto-reset circuit exists on the board but is unusable without J3. If J3 is ever populated, **fix its LCSC field first** — it still carries C492404, a 5-pin part against a 7-pin footprint.
+- **U1 is the Heniper B1205S-3WR2L (C20622657), on the `H` hole set** of the shared `DCDC_HYBRID_SLC03_TEC2` footprint.
+- **C10 is 100 µF 16 V (C7432790)** and **U12-U16 are C5158049**, both stock-driven substitutions made at order time. Same footprints, no board change.
+
+### Git state
+`release/v1.3` tracks this revision; the annotated tag **`v1.3-fab`** (commit `3bc6a34`) pins the exact source the boards were built from. Bring-up fixes go on the branch — leave the tag alone so the as-fabbed state stays recoverable. `main` was fast-forwarded to match on 2026-08-27.
 
 ### Two things deliberately NOT done — do not re-flag them
 Both were closed by the user from direct experience with this vendor. They are settled decisions, not oversights.
@@ -47,8 +63,6 @@ Both were closed by the user from direct experience with this vendor. They are s
 - So **N4 / C2913197 is the best available choice**, and it's also the cheapest at $4.13/1 with ~4700 in stock.
 
 **Thermal caveat to carry into enclosure Rev 3:** the 85 °C figure is *ambient around the module*. Inside a sealed 3D-printed box in an attic, internal air runs hotter than attic ambient because of the board's own dissipation (LDO drop, DC-DC losses, driver quiescent, LEDs). A 60–70 °C attic plus enclosure rise eats into the 85 °C margin. Worth some ventilation in the Rev 3 design, and worth not mounting the box at the peak-heat ridge line.
-
-## Hot-attic reliability notes (2026-08-07)
 
 ## Hot-attic reliability notes (2026-08-07)
 Ranked by how likely each is to actually bite, most-likely first:

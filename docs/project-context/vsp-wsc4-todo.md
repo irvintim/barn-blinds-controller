@@ -78,18 +78,15 @@ On the placement/photo confirmations, scrutinise the parts whose LCSC was *not* 
 - **ACS725 formula:** `amps = (Vout - 1.65) / 0.264` (was /0.4 for ACS723). Update stall detection threshold accordingly.
 - **Serial terminal gotcha:** with the new RTS/DTR auto-reset circuit on J3, any terminal program that asserts DTR without RTS will hold the ESP32 in reset until DTR is released (identical behavior to NodeMCU-style dev boards). esptool/ESPHome/Tasmota flashers handle this correctly; if the board appears dead over a serial monitor, check the monitor's DTR/RTS settings. **Note: J3 is DNP'd on Rev 1.3 boards from this run — this only applies if it's populated later.** Native USB (GPIO19/20) is the primary/only flash path as shipped.
 
-### Still needed — schematic:
-- [ ] **Auto-reset circuit — needs a research/discussion pass next session before any hardware decision. Do not add circuitry yet.**
-  - Goal: let esptool/ESPHome/Tasmota flash and reset the board without the user manually holding BOOT and tapping RESET.
-  - Board has two flashing paths by design: native Micro-USB (GPIO19/20, USB-Serial-JTAG peripheral) and a 5-pin UART header J3 (`U0TXD`, `U0RXD`, `+3.3V_ISO`, `GND_ISO`, `BOOT`/GPIO0 — no RTS/DTR pins currently). Board also has physical BOOT and RESET buttons (SW2, SW1) for manual flashing.
-  - **Open question raised 2026-07-06:** the user's own TTY/USB bridge adapter has no RTS/DTR pins — they only ever connect RX/TX/3.3V/GND and manually ground BOOT, using the existing buttons. They haven't encountered the RTS/DTR auto-reset workflow before and want to understand it better before deciding whether to add any circuitry (transistors, and/or expanding J3 to 7 pins to expose RTS/DTR for adapters that do have them).
-  - Next session should: explain how the classic RTS/DTR auto-reset handshake works and why/when it matters (e.g. relevant mainly for the product track, where random customers' adapters — many common FTDI/CP2102/CH340 boards — do expose RTS/DTR, vs. the user's personal dev adapter which doesn't need it since buttons already work); confirm whether the native USB path already auto-resets on its own (untested so far); then let the user decide whether J3 needs to grow to 7 pins at all, given the answer may simply be "no, buttons are fine."
-- [ ] **Make D4 (ESP32 power, white) and D5 (12V power, blue) LEDs software-controllable — confirmed in scope for Rev 1.3, next session should implement this.**
-  - Current state: D3 (status, red) is already GPIO16-driven — that one's done.
-  - D4 is hardwired directly to `+3.3V_ISO` via R_LED2 (always on whenever 3.3V rail is up) — needs a GPIO-driven switch (transistor/MOSFET or direct GPIO drive through the LED resistor, whichever this design's LED drive convention already uses for D3) instead of a direct tie to the rail.
-  - D5 is hardwired directly to `+12V` via R_LED3 (always on whenever 12V input is present) — same fix needed, referenced to `GND_MOTOR` since it's on the motor-side rail.
-  - Free GPIOs available per the Rev 1.3 GPIO map below: GPIO6, GPIO7, GPIO8, GPIO15, GPIO17, GPIO18, GPIO45 (note GPIO45 is a strapping pin, only use it if the strapping behavior is confirmed harmless the way it was for other signals sharing it before).
+### Completed in Rev 1.3 — both shipped on the boards in hand
+- [x] **Auto-reset circuit — DONE.** Resolved 2026-07-06/07: J3 grown from 5 to 7 pins exposing RTS/DTR, driven by the Espressif reference two-transistor circuit (Q3/Q4 S8050) with C21 1uF on EN. Confirmed the native USB path (GPIO19/20, USB-Serial-JTAG) auto-resets on its own with no hardware needed, so the circuit only matters for the UART path. **Caveat for these boards: J3 is DNP'd on the 2026-08-07 run**, so the auto-reset circuit is present but unreachable — native USB is the only flash path as shipped.
+- [x] **D4/D5 software-controllable LEDs — DONE.** GPIO6 drives D4 (white, +3.3V_ISO) and GPIO7 drives D5 (blue) via Q1/Q2 2N7002. Both are hardware-default-ON from power-up until firmware pulls them low. D5's gate crosses the isolation barrier through spare U5 channel A, and D5 feeds from +12V_RAW so its current bypasses the ACS725 measurement.
+
 - [x] MANUAL: TVS wire cleanup in switch_inputs.kicad_sch — 4 orphan dangling stubs removed 2026-08-05. Remaining 37 `endpoint_off_grid` ERC warnings are inherent to this project's `Device:C` symbol variant (pins at ±1.524mm cannot land on a 1.27mm grid) and affect C1-C8 equally; cosmetic only.
+
+### Still needed — schematic:
+- [ ] Nothing open for Rev 1.3. New items go here as bring-up finds them.
+
 
 ---
 
