@@ -36,3 +36,8 @@ Unnamed-PCB_Compound*
 # Stock upstream Tasmota release binary — redownload from
 # https://ota.tasmota.com/tasmota32/release/tasmota32s3.factory.bin
 tasmota32s3.factory.bin
+
+# ESPHome secrets and build artifacts
+secrets.yaml
+docs/project-context/secrets.yaml
+.esphome/

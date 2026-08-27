@@ -90,7 +90,7 @@ On the placement/photo confirmations, scrutinise the parts whose LCSC was *not* 
 
 ---
 
-## Rev 1.3 GPIO Map (final, as of 2026-07-06)
+## Rev 1.3 GPIO Map (final, as of 2026-07-06; GPIO6/7 and the GPIO46 note corrected 2026-08-27)
 
 Reassigned to eliminate crossed leads during PCB layout. Verified against the ESP32-S3-WROOM-1 module pinout with no duplicate assignments, no WiFi/ADC2 conflicts (only TMP235/ACS723 do real analog sensing, both on ADC1), and no strapping-pin or input-only-pin misuse.
 
@@ -99,8 +99,8 @@ Reassigned to eliminate crossed leads during PCB layout. Verified against the ES
 | 3 | EN | Reset button | |
 | 4 | GPIO4 | TMP235 Vout | ADC1_CH3 |
 | 5 | GPIO5 | ACS723 VIOUT | ADC1_CH4 |
-| 6 | GPIO6 | *(empty)* | |
-| 7 | GPIO7 | *(empty)* | |
+| 6 | GPIO6 | D4 white LED | added after this map was written; hardware-default-ON, drive LOW to turn off |
+| 7 | GPIO7 | D5 blue LED | added after this map was written; hardware-default-ON, gate crosses isolation via spare U5 ch A |
 | 8 | GPIO15 | *(empty)* | |
 | 9 | GPIO16 | Status LED | |
 | 10 | GPIO17 | *(empty)* | freed from old UART header |
@@ -109,7 +109,7 @@ Reassigned to eliminate crossed leads during PCB layout. Verified against the ES
 | 13 | GPIO19 | USB D- | native USB |
 | 14 | GPIO20 | USB D+ | native USB |
 | 15 | GPIO3 | SW1_DOWN_IN | switch input |
-| 16 | GPIO46 | SW1_UP_IN | switch input — input-only pin, OK for a switch |
+| 16 | GPIO46 | SW1_UP_IN | switch input — strapping pin, reset default pull-*down*, so firmware must set the pull-up explicitly. **Not input-only** (datasheet Table 3 lists IO46 as I/O/T); an earlier note here said otherwise and was wrong. |
 | 17 | GPIO9 | SW2_DOWN_IN | switch input |
 | 18 | GPIO10 | SW2_UP_IN | switch input |
 | 19 | GPIO11 | SW3_DOWN_IN | switch input |

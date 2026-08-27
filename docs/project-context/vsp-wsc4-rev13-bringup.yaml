@@ -1,0 +1,476 @@
+# =============================================================================
+# VSP-WSC-4 Rev 1.3 -- BRING-UP / BENCH TEST firmware (ESPHome)
+#
+# This is NOT the production config. It deliberately exposes every pin as an
+# individually controllable entity so each net can be probed with a meter.
+# For the real thing see vsp-wsc4-standalone.yaml (currently still Rev 1.2
+# pinout -- do not flash that to a Rev 1.3 board, every motor GPIO moved).
+#
+# Pinout source of truth: "Rev 1.3 GPIO Map" in vsp-wsc4-todo.md, plus the
+# GPIO6/GPIO7 LED assignment from CLAUDE.md (added after that map was written).
+#
+# SAFETY: motor STBY defaults OFF, so the TB6612FNG outputs are in high-Z at
+# boot. Nothing can drive a motor until you deliberately flip "Motor Enable".
+#
+# Flash over native USB (J2 Micro-USB). J3 is DNP'd on this run -- there is no
+# UART fallback path on these boards.
+#   esphome run docs/project-context/vsp-wsc4-rev13-bringup.yaml
+# =============================================================================
+
+substitutions:
+  device_name: wsc4-bringup
+  friendly_name: WSC-4 Bring-up
+
+esphome:
+  name: ${device_name}
+  friendly_name: ${friendly_name}
+  name_add_mac_suffix: true
+  project:
+    name: "Vesprio.WSC-4-Bringup"
+    version: "1.3"
+  on_boot:
+    priority: 600
+    then:
+      - logger.log: "=== VSP-WSC-4 Rev 1.3 bring-up firmware booted ==="
+      # Motors held in standby until explicitly enabled. TB6612FNG STBY low
+      # = outputs disabled. This is the opposite of the production config,
+      # which enables STBY at boot.
+      - output.turn_off: motor_stby
+      - logger.log: "Motor drivers held in STANDBY. Flip 'Motor Enable' to arm."
+
+esp32:
+  board: esp32-s3-devkitc-1
+  # ESP32-S3-WROOM-1-N4 = 4 MB flash, NO PSRAM.
+  # The esp32-s3-devkitc-1 board definition assumes 8 MB, which produces a
+  # partition table the N4 cannot hold. This override is required.
+  flash_size: 4MB
+  framework:
+    type: esp-idf
+
+# NOTE: deliberately no `psram:` block. The N4 has none. See CLAUDE.md
+# "ESP32 variant selection" before ever changing the module part number.
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  # Fallback AP so the board is still reachable if credentials are wrong --
+  # important during bring-up when you cannot see serial and WiFi at once.
+  ap:
+    ssid: "WSC4 Bringup"
+    password: "bringup1234"
+
+captive_portal:
+
+api:
+  # No encryption key on purpose: this is a bench config, and one less thing
+  # to go wrong while proving the hardware. The production config uses one.
+
+ota:
+  - platform: esphome
+
+logger:
+  level: DEBUG
+  # The S3's built-in USB-Serial-JTAG peripheral (GPIO19/20) -- this is what
+  # J2 connects to. Without this you get no console over the native USB port.
+  hardware_uart: USB_SERIAL_JTAG
+
+web_server:
+  port: 80
+  version: 3
+
+# =============================================================================
+# OUTPUTS
+# =============================================================================
+output:
+  # --- Motor driver standby (through isolator U6) ---
+  - platform: gpio
+    pin: GPIO35
+    id: motor_stby
+
+  # --- Direction pins: TB6612FNG IN1/IN2 via isolators ---
+  # Shade 1 (U5)
+  - platform: gpio
+    pin: GPIO36
+    id: sh1_open
+  - platform: gpio
+    pin: GPIO37
+    id: sh1_closed
+  # Shade 2 (U6)
+  - platform: gpio
+    pin: GPIO48
+    id: sh2_open
+  - platform: gpio
+    pin: GPIO47
+    id: sh2_closed
+  # Shade 3 (U4)
+  - platform: gpio
+    pin: GPIO42
+    id: sh3_open
+  - platform: gpio
+    pin: GPIO2
+    id: sh3_closed
+  # Shade 4 (U4)
+  - platform: gpio
+    pin: GPIO41
+    id: sh4_open
+  - platform: gpio
+    pin: GPIO40
+    id: sh4_closed
+
+  # --- On-board LEDs ---
+  # D3 (red) is the status LED, driven directly by the ESP32.
+  - platform: gpio
+    pin: GPIO16
+    id: out_d3
+  # D4/D5 gate 2N7002 FETs whose gates are pulled up to their rails, so the
+  # resting state is ON and the GPIO only ever pulls them down:
+  #   HIGH or floating = LED on, LOW = LED off. No inversion needed.
+  # D5's gate crosses the isolation barrier through spare U5 channel A, and
+  # D5 feeds from +12V_RAW so its current bypasses the ACS725 measurement.
+  - platform: gpio
+    pin: GPIO6
+    id: out_d4
+  - platform: gpio
+    pin: GPIO7
+    id: out_d5
+
+  # --- PWM (speed) pins. LEDC so duty is measurable as an average voltage. ---
+  - platform: ledc
+    pin: GPIO38
+    id: sh1_pwm
+    frequency: 20000Hz
+  - platform: ledc
+    pin: GPIO21
+    id: sh2_pwm
+    frequency: 20000Hz
+  - platform: ledc
+    pin: GPIO1
+    id: sh3_pwm
+    frequency: 20000Hz
+  - platform: ledc
+    pin: GPIO39
+    id: sh4_pwm
+    frequency: 20000Hz
+
+# =============================================================================
+# LEDs -- all three are on-board, so these work with NOTHING connected.
+# This is the first real proof of life beyond "it booted".
+# =============================================================================
+light:
+  - platform: binary
+    name: "D3 Status (red)"
+    id: led_d3
+    output: out_d3
+    restore_mode: ALWAYS_OFF
+  # D4/D5 are hardware-default-ON. ESPHome drives its GPIOs low on init, which
+  # would switch them off at boot, so restore them ON to match the intended
+  # "these track raw power" behaviour.
+  - platform: binary
+    name: "D4 Power (white)"
+    id: led_d4
+    output: out_d4
+    restore_mode: ALWAYS_ON
+  - platform: binary
+    name: "D5 12V (blue)"
+    id: led_d5
+    output: out_d5
+    restore_mode: ALWAYS_ON
+
+# =============================================================================
+# SWITCHES -- direct pin control for probing
+# =============================================================================
+switch:
+  - platform: output
+    name: "Motor Enable (STBY)"
+    output: motor_stby
+    id: sw_motor_enable
+    restore_mode: ALWAYS_OFF
+
+  - platform: output
+    name: "Shade 1 OPEN pin"
+    output: sh1_open
+    restore_mode: ALWAYS_OFF
+  - platform: output
+    name: "Shade 1 CLOSED pin"
+    output: sh1_closed
+    restore_mode: ALWAYS_OFF
+  - platform: output
+    name: "Shade 2 OPEN pin"
+    output: sh2_open
+    restore_mode: ALWAYS_OFF
+  - platform: output
+    name: "Shade 2 CLOSED pin"
+    output: sh2_closed
+    restore_mode: ALWAYS_OFF
+  - platform: output
+    name: "Shade 3 OPEN pin"
+    output: sh3_open
+    restore_mode: ALWAYS_OFF
+  - platform: output
+    name: "Shade 3 CLOSED pin"
+    output: sh3_closed
+    restore_mode: ALWAYS_OFF
+  - platform: output
+    name: "Shade 4 OPEN pin"
+    output: sh4_open
+    restore_mode: ALWAYS_OFF
+  - platform: output
+    name: "Shade 4 CLOSED pin"
+    output: sh4_closed
+    restore_mode: ALWAYS_OFF
+
+# =============================================================================
+# PWM duty sliders (0-100%) -- measure average V on the driver PWM input
+# =============================================================================
+number:
+  - platform: template
+    name: "Shade 1 PWM"
+    id: num_sh1_pwm
+    min_value: 0
+    max_value: 100
+    step: 1
+    initial_value: 0
+    optimistic: true
+    set_action:
+      - output.set_level:
+          id: sh1_pwm
+          level: !lambda "return x / 100.0;"
+  - platform: template
+    name: "Shade 2 PWM"
+    min_value: 0
+    max_value: 100
+    step: 1
+    initial_value: 0
+    optimistic: true
+    set_action:
+      - output.set_level:
+          id: sh2_pwm
+          level: !lambda "return x / 100.0;"
+  - platform: template
+    name: "Shade 3 PWM"
+    min_value: 0
+    max_value: 100
+    step: 1
+    initial_value: 0
+    optimistic: true
+    set_action:
+      - output.set_level:
+          id: sh3_pwm
+          level: !lambda "return x / 100.0;"
+  - platform: template
+    name: "Shade 4 PWM"
+    min_value: 0
+    max_value: 100
+    step: 1
+    initial_value: 0
+    optimistic: true
+    set_action:
+      - output.set_level:
+          id: sh4_pwm
+          level: !lambda "return x / 100.0;"
+
+# =============================================================================
+# SWITCH INPUTS -- all 8 wall-switch inputs
+#
+# There are NO external pull-ups on this board. Switches short to GND_ISO,
+# so internal pull-ups are mandatory and the logic is active-low (hence
+# `inverted: true` -- "on" here means the input is being pulled to GND).
+#
+# With nothing connected, all 8 must read OFF. If any reads ON or flickers,
+# that pin's pull-up is not working -- see the bring-up notes on GPIO46.
+# To test: jumper the J4 pin to an adjacent GND_ISO pin (2, 5, 12, or 15).
+# =============================================================================
+binary_sensor:
+  - platform: gpio
+    name: "SW1 Up (GPIO46)"
+    pin: { number: GPIO46, mode: { input: true, pullup: true }, inverted: true }
+  - platform: gpio
+    name: "SW1 Down (GPIO3)"
+    pin: { number: GPIO3, mode: { input: true, pullup: true }, inverted: true }
+  - platform: gpio
+    name: "SW2 Up (GPIO10)"
+    pin: { number: GPIO10, mode: { input: true, pullup: true }, inverted: true }
+  - platform: gpio
+    name: "SW2 Down (GPIO9)"
+    pin: { number: GPIO9, mode: { input: true, pullup: true }, inverted: true }
+  - platform: gpio
+    name: "SW3 Up (GPIO12)"
+    pin: { number: GPIO12, mode: { input: true, pullup: true }, inverted: true }
+  - platform: gpio
+    name: "SW3 Down (GPIO11)"
+    pin: { number: GPIO11, mode: { input: true, pullup: true }, inverted: true }
+  - platform: gpio
+    name: "SW4 Up (GPIO14)"
+    pin: { number: GPIO14, mode: { input: true, pullup: true }, inverted: true }
+  - platform: gpio
+    name: "SW4 Down (GPIO13)"
+    pin: { number: GPIO13, mode: { input: true, pullup: true }, inverted: true }
+
+# =============================================================================
+# SENSORS
+# =============================================================================
+sensor:
+  # An ADC pin can only be claimed once, so each sensor is published as RAW
+  # VOLTS and the engineering value is a `copy` of it with the conversion
+  # applied. Keeping both visible matters during bring-up: when a converted
+  # value looks wrong, the raw voltage tells you whether it is the sensor or
+  # the formula.
+
+  # --- TMP235 analog temperature sensor ---
+  # On-board, so it reads with nothing connected. Should track room ambient.
+  - platform: adc
+    pin: GPIO4
+    name: "TMP235 raw volts"
+    id: tmp235_raw
+    update_interval: 5s
+    attenuation: 12db
+    unit_of_measurement: "V"
+    accuracy_decimals: 3
+
+  - platform: copy
+    source_id: tmp235_raw
+    name: "Board Temperature (TMP235)"
+    id: board_temp
+    device_class: temperature
+    unit_of_measurement: "°C"
+    accuracy_decimals: 1
+    filters:
+      # TMP235: 10 mV/degC, 500 mV offset at 0 degC
+      - lambda: "return (x - 0.5) / 0.01;"
+
+  # --- ACS725 current sensor ---
+  # Quiescent output is 1.65 V = 0 A, so with no motor load the raw value
+  # should sit near 1.65 V. A raw reading far from that at idle points at the
+  # sensor's supply or offset rather than at the formula.
+  - platform: adc
+    pin: GPIO5
+    name: "ACS725 raw volts"
+    id: acs725_raw
+    update_interval: 500ms
+    attenuation: 12db
+    unit_of_measurement: "V"
+    accuracy_decimals: 3
+    filters:
+      - sliding_window_moving_average: { window_size: 5, send_every: 5 }
+
+  - platform: copy
+    source_id: acs725_raw
+    name: "Motor Current (ACS725)"
+    id: motor_current
+    device_class: current
+    unit_of_measurement: "A"
+    accuracy_decimals: 2
+    filters:
+      # NOTE THE DIVISOR: 0.264, not the 0.4 used for the ACS723 on Rev 1.2.
+      # If current reads ~1.5x high in Stage 2, this is why.
+      - lambda: "return (x - 1.65) / 0.264;"
+
+  # ESP32-S3 die temperature. Useful on its own, and worth comparing against
+  # the TMP235 for the hot-attic thermal question in CLAUDE.md.
+  - platform: internal_temperature
+    name: "ESP32 Die Temperature"
+    update_interval: 10s
+
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 30s
+
+  - platform: uptime
+    name: "Uptime"
+
+text_sensor:
+  - platform: version
+    name: "ESPHome Version"
+  - platform: wifi_info
+    ip_address:
+      name: "IP Address"
+
+# =============================================================================
+# TEST ROUTINES
+# =============================================================================
+button:
+  - platform: restart
+    name: "Restart"
+
+  - platform: template
+    name: "TEST: Blink all LEDs"
+    on_press:
+      - logger.log: "LED test: D3, D4, D5 in sequence"
+      - light.turn_off: led_d3
+      - light.turn_off: led_d4
+      - light.turn_off: led_d5
+      - delay: 500ms
+      - repeat:
+          count: 3
+          then:
+            - light.turn_on: led_d3
+            - delay: 300ms
+            - light.turn_off: led_d3
+            - light.turn_on: led_d4
+            - delay: 300ms
+            - light.turn_off: led_d4
+            - light.turn_on: led_d5
+            - delay: 300ms
+            - light.turn_off: led_d5
+      - light.turn_on: led_d4
+      - light.turn_on: led_d5
+      - logger.log: "LED test complete -- D4/D5 restored to their power-on state"
+
+  # Walks every motor direction pin one at a time so you can follow along on
+  # the driver-side pins with a meter. STBY is left alone; run it either way.
+  - platform: template
+    name: "TEST: Walk motor direction pins"
+    on_press:
+      - logger.log: "Motor pin walk: each pin HIGH for 2s, in order"
+      - script.execute: pin_walk
+
+script:
+  - id: pin_walk
+    mode: restart
+    then:
+      - output.turn_off: sh1_open
+      - output.turn_off: sh1_closed
+      - output.turn_off: sh2_open
+      - output.turn_off: sh2_closed
+      - output.turn_off: sh3_open
+      - output.turn_off: sh3_closed
+      - output.turn_off: sh4_open
+      - output.turn_off: sh4_closed
+
+      - logger.log: "-> Shade 1 OPEN (GPIO36)"
+      - output.turn_on: sh1_open
+      - delay: 2s
+      - output.turn_off: sh1_open
+      - logger.log: "-> Shade 1 CLOSED (GPIO37)"
+      - output.turn_on: sh1_closed
+      - delay: 2s
+      - output.turn_off: sh1_closed
+
+      - logger.log: "-> Shade 2 OPEN (GPIO48)"
+      - output.turn_on: sh2_open
+      - delay: 2s
+      - output.turn_off: sh2_open
+      - logger.log: "-> Shade 2 CLOSED (GPIO47)"
+      - output.turn_on: sh2_closed
+      - delay: 2s
+      - output.turn_off: sh2_closed
+
+      - logger.log: "-> Shade 3 OPEN (GPIO42)"
+      - output.turn_on: sh3_open
+      - delay: 2s
+      - output.turn_off: sh3_open
+      - logger.log: "-> Shade 3 CLOSED (GPIO2)"
+      - output.turn_on: sh3_closed
+      - delay: 2s
+      - output.turn_off: sh3_closed
+
+      - logger.log: "-> Shade 4 OPEN (GPIO41)"
+      - output.turn_on: sh4_open
+      - delay: 2s
+      - output.turn_off: sh4_open
+      - logger.log: "-> Shade 4 CLOSED (GPIO40)"
+      - output.turn_on: sh4_closed
+      - delay: 2s
+      - output.turn_off: sh4_closed
+
+      - logger.log: "Motor pin walk complete -- all direction pins low"
