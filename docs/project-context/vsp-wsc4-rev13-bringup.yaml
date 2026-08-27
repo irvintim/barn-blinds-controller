@@ -51,10 +51,18 @@ esp32:
 # "ESP32 variant selection" before ever changing the module part number.
 
 wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  # Fallback AP so the board is still reachable if credentials are wrong --
-  # important during bring-up when you cannot see serial and WiFi at once.
+  # AP-ONLY BY DEFAULT -- deliberately needs no credentials, so a board fresh
+  # off the fab line can be brought up with nothing but a USB cable.
+  #
+  #   Join WiFi network:  "WSC4 Bringup"   password: bringup1234
+  #   Then open:          http://192.168.4.1/
+  #
+  # To join your own LAN instead, create secrets.yaml (see
+  # secrets.yaml.example) and uncomment these two lines. The AP stays as a
+  # fallback if the credentials are wrong -- worth keeping during bring-up,
+  # when you cannot watch serial and WiFi at the same time.
+  # ssid: !secret wifi_ssid
+  # password: !secret wifi_password
   ap:
     ssid: "WSC4 Bringup"
     password: "bringup1234"

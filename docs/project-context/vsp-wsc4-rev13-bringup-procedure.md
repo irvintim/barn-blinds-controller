@@ -23,12 +23,118 @@ power alone, and motor current will read ~0 A. Neither is a fault.
 ```bash
 python3 -m venv ~/.venvs/esphome && ~/.venvs/esphome/bin/pip install esphome
 ```
-Create `docs/project-context/secrets.yaml` (see `secrets.yaml.example`, and note
-it is gitignored — do not commit real credentials):
-```yaml
-wifi_ssid: "your-ssid"
-wifi_password: "your-password"
+
+**No credentials are needed.** The bring-up config is **AP-only by default**, so
+a board straight off the fab line comes up with nothing but a USB cable:
+
+| | |
+|---|---|
+| Join WiFi network | **`WSC4 Bringup`** |
+| Password | `bringup1234` |
+| Then open | **http://192.168.4.1/** |
+
+To join your own LAN instead, copy `secrets.yaml.example` to `secrets.yaml`
+(gitignored — never commit real credentials) and uncomment the two `ssid:` /
+`password:` lines in the config.
+
+---
+
+## Read this first: a brand-new board looks like a broken USB port
+
+**Diagnosed on the first Rev 1.3 board, 2026-08-27. This will recur on every
+board from every future fab run.**
+
+A board that has never been programmed **boot-loops**, and the symptom looks
+exactly like a failing USB port:
+
 ```
+usb 1-4: new full-speed USB device number 93 using xhci_hcd
+usb 1-4: New USB device found, idVendor=303a, idProduct=1001
+usb 1-4: Product: USB JTAG/serial debug unit
+cdc_acm 1-4:1.0: ttyACM0: USB ACM device
+usb 1-4: USB disconnect, device number 93          <-- ~2.4 s later
+...repeating forever
+```
+
+**This is not a fault.** Flash ships erased (all `0xFF`), the ESP32-S3 ROM finds
+no valid image, the RTC watchdog resets the chip, and each reset tears down the
+USB-Serial-JTAG peripheral. It re-enumerates, fails, resets again.
+
+### How to tell this apart from a real USB fault — in about ten seconds
+
+| Blank board (harmless) | Genuine USB problem |
+|---|---|
+| Every enumeration **completes** with full descriptors | `error -71`, `-110`, failed descriptor reads, "unable to enumerate" |
+| Period is **metronomic** — measured 2.673 s, varying by milliseconds | Irregular, jittery, load-dependent |
+| **Zero** USB errors anywhere in `dmesg` | Errors present |
+| Stops **completely** in download mode | Keeps cycling regardless |
+
+Confirm it positively — this is read-only and takes one command:
+
+```bash
+esptool --chip esp32s3 --port /dev/ttyACM0 flash-id
+esptool --chip esp32s3 --port /dev/ttyACM0 --after no-reset read-flash 0x0 0x60 /tmp/boot0.bin
+xxd /tmp/boot0.bin | head   # all ff = never programmed
+```
+
+If `flash-id` connects and runs its stub flasher, **the whole USB path is proven
+good** — connector, D+/D−, U16 ESD, cable, host port. A board that can run a stub
+over USB does not have a USB hardware problem.
+
+`flash-id` also reports **`Detected flash size: 4MB`** and **`Flash type set in
+eFuse: quad`**, which is independent confirmation that the N4 was placed and not
+an octal-PSRAM R8. Worth capturing on the first board of every run.
+
+### Why you get no serial output explaining any of this
+
+The ROM's `invalid header: 0xffffffff` complaints go to **UART0 (GPIO43/44)** —
+and **J3 is DNP'd on this run**, so that console does not physically exist. The
+USB CDC port enumerates but carries **zero bytes**, because the ROM is not
+talking to it.
+
+This is a real, concrete cost of the J3 DNP decision: the board's built-in
+explanation for "why won't it boot" is unreachable. Not a reason to reverse the
+call — native USB flashing works fine without it, see below — but if J3 is ever
+populated, **fix its LCSC field first**; it still carries the wrong 5-pin part.
+
+---
+
+## Flashing a brand-new board over USB (no UART needed, ever)
+
+**Native USB is sufficient for first programming.** The ESP32-S3's
+USB-Serial-JTAG is a ROM/hardware peripheral: it works on a completely blank
+chip. J3/UART0 is not required to bring up a virgin board.
+
+The only wrinkle is that a boot-looping board keeps yanking the port, so a tool
+can miss its window. Two deterministic ways in:
+
+1. **Buttons (guaranteed, no timing race).** Hold **BOOT (SW2)**, tap
+   **RESET (SW1)**, release BOOT. The chip parks in ROM download mode, the boot
+   loop stops, USB goes stable, and you can flash at your leisure.
+2. **Let esptool reset it.** `--before default-reset` drives the CDC DTR/RTS
+   sequence that forces download mode. Verified working on the first Rev 1.3
+   board with no buttons touched, first attempt. Just retry if it misses.
+
+Once any valid image is flashed the loop ends and the port is stable from then on.
+
+### "Device or resource busy" — check the browser
+
+```
+Could not open /dev/ttyACM0, the port is busy or doesn't exist.
+([Errno 16] Device or resource busy)
+```
+
+A **Chrome tab holding the port via the Web Serial API** will do this — the
+ESPHome web installer, the Tasmota installer, or any browser flasher. It claims
+the port exclusively and blocks esptool. Hit **Disconnect** in the page or close
+the tab. Find the culprit with:
+
+```bash
+lsof /dev/ttyACM0
+```
+
+Anything listed there must let go first. On Linux also check that ModemManager
+is not probing the port (`mmcli -L`), though it was **not** the problem here.
 
 ---
 
@@ -94,9 +200,14 @@ touching anything.
 
 ### 1.4 WiFi + web UI
 
-**Pass:** joins WiFi, log prints an IP. Open `http://<ip>/` for the full entity
-list. If credentials are wrong it falls back to the **"WSC4 Bringup"** AP
-(password `bringup1234`).
+The config is AP-only by default, so there is nothing to configure.
+
+**Pass:** the board brings up the **"WSC4 Bringup"** access point
+(password `bringup1234`). Join it and open **http://192.168.4.1/** for the full
+entity list — every test below is driven from that page.
+
+If you uncommented the station credentials instead, it joins your LAN and the
+log prints an IP; the AP remains as a fallback.
 
 ### 1.5 LEDs — first real proof of life
 

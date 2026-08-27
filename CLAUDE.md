@@ -22,6 +22,44 @@ Next action: work the **"Firmware bring-up checklist"** in `docs/project-context
 3. **D4 (GPIO6, white) and D5 (GPIO7, blue) are hardware-default-ON** and stay on until firmware drives them LOW. That is by design — they track raw power.
 4. **Tasmota is the thing actually being validated here.** Rev 1.2 worked under ESPHome but Tasmota's Shutters 3 & 4 were broken by the GPIO43/44 = U0TX/RX conflict. Rev 1.3 moved those signals, so confirming all four shutters work under Tasmota is the point of this build.
 
+### First board powered up 2026-08-27 — the USB "fault" was a blank chip
+A virgin board **boot-loops and looks exactly like a failing USB port**: clean
+enumeration as `303a:1001 USB JTAG/serial debug unit`, then `USB disconnect`
+~2.4 s later, forever. Flash ships erased, the ROM finds no image, the RTC
+watchdog resets the chip, and each reset drops the USB peripheral.
+
+**It is not a fault, and it will happen on every board from every fab run.**
+Tells: every enumeration *completes*, the period is metronomic (measured
+2.673 s ±ms), and `dmesg` has **zero** USB errors. A real USB problem gives
+`-71`/`-110` and failed descriptor reads.
+
+Proven on the first board: `esptool flash-id` connected and ran a stub flasher
+over native USB, which clears the entire USB path — connector, D+/D−, **U16 and
+its via-stub trade-off**, cable, host port. Flash at `0x0` read back all `0xFF`.
+
+That readout also independently confirmed the module: **`Detected flash size:
+4MB`, `Flash type set in eFuse: quad`, 3.3V strapping, ESP32-S3 QFN56 rev v0.2**
+— i.e. the N4 was placed, not an octal-PSRAM R8. Worth running on the first
+board of every future order as a cheap variant check.
+
+**Native USB is sufficient for first programming — J3/UART0 is never required.**
+The USB-Serial-JTAG is a ROM peripheral and works on a blank chip. Hold BOOT
+(SW2) + tap RESET (SW1) to park it in download mode, or let esptool's
+`--before default-reset` do it (verified, first attempt, no buttons).
+
+**Cost of the J3 DNP, now concrete:** the ROM's `invalid header: 0xffffffff`
+explanation goes to UART0 (GPIO43/44), which is unpopulated — so the USB CDC
+port enumerates but carries zero bytes and the board cannot tell you why it
+won't boot. Not a reason to reverse the DNP, but if J3 is ever populated, fix
+its LCSC field first (still the wrong 5-pin part).
+
+**Watch out:** a Chrome tab holding the port via the Web Serial API (ESPHome or
+Tasmota web installer) causes `[Errno 16] Device or resource busy` and blocks
+esptool. `lsof /dev/ttyACM0` finds it. ModemManager was checked and was *not*
+involved.
+
+Full detail and the ten-second triage table: `vsp-wsc4-rev13-bringup-procedure.md`.
+
 ### As-built quirks of this specific run — check these before debugging anything
 - **J3 (UART/RTS-DTR header) is DNP'd — not populated.** Native USB (GPIO19/20) is the only flash path as shipped. The RTS/DTR auto-reset circuit exists on the board but is unusable without J3. If J3 is ever populated, **fix its LCSC field first** — it still carries C492404, a 5-pin part against a 7-pin footprint.
 - **U1 is the Heniper B1205S-3WR2L (C20622657), on the `H` hole set** of the shared `DCDC_HYBRID_SLC03_TEC2` footprint.
