@@ -94,6 +94,12 @@ On the placement/photo confirmations, scrutinise the parts whose LCSC was *not* 
 
 Reassigned to eliminate crossed leads during PCB layout. Verified against the ESP32-S3-WROOM-1 module pinout with no duplicate assignments, no WiFi/ADC2 conflicts (only TMP235/ACS723 do real analog sensing, both on ADC1), and no strapping-pin or input-only-pin misuse.
 
+> **WARNING (2026-08-28):** the `ISO_SHn_*` names below are the *net* names, and
+> they do **not** match the SHADEn terminal each one drives. The A/B channels are
+> crossed on both TB6612FNGs, swapped within each pair (1↔2, 3↔4). See "Motor
+> channel cross" in CLAUDE.md for the correct GPIO → J4 terminal table. Firmware
+> must use that table, not these names.
+
 | Pin | GPIO | Function | Notes |
 |---|---|---|---|
 | 3 | EN | Reset button | |

@@ -281,6 +281,12 @@ Do Stage 1 first, on the same board, in the same session.
    ~50%, then toggle "Shade 1 OPEN pin". Watch "Motor Current" respond.
    - Both OPEN and CLOSED high at once is short-brake on the TB6612FNG — a legal
      state, not damaging, but not a useful test.
+   - **PWM must be above 0 or nothing moves**, whatever the direction pins say.
+     It defaults to 0 in this config.
+   - The entity names follow the **physical J4 terminal**, not the schematic net
+     names, which are crossed 1↔2 / 3↔4. See "Motor channel cross" in CLAUDE.md.
+     If a correctly-wired motor does not move, try the paired channel — a motor
+     on SHADE4 responds to `SH3_*` in net terms.
 3. **Check current magnitude against a clamp meter** before trusting the stall
    threshold. This is where the 0.264 divisor gets proven.
 4. **Repeat per shade**, then all four.

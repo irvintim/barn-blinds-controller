@@ -60,6 +60,39 @@ involved.
 
 Full detail and the ten-second triage table: `vsp-wsc4-rev13-bringup-procedure.md`.
 
+### Motor channel cross — ISO_SHn_* net names do NOT match the SHADEn terminal
+**Found 2026-08-28 during first motor bring-up. Verified against the netlist.**
+On **both** TB6612FNGs the A/B channel control signals are crossed with the
+output terminals, swapped within each pair:
+
+| Driver | Control nets | Output terminals | J4 pins |
+|---|---|---|---|
+| U9 ch A | `SH2_IN1/IN2/PWM` | **SHADE1**_UP/DOWN | 7 / 17 |
+| U9 ch B | `SH1_IN1/IN2/PWM` | **SHADE2**_UP/DOWN | 8 / 18 |
+| U8 ch A | `SH4_IN1/IN2/PWM` | **SHADE3**_UP/DOWN | 9 / 19 |
+| U8 ch B | `SH3_IN1/IN2/PWM` | **SHADE4**_UP/DOWN | 10 / 20 |
+
+**Correct GPIO → physical J4 terminal mapping (use this, not the net names):**
+
+| J4 shade | UP / DOWN | OPEN | CLOSED | PWM |
+|---|---|---|---|---|
+| SHADE1 | 7 / 17 | GPIO48 | GPIO47 | GPIO21 |
+| SHADE2 | 8 / 18 | GPIO36 | GPIO37 | GPIO38 |
+| SHADE3 | 9 / 19 | GPIO41 | GPIO40 | GPIO39 |
+| SHADE4 | 10 / 20 | GPIO42 | GPIO2 | GPIO1 |
+
+Symptom if you get this wrong: a motor on a correctly-wired terminal simply
+never moves, because the command energizes a different, empty channel. No
+error, no current draw, nothing in the logs. Cost roughly an evening.
+
+**This is firmware-fixable — no board change needed**, and the bring-up config
+is already corrected. The ids there are named for the **physical J4 terminal**;
+do not "fix" them back to match the net names. Any Tasmota or production
+ESPHome config must apply the same 1↔2 / 3↔4 swap.
+
+Rev 1.4 should rename the nets so `ISO_SH1_*` actually reaches SHADE1 — this is
+a labelling trap that will keep costing time otherwise.
+
 ### As-built quirks of this specific run — check these before debugging anything
 - **J3 (UART/RTS-DTR header) is DNP'd — not populated.** Native USB (GPIO19/20) is the only flash path as shipped. The RTS/DTR auto-reset circuit exists on the board but is unusable without J3. If J3 is ever populated, **fix its LCSC field first** — it still carries C492404, a 5-pin part against a 7-pin footprint.
 - **U1 is the Heniper B1205S-3WR2L (C20622657), on the `H` hole set** of the shared `DCDC_HYBRID_SLC03_TEC2` footprint.

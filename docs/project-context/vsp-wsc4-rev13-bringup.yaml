@@ -96,33 +96,48 @@ output:
     id: motor_stby
 
   # --- Direction pins: TB6612FNG IN1/IN2 via isolators ---
-  # Shade 1 (U5)
-  - platform: gpio
-    pin: GPIO36
-    id: sh1_open
-  - platform: gpio
-    pin: GPIO37
-    id: sh1_closed
-  # Shade 2 (U6)
+  #
+  # !! THE ISO_SHn_* NET NAMES DO NOT MATCH THE SHADEn OUTPUT THEY DRIVE !!
+  # Verified against the netlist 2026-08-28. On BOTH drivers the A/B channel
+  # control signals are crossed with the output terminals, swapped within
+  # each pair:
+  #
+  #   U9 ch A  <- SH2_* control  ->  AO1/AO2 = SHADE1 (J4 pins 7/17)
+  #   U9 ch B  <- SH1_* control  ->  BO1/BO2 = SHADE2 (J4 pins 8/18)
+  #   U8 ch A  <- SH4_* control  ->  AO1/AO2 = SHADE3 (J4 pins 9/19)
+  #   U8 ch B  <- SH3_* control  ->  BO1/BO2 = SHADE4 (J4 pins 10/20)
+  #
+  # The ids below are named for the PHYSICAL J4 terminal, which is what
+  # matters when you wire a motor. Do not "correct" these back to match the
+  # net names -- that is the bug, not the fix.
+
+  # Shade 1 = J4 pins 7/17  (U9 ch A, driven by the ISO_SH2_* nets)
   - platform: gpio
     pin: GPIO48
-    id: sh2_open
+    id: sh1_open
   - platform: gpio
     pin: GPIO47
+    id: sh1_closed
+  # Shade 2 = J4 pins 8/18  (U9 ch B, driven by the ISO_SH1_* nets)
+  - platform: gpio
+    pin: GPIO36
+    id: sh2_open
+  - platform: gpio
+    pin: GPIO37
     id: sh2_closed
-  # Shade 3 (U4)
-  - platform: gpio
-    pin: GPIO42
-    id: sh3_open
-  - platform: gpio
-    pin: GPIO2
-    id: sh3_closed
-  # Shade 4 (U4)
+  # Shade 3 = J4 pins 9/19  (U8 ch A, driven by the ISO_SH4_* nets)
   - platform: gpio
     pin: GPIO41
-    id: sh4_open
+    id: sh3_open
   - platform: gpio
     pin: GPIO40
+    id: sh3_closed
+  # Shade 4 = J4 pins 10/20 (U8 ch B, driven by the ISO_SH3_* nets)
+  - platform: gpio
+    pin: GPIO42
+    id: sh4_open
+  - platform: gpio
+    pin: GPIO2
     id: sh4_closed
 
   # --- On-board LEDs ---
@@ -143,20 +158,21 @@ output:
     id: out_d5
 
   # --- PWM (speed) pins. LEDC so duty is measurable as an average voltage. ---
+  # Same channel cross as the direction pins above -- named by J4 terminal.
   - platform: ledc
-    pin: GPIO38
+    pin: GPIO21          # Shade 1, J4 7/17  (ISO_SH2_PWM)
     id: sh1_pwm
     frequency: 20000Hz
   - platform: ledc
-    pin: GPIO21
+    pin: GPIO38          # Shade 2, J4 8/18  (ISO_SH1_PWM)
     id: sh2_pwm
     frequency: 20000Hz
   - platform: ledc
-    pin: GPIO1
+    pin: GPIO39          # Shade 3, J4 9/19  (ISO_SH4_PWM)
     id: sh3_pwm
     frequency: 20000Hz
   - platform: ledc
-    pin: GPIO39
+    pin: GPIO1           # Shade 4, J4 10/20 (ISO_SH3_PWM)
     id: sh4_pwm
     frequency: 20000Hz
 
@@ -445,38 +461,38 @@ script:
       - output.turn_off: sh4_open
       - output.turn_off: sh4_closed
 
-      - logger.log: "-> Shade 1 OPEN (GPIO36)"
+      - logger.log: "-> Shade 1 OPEN  J4.7  (GPIO48)"
       - output.turn_on: sh1_open
       - delay: 2s
       - output.turn_off: sh1_open
-      - logger.log: "-> Shade 1 CLOSED (GPIO37)"
+      - logger.log: "-> Shade 1 CLOSED J4.17 (GPIO47)"
       - output.turn_on: sh1_closed
       - delay: 2s
       - output.turn_off: sh1_closed
 
-      - logger.log: "-> Shade 2 OPEN (GPIO48)"
+      - logger.log: "-> Shade 2 OPEN  J4.8  (GPIO36)"
       - output.turn_on: sh2_open
       - delay: 2s
       - output.turn_off: sh2_open
-      - logger.log: "-> Shade 2 CLOSED (GPIO47)"
+      - logger.log: "-> Shade 2 CLOSED J4.18 (GPIO37)"
       - output.turn_on: sh2_closed
       - delay: 2s
       - output.turn_off: sh2_closed
 
-      - logger.log: "-> Shade 3 OPEN (GPIO42)"
+      - logger.log: "-> Shade 3 OPEN  J4.9  (GPIO41)"
       - output.turn_on: sh3_open
       - delay: 2s
       - output.turn_off: sh3_open
-      - logger.log: "-> Shade 3 CLOSED (GPIO2)"
+      - logger.log: "-> Shade 3 CLOSED J4.19 (GPIO40)"
       - output.turn_on: sh3_closed
       - delay: 2s
       - output.turn_off: sh3_closed
 
-      - logger.log: "-> Shade 4 OPEN (GPIO41)"
+      - logger.log: "-> Shade 4 OPEN  J4.10 (GPIO42)"
       - output.turn_on: sh4_open
       - delay: 2s
       - output.turn_off: sh4_open
-      - logger.log: "-> Shade 4 CLOSED (GPIO40)"
+      - logger.log: "-> Shade 4 CLOSED J4.20 (GPIO2)"
       - output.turn_on: sh4_closed
       - delay: 2s
       - output.turn_off: sh4_closed
