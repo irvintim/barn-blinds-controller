@@ -3,8 +3,8 @@
 ## What this is
 Vesprio VSP-WSC-4: 4-channel motorized window shade controller, ESP32-S3-WROOM-1-N4, dual firmware track (ESPHome personal use / Tasmota product). See `docs/project-context/vsp-wsc4-handover.md` for full hardware detail and GPIO map.
 
-## Current state (as of 2026-08-27)
-- **STATUS: Rev 1.3 boards received from JLCPCB 2026-08-27. Bring-up in progress.** Work the "Firmware bring-up checklist" in `docs/project-context/vsp-wsc4-todo.md`. The **ACS725 formula change** (`amps = (Vout - 1.65) / 0.264`, was `/0.4` for the ACS723) is required before current sensing reads correctly — update the stall-detection threshold with it.
+## Current state (as of 2026-08-30)
+- **STATUS: Rev 1.3 boards received 2026-08-27. Bring-up in progress — read `docs/project-context/vsp-wsc4-rev13-bringup-status.md` FIRST.** That file is the live "where did I leave off" log: what is verified on hardware, what is still open, and the single next action. Boots, flashes over native USB, WiFi/web UI up, all 3 LEDs and SW1 confirmed. **No motor has yet been seen to turn** — a channel-cross bug was found and fixed in the config on 2026-08-28 but the fix is not yet confirmed on hardware.** Work the "Firmware bring-up checklist" in `docs/project-context/vsp-wsc4-todo.md`. The **ACS725 formula change** (`amps = (Vout - 1.65) / 0.264`, was `/0.4` for the ACS723) is required before current sensing reads correctly — update the stall-detection threshold with it.
 - **Flash via native USB (J2 Micro-USB, GPIO19/20) — that is the only path on these boards, because J3 is DNP'd.** See PICK UP HERE below.
 - **PCB:** Rev 1.3, **fab-ready.** All PICK UP HERE items from the 2026-08-05 QA pass are done: C40-C43 placed (~1.8-2.6mm from U12-U15 pin 4), +5V_OR/USB_VBUS widened, U16 moved closer to J2, D10/D11 silkscreen fixed, LCSC added for J2 (C397452) and J4 (C6652293 — pre-purchased JLCPCB inventory part, number needed so JLCPCB places it). DRC: 0 unconnected pads, 0 real errors, 114 footprints. Rev 1.2 was assembled and working (ESPHome only; Tasmota broken on Shades 3&4 due to GPIO43/44 = U0TX/RX conflict — fixed in Rev 1.3).
 - **Fabrication Toolkit run 2026-08-07** — archive `VSP-WSC-4_1.3`. These are the outputs the boards were built from; re-run the toolkit only if the PCB changes.
@@ -12,7 +12,7 @@ Vesprio VSP-WSC-4: 4-channel motorized window shade controller, ESP32-S3-WROOM-1
 - **Also in Rev 1.3:** D4/D5 LEDs software-controllable (GPIO6/7, hardware-default-ON; D5 crosses isolation via spare U5 channel); RTS/DTR auto-reset on 7-pin J3 (Espressif reference two-transistor circuit); Micro-USB (not USB-C); switch inputs wired to ESP32 — see todo.md "Rev 1.3 GPIO Map" for pinout and "Firmware bring-up checklist" before first flash
 - **Enclosure:** FreeCAD Rev 2 (`project-case-rev2.FCStd`), 3D printed, test print 2 in progress
 
-## PICK UP HERE — boards in hand, bring-up is the work
+## PICK UP HERE — bring-up in progress (live log: `docs/project-context/vsp-wsc4-rev13-bringup-status.md`)
 **Rev 1.3 boards arrived 2026-08-27.** Ordered from JLCPCB 2026-08-07: gerber `VSP-WSC-4_1.3_Y18`, 5 boards, PCBA both sides, S1000H TG155 / ENIG, Confirm Parts Placement + Photo Confirmation both on.
 
 Next action: work the **"Firmware bring-up checklist"** in `docs/project-context/vsp-wsc4-todo.md`. The four things that will bite first, in order:
@@ -226,6 +226,9 @@ Redesign the 3D printed box to support **two mounting options**:
 ## Key files
 - `docs/project-context/vsp-wsc4-handover.md` — full Rev 1.2 hardware/firmware detail
 - `docs/project-context/vsp-wsc4-todo.md` — full TODO list
+- `docs/project-context/vsp-wsc4-rev13-bringup-status.md` — **live bring-up status: start here**
+- `docs/project-context/vsp-wsc4-rev13-bringup.yaml` — Rev 1.3 bench config (AP-only, no secrets needed)
+- `docs/project-context/vsp-wsc4-rev13-bringup-procedure.md` — staged bench/lab test plan
 - `motor_outputs.kicad_sch` — terminal block and motor output circuits
 - `switch_inputs.kicad_sch` — new switch input protection circuit (Rev 1.3)
 - `barn-blinds-controller.kicad_dru` — isolation-barrier audit DRC rule (warning severity)
