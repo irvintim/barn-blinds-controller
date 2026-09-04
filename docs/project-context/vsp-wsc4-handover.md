@@ -74,17 +74,19 @@ Key config notes:
 - Framework: esp-idf (required for ESP32-S3 in ESPHome 2026.x)
 - STBY set HIGH at on_boot, stays permanently HIGH
 - Stall detection threshold: 1.4A (after ACS723 voltage-to-amps conversion)
-  - **This threshold is far too high and would never fire.** The shade motors
-    were measured early in the project and, even at a **full stall induced by
-    hand-holding the shade, draw well under 1 A each** — much lower than
-    expected. A genuine stall therefore never approaches 1.4 A. (Recorded from
-    memory 2026-09-03; the original measurements were not written down and the
-    motors are now on the job site, so re-measuring is difficult. Treat "well
-    under 1 A" as the figure, not a precise value.)
-  - Knock-on: F1-F4 (1.1 A hold) also sit **above** the motors' stall current,
-    so they offer no protection for the intended load either. That is not a
-    fault — it just means the protection case is an *unknown* load, not these
-    motors. See "Rev 1.4 PCB Changes" items 2-3 in `vsp-wsc4-todo.md`.
+  - **Design intent, settled early in the project — do not re-flag it:** the
+    fuse is *not* the stall protection. F1-F4 are there for catastrophic faults
+    (a short, or a load the board was never meant to drive). **Stall protection
+    is the current reading — that is why the ACS723 was put in the circuit at
+    all.** So F1-F4 sitting above the motors' stall current is correct by
+    design, not a gap.
+  - **Unverified:** the shade motors were measured early in the project but the
+    numbers were never written down, and the motors are now on the job site. A
+    2026-09-03 recollection put a hand-held full stall "well under 1 A each",
+    but that is explicitly **fuzzy memory, not data** — do not size anything
+    from it. If it is even roughly right the 1.4 A threshold never fires, which
+    would mean the designed stall protection has never actually worked. Re-
+    measure before trusting either number.
   - Watch the resolution when re-deriving this: at the ACS725's 0.264 V/A, a
     0.7 A stall is only ~185 mV above the 1.65 V quiescent. Confirm the noise
     floor during the resistive-load calibration before trusting a low threshold.

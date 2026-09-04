@@ -142,7 +142,7 @@ What the current design gets wrong:
 |---|---|---|
 | Driver | TB6612FNG | VM absolute max **15 V** on a 12 V rail — almost no headroom. 1.2 A continuous / 3.2 A peak. Its only self-protection is thermal shutdown, which demonstrably did not save it |
 | Output clamp | D6-D9, SMAJ15CA | 15 V standoff, clamps around **24 V** — i.e. *above* the driver's absolute max. It cannot protect the part it sits beside |
-| Fusing | F1-F4, 1.1 A hold / 2.2 A trip | Polyfuses are slow. The driver dies in microseconds; the PTC responds in seconds |
+| Fusing | F1-F4, 1.1 A hold / 2.2 A trip | Correctly scoped — the fuse is the *catastrophic fault* backstop, not the stall protection (see item 3). But polyfuses are slow: the driver dies in microseconds, the PTC responds in seconds, so the fuse cannot save the driver either |
 | Fault attribution | one ACS725 on the whole 12 V rail | Cannot tell which channel is faulting, and cannot see a fault at all while several channels run |
 
 Directions to evaluate (none chosen yet):
@@ -159,37 +159,36 @@ Directions to evaluate (none chosen yet):
 - **Firmware soft-start** regardless of hardware choice — never energise a bridge
   at 100 % duty from rest. Inrush equals stall current. See the firmware list.
 
-### 3. Fix the protection ORDERING, and record the real motor numbers
-Today the ordering is backwards: the documented **1.4 A stall threshold sits
-above both** F1-F4's **1.1 A hold** current and the TB6612FNG's **1.2 A
-continuous** rating. On a stall the polyfuse starts heating and the driver
-exceeds spec *before firmware reacts*. Firmware should be the first line of
-defence, not the last.
+### 3. Prove the stall-detection path — it is the designed protection and has never worked
+**Settled design decision, not up for re-litigation:** the fuse is *not* the
+stall protection. F1-F4 handle catastrophic faults (a short, or a load the board
+was never meant to drive). **Stall protection is the current reading — that is
+why the ACS723/ACS725 is in the circuit at all.** F1-F4 sitting above the
+motors' stall current is therefore correct by design. Do not "fix" the fuse
+rating to chase stalls.
 
-Sequence it deliberately: firmware current trip < fuse hold < driver continuous
-rating < driver peak < clamp voltage.
+The problem is that the mechanism which *is* supposed to do the job has never
+been shown to work:
 
-**Blocked on the ACS725 `/0.264` divisor being proven** against a known
-resistive load — until the current reading is trustworthy no threshold can be
-set. That is the next bring-up task and needs no motor.
+- **The divisor is wrong.** `/0.4` (ACS723) must become **`/0.264`** (ACS725).
+  Until that is corrected the current reading is simply wrong.
+- **The 1.4 A threshold is unvalidated and probably far too high.** A
+  2026-09-03 recollection put a hand-held full stall on the shade motors "well
+  under 1 A each" — but that is **fuzzy memory, not data**, and the original
+  measurements were never recorded. The motors are on the job site now. If it is
+  even roughly right, the threshold never fires and the designed stall
+  protection has never functioned. **Re-measure; do not size from the
+  recollection.**
+- **The resolution may not support a low threshold.** At 0.264 V/A a 0.7 A stall
+  is only ~185 mV above the 1.65 V quiescent — a small signal on a 12-bit ADC
+  with WiFi running. Confirm the noise floor during the resistive-load
+  calibration. If it is marginal, per-channel current sense (item 2) stops being
+  a nice-to-have.
+- **One rail-level sensor cannot attribute a fault to a channel**, nor see a
+  single channel stall while others run. See item 2.
 
-**The shade motors draw well under 1 A each even at a full stall** (induced by
-hand-holding the shade) — much lower than expected. Recorded from memory
-2026-09-03; the original measurements were never written down and the motors are
-now on the job site, so treat this as "well under 1 A", not a precise figure.
-
-Two consequences:
-- **The 1.4 A threshold would never fire on a real stall.** It is not merely
-  mis-ordered against the fuse and driver ratings — it is above anything these
-  motors can produce. Whatever replaces it belongs well under 1 A.
-- **F1-F4 (1.1 A hold) are also above the motors' stall current**, so they offer
-  no protection for the intended load either. Not a fault — it confirms that the
-  protection case is an *unknown* load (item 2), not these motors.
-
-Watch the measurement resolution when re-deriving the threshold: at the ACS725's
-0.264 V/A a 0.7 A stall is only ~185 mV above the 1.65 V quiescent, so confirm
-the noise floor during the resistive-load calibration before trusting a low
-trip point.
+**Next action, needs no motor:** prove the `/0.264` divisor against a known
+resistive load, and characterise the noise floor at the same time.
 
 ### 4. Hold-up for U1 so motor inrush cannot brown out the ESP32
 U1's only input reservoir is **C9, 22 uF** on `+12V_RAW`, and the ISO side has
