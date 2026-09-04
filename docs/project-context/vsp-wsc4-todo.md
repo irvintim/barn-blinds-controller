@@ -90,6 +90,117 @@ On the placement/photo confirmations, scrutinise the parts whose LCSC was *not* 
 
 ---
 
+## Rev 1.4 PCB Changes
+
+**Canonical list.** Opened 2026-09-03 from Rev 1.3 bring-up. Background and
+evidence for most of these is in `vsp-wsc4-rev13-bringup-status.md`.
+
+### 1. Rename `ISO_SHn_*` / `SHn_*` nets to match the SHADEn terminal — PURE RENAME, zero copper
+Highest value for the least effort. Today the net names lie: `SH3_*` reaches
+the SHADE4 terminal and `SH4_*` reaches SHADE3, with the same 1<->2 swap on U9.
+
+**Root cause:** when the pin order was reworked for the new J4 terminal block,
+the labels on the TB6612FNG **output** side were re-pointed but the **input**
+side was not. The isolators (U4/U5/U6, ISO7760DBQ) pair cleanly 1:1 and add no
+cross of their own — verified against the netlist, and confirmed on hardware
+2026-09-03 (Shade 1->1, 2->2, 4->4).
+
+**The fix:** the crossing is symmetric, so just swap the label pairs along the
+whole path — **3 <-> 4** on the U4/U8 side and **1 <-> 2** on the U6/U9 side,
+at both the `ISO_SHn_*` (ESP32->isolator) and `SHn_*` (isolator->driver) nets.
+Nothing physical moves; the names simply start describing where the signal
+actually goes. Afterwards the GPIO map reads naturally with the **same pin
+assignments in use today**:
+
+| Terminal | J4 | OPEN | CLOSED | PWM |
+|---|---|---|---|---|
+| SHADE1 | 7 / 17 | GPIO48 | GPIO47 | GPIO21 |
+| SHADE2 | 8 / 18 | GPIO36 | GPIO37 | GPIO38 |
+| SHADE3 | 9 / 19 | GPIO41 | GPIO40 | GPIO39 |
+| SHADE4 | 10 / 20 | GPIO42 | GPIO2 | GPIO1 |
+
+Do **not** "fix" it by rerouting `OUTC`->`AIN1` etc. — that costs real B.Cu
+routing between U4/U8 and U6/U9 for an identical result.
+
+Until this ships, every firmware config (bring-up, production ESPHome, and
+Tasmota) must keep applying the swap by hand. That is a labelling trap that
+will keep costing time.
+
+### 2. Protect the motor drivers properly — D6-D9 cannot protect the part they sit next to
+**D6-D9 are SMAJ15CA: 15 V standoff, clamping around 24 V. The TB6612FNG's
+absolute-max VM is 15 V.** The outputs can go well past the driver's rating
+before the TVS conducts meaningfully, and with a 12 V rail there is almost no
+room between "normal" and "absolute max".
+
+Board 1's U8 was destroyed on 2026-09-03 (three of four output legs shorted to
+PGND) by an unsuitable test motor. The TVS network did not save it.
+
+Options to weigh, not yet decided:
+- A driver with real headroom (DRV8871, TB67H420 or similar) instead of the
+  TB6612FNG's 15 V VM / 1.2 A continuous / 3.2 A peak.
+- Lower-voltage clamping that actually sits under the driver's rating.
+- Series inrush limiting per channel.
+- Firmware soft-start (PWM ramp) so first motion never hits the bridge at 100 %
+  duty. Needed regardless of what the hardware does — see the firmware list.
+
+**Blocked on:** measuring the real shade motors' inrush and stall current.
+Do that before choosing.
+
+### 3. Re-size the fuses and the stall threshold together
+The documented **1.4 A stall threshold sits above both** F1-F4's **1.1 A hold**
+current and the TB6612FNG's **1.2 A continuous** rating. On a real stall the
+polyfuse starts heating and the driver exceeds spec **before firmware reacts** —
+the protection ordering is backwards.
+
+Cannot be set properly until (a) the ACS725 `/0.264` divisor is proven against a
+known resistive load, and (b) the real shade motors are characterised. Same
+blocker as item 2; resolve them together.
+
+### 4. Hold-up for U1 so motor inrush cannot brown out the ESP32
+U1's only input reservoir is **C9, 22 uF** on `+12V_RAW`, and the ISO side has
+roughly **1-2 ms** of hold-up through `C10`. The 2x1000 uF bulk (C33/C34) is on
+`+12V`, downstream, and buffers the *motors*, not the MCU. So a motor inrush
+that sags the 12 V rail drops the ESP32 outright.
+
+That is not just an uptime problem: **each brownout shut the bridge off
+instantly with energy still in the windings, and the resulting flyback is what
+killed U8.** Preventing MCU brownout is driver protection.
+
+Proposed: a small series diode plus a local bulk cap on U1's input, so the
+DC-DC feeds from a reservoir the motor rail cannot pull down.
+
+### 5. Add test points on `+12V` and `+3.3V_MOTOR`
+The two rails most worth probing during bring-up both currently require
+touching an IC pin. TP1-TP7 already exist for other nets; extend the set.
+
+Also worth a test point or clear silkscreen at C33/C34: probing **J1 pin 1 ->
+GND_MOTOR reads open even on a board with a hard 12 V short**, because
+`Net-(D1-A)` shows D1 is a *series* reverse-polarity diode between J1 and
+`+12V_RAW`. That cost real debugging time on 2026-09-03.
+
+### 6. Resolve J3 one way or the other
+Either populate it with the correct **7-pin** part (e.g. C492406, PZ254V-11-07P)
+for a ROM console, or drop it deliberately and document that there is no
+fallback. **If it is ever populated, fix the LCSC field first** — it still
+carries C492404, a 5-pin part against a 7-pin footprint.
+
+Cost of the current DNP, concrete: the ROM's `invalid header: 0xffffffff`
+explanation goes to UART0 (GPIO43/44), which is unpopulated, so a board that
+will not boot cannot tell you why.
+
+### 7. Reconsider via-in-pad
+**96 of 177 vias sit inside SMD pads.** This is why laminate Tg shows up in the
+hot-attic notes at all — higher Tg means lower z-axis CTE and less barrel strain
+per thermal cycle. Not urgent, and the Rev 1.2/1.3 boards work, but it is the
+underlying reason for a constraint that keeps reappearing.
+
+### 8. Enclosure ventilation (tracked under Enclosure Rev 3)
+The ESP32-S3-WROOM-1-N4's 85 °C rating is *ambient around the module*. A sealed
+printed box in an attic runs hotter than attic ambient. Not a PCB change, but it
+belongs on the same review.
+
+---
+
 ## Rev 1.3 GPIO Map (final, as of 2026-07-06; GPIO6/7 and the GPIO46 note corrected 2026-08-27)
 
 Reassigned to eliminate crossed leads during PCB layout. Verified against the ESP32-S3-WROOM-1 module pinout with no duplicate assignments, no WiFi/ADC2 conflicts (only TMP235/ACS723 do real analog sensing, both on ADC1), and no strapping-pin or input-only-pin misuse.
@@ -147,6 +258,8 @@ GND (pins 1, 40, 41) and 3V3 (pin 2) not listed above.
 ## Product Track TODO (Vesprio WSC-4)
 
 ### Firmware:
+- [ ] **Soft-start PWM ramp on every motor start** — never energise a bridge at 100 % duty from rest. Inrush equals stall current, and on Rev 1.3 that is what browned out the ESP32 and killed board 1's U8 (Rev 1.4 item 2). Needed in the bring-up, production ESPHome and Tasmota configs.
+- [ ] **Apply the SHADEn channel swap** in the production ESPHome config and in Tasmota until the Rev 1.4 net rename ships — see "Rev 1.4 PCB Changes" item 1 for the GPIO table.
 - [ ] Test and validate Tasmota firmware on Rev 1.2 board
 - [ ] Validate Berry script motor control
 - [ ] Validate Shutter module with 4 shades

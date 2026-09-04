@@ -3,8 +3,8 @@
 ## What this is
 Vesprio VSP-WSC-4: 4-channel motorized window shade controller, ESP32-S3-WROOM-1-N4, dual firmware track (ESPHome personal use / Tasmota product). See `docs/project-context/vsp-wsc4-handover.md` for full hardware detail and GPIO map.
 
-## Current state (as of 2026-08-30)
-- **STATUS: Rev 1.3 boards received 2026-08-27. Bring-up in progress — read `docs/project-context/vsp-wsc4-rev13-bringup-status.md` FIRST.** That file is the live "where did I leave off" log: what is verified on hardware, what is still open, and the single next action. Boots, flashes over native USB, WiFi/web UI up, all 3 LEDs and SW1 confirmed. **No motor has yet been seen to turn** — a channel-cross bug was found and fixed in the config on 2026-08-28 but the fix is not yet confirmed on hardware.** Work the "Firmware bring-up checklist" in `docs/project-context/vsp-wsc4-todo.md`. The **ACS725 formula change** (`amps = (Vout - 1.65) / 0.264`, was `/0.4` for the ACS723) is required before current sensing reads correctly — update the stall-detection threshold with it.
+## Current state (as of 2026-09-03)
+- **STATUS: Rev 1.3 boards received 2026-08-27. Bring-up in progress — read `docs/project-context/vsp-wsc4-rev13-bringup-status.md` FIRST.** That file is the live "where did I leave off" log: what is verified on hardware, what is still open, and the single next action. Boots, flashes over native USB, WiFi/web UI up, all 3 LEDs and SW1 confirmed. **The channel-cross fix is now CONFIRMED ON HARDWARE (2026-09-03): Shade 1→1, 2→2, 4→4 all drive the correct terminal.** SHADE3 is still untested. **Board 1 is out of service — its U8 was destroyed by an unsuitable test motor (see the failure post-mortem in the status log). NO MOTOR goes on any board until the real shade motor's inrush and stall current are measured against the TB6612FNG's 1.2 A continuous / 3.2 A peak rating; use a 22-27 Ω / 10 W resistor for bring-up.** Work the "Firmware bring-up checklist" in `docs/project-context/vsp-wsc4-todo.md`. The **ACS725 formula change** (`amps = (Vout - 1.65) / 0.264`, was `/0.4` for the ACS723) is required before current sensing reads correctly — update the stall-detection threshold with it.
 - **Flash via native USB (J2 Micro-USB, GPIO19/20) — that is the only path on these boards, because J3 is DNP'd.** See PICK UP HERE below.
 - **PCB:** Rev 1.3, **fab-ready.** All PICK UP HERE items from the 2026-08-05 QA pass are done: C40-C43 placed (~1.8-2.6mm from U12-U15 pin 4), +5V_OR/USB_VBUS widened, U16 moved closer to J2, D10/D11 silkscreen fixed, LCSC added for J2 (C397452) and J4 (C6652293 — pre-purchased JLCPCB inventory part, number needed so JLCPCB places it). DRC: 0 unconnected pads, 0 real errors, 114 footprints. Rev 1.2 was assembled and working (ESPHome only; Tasmota broken on Shades 3&4 due to GPIO43/44 = U0TX/RX conflict — fixed in Rev 1.3).
 - **Fabrication Toolkit run 2026-08-07** — archive `VSP-WSC-4_1.3`. These are the outputs the boards were built from; re-run the toolkit only if the PCB changes.
@@ -61,7 +61,13 @@ involved.
 Full detail and the ten-second triage table: `vsp-wsc4-rev13-bringup-procedure.md`.
 
 ### Motor channel cross — ISO_SHn_* net names do NOT match the SHADEn terminal
-**Found 2026-08-28 during first motor bring-up. Verified against the netlist.**
+**Found 2026-08-28 during first motor bring-up. Verified against the netlist,
+and CONFIRMED ON HARDWARE 2026-09-03 (Shade 1→1, 2→2, 4→4).**
+
+**Root cause:** when the pin order was reworked for the new J4 terminal block,
+the labels on the TB6612FNG **output** side were re-pointed but the **input**
+side was not. The isolators (U4/U5/U6, ISO7760DBQ) pair cleanly 1:1 and add no
+cross of their own.
 On **both** TB6612FNGs the A/B channel control signals are crossed with the
 output terminals, swapped within each pair:
 
@@ -97,6 +103,9 @@ a labelling trap that will keep costing time otherwise.
 - **J3 (UART/RTS-DTR header) is DNP'd — not populated.** Native USB (GPIO19/20) is the only flash path as shipped. The RTS/DTR auto-reset circuit exists on the board but is unusable without J3. If J3 is ever populated, **fix its LCSC field first** — it still carries C492404, a 5-pin part against a 7-pin footprint.
 - **U1 is the Heniper B1205S-3WR2L (C20622657), on the `H` hole set** of the shared `DCDC_HYBRID_SLC03_TEC2` footprint.
 - **C10 is 100 µF 16 V (C7432790)** and **U12-U16 are C5158049**, both stock-driven substitutions made at order time. Same footprints, no board change.
+
+### Rev 1.4 change list — canonical location
+**`docs/project-context/vsp-wsc4-todo.md`, section "Rev 1.4 PCB Changes"** (opened 2026-09-03). Eight items with evidence: the `ISO_SHn_*`/`SHn_*` net rename (pure rename, zero copper), motor-driver protection (D6-D9 SMAJ15CA clamp ~24 V vs the TB6612FNG's 15 V absolute-max VM), fuse and stall-threshold sizing, hold-up for U1 so motor inrush cannot brown out the ESP32, test points on `+12V`/`+3.3V_MOTOR`, J3, via-in-pad, enclosure ventilation. Add new Rev 1.4 items there, not to the bring-up status log.
 
 ### Git state and release convention
 Standardized 2026-08-27. Every shipped revision gets **both**:
@@ -241,4 +250,6 @@ kicad-cli pcb drc  --output /tmp/drc.rpt --severity-error barn-blinds-controller
 kicad-cli sch export netlist --format kicadsexpr --output /tmp/net.net barn-blinds-controller.kicad_sch
 kicad-cli sch export bom --fields "Reference,Value,Footprint,LCSC" --group-by Value --output /tmp/bom.csv barn-blinds-controller.kicad_sch
 ```
+**WARNING: `sch export netlist` is NOT read-only.** It rewrote `usb-c-5v.kicad_sch` (342 lines — junction coordinates shifted by a constant offset) and reordered `used_designators` in `barn-blinds-controller.kicad_pro` on 2026-09-03. Run `git status` after any `kicad-cli` invocation and `git checkout --` anything you did not mean to change.
+
 Diffing the netlist before/after an edit is the reliable way to prove connectivity was preserved — schematic geometry checks can miss pins whose position is far from the symbol origin.
