@@ -173,12 +173,23 @@ rating < driver peak < clamp voltage.
 resistive load — until the current reading is trustworthy no threshold can be
 set. That is the next bring-up task and needs no motor.
 
-**Also: the measured shade-motor stall and inrush currents are not written down
-anywhere in this repo.** They were taken early in the project; only the derived
-1.4 A threshold survives (`vsp-wsc4-handover.md`). The motors are on the job
-site now, so re-measuring is difficult. Capture the numbers from memory or old
-notes before they are lost — they are the sanity check on whatever protection
-scheme replaces the current one, even though they are no longer the design case.
+**The shade motors draw well under 1 A each even at a full stall** (induced by
+hand-holding the shade) — much lower than expected. Recorded from memory
+2026-09-03; the original measurements were never written down and the motors are
+now on the job site, so treat this as "well under 1 A", not a precise figure.
+
+Two consequences:
+- **The 1.4 A threshold would never fire on a real stall.** It is not merely
+  mis-ordered against the fuse and driver ratings — it is above anything these
+  motors can produce. Whatever replaces it belongs well under 1 A.
+- **F1-F4 (1.1 A hold) are also above the motors' stall current**, so they offer
+  no protection for the intended load either. Not a fault — it confirms that the
+  protection case is an *unknown* load (item 2), not these motors.
+
+Watch the measurement resolution when re-deriving the threshold: at the ACS725's
+0.264 V/A a 0.7 A stall is only ~185 mV above the 1.65 V quiescent, so confirm
+the noise floor during the resistive-load calibration before trusting a low
+trip point.
 
 ### 4. Hold-up for U1 so motor inrush cannot brown out the ESP32
 U1's only input reservoir is **C9, 22 uF** on `+12V_RAW`, and the ISO side has

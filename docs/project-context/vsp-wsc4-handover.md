@@ -74,6 +74,20 @@ Key config notes:
 - Framework: esp-idf (required for ESP32-S3 in ESPHome 2026.x)
 - STBY set HIGH at on_boot, stays permanently HIGH
 - Stall detection threshold: 1.4A (after ACS723 voltage-to-amps conversion)
+  - **This threshold is far too high and would never fire.** The shade motors
+    were measured early in the project and, even at a **full stall induced by
+    hand-holding the shade, draw well under 1 A each** — much lower than
+    expected. A genuine stall therefore never approaches 1.4 A. (Recorded from
+    memory 2026-09-03; the original measurements were not written down and the
+    motors are now on the job site, so re-measuring is difficult. Treat "well
+    under 1 A" as the figure, not a precise value.)
+  - Knock-on: F1-F4 (1.1 A hold) also sit **above** the motors' stall current,
+    so they offer no protection for the intended load either. That is not a
+    fault — it just means the protection case is an *unknown* load, not these
+    motors. See "Rev 1.4 PCB Changes" items 2-3 in `vsp-wsc4-todo.md`.
+  - Watch the resolution when re-deriving this: at the ACS725's 0.264 V/A, a
+    0.7 A stall is only ~185 mV above the 1.65 V quiescent. Confirm the noise
+    floor during the resistive-load calibration before trusting a low threshold.
 - ACS723 formula: `(x - 1.65) / 0.4` (zero current = 1.65V, 400mV/A sensitivity)
 - TMP235 formula: `(x - 0.5) / 0.01` (500mV at 0C, 10mV/C)
 - Open/close durations: 60s placeholder — update after motor timing calibration
