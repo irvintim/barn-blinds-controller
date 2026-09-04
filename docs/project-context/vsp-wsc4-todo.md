@@ -126,35 +126,59 @@ Until this ships, every firmware config (bring-up, production ESPHome, and
 Tasmota) must keep applying the swap by hand. That is a labelling trap that
 will keep costing time.
 
-### 2. Protect the motor drivers properly — D6-D9 cannot protect the part they sit next to
-**D6-D9 are SMAJ15CA: 15 V standoff, clamping around 24 V. The TB6612FNG's
-absolute-max VM is 15 V.** The outputs can go well past the driver's rating
-before the TVS conducts meaningfully, and with a 12 V rail there is almost no
-room between "normal" and "absolute max".
+### 2. Make the output stage survive an UNKNOWN load — the governing requirement
+**Design target set 2026-09-03: the outputs must be robust against whatever
+gets connected, not merely matched to the known-good shade motors.**
 
-Board 1's U8 was destroyed on 2026-09-03 (three of four output legs shorted to
-PGND) by an unsuitable test motor. The TVS network did not save it.
+The shade motors were characterised early in the project and are not the design
+case. What actually killed board 1's U8 was a *non-shade* motor connected during
+bench testing. If this ever becomes a more general-purpose product, there is no
+way to know what a user will plug in — a stalled motor, a wrong motor, a shorted
+lead, a much larger inductive load. **The protection has to hold regardless.**
 
-Options to weigh, not yet decided:
-- A driver with real headroom (DRV8871, TB67H420 or similar) instead of the
-  TB6612FNG's 15 V VM / 1.2 A continuous / 3.2 A peak.
-- Lower-voltage clamping that actually sits under the driver's rating.
-- Series inrush limiting per channel.
-- Firmware soft-start (PWM ramp) so first motion never hits the bridge at 100 %
-  duty. Needed regardless of what the hardware does — see the firmware list.
+What the current design gets wrong:
 
-**Blocked on:** measuring the real shade motors' inrush and stall current.
-Do that before choosing.
+| | Now | Problem |
+|---|---|---|
+| Driver | TB6612FNG | VM absolute max **15 V** on a 12 V rail — almost no headroom. 1.2 A continuous / 3.2 A peak. Its only self-protection is thermal shutdown, which demonstrably did not save it |
+| Output clamp | D6-D9, SMAJ15CA | 15 V standoff, clamps around **24 V** — i.e. *above* the driver's absolute max. It cannot protect the part it sits beside |
+| Fusing | F1-F4, 1.1 A hold / 2.2 A trip | Polyfuses are slow. The driver dies in microseconds; the PTC responds in seconds |
+| Fault attribution | one ACS725 on the whole 12 V rail | Cannot tell which channel is faulting, and cannot see a fault at all while several channels run |
 
-### 3. Re-size the fuses and the stall threshold together
-The documented **1.4 A stall threshold sits above both** F1-F4's **1.1 A hold**
-current and the TB6612FNG's **1.2 A continuous** rating. On a real stall the
-polyfuse starts heating and the driver exceeds spec **before firmware reacts** —
-the protection ordering is backwards.
+Directions to evaluate (none chosen yet):
+- **A driver with real current regulation**, so an overload is limited rather
+  than fatal. E.g. **DRV8871** — 6.5-45 V (enormous headroom over 12 V), 3.6 A
+  peak, and an **adjustable internal current limit set by one resistor**, plus
+  thermal shutdown and UVLO. Single-channel, so four parts instead of two duals,
+  and the PWM scheme changes (drive on IN1/IN2 rather than a separate PWM pin).
+  Alternatives in the same family: DRV8873, DRV8243.
+- **Hard output short protection** — short-to-ground and short-to-supply.
+- **Clamping that engages below the driver's absolute max**, not above it.
+- **Per-channel current sense** instead of one rail-level ACS725, so a fault can
+  be attributed and shut down individually.
+- **Firmware soft-start** regardless of hardware choice — never energise a bridge
+  at 100 % duty from rest. Inrush equals stall current. See the firmware list.
 
-Cannot be set properly until (a) the ACS725 `/0.264` divisor is proven against a
-known resistive load, and (b) the real shade motors are characterised. Same
-blocker as item 2; resolve them together.
+### 3. Fix the protection ORDERING, and record the real motor numbers
+Today the ordering is backwards: the documented **1.4 A stall threshold sits
+above both** F1-F4's **1.1 A hold** current and the TB6612FNG's **1.2 A
+continuous** rating. On a stall the polyfuse starts heating and the driver
+exceeds spec *before firmware reacts*. Firmware should be the first line of
+defence, not the last.
+
+Sequence it deliberately: firmware current trip < fuse hold < driver continuous
+rating < driver peak < clamp voltage.
+
+**Blocked on the ACS725 `/0.264` divisor being proven** against a known
+resistive load — until the current reading is trustworthy no threshold can be
+set. That is the next bring-up task and needs no motor.
+
+**Also: the measured shade-motor stall and inrush currents are not written down
+anywhere in this repo.** They were taken early in the project; only the derived
+1.4 A threshold survives (`vsp-wsc4-handover.md`). The motors are on the job
+site now, so re-measuring is difficult. Capture the numbers from memory or old
+notes before they are lost — they are the sanity check on whatever protection
+scheme replaces the current one, even though they are no longer the design case.
 
 ### 4. Hold-up for U1 so motor inrush cannot brown out the ESP32
 U1's only input reservoir is **C9, 22 uF** on `+12V_RAW`, and the ISO side has
