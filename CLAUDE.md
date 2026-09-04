@@ -105,7 +105,7 @@ a labelling trap that will keep costing time otherwise.
 - **C10 is 100 µF 16 V (C7432790)** and **U12-U16 are C5158049**, both stock-driven substitutions made at order time. Same footprints, no board change.
 
 ### Rev 1.4 change list — canonical location
-**`docs/project-context/vsp-wsc4-todo.md`, section "Rev 1.4 PCB Changes"** (opened 2026-09-03). Eight items with evidence: the `ISO_SHn_*`/`SHn_*` net rename (pure rename, zero copper), motor-driver protection (D6-D9 SMAJ15CA clamp ~24 V vs the TB6612FNG's 15 V absolute-max VM), fuse and stall-threshold sizing, hold-up for U1 so motor inrush cannot brown out the ESP32, test points on `+12V`/`+3.3V_MOTOR`, J3, via-in-pad, enclosure ventilation. Add new Rev 1.4 items there, not to the bring-up status log.
+**`docs/project-context/vsp-wsc4-todo.md`, section "Rev 1.4 PCB Changes"** (opened 2026-09-03). Six items with evidence: the `ISO_SHn_*`/`SHn_*` net rename (pure rename, zero copper), motor-driver protection (D6-D9 SMAJ15CA clamp ~24 V vs the TB6612FNG's 15 V absolute-max VM), fuse and stall-threshold sizing, hold-up for U1 so motor inrush cannot brown out the ESP32, test points on `+12V`/`+3.3V_MOTOR` **plus net-name silkscreen on every TP**, and via-in-pad. Add new Rev 1.4 items there, not to the bring-up status log. **J3 is closed (stays DNP) and the enclosure work lives on the Enclosure Rev 3 list — do not re-add either.**
 
 ### Git state and release convention
 Standardized 2026-08-27. Every shipped revision gets **both**:
@@ -122,11 +122,12 @@ Bring-up fixes go on the branch — **never move a `-fab` tag**, or the as-fabbe
 
 Pruned 2026-08-27: `feature/rework-vias` (fully merged, 0 unique commits vs `main`; its work is in `release/v1.2`'s history at `45e6a61`/`6322e81`). Note it enlarged vias and rerouted — it did **not** remove via-in-pad; 96 of 177 vias still sit inside SMD pads, which is why laminate Tg appears in the hot-attic notes.
 
-### Two things deliberately NOT done — do not re-flag them
-Both were closed by the user from direct experience with this vendor. They are settled decisions, not oversights.
+### Three things deliberately NOT done — do not re-flag them
+All were closed by the user. They are settled decisions, not oversights.
 
 1. **Assembly remark left empty — intentional.** U1's footprint `DCDC_HYBRID_SLC03_TEC2` shares holes across Mean Well SLC03A-05 / Traco TBA 2-1211 / Heniper B1205S-3WR2L (silkscreen `M`/`H`/`T` + "POPULATE ONE"), and BOM/CPL carry only one position+rotation for the whole footprint. **JLCPCB's engineer reaches out with questions on every run of this board regardless**, and it has been placed several times without a remark — the hole-set question gets settled in that exchange. This run uses the **Heniper (LCSC C20622657)** → the `H` holes. Answer text kept in `production/JLCPCB-ORDER-NOTES.md` for when they ask. Electrically safe either way, since same-numbered pads share nets.
-2. **Duplicate designators in JLCPCB's BOM — handled in their UI.** Their parts-matching flow duplicates designators when one LCSC appears on more than one BOM line (here: C1590 as `0.1uF`+`0.1uF 25V`, and C51927445 as `RESET`+`BOOT`). **Their tool prompts about it at upload and the user approves the duplicates each time**, so it self-resolves. A pre-merged `VSP-WSC-4_1.3_bom-UPLOAD.csv` exists if ever wanted but is not needed. See `production/JLCPCB-ORDER-NOTES.md`.
+2. **J3 stays DNP — CLOSED 2026-09-03.** Do not put it back on a Rev 1.4 list. The plated through-holes are all that is needed: for the rare debugging session the user solders in their own connector, or just pushes pin-ended jumper wires into the holes to flash or read UART output. It is a debug path, not an everyday one, and native USB (GPIO19/20) covers normal use. The wrong LCSC field (C492404, a 5-pin part against the 7-pin footprint) only matters if J3 is ever populated by the fab — which it is not.
+3. **Duplicate designators in JLCPCB's BOM — handled in their UI.** Their parts-matching flow duplicates designators when one LCSC appears on more than one BOM line (here: C1590 as `0.1uF`+`0.1uF 25V`, and C51927445 as `RESET`+`BOOT`). **Their tool prompts about it at upload and the user approves the duplicates each time**, so it self-resolves. A pre-merged `VSP-WSC-4_1.3_bom-UPLOAD.csv` exists if ever wanted but is not needed. See `production/JLCPCB-ORDER-NOTES.md`.
 
 ### Accepted trade-offs carried into this build
 1. **USB_VBUS/J2 hole clearance exclusion.** One `hole_clearance` DRC error (0.20mm vs 0.25mm rule, at J2's own NPTH mounting hole) is suppressed via exclusion. Confirmed it's capped by the connector's own pad geometry, not trace routing — same category as 4 other pre-existing accepted exclusions on this connector footprint. Not fixable without a different Micro-USB footprint.

@@ -1,6 +1,6 @@
 # VSP-WSC-4 Rev 1.3 — Bring-up STATUS LOG
 
-**Live status of the physical Rev 1.3 boards.** Updated 2026-09-03.
+**Live status of the physical Rev 1.3 boards.** Updated 2026-09-03 (evening).
 
 This is the "where did I leave off" file. The step-by-step test plan is
 `vsp-wsc4-rev13-bringup-procedure.md`; the config is
@@ -21,9 +21,13 @@ the ACS725 divisor. **Do not connect a motor to any board** until the real
 shade motor's inrush and stall current have been measured against the driver's
 1.2 A continuous / 3.2 A peak rating. A motor destroyed board 1's U8.
 
-Remaining unverified items, in order: SHADE3 channel (never successfully
-driven — board 1 died on it), SW2/SW3/SW4 inputs, TMP235 sanity check, ACS725
-divisor against a known resistive load, all four channels together, then
+**All four output channels are now proven** (DMM, board 2, both directions,
+2026-09-03 evening) — the channel mapping question is fully closed.
+
+Remaining unverified items, in order: **ACS725 divisor against a known
+resistive load** (the next thing to do, and the cheapest chance to prove the
+`/0.264` change before any motor is involved), SW2/SW3/SW4 inputs, TMP235
+sanity check against room ambient, all four channels driven together, then
 Tasmota.
 
 ---
@@ -51,14 +55,13 @@ Tasmota.
 | ESP32 module identity | 4 MB, eFuse **quad**, 3.3 V strapping = **N4 confirmed**, not an R8 |
 | 12 V supply | 12 V / 3 A bench transformer connected |
 | J4 orientation | Pad 1 is **square, leftmost/top**. Confirmed by SW1 working |
-| **Motor channel mapping** | **CONFIRMED ON HARDWARE 2026-09-03.** Shade 1->1, 2->2, 4->4 all correct with the config's swap applied. See Finding 1 |
-| **Shade 1, 2, 4 output drive** | All three switch direction and produce ±12 V at their terminals |
+| **Motor channel mapping** | **CONFIRMED ON HARDWARE 2026-09-03 — ALL FOUR.** 1->1, 2->2, 3->3, 4->4 with the config's swap applied. See Finding 1 |
+| **All 4 output channels** | **All four drive both directions and produce ±12 V at their terminals (DMM, board 2).** SHADE3 included — it had never been driven on any board before this |
 
 ### NOT yet verified — open
 | Item | Notes |
 |---|---|
-| **Any motor actually turning** | Still never seen to run under control. A motor *was* briefly energised on board 1 and destroyed U8 |
-| **SHADE3 channel** | Never successfully driven. Board 1's ch A shorted before it could be tested; retest on board 2 |
+| **Any motor actually turning** | Still never seen to run under control. A motor *was* briefly energised on board 1 and destroyed U8. All output verification so far is DMM-only |
 | SW2, SW3, SW4 (6 inputs) | Only SW1 exercised so far |
 | TMP235 board temperature | Reading not yet sanity-checked against room ambient |
 | ACS725 current sense | Never seen a real load. Divisor `0.264` **unproven** — check against a clamp meter |
@@ -86,9 +89,9 @@ pair. **Use this table, never the net names:**
 Failure mode is silent: correctly-wired motor, no movement, no current, no log
 message — because the command energizes a different, empty channel.
 
-**CONFIRMED ON HARDWARE 2026-09-03.** Shade 1 -> 1, 2 -> 2 and 4 -> 4 all
-drive the right terminal with the table above applied. The table is correct;
-do not "fix" it back toward the net names.
+**CONFIRMED ON HARDWARE 2026-09-03 — all four channels.** 1 -> 1, 2 -> 2,
+3 -> 3 and 4 -> 4 all drive the right terminal, both directions, with the table
+above applied. The table is correct; do not "fix" it back toward the net names.
 
 **Root cause (user, 2026-09-03):** when the pin order was reworked for the new
 J4 terminal block, the labels on the TB6612FNG **output** side were re-pointed

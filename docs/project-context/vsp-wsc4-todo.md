@@ -169,35 +169,32 @@ killed U8.** Preventing MCU brownout is driver protection.
 Proposed: a small series diode plus a local bulk cap on U1's input, so the
 DC-DC feeds from a reservoir the motor rail cannot pull down.
 
-### 5. Add test points on `+12V` and `+3.3V_MOTOR`
+### 5. Add test points on `+12V` and `+3.3V_MOTOR`, and label ALL test points with their net name
 The two rails most worth probing during bring-up both currently require
 touching an IC pin. TP1-TP7 already exist for other nets; extend the set.
 
-Also worth a test point or clear silkscreen at C33/C34: probing **J1 pin 1 ->
-GND_MOTOR reads open even on a board with a hard 12 V short**, because
-`Net-(D1-A)` shows D1 is a *series* reverse-polarity diode between J1 and
-`+12V_RAW`. That cost real debugging time on 2026-09-03.
+**Silkscreen every test point with its net name, not just `TP1`/`TP4`.** As it
+stands you have to open the schematic to find out what a test point is
+connected to, which is exactly the wrong time to be doing that. Applies to the
+existing TP1-TP7 as well as the new ones.
 
-### 6. Resolve J3 one way or the other
-Either populate it with the correct **7-pin** part (e.g. C492406, PZ254V-11-07P)
-for a ROM console, or drop it deliberately and document that there is no
-fallback. **If it is ever populated, fix the LCSC field first** — it still
-carries C492404, a 5-pin part against a 7-pin footprint.
+Also worth a labelled pad at C33/C34: probing **J1 pin 1 -> GND_MOTOR reads
+open even on a board with a hard 12 V short**, because `Net-(D1-A)` shows D1 is
+a *series* reverse-polarity diode between J1 and `+12V_RAW`, so the meter sees
+its blocking direction. That cost real debugging time on 2026-09-03.
 
-Cost of the current DNP, concrete: the ROM's `invalid header: 0xffffffff`
-explanation goes to UART0 (GPIO43/44), which is unpopulated, so a board that
-will not boot cannot tell you why.
+### 6. Via-in-pad — decide, or decide to leave it
+**Measured on the current PCB 2026-09-03: 177 vias, ~100 of them inside SMD
+pads** (96 by KiCad's own count; a rectangular approximation gives 104 — same
+picture). Solder wicks down the barrel during reflow, and the plated barrel
+takes strain across thermal cycles.
 
-### 7. Reconsider via-in-pad
-**96 of 177 vias sit inside SMD pads.** This is why laminate Tg shows up in the
-hot-attic notes at all — higher Tg means lower z-axis CTE and less barrel strain
-per thermal cycle. Not urgent, and the Rev 1.2/1.3 boards work, but it is the
-underlying reason for a constraint that keeps reappearing.
+This is the underlying reason the laminate-Tg question keeps resurfacing in the
+hot-attic notes: higher Tg means lower z-axis CTE and less barrel strain per
+cycle. **Not urgent** — Rev 1.2 and Rev 1.3 both assembled and work.
 
-### 8. Enclosure ventilation (tracked under Enclosure Rev 3)
-The ESP32-S3-WROOM-1-N4's 85 °C rating is *ambient around the module*. A sealed
-printed box in an attic runs hotter than attic ambient. Not a PCB change, but it
-belongs on the same review.
+Note the old `feature/rework-vias` branch enlarged vias and rerouted, but did
+**not** remove via-in-pad. If this gets addressed, that branch is not the fix.
 
 ---
 
@@ -279,6 +276,19 @@ GND (pins 1, 40, 41) and 3V3 (pin 2) not listed above.
 ---
 
 ## Enclosure Rev 3 TODO (decided 2026-06-29)
+
+**The Rev 1.3 board is physically larger than the one the current enclosure was
+designed around, so the box has to be reworked regardless.** Do that work here,
+not on the PCB list.
+
+- [ ] Resize for the Rev 1.3 board outline (65.004 x 73.935 mm).
+- [ ] **Thermal check, not a redesign — ventilation already exists in the current
+      small enclosure.** Just confirm it still works once the box grows: the
+      ESP32-S3-WROOM-1-N4 is rated to 85 °C *ambient around the module*, and a
+      sealed printed box in an attic runs hotter inside than the attic air
+      because of the board's own dissipation (LDO drop, DC-DC losses, driver
+      quiescent, LEDs). Also worth not mounting at the peak-heat ridge line.
+
 
 Goal: support two mounting options from one enclosure — wall mount (keyholes) and DIN rail mount.
 
