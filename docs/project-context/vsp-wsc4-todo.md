@@ -183,19 +183,6 @@ open even on a board with a hard 12 V short**, because `Net-(D1-A)` shows D1 is
 a *series* reverse-polarity diode between J1 and `+12V_RAW`, so the meter sees
 its blocking direction. That cost real debugging time on 2026-09-03.
 
-### 6. Via-in-pad — decide, or decide to leave it
-**Measured on the current PCB 2026-09-03: 177 vias, ~100 of them inside SMD
-pads** (96 by KiCad's own count; a rectangular approximation gives 104 — same
-picture). Solder wicks down the barrel during reflow, and the plated barrel
-takes strain across thermal cycles.
-
-This is the underlying reason the laminate-Tg question keeps resurfacing in the
-hot-attic notes: higher Tg means lower z-axis CTE and less barrel strain per
-cycle. **Not urgent** — Rev 1.2 and Rev 1.3 both assembled and work.
-
-Note the old `feature/rework-vias` branch enlarged vias and rerouted, but did
-**not** remove via-in-pad. If this gets addressed, that branch is not the fix.
-
 ---
 
 ## Rev 1.3 GPIO Map (final, as of 2026-07-06; GPIO6/7 and the GPIO46 note corrected 2026-08-27)
