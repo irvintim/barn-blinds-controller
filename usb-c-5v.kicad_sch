@@ -2449,60 +2449,60 @@
 		)
 	)
 	(junction
-		(at 107.95 52.07)
+		(at 132.08 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "07db2a82-a2f3-4ef6-b95b-ed3018b53ec1")
 	)
 	(junction
-		(at 140.97 52.07)
+		(at 165.1 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0d9116ef-0f69-46d8-92fe-c45af64dd910")
 	)
 	(junction
-		(at 135.89 52.07)
+		(at 160.02 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0ef39b6a-fb8e-43a1-90b7-f5840216010f")
 	)
 	(junction
-		(at 101.6 40.64)
+		(at 125.73 86.36)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "17ce9cea-2e5c-4671-bdbe-6e809c4dfeae")
 	)
 	(junction
-		(at 45.72 62.23)
+		(at 69.85 107.95)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1dc906c8-3e88-42fa-b307-ad50b362e804")
 	)
 	(junction
-		(at 157.48 52.07)
+		(at 181.61 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1ef6324a-82c5-424d-97a4-75492645cb25")
 	)
 	(junction
-		(at 118.11 52.07)
+		(at 142.24 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3794ca27-0ec8-4fef-b393-5a4298978cd6")
 	)
 	(junction
-		(at 101.6 52.07)
+		(at 125.73 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9d7937f5-2d1d-44d7-a308-6a22b9d119cd")
 	)
 	(no_connect
-		(at 53.34 50.8)
+		(at 77.47 96.52)
 		(uuid "8fe1474a-562c-48a0-9527-e1c66a41fe53")
 	)
 	(wire
 		(pts
-			(xy 111.76 40.64) (xy 109.22 40.64)
+			(xy 135.89 86.36) (xy 133.35 86.36)
 		)
 		(stroke
 			(width 0)
@@ -2512,7 +2512,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 54.61) (xy 101.6 52.07)
+			(xy 125.73 100.33) (xy 125.73 97.79)
 		)
 		(stroke
 			(width 0)
@@ -2522,7 +2522,7 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 52.07) (xy 118.11 54.61)
+			(xy 142.24 97.79) (xy 142.24 100.33)
 		)
 		(stroke
 			(width 0)
@@ -2532,7 +2532,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 62.23) (xy 45.72 62.23)
+			(xy 67.31 107.95) (xy 69.85 107.95)
 		)
 		(stroke
 			(width 0)
@@ -2542,7 +2542,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 52.07) (xy 107.95 52.07)
+			(xy 125.73 97.79) (xy 132.08 97.79)
 		)
 		(stroke
 			(width 0)
@@ -2552,7 +2552,7 @@
 	)
 	(wire
 		(pts
-			(xy 53.34 40.64) (xy 93.98 40.64)
+			(xy 77.47 86.36) (xy 118.11 86.36)
 		)
 		(stroke
 			(width 0)
@@ -2562,7 +2562,7 @@
 	)
 	(wire
 		(pts
-			(xy 163.83 52.07) (xy 157.48 52.07)
+			(xy 187.96 97.79) (xy 181.61 97.79)
 		)
 		(stroke
 			(width 0)
@@ -2572,7 +2572,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 55.88) (xy 43.18 62.23)
+			(xy 67.31 101.6) (xy 67.31 107.95)
 		)
 		(stroke
 			(width 0)
@@ -2582,7 +2582,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 40.64) (xy 101.6 52.07)
+			(xy 125.73 86.36) (xy 125.73 97.79)
 		)
 		(stroke
 			(width 0)
@@ -2592,7 +2592,7 @@
 	)
 	(wire
 		(pts
-			(xy 135.89 52.07) (xy 140.97 52.07)
+			(xy 160.02 97.79) (xy 165.1 97.79)
 		)
 		(stroke
 			(width 0)
@@ -2602,7 +2602,7 @@
 	)
 	(wire
 		(pts
-			(xy 45.72 55.88) (xy 45.72 62.23)
+			(xy 69.85 101.6) (xy 69.85 107.95)
 		)
 		(stroke
 			(width 0)
@@ -2612,7 +2612,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 52.07) (xy 135.89 52.07)
+			(xy 157.48 97.79) (xy 160.02 97.79)
 		)
 		(stroke
 			(width 0)
@@ -2622,7 +2622,7 @@
 	)
 	(wire
 		(pts
-			(xy 140.97 52.07) (xy 157.48 52.07)
+			(xy 165.1 97.79) (xy 181.61 97.79)
 		)
 		(stroke
 			(width 0)
@@ -2632,7 +2632,7 @@
 	)
 	(wire
 		(pts
-			(xy 107.95 52.07) (xy 118.11 52.07)
+			(xy 132.08 97.79) (xy 142.24 97.79)
 		)
 		(stroke
 			(width 0)
@@ -2641,7 +2641,7 @@
 		(uuid "f8c8acea-29e3-493f-88e0-abc5cacc0698")
 	)
 	(label "USB_VBUS"
-		(at 80.01 40.64 0)
+		(at 104.14 86.36 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2651,7 +2651,7 @@
 		(uuid "092a45f8-51e8-42e6-9ec1-b536b195b7e9")
 	)
 	(label "USB_VBUS"
-		(at 73.66 11.43 90)
+		(at 97.79 57.15 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2662,7 +2662,7 @@
 	)
 	(global_label "USB_IN_DP"
 		(shape bidirectional)
-		(at 80.01 44.45 180)
+		(at 104.14 90.17 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2672,7 +2672,7 @@
 		)
 		(uuid "1420f9d7-cc6c-4157-8080-bba50ad7021a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 65.693 44.45 0)
+			(at 89.823 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2686,7 +2686,7 @@
 	)
 	(global_label "USB_IN_DP"
 		(shape input)
-		(at 60.96 24.13 180)
+		(at 85.09 69.85 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2696,7 +2696,7 @@
 		)
 		(uuid "1e464895-748d-4e2c-b2e2-4181fcb26e2f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 60.96 24.13 0)
+			(at 85.09 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2710,7 +2710,7 @@
 	)
 	(global_label "USB_IN_DN"
 		(shape bidirectional)
-		(at 53.34 48.26 0)
+		(at 77.47 93.98 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2720,7 +2720,7 @@
 		)
 		(uuid "3d2fa10a-44c9-4a5c-8e40-ebce25ae2ca0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 67.7175 48.26 0)
+			(at 91.8475 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2734,7 +2734,7 @@
 	)
 	(global_label "USB_DP"
 		(shape bidirectional)
-		(at 87.63 44.45 0)
+		(at 111.76 90.17 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2744,7 +2744,7 @@
 		)
 		(uuid "815e9b59-10a0-4c14-bd25-a9e2bda9e371")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 99.0441 44.45 0)
+			(at 123.1741 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2758,7 +2758,7 @@
 	)
 	(global_label "USB_IN_DN"
 		(shape input)
-		(at 86.36 24.13 0)
+		(at 110.49 69.85 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2768,7 +2768,7 @@
 		)
 		(uuid "934a0141-d80d-4093-bd4f-30f3bbddd3a8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 86.36 24.13 0)
+			(at 110.49 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2782,7 +2782,7 @@
 	)
 	(global_label "USB_IN_DP"
 		(shape bidirectional)
-		(at 53.34 45.72 0)
+		(at 77.47 91.44 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2792,7 +2792,7 @@
 		)
 		(uuid "d8115b1f-a337-43ab-89f9-b19322fbd78e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 67.657 45.72 0)
+			(at 91.787 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2806,7 +2806,7 @@
 	)
 	(global_label "USB_IN_DN"
 		(shape bidirectional)
-		(at 80.01 49.53 180)
+		(at 104.14 95.25 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2816,7 +2816,7 @@
 		)
 		(uuid "dbc8e1eb-e200-4944-b3d1-efa4c2557441")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 65.6325 49.53 0)
+			(at 89.7625 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2830,7 +2830,7 @@
 	)
 	(global_label "USB_DN"
 		(shape bidirectional)
-		(at 87.63 49.53 0)
+		(at 111.76 95.25 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2840,7 +2840,7 @@
 		)
 		(uuid "dfbd976d-b44a-428f-988a-46d870233890")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 99.1046 49.53 0)
+			(at 123.2346 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2854,7 +2854,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 163.83 52.07 270)
+		(at 187.96 97.79 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2865,7 +2865,7 @@
 		(fields_autoplaced yes)
 		(uuid "016425e8-582e-4ac5-bd54-91bc591fca06")
 		(property "Reference" "#PWR012"
-			(at 160.02 52.07 0)
+			(at 184.15 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2876,7 +2876,7 @@
 			)
 		)
 		(property "Value" "+3.3V_ISO"
-			(at 167.64 52.0699 90)
+			(at 191.77 97.7899 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2887,7 +2887,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 163.83 52.07 0)
+			(at 187.96 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2898,7 +2898,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 163.83 52.07 0)
+			(at 187.96 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2909,7 +2909,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 163.83 52.07 0)
+			(at 187.96 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2933,7 +2933,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 101.6 54.61 180)
+		(at 125.73 100.33 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2944,7 +2944,7 @@
 		(fields_autoplaced yes)
 		(uuid "1869b5fa-2b1b-46c8-bd73-bf2e2239b159")
 		(property "Reference" "#PWR06"
-			(at 101.6 50.8 0)
+			(at 125.73 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2955,7 +2955,7 @@
 			)
 		)
 		(property "Value" "+5V_OR"
-			(at 101.6 59.69 0)
+			(at 125.73 105.41 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2965,7 +2965,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 101.6 54.61 0)
+			(at 125.73 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2976,7 +2976,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 101.6 54.61 0)
+			(at 125.73 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2987,7 +2987,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 101.6 54.61 0)
+			(at 125.73 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3011,7 +3011,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 83.82 44.45 90)
+		(at 107.95 90.17 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3021,7 +3021,7 @@
 		(dnp no)
 		(uuid "269d8255-7308-4fd5-9129-c2687bc978df")
 		(property "Reference" "R9"
-			(at 83.566 44.45 90)
+			(at 107.696 90.17 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3031,7 +3031,7 @@
 			)
 		)
 		(property "Value" "22R"
-			(at 83.82 46.99 90)
+			(at 107.95 92.71 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3041,7 +3041,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 83.82 46.228 90)
+			(at 107.95 91.948 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3052,7 +3052,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 83.82 44.45 0)
+			(at 107.95 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3063,7 +3063,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 83.82 44.45 0)
+			(at 107.95 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3074,7 +3074,7 @@
 			)
 		)
 		(property "LCSC" "C25092"
-			(at 83.82 44.45 90)
+			(at 107.95 90.17 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3101,7 +3101,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Polarized")
-		(at 140.97 55.88 0)
+		(at 165.1 101.6 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3112,7 +3112,7 @@
 		(fields_autoplaced yes)
 		(uuid "26c3dbf2-de87-42d3-9006-f1323bff6919")
 		(property "Reference" "C13"
-			(at 144.78 53.7209 0)
+			(at 168.91 99.4409 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3123,7 +3123,7 @@
 			)
 		)
 		(property "Value" "22uF 10V"
-			(at 144.78 56.2609 0)
+			(at 168.91 101.9809 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3134,7 +3134,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 141.9352 59.69 0)
+			(at 166.0652 105.41 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3145,7 +3145,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 140.97 55.88 0)
+			(at 165.1 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3156,7 +3156,7 @@
 			)
 		)
 		(property "Description" "Polarized capacitor"
-			(at 140.97 55.88 0)
+			(at 165.1 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3167,7 +3167,7 @@
 			)
 		)
 		(property "LCSC" "C29277"
-			(at 140.97 55.88 0)
+			(at 165.1 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3194,7 +3194,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 125.73 62.23 0)
+		(at 149.86 107.95 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3205,7 +3205,7 @@
 		(fields_autoplaced yes)
 		(uuid "37be6e2b-5f8d-4102-8f85-1a8557f9b060")
 		(property "Reference" "#PWR09"
-			(at 125.73 68.58 0)
+			(at 149.86 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3216,7 +3216,7 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 125.73 67.31 0)
+			(at 149.86 113.03 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3226,7 +3226,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 125.73 62.23 0)
+			(at 149.86 107.95 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3237,7 +3237,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 125.73 62.23 0)
+			(at 149.86 107.95 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3248,7 +3248,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 125.73 62.23 0)
+			(at 149.86 107.95 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3272,7 +3272,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 83.82 49.53 90)
+		(at 107.95 95.25 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3282,7 +3282,7 @@
 		(dnp no)
 		(uuid "440dd8de-e3b9-4dcd-8976-f15ec7a44e35")
 		(property "Reference" "R10"
-			(at 83.82 49.276 90)
+			(at 107.95 94.996 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3292,7 +3292,7 @@
 			)
 		)
 		(property "Value" "22R"
-			(at 83.82 52.07 90)
+			(at 107.95 97.79 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3302,7 +3302,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 83.82 51.308 90)
+			(at 107.95 97.028 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3313,7 +3313,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 83.82 49.53 0)
+			(at 107.95 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3324,7 +3324,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 83.82 49.53 0)
+			(at 107.95 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3335,7 +3335,7 @@
 			)
 		)
 		(property "LCSC" "C25092"
-			(at 83.82 49.53 90)
+			(at 107.95 95.25 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3362,7 +3362,7 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
-		(at 135.89 52.07 0)
+		(at 160.02 97.79 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3373,7 +3373,7 @@
 		(fields_autoplaced yes)
 		(uuid "4dbc2e54-1cf0-4553-bf89-de234963c979")
 		(property "Reference" "TP3"
-			(at 138.43 47.4979 0)
+			(at 162.56 93.2179 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3384,7 +3384,7 @@
 			)
 		)
 		(property "Value" "3.3V_ISO"
-			(at 138.43 50.0379 0)
+			(at 162.56 95.7579 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3395,7 +3395,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
-			(at 140.97 52.07 0)
+			(at 165.1 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3406,7 +3406,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 140.97 52.07 0)
+			(at 165.1 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3417,7 +3417,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 135.89 52.07 0)
+			(at 160.02 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3441,7 +3441,7 @@
 	)
 	(symbol
 		(lib_id "Diode:SS34")
-		(at 97.79 40.64 180)
+		(at 121.92 86.36 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3452,7 +3452,7 @@
 		(fields_autoplaced yes)
 		(uuid "5220dc9d-64ae-4f4b-9bc5-3057534fe8c8")
 		(property "Reference" "D10"
-			(at 97.79 36.83 0)
+			(at 121.92 82.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3462,7 +3462,7 @@
 			)
 		)
 		(property "Value" "SS34"
-			(at 97.79 44.45 0)
+			(at 121.92 90.17 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3472,7 +3472,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SMA"
-			(at 97.79 40.64 0)
+			(at 121.92 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3483,7 +3483,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.vishay.com/docs/88751/ss32.pdf"
-			(at 97.79 40.64 0)
+			(at 121.92 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3494,7 +3494,7 @@
 			)
 		)
 		(property "Description" "40V 3A Schottky Barrier Rectifier"
-			(at 97.79 40.64 0)
+			(at 121.92 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3505,7 +3505,7 @@
 			)
 		)
 		(property "LCSC" "C8678"
-			(at 97.79 40.64 0)
+			(at 121.92 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3532,7 +3532,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 140.97 59.69 0)
+		(at 165.1 105.41 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3543,7 +3543,7 @@
 		(fields_autoplaced yes)
 		(uuid "667245d7-cfcb-431d-aa35-3c42a502fea7")
 		(property "Reference" "#PWR010"
-			(at 140.97 66.04 0)
+			(at 165.1 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3554,7 +3554,7 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 140.97 64.77 0)
+			(at 165.1 110.49 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3564,7 +3564,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 140.97 59.69 0)
+			(at 165.1 105.41 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3575,7 +3575,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 140.97 59.69 0)
+			(at 165.1 105.41 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3586,7 +3586,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 140.97 59.69 0)
+			(at 165.1 105.41 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3611,7 +3611,7 @@
 	(symbol
 		(lib_name "USB_B_Micro_1")
 		(lib_id "Connector:USB_B_Micro")
-		(at 45.72 45.72 0)
+		(at 69.85 91.44 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3622,7 +3622,7 @@
 		(fields_autoplaced yes)
 		(uuid "6e5d415a-cfe2-4c8b-bc92-be9bfa6330bf")
 		(property "Reference" "J2"
-			(at 45.72 33.02 0)
+			(at 69.85 78.74 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3632,7 +3632,7 @@
 			)
 		)
 		(property "Value" "USB_B_Micro"
-			(at 45.72 35.56 0)
+			(at 69.85 81.28 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3642,7 +3642,7 @@
 			)
 		)
 		(property "Footprint" "Connector_USB:USB_Micro-B_XKB_U254-051T-4BH83-F1S"
-			(at 49.53 46.99 0)
+			(at 73.66 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3653,7 +3653,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 49.53 46.99 0)
+			(at 73.66 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3664,7 +3664,7 @@
 			)
 		)
 		(property "Description" "USB Micro Type B connector"
-			(at 45.72 45.72 0)
+			(at 69.85 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3675,7 +3675,7 @@
 			)
 		)
 		(property "LCSC" "C397452"
-			(at 45.72 45.72 0)
+			(at 69.85 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3714,7 +3714,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 45.72 62.23 0)
+		(at 69.85 107.95 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3724,7 +3724,7 @@
 		(dnp no)
 		(uuid "8258e5ac-f8bb-4b95-8de0-4ff3b376e0b1")
 		(property "Reference" "#PWR05"
-			(at 45.72 68.58 0)
+			(at 69.85 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3735,7 +3735,7 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 48.26 62.484 90)
+			(at 72.39 108.204 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3745,7 +3745,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 45.72 62.23 0)
+			(at 69.85 107.95 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3756,7 +3756,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 45.72 62.23 0)
+			(at 69.85 107.95 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3767,7 +3767,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 45.72 62.23 0)
+			(at 69.85 107.95 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3791,7 +3791,7 @@
 	)
 	(symbol
 		(lib_id "Diode:SS34")
-		(at 105.41 40.64 0)
+		(at 129.54 86.36 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3802,7 +3802,7 @@
 		(fields_autoplaced yes)
 		(uuid "8d7d39eb-8570-4329-a721-4a6b87d11b9c")
 		(property "Reference" "D11"
-			(at 105.41 36.83 0)
+			(at 129.54 82.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3812,7 +3812,7 @@
 			)
 		)
 		(property "Value" "SS34"
-			(at 105.41 44.45 0)
+			(at 129.54 90.17 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3822,7 +3822,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SMA"
-			(at 105.41 40.64 0)
+			(at 129.54 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3833,7 +3833,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.vishay.com/docs/88751/ss32.pdf"
-			(at 105.41 40.64 0)
+			(at 129.54 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3844,7 +3844,7 @@
 			)
 		)
 		(property "Description" "40V 3A Schottky Barrier Rectifier"
-			(at 105.41 40.64 0)
+			(at 129.54 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3855,7 +3855,7 @@
 			)
 		)
 		(property "LCSC" "C8678"
-			(at 105.41 40.64 0)
+			(at 129.54 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3882,7 +3882,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 107.95 59.69 0)
+		(at 132.08 105.41 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3893,7 +3893,7 @@
 		(fields_autoplaced yes)
 		(uuid "a26ef6a4-31c9-4464-bfce-8b192c4e2e78")
 		(property "Reference" "#PWR07"
-			(at 107.95 66.04 0)
+			(at 132.08 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3904,7 +3904,7 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 107.95 64.77 0)
+			(at 132.08 110.49 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3914,7 +3914,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 107.95 59.69 0)
+			(at 132.08 105.41 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3925,7 +3925,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 107.95 59.69 0)
+			(at 132.08 105.41 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3936,7 +3936,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 107.95 59.69 0)
+			(at 132.08 105.41 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3960,7 +3960,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Polarized")
-		(at 107.95 55.88 0)
+		(at 132.08 101.6 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3970,7 +3970,7 @@
 		(dnp no)
 		(uuid "b9110e67-3784-486e-bc42-db63a906569b")
 		(property "Reference" "C12"
-			(at 109.982 54.864 0)
+			(at 134.112 100.584 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3981,7 +3981,7 @@
 			)
 		)
 		(property "Value" "10uF 10V"
-			(at 109.728 57.912 0)
+			(at 133.858 103.632 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3992,7 +3992,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 108.9152 59.69 0)
+			(at 133.0452 105.41 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4003,7 +4003,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 107.95 55.88 0)
+			(at 132.08 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4014,7 +4014,7 @@
 			)
 		)
 		(property "Description" "Polarized capacitor"
-			(at 107.95 55.88 0)
+			(at 132.08 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4025,7 +4025,7 @@
 			)
 		)
 		(property "LCSC" "C17024"
-			(at 107.95 55.88 0)
+			(at 132.08 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4052,7 +4052,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 73.66 36.83 0)
+		(at 97.79 82.55 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4063,7 +4063,7 @@
 		(fields_autoplaced yes)
 		(uuid "bb229cc8-ab9f-4c3f-b2a6-d9a57a67d0e4")
 		(property "Reference" "#PWR0123"
-			(at 73.66 40.83 0)
+			(at 97.79 86.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4074,7 +4074,7 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 73.66 39.83 0)
+			(at 97.79 85.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4084,7 +4084,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 73.66 36.83 0)
+			(at 97.79 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4095,7 +4095,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 73.66 36.83 0)
+			(at 97.79 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4106,7 +4106,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 73.66 36.83 0)
+			(at 97.79 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4130,7 +4130,7 @@
 	)
 	(symbol
 		(lib_id "Regulator_Linear:AP2112K-3.3")
-		(at 125.73 54.61 0)
+		(at 149.86 100.33 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4141,7 +4141,7 @@
 		(fields_autoplaced yes)
 		(uuid "c955fc45-bf18-4f79-ba14-d260302a231c")
 		(property "Reference" "U2"
-			(at 125.73 45.72 0)
+			(at 149.86 91.44 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4151,7 +4151,7 @@
 			)
 		)
 		(property "Value" "AP2112K-3.3"
-			(at 125.73 48.26 0)
+			(at 149.86 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4161,7 +4161,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-			(at 125.73 46.355 0)
+			(at 149.86 92.075 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4172,7 +4172,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/AP2112.pdf"
-			(at 125.73 52.07 0)
+			(at 149.86 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4183,7 +4183,7 @@
 			)
 		)
 		(property "Description" "600mA low dropout linear regulator, with enable pin, 3.8V-6V input voltage range, 3.3V fixed positive output, SOT-23-5"
-			(at 125.73 54.61 0)
+			(at 149.86 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4194,7 +4194,7 @@
 			)
 		)
 		(property "LCSC" "C23380830"
-			(at 125.73 54.61 0)
+			(at 149.86 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4230,7 +4230,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 157.48 55.88 0)
+		(at 181.61 101.6 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4241,7 +4241,7 @@
 		(fields_autoplaced yes)
 		(uuid "d3e267bc-5867-4682-8933-76728775832d")
 		(property "Reference" "C14"
-			(at 161.29 54.6099 0)
+			(at 185.42 100.3299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4252,7 +4252,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 161.29 57.1499 0)
+			(at 185.42 102.8699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4263,7 +4263,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 158.4452 59.69 0)
+			(at 182.5752 105.41 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4274,7 +4274,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 157.48 55.88 0)
+			(at 181.61 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4285,7 +4285,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 157.48 55.88 0)
+			(at 181.61 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4296,7 +4296,7 @@
 			)
 		)
 		(property "LCSC" "C1590"
-			(at 157.48 55.88 0)
+			(at 181.61 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4323,7 +4323,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 157.48 59.69 0)
+		(at 181.61 105.41 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4334,7 +4334,7 @@
 		(fields_autoplaced yes)
 		(uuid "da8e0b7f-e94a-4e3e-a5e6-0b5ea13148f3")
 		(property "Reference" "#PWR011"
-			(at 157.48 66.04 0)
+			(at 181.61 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4345,7 +4345,7 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 157.48 64.77 0)
+			(at 181.61 110.49 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4355,7 +4355,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 157.48 59.69 0)
+			(at 181.61 105.41 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4366,7 +4366,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 157.48 59.69 0)
+			(at 181.61 105.41 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4377,7 +4377,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 157.48 59.69 0)
+			(at 181.61 105.41 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4401,7 +4401,7 @@
 	)
 	(symbol
 		(lib_id "Power_Protection:PRTR5V0U2X")
-		(at 73.66 24.13 0)
+		(at 97.79 69.85 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4412,7 +4412,7 @@
 		(fields_autoplaced yes)
 		(uuid "e0966f1d-d046-4ae3-b4e1-de7da6cb52b9")
 		(property "Reference" "U16"
-			(at 81.28 10.13 0)
+			(at 105.41 55.85 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4422,7 +4422,7 @@
 			)
 		)
 		(property "Value" "PRTR5V0U2X"
-			(at 81.28 12.63 0)
+			(at 105.41 58.35 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4432,7 +4432,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-143"
-			(at 73.66 24.13 0)
+			(at 97.79 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4443,7 +4443,7 @@
 			)
 		)
 		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PRTR5V0U2X.pdf"
-			(at 73.66 24.13 0)
+			(at 97.79 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4454,7 +4454,7 @@
 			)
 		)
 		(property "Description" "Ultra low capacitance double rail-to-rail ESD protection diode"
-			(at 73.66 24.13 0)
+			(at 97.79 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4465,7 +4465,7 @@
 			)
 		)
 		(property "LCSC" "C5158049"
-			(at 73.66 24.13 0)
+			(at 97.79 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4498,7 +4498,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 111.76 40.64 270)
+		(at 135.89 86.36 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4508,7 +4508,7 @@
 		(dnp no)
 		(uuid "e3aeea00-0ef7-4ab9-a01d-90f7474f3c72")
 		(property "Reference" "#PWR08"
-			(at 107.95 40.64 0)
+			(at 132.08 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4519,7 +4519,7 @@
 			)
 		)
 		(property "Value" "+5V_ISO"
-			(at 115.57 40.6399 90)
+			(at 139.7 86.3599 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4530,7 +4530,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 111.76 40.64 0)
+			(at 135.89 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4541,7 +4541,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 111.76 40.64 0)
+			(at 135.89 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4552,7 +4552,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 111.76 40.64 0)
+			(at 135.89 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
