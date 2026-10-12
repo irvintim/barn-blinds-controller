@@ -231,7 +231,7 @@
 		(uuid "a14a2112-f031-46f0-9086-dd8f929be46c")
 	)
 	(embedded_fonts no)
-	(model "${KIPRJMOD}/SWT0115_020025SSA/SWT0115-020025SSA_revA.STEP"
+	(model "${KIPRJMOD}/lib/3dmodels/SWT0115-020025SSA_revA.STEP"
 		(offset
 			(xyz 0 0 0)
 		)

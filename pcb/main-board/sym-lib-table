@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "New_Library")(type "KiCad")(uri "${KIPRJMOD}/lib/New_Library.kicad_sym")(options "")(descr "Project symbols: U1 DC-DC, J4 Phoenix 1786918, TMP235"))
+)
