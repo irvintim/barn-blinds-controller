@@ -5,14 +5,14 @@
 # shades) and barn-windows.yaml (window shades). They differ ONLY in the
 # substitutions block below.
 #
-# Port of barn-shades-pcb.yaml (which stays as-is: it is the Rev 1.2 board's
-# config and uses Rev 1.2 pins). DO NOT flash barn-shades-pcb.yaml onto a
+# Port of legacy/barn-shades-pcb-rev1.2.yaml (which stays as-is: it is the Rev 1.2 board's
+# config and uses Rev 1.2 pins). DO NOT flash legacy/barn-shades-pcb-rev1.2.yaml onto a
 # Rev 1.3 board -- its "STBY" pin is Rev 1.3's Shade 2 CLOSE, its current
 # sensor pin is now a switch input, and it never drives the PWM pins.
 #
 # Rev 1.3 specifics, all verified on hardware 2026-10-11 (see
-# vsp-wsc4-rev13-bringup-status.md):
-#   - Channel swap: GPIO -> J4 terminal per the table in CLAUDE.md. The ids
+# docs/bringup/vsp-wsc4-rev13-bringup-status.md):
+#   - Channel swap: GPIO -> J4 terminal per docs/decisions/adr-012 (table also in docs/architecture.md). The ids
 #     below are named for the PHYSICAL J4 terminal, not the ISO_SHn_* nets.
 #   - PWM pins must be driven; PWM low = short brake (the shade never moves).
 #   - ACS725 on GPIO5: amps = (V - 1.65) / 0.264 (proven within +2.5 %).
@@ -40,7 +40,7 @@ substitutions:
   # Stall threshold in amps, on the rail-level ACS725 (all channels summed).
   # PLACEHOLDER carried over from Rev 1.2 -- the shade motors' real stall
   # current has never been recorded. Measure it, then set this between the
-  # running current and the stall current. Rev 1.4 item 3 in vsp-wsc4-todo.md.
+  # running current and the stall current. Rev 1.4 item 3 in docs/todo.md.
   stall_amps: "1.4"
 
   # Soft-start: PWM ramps 0 -> 100 % in ramp_steps x ramp_step_ms.

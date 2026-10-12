@@ -4,7 +4,7 @@
 
 This is the "where did I leave off" file. The step-by-step test plan is
 `vsp-wsc4-rev13-bringup-procedure.md`; the config is
-`vsp-wsc4-rev13-bringup.yaml`. Everything needed is git-tracked — nothing
+`firmware/esphome/vsp-wsc4-rev13-bringup.yaml`. Everything needed is git-tracked — nothing
 important lives only on one machine.
 
 ---
@@ -22,8 +22,8 @@ product goes general-purpose (Rev 1.4 items 2 + 4 together, a real design cycle)
 
 | Unit | Board | Config | Web page (bench LAN) | Shades on J4 7/17, 8/18, 9/19, 10/20 |
 |---|---|---|---|---|
-| `barn-overhead` | 2 | `barn-overhead.yaml` | http://10.10.0.101/ | Front, Middle, Back, Workshop |
-| `barn-windows` | 3 | `barn-windows.yaml` | http://10.10.0.141/ | Bar, Back, Front, Workshop |
+| `barn-overhead` | 2 | `firmware/esphome/barn-overhead.yaml` | http://10.10.0.101/ | Front, Middle, Back, Workshop |
+| `barn-windows` | 3 | `firmware/esphome/barn-windows.yaml` | http://10.10.0.141/ | Bar, Back, Front, Workshop |
 
 At the barn they join the barn WiFi (container secrets) and get new IPs; the
 fallback AP is "Barn Overhead Shades Fallback" / "Barn Window Shades
@@ -52,7 +52,7 @@ full run.
 
 Firmware items found today (not board items): switch debounce in all configs,
 soft-start, Tasmota switch inputs + stall detection. See the Product Track list
-in `vsp-wsc4-todo.md`.
+in `docs/todo.md`.
 
 ---
 
@@ -320,7 +320,7 @@ in Tasmota. Not a board item.
 **Passed:** Shade 1 ±11.31 V, 2 ±11.47 V, 3 ±11.10 V, 4 ±11.36 V, each driving
 only its own J4 pair, opposite polarity open/close, `ShutterStop` works, no
 restarts. Tasmota 15.6.0.3. Full procedure and template:
-`tasmota-setup-commands.txt`. Things that cost time, in order:
+`firmware/tasmota/tasmota-setup-commands.txt`. Things that cost time, in order:
 
 1. **Cannot OTA from ESPHome to Tasmota** — partition layout mismatch (ESPHome
    app slots ~1.75 MB, Tasmota needs safeboot + app + FS). Serial flash only.
@@ -381,7 +381,7 @@ safeboot looped the same way. Looks exactly like a firmware crash. An FT232R's
 ## Working on a different machine
 
 **Normal path (what is actually used):** `git pull`, open
-`vsp-wsc4-rev13-bringup.yaml` in the IDE, copy the whole file, paste it into the
+`firmware/esphome/vsp-wsc4-rev13-bringup.yaml` in the IDE, copy the whole file, paste it into the
 ESPHome Docker dashboard's web editor, Save + Install. See Finding 9 for the
 traps that come with this.
 
@@ -390,8 +390,8 @@ traps that come with this.
 ```bash
 git pull
 python3 -m venv ~/.venvs/esphome && ~/.venvs/esphome/bin/pip install esphome
-cp docs/project-context/secrets.yaml.example docs/project-context/secrets.yaml  # then edit
-~/.venvs/esphome/bin/esphome run docs/project-context/vsp-wsc4-rev13-bringup.yaml
+cp firmware/esphome/secrets.yaml.example firmware/esphome/secrets.yaml  # then edit
+~/.venvs/esphome/bin/esphome run firmware/esphome/vsp-wsc4-rev13-bringup.yaml
 ```
 
 - The config now joins your LAN via `!secret`, with the **`WSC4 Bringup`** /
@@ -414,7 +414,7 @@ cp docs/project-context/secrets.yaml.example docs/project-context/secrets.yaml  
 
 ## For Rev 1.4
 
-**The canonical Rev 1.4 list lives in `vsp-wsc4-todo.md` under
+**The canonical Rev 1.4 list lives in `docs/todo.md` under
 "Rev 1.4 PCB Changes".** Add new items there, not here, so the two do not
 drift. As of 2026-10-11 none of them is required for the shade-controller use
 case — see "THE NEXT THING TO DO" above.

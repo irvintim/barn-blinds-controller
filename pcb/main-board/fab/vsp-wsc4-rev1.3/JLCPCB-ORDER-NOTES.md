@@ -80,7 +80,7 @@ C7471896 is **already a 105 °C part**: 1000 µF 25 V, –55~+105 °C, 2000 h @ 
 60 mΩ ESR, 1.19 A ripple, D10×L10.5 mm. Duty-cycle-weighted for an attic that works out
 to **~15 year service life**, and ripple self-heating is negligible because these only
 see current during the brief motor runs. **Leave them in.** Full reasoning in
-CLAUDE.md → "Hot-attic reliability notes".
+ADR-015 and `docs/architecture.md` → "Thermal (attic)".
 
 ## Placement preview / photo confirmation — what to actually look at
 

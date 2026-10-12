@@ -1,6 +1,6 @@
 # VSP-WSC-4 Rev 1.3 — Bring-up procedure
 
-Companion to `vsp-wsc4-rev13-bringup.yaml`. Written 2026-08-27, boards received same day.
+Companion to `firmware/esphome/vsp-wsc4-rev13-bringup.yaml`. Written 2026-08-27, boards received same day.
 
 Split into **Stage 1 (bench, nothing connected)** and **Stage 2 (lab, I/O connected)**.
 Stage 1 needs only a USB cable and can be done at a desk. Do not skip to Stage 2 —
@@ -143,7 +143,7 @@ is not probing the port (`mmcli -L`), though it was **not** the problem here.
 ### 1.1 Flash
 
 ```bash
-esphome run docs/project-context/vsp-wsc4-rev13-bringup.yaml
+esphome run firmware/esphome/vsp-wsc4-rev13-bringup.yaml
 ```
 
 Hold **BOOT (SW2)**, tap **RESET (SW1)**, release BOOT if it does not enter
@@ -181,7 +181,7 @@ Logs come over the same USB port via the S3's USB-Serial-JTAG peripheral
 (`hardware_uart: USB_SERIAL_JTAG` in the config — without it you get silence).
 
 ```bash
-esphome logs docs/project-context/vsp-wsc4-rev13-bringup.yaml
+esphome logs firmware/esphome/vsp-wsc4-rev13-bringup.yaml
 ```
 
 **Pass:** you see `=== VSP-WSC-4 Rev 1.3 bring-up firmware booted ===` followed
@@ -195,7 +195,7 @@ which is why the config sets `flash_size: 4MB`. A boot loop right after flashing
 is the classic symptom of that override being missing or wrong.
 
 There should be **no PSRAM line** in the log. If you see PSRAM being initialised,
-the wrong module got placed — see CLAUDE.md "ESP32 variant selection" before
+the wrong module got placed — see ADR-002 (docs/decisions) before
 touching anything.
 
 ### 1.4 WiFi + web UI
@@ -284,7 +284,7 @@ Do Stage 1 first, on the same board, in the same session.
    - **PWM must be above 0 or nothing moves**, whatever the direction pins say.
      It defaults to 0 in this config.
    - The entity names follow the **physical J4 terminal**, not the schematic net
-     names, which are crossed 1↔2 / 3↔4. See "Motor channel cross" in CLAUDE.md.
+     names, which are crossed 1↔2 / 3↔4. See ADR-012 (docs/decisions).
      If a correctly-wired motor does not move, try the paired channel — a motor
      on SHADE4 responds to `SH3_*` in net terms.
 3. **Check current magnitude against a clamp meter** before trusting the stall

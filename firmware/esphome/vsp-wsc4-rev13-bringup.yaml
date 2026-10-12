@@ -6,8 +6,8 @@
 # For the real thing see vsp-wsc4-standalone.yaml (currently still Rev 1.2
 # pinout -- do not flash that to a Rev 1.3 board, every motor GPIO moved).
 #
-# Pinout source of truth: "Rev 1.3 GPIO Map" in vsp-wsc4-todo.md, plus the
-# GPIO6/GPIO7 LED assignment from CLAUDE.md (added after that map was written).
+# Pinout source of truth: "Rev 1.3 GPIO Map" in docs/todo.md, plus the
+# GPIO6/GPIO7 LED assignment from docs/architecture.md (added after that map was written).
 #
 # SAFETY: motor STBY defaults OFF, so the TB6612FNG outputs are in high-Z at
 # boot. Nothing can drive a motor until you deliberately flip "Motor Enable".
@@ -17,7 +17,7 @@
 # editor, then Save + Install. Consequences worth knowing:
 #
 #   * secrets.yaml lives INSIDE the container, not in this repo. The repo's
-#     docs/project-context/secrets.yaml is gitignored and never reaches the
+#     firmware/esphome/secrets.yaml is gitignored and never reaches the
 #     build machine. `!secret wifi_ssid` resolves against the container's copy.
 #   * There is no git on that container. Every paste overwrites the previous
 #     config with no history -- if you hand-edit in the web editor, the next
@@ -69,8 +69,8 @@ esp32:
   framework:
     type: esp-idf
 
-# NOTE: deliberately no `psram:` block. The N4 has none. See CLAUDE.md
-# "ESP32 variant selection" before ever changing the module part number.
+# NOTE: deliberately no `psram:` block. The N4 has none. See docs/decisions/adr-002
+# before ever changing the module part number.
 
 wifi:
   # AP-ONLY BY DEFAULT -- deliberately needs no credentials, so a board fresh
@@ -427,7 +427,7 @@ sensor:
       - lambda: "return (x - 1.65) / 0.264;"
 
   # ESP32-S3 die temperature. Useful on its own, and worth comparing against
-  # the TMP235 for the hot-attic thermal question in CLAUDE.md.
+  # the TMP235 for the hot-attic thermal question in docs/architecture.md.
   - platform: internal_temperature
     name: "ESP32 Die Temperature"
     update_interval: 10s

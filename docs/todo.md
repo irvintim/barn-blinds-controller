@@ -49,13 +49,13 @@ Done and committed (schematic side):
 Done 2026-08-06/07 (PCB / GUI work):
 - [x] Placed C40-C43, ~1.8-2.6mm from each TVS VCC pin (C40→U12, C41→U13, C42→U14, C43→U15).
 - [x] Widened `+5V_OR` to 0.5mm (one negligible 0.565mm stub still at 0.2mm, not worth chasing) and `USB_VBUS` to 0.4mm.
-- [x] Moved U16 nearer J2 (center-to-center 6.1mm→4.0mm). Still B.Cu vs J2's F.Cu — accepted trade-off, see "PICK UP HERE" above.
+- [x] Moved U16 nearer J2 (center-to-center 6.1mm→4.0mm). Still B.Cu vs J2's F.Cu — accepted trade-off, see ADR-009.
 - [x] J2 LCSC set to C397452 (same Micro-USB part as zen32-esphome). J4 LCSC set to C6652293 — intentional: pre-purchased JLCPCB inventory part, number still needed so JLCPCB places it.
 - [x] D10/D11 silkscreen reference overlap fixed.
 - [x] Regenerated gerbers/BOM/CPL — Fabrication Toolkit re-run 2026-08-07 12:40 as `VSP-WSC-4_1.3`, fully verified (see below). `gerbers/` and `gerbers-v1.1/` remain stale v1.1-era folders.
-- [x] **U1 assembly remark — deliberately skipped.** Not an oversight: JLCPCB's engineer reaches out with questions on every run of this board anyway, and it has been placed several times without one. Answer text kept in `production/JLCPCB-ORDER-NOTES.md`. **Do not re-flag this.**
+- [x] **U1 assembly remark — deliberately skipped.** Not an oversight: JLCPCB's engineer reaches out with questions on every run of this board anyway, and it has been placed several times without one. Answer text kept in `pcb/main-board/fab/vsp-wsc4-rev1.3/JLCPCB-ORDER-NOTES.md`. **Do not re-flag this.**
 
-### Stock-driven part swaps (2026-08-07) — schematic-only, same footprints, PICK UP HERE has full detail:
+### Stock-driven part swaps (2026-08-07) — schematic-only, same footprints, see `architecture.md` "Rev 1.3 as built":
 - [x] C10: 100uF 25V (C2840614, OOS) → 100uF 16V (C7432790, HGC1210R5107M160NSVK) — same 1210 footprint.
 - [x] U12-U16: PRTR5V0U2X LCSC C12333 (OOS) → C5158049 (UMW/Youtai) — same SOT-143 footprint.
 - [x] **J3 marked DNP.** Its LCSC (C492404) was a leftover 5-pin part mismatched against the 7-pin footprint since the RTS/DTR rework grew it from 5→7 pins; a real 7-pin part wasn't in stock either, and J3 is only a backup flashing path (native USB is primary) — not worth chasing for this run. Fix the LCSC before ever un-DNP'ing it. Stale "01x05" Description text (same root cause) corrected to "01x07."
@@ -93,7 +93,7 @@ On the placement/photo confirmations, scrutinise the parts whose LCSC was *not* 
 ## Rev 1.4 PCB Changes
 
 **Canonical list.** Opened 2026-09-03 from Rev 1.3 bring-up. Background and
-evidence for most of these is in `vsp-wsc4-rev13-bringup-status.md`.
+evidence for most of these is in `bringup/vsp-wsc4-rev13-bringup-status.md`.
 
 **Decision state (2026-10-11): none of these forces a spin for the shade
 controller.** Full motor-less bench bring-up passed, including Tasmota on all
@@ -252,7 +252,7 @@ Reassigned to eliminate crossed leads during PCB layout. Verified against the ES
 > **WARNING (2026-08-28):** the `ISO_SHn_*` names below are the *net* names, and
 > they do **not** match the SHADEn terminal each one drives. The A/B channels are
 > crossed on both TB6612FNGs, swapped within each pair (1↔2, 3↔4). See "Motor
-> channel cross" in CLAUDE.md for the correct GPIO → J4 terminal table. Firmware
+> channel cross" (ADR-012, table in `architecture.md`) for the correct GPIO → J4 terminal table. Firmware
 > must use that table, not these names.
 
 | Pin | GPIO | Function | Notes |
@@ -305,7 +305,7 @@ GND (pins 1, 40, 41) and 3V3 (pin 2) not listed above.
 - [ ] **Soft-start PWM ramp on every motor start** — never energise a bridge at 100 % duty from rest. Inrush equals stall current, and on Rev 1.3 that is what browned out the ESP32 and killed board 1's U8 (Rev 1.4 item 2). Needed in the bring-up, production ESPHome and Tasmota configs.
 - [ ] **Apply the SHADEn channel swap** in the production ESPHome config and in Tasmota until the Rev 1.4 net rename ships — see "Rev 1.4 PCB Changes" item 1 for the GPIO table.
 - [ ] **Switch debounce in every config** — none has one. ESPHome `delayed_on_off: 50ms` on all 8 inputs; Tasmota `SwitchDebounce`. Bounce seen on the bench 2026-10-11.
-- [x] **Tasmota: all 4 shutters verified on Rev 1.3** (2026-10-11, resistive loads). Template-based, no Berry — see `tasmota-setup-commands.txt`.
+- [x] **Tasmota: all 4 shutters verified on Rev 1.3** (2026-10-11, resistive loads). Template-based, no Berry — see `firmware/tasmota/tasmota-setup-commands.txt`.
 - [ ] Tasmota: add the 8 switch inputs to the template as **Switch** (internal pull-up, not Switch_n), plus debounce and shutter button/switch mode.
 - [ ] Tasmota: stall detection on the ACS725 (GPIO5, ADC) and soft-start — Tasmota switches the bridge straight to 100 %.
 - [ ] Validate Shutter module with 4 real shades (timing calibration)
@@ -346,7 +346,7 @@ Goal: support two mounting options from one enclosure — wall mount (keyholes) 
 - Hole pattern: Ø2.75mm, 25mm center-to-center spacing (50mm total span), 3 holes in a line
 - Clip is 43mm L × 27.5mm H × 7.4mm deep — adds only 7.4mm to enclosure depth
 
-**FreeCAD changes needed in project-case-rev2.FCStd:**
+**FreeCAD changes needed in enclosure/rev2/project-case-rev2.FCStd:**
 - [ ] Increase Z height to accommodate 26.75mm mated terminal block (header 13.5mm + plug 13.25mm)
 - [ ] Move USB (now Micro-USB, not USB-C — see Rev 1.3 schematic changes above) cutout from DIN-rail-side wall to top or bottom edge
 - [ ] Move status LED cutouts accordingly

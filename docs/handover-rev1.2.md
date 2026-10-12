@@ -1,4 +1,10 @@
-# VSP-WSC-4 Window Shade Controller — Project Handover
+# VSP-WSC-4 Window Shade Controller — Project Handover (Rev 1.2 snapshot)
+
+> **Historical.** This is the Rev 1.2-era handover, kept for its record of
+> Rev 1.2 pins and the original Tasmota investigation. Current state is in
+> [`architecture.md`](architecture.md); decisions are in [`decisions/`](decisions/README.md).
+> File names below are as they were then. The Rev 1.2 ESPHome config is now
+> `firmware/esphome/legacy/barn-shades-pcb-rev1.2.yaml`.
 
 ## Project Overview
 

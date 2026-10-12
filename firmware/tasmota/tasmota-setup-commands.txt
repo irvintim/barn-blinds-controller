@@ -118,7 +118,7 @@ ShutterName4 Shade 4
 #
 # NOT YET HANDLED IN TASMOTA: soft-start (Tasmota switches the bridge straight
 # to 100 %), stall detection on the ACS725 (GPIO5), and switch debounce. See the
-# Product Track firmware list in vsp-wsc4-todo.md.
+# Product Track firmware list in docs/todo.md.
 
 # -----------------------------------------------------------------------------
 # Step 8: OTA URL for ESPHome migration (once firmware hosting exists)

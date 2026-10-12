@@ -31,7 +31,12 @@ Recommended options:
 - **Exclude DNP components from BOM**: checked
 - **Generate Backups**: checked
 
-Click **Generate**. The plugin outputs gerbers, BOM, and CPL all at once into your project directory.
+Click **Generate**. The plugin outputs gerbers, BOM, and CPL all at once into `pcb/main-board/production/`.
+
+That folder is gitignored scratch. Once an order is placed, copy the files it was
+built from into `fab/vsp-wsc4-revX.Y/` (zip, `_bom.csv`, `_positions.csv`,
+`_designators.csv`, `netlist.ipc`, plus any JLCPCB-side BOM export and order notes),
+commit, and tag the commit `vX.Y-fab` (ADR-016).
 
 ### 3. Upload to JLCPCB
 
