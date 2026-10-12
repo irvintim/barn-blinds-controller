@@ -1,43 +1,45 @@
-# KiCad backup, cache, and per-user files
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / agent local state
+.idea/
+.vscode/
+.history/
+.junie/
+.claude/settings.local.json
+
+# KiCad - transient/regenerable, not design source
 *.bak
-fp-info-cache
 *.kicad_sch-bak
+*.kicad_pcb-bak
 *.kicad_prl
 ~*.lck
 _autosave-*
+*-backups/
+fp-info-cache
+*-drc.rpt
+*-erc.rpt
 
-# FreeCAD backups
+# Fabrication Toolkit writes into pcb/main-board/production/ on every run.
+# That is scratch: copy the outputs you actually order from into
+# pcb/main-board/fab/vsp-wsc4-revX.Y/ and commit them there.
+pcb/main-board/production/
+
+# FreeCAD backups/autosave - git history is the backup
 *.FCBak
+*.FCStd1
 
-# Editor/IDE local state
-.history/
-.idea/
+# ESPHome build output and secrets (copy secrets.yaml in by hand, never commit it)
+firmware/esphome/.esphome/
+firmware/esphome/secrets.yaml
+secrets.yaml
 
-# Local backup folders
-barn-blinds-controller-backups/
-production/backups/
-
-# Vendor libraries — install via KiCad Plugin & Content Manager per machine,
-# do not commit (see kicad-multi-machine-setup notes)
-espressif-kicad-addon.zip
-espressif-kicad-library/
-
-# Downloaded vendor archives / old project snapshots
-1597DIN2GY.zip
-KiJLC-main.zip
-barn-blinds-controller.zip
-barn-blinds-controller-v1.1.zip
-
-# Old export scratch (untracked in cleanup 2026-07-07)
-pcb_1.step
-Unnamed-Component_Compound*
-Unnamed-PCB_Compound*
-
-# Stock upstream Tasmota release binary — redownload from
+# Stock upstream Tasmota release binary - redownload from
 # https://ota.tasmota.com/tasmota32/release/tasmota32s3.factory.bin
 tasmota32s3.factory.bin
 
-# ESPHome secrets and build artifacts
-secrets.yaml
-docs/project-context/secrets.yaml
-.esphome/
+# Python venv for esphome/esptool
+venv/
+.venv/
