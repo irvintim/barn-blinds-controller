@@ -105,6 +105,17 @@ Key config notes:
 
 **Status: Shutters 1 & 2 working, Shutters 3 & 4 not working**
 
+> **Correction (2026-10-11), and Rev 1.3 status.** The GPIO43/44 explanation
+> below does not fit the evidence: GPIO43/44 carried Shades **1 and 2**, which
+> *worked*. Shade 3 was on **GPIO35/36** — and Tasmota's generic ESP32-S3 module
+> marks GPIO33-37 as `GPIO_NONE` (reserved for octal PSRAM), so the Module page
+> hides them. That is the **likely** real cause of the Shutter 3 failure. (Shade
+> 4, on GPIO38/39, is not explained by either; Rev 1.2 cannot be retested.)
+> **On Rev 1.3 all four shutters are verified working under Tasmota**, via a
+> template rather than the Module page. Current procedure:
+> `tasmota-setup-commands.txt`. The Berry scripts referenced below were removed
+> on 2026-10-11 (Rev 1.2 pins; recoverable from `release/v1.2`).
+
 **Root cause of Shutters 3 & 4 failure:**
 GPIO43 (Shade 2 open) and GPIO44 (Shade 1 open) are U0TX/U0RX. Tasmota's serial console holds these pins even with SerialLog 0 and SetOption65 1. They cannot be used as relay outputs while Tasmota serial is active.
 

@@ -1,42 +1,97 @@
-# VSP-WSC-4 Tasmota Setup Commands
-# Run these in the Tasmota console after flashing tasmota32s3cdc
-# Commands can be pasted one at a time or run via the console
+# VSP-WSC-4 Tasmota Setup Commands -- Rev 1.3 boards
+# Verified on hardware 2026-10-11 (board 2, Tasmota 15.6.0.3): all four
+# shutters drive only their own J4 pair, opposite polarity open vs close.
+#
+# NO BERRY SCRIPT IS NEEDED. Motor pins are plain Tasmota relays; the PWM and
+# STBY pins are "Output Hi". The old autoexec.be scripts were Rev 1.2 pins and
+# have been removed (recoverable from the release/v1.2 branch).
+#
+# Run these in Tools -> Console, ONE LINE AT A TIME, waiting for each restart.
 
-# Step 1: Apply the device template
-# This sets the LED pin only -- motor GPIOs are controlled by Berry
-Template {"NAME":"Vesprio WSC-4","GPIO":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,416,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"FLAG":0,"BASE":1}
+# -----------------------------------------------------------------------------
+# Step 0: Flash
+# -----------------------------------------------------------------------------
+# Serial flash only. You CANNOT OTA from ESPHome to Tasmota: ESPHome's ~1.75 MB
+# app slots are smaller than the Tasmota app, and Tasmota needs its own
+# partition layout (safeboot + app + FS). Use https://tasmota.github.io/install/
+# with "Erase device" ticked, over native USB (J2) or a 3.3 V USB-TTL adapter on
+# J3 (pin1 U0TXD -> adapter RX, pin2 U0RXD -> adapter TX, pin4 GND; leave pin3
+# +3.3V_ISO unconnected when the board has 12 V). Over J3 without RTS/DTR wired:
+# hold BOOT (SW2), tap RESET (SW1), release BOOT.
+
+# -----------------------------------------------------------------------------
+# Step 1: Apply the template -- do NOT use Configuration -> Module
+# -----------------------------------------------------------------------------
+# Tasmota's generic ESP32S3 module marks GPIO33-37 as GPIO_NONE because on
+# octal-PSRAM modules (R8/R16V) those pins belong to the PSRAM. The Module page
+# therefore HIDES GPIO35/36/37 -- which this board uses for STBY and Shade 2.
+# The N4 has no PSRAM, so they are ordinary GPIOs; a TEMPLATE can assign them
+# (Configuration -> Template shows them in red as a warning only).
+#
+# The channel swap (net names vs J4 terminal) is already applied in this map:
+#   Relay1 GPIO48 Shade1 OPEN   Relay2 GPIO47 Shade1 CLOSE   (J4 7/17)
+#   Relay3 GPIO36 Shade2 OPEN   Relay4 GPIO37 Shade2 CLOSE   (J4 8/18)
+#   Relay5 GPIO41 Shade3 OPEN   Relay6 GPIO40 Shade3 CLOSE   (J4 9/19)
+#   Relay7 GPIO42 Shade4 OPEN   Relay8 GPIO2  Shade4 CLOSE   (J4 10/20)
+#   Output Hi: GPIO35 (STBY), GPIO21/38/39/1 (Shade 1/2/3/4 PWM -- PWM low =
+#   short brake, so these MUST be high or the shade never moves)
+#
+# Must be "Relay", never "Relay_i" -- inverted relays drive the wrong direction.
+# ESP32-S3 template GPIO array = 38 entries: GPIO0-21, then GPIO33-48.
+# Codes: Relay n = 224+(n-1), Output Hi = 3840.
+Template {"NAME":"VSP-WSC-4 Rev1.3 bench","GPIO":[0,3840,231,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3840,0,0,3840,226,227,3840,3840,229,228,230,0,0,0,0,225,224],"FLAG":0,"BASE":1}
 Module 0
 
+# Verify after the restart:
+#   Module   -> {"Module":{"0":"VSP-WSC-4 Rev1.3 bench"}}
+#   Power0   -> POWER1..POWER8, all OFF
+# If INFO1 at boot still says "Module":"ESP32S3", the template is NOT active.
+#
+# Not yet in the template (bench config): the 8 switch inputs and the LEDs.
+# Switch inputs need "Switch" (internal pull-up), NOT "Switch_n" (no pull-up)
+# -- there are no external pull-ups. Add debounce (SwitchDebounce) when adding.
+
+# -----------------------------------------------------------------------------
 # Step 2: Enable shutters
+# -----------------------------------------------------------------------------
 SetOption80 1
+Restart 1
 
-# Step 3: Set up 8 virtual relays for 4 shades (2 relays per shade)
-# Relays 1&2 = Shade 1, 3&4 = Shade 2, 5&6 = Shade 3, 7&8 = Shade 4
-# Virtual relays are created by the Berry script via devices_present
-
-# Step 4: Set interlocks so open and close can't be on simultaneously
+# -----------------------------------------------------------------------------
+# Step 3: Interlock -- ONLY AFTER the template is active
+# -----------------------------------------------------------------------------
+# Tasmota silently drops relay numbers above the current relay count, so running
+# this before the template exists saves EMPTY groups with no error. Send the two
+# lines separately; the groups command does NOT switch interlock on by itself.
+# Symptom if wrong: "SHT: ERROR: Shtr1 Relays are not in INTERLOCK ... Shutter
+# DISABLE" at boot.
 Interlock 1,2 3,4 5,6 7,8
-Interlock 1
+Interlock ON
+# Expect: {"Interlock":"ON","Groups":"1,2 3,4 5,6 7,8"}
 
-# Step 5: Set ShutterMode and assign relay pairs
-ShutterMode 1
-ShutterRelay1 1
-ShutterRelay2 3
-ShutterRelay3 5
-ShutterRelay4 7
+# -----------------------------------------------------------------------------
+# Step 4: Shutter relays and durations
+# -----------------------------------------------------------------------------
+Backlog ShutterRelay1 1; ShutterRelay2 3; ShutterRelay3 5; ShutterRelay4 7
 
-# Step 6: Set default open/close durations (seconds)
-# Adjust these after timing your actual motors
-ShutterOpenDuration1 60
-ShutterCloseDuration1 60
-ShutterOpenDuration2 60
-ShutterCloseDuration2 60
-ShutterOpenDuration3 60
-ShutterCloseDuration3 60
-ShutterOpenDuration4 60
-ShutterCloseDuration4 60
+# Bench value (10 s keeps test resistors cool). Real shades: calibrate (Step 7).
+Backlog ShutterOpenDuration1 10; ShutterCloseDuration1 10; ShutterOpenDuration2 10; ShutterCloseDuration2 10; ShutterOpenDuration3 10; ShutterCloseDuration3 10; ShutterOpenDuration4 10; ShutterCloseDuration4 10
 
-# Step 7: Set friendly names
+Restart 1
+# Good boot: "SHT: ShutterMode: 1" printed FOUR times (one per shutter), no
+# INTERLOCK error, and a SENSOR line listing Shutter1..Shutter4.
+# The web UI "Restarting..." page sometimes never redirects -- just reload.
+
+# -----------------------------------------------------------------------------
+# Step 5: Test
+# -----------------------------------------------------------------------------
+# Tasmota assumes every shutter starts at position 0 (closed), so a Close sent
+# first does nothing -- send Open first.
+#   ShutterOpen1 / ShutterClose1 / ShutterStop1   (and 2, 3, 4)
+
+# -----------------------------------------------------------------------------
+# Step 6: Friendly names (optional)
+# -----------------------------------------------------------------------------
 FriendlyName1 Shade 1 Open
 FriendlyName2 Shade 1 Close
 FriendlyName3 Shade 2 Open
@@ -51,35 +106,23 @@ ShutterName2 Shade 2
 ShutterName3 Shade 3
 ShutterName4 Shade 4
 
-# Step 8: Calibrate motor timing (run after physical installation)
-#
-# For each shade, run the calibration sequence:
-#
+# -----------------------------------------------------------------------------
+# Step 7: Calibrate motor timing (after physical installation)
+# -----------------------------------------------------------------------------
 #   ShutterSetClose1     -- tell Tasmota shade 1 is currently fully closed
-#   ShutterOpen1         -- shade will open fully, Tasmota times it automatically
+#   ShutterOpen1         -- shade opens fully, Tasmota times it
 #   ShutterSetOpen1      -- tell Tasmota shade 1 is now fully open
-#   ShutterClose1        -- shade will close fully, Tasmota times it automatically
+#   ShutterClose1        -- shade closes fully, Tasmota times it
 #   ShutterSetClose1     -- confirm fully closed, calibration complete
+# Repeat for shades 2, 3, 4. Re-run whenever a motor or shade is replaced.
 #
-# Repeat with ShutterSetClose2/ShutterOpen2 etc. for shades 2, 3, 4.
-# After calibration, open/close durations are saved automatically.
-# Re-run any time a motor or shade is replaced.
+# NOT YET HANDLED IN TASMOTA: soft-start (Tasmota switches the bridge straight
+# to 100 %), stall detection on the ACS725 (GPIO5), and switch debounce. See the
+# Product Track firmware list in vsp-wsc4-todo.md.
 
-# Step 9: Upload autoexec.be via Tools > Manage File System
-# The Berry script handles all GPIO motor control
-
-# Step 10: Set OTA URL for ESPHome migration
-# This allows users to upgrade to ESPHome directly from the Tasmota web UI
-# without needing USB or UART access.
-#
-# To migrate to ESPHome:
-#   1. Go to Tasmota web UI > Firmware Upgrade
-#   2. Either upload the ESPHome .factory.bin directly
-#      OR enter the OTA URL and click Start Upgrade
-#
+# -----------------------------------------------------------------------------
+# Step 8: OTA URL for ESPHome migration (once firmware hosting exists)
+# -----------------------------------------------------------------------------
 # OtaUrl https://firmware.vesprio.io/wsc4/esphome-wsc4-factory.bin
-#
-# (uncomment and update URL once firmware hosting is set up)
-
-# Step 11: Restart
-Restart 1
+# Note: Tasmota -> ESPHome by OTA has the same partition-layout problem as the
+# reverse direction; verify before promising it to end users.

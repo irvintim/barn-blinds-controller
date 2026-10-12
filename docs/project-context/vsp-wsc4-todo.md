@@ -95,6 +95,12 @@ On the placement/photo confirmations, scrutinise the parts whose LCSC was *not* 
 **Canonical list.** Opened 2026-09-03 from Rev 1.3 bring-up. Background and
 evidence for most of these is in `vsp-wsc4-rev13-bringup-status.md`.
 
+**Decision state (2026-10-11): none of these forces a spin for the shade
+controller.** Full motor-less bench bring-up passed, including Tasmota on all
+four shutters. Reorder Rev 1.3 as-is if more boards are needed. Rev 1.4 becomes
+worth doing when the product goes general-purpose — then items 2 + 4 are the
+real design work, and 1, 5, 6 ride along.
+
 ### 1. Rename `ISO_SHn_*` / `SHn_*` nets to match the SHADEn terminal — PURE RENAME, zero copper
 Highest value for the least effort. Today the net names lie: `SH3_*` reaches
 the SHADE4 terminal and `SH4_*` reaches SHADE3, with the same 1<->2 swap on U9.
@@ -170,8 +176,9 @@ rating to chase stalls.
 The problem is that the mechanism which *is* supposed to do the job has never
 been shown to work:
 
-- **The divisor is wrong.** `/0.4` (ACS723) must become **`/0.264`** (ACS725).
-  Until that is corrected the current reading is simply wrong.
+- **The divisor — PROVEN 2026-10-11.** `/0.264` (ACS725) reads within +2.5 %
+  over 0-1.83 A; fitted sensitivity 0.271 V/A, offset 1.647 V, linear within
+  ±2 mV (status log Finding 10). Keep `/0.264`.
 - **The 1.4 A threshold is unvalidated and probably far too high.** A
   2026-09-03 recollection put a hand-held full stall on the shade motors "well
   under 1 A each" — but that is **fuzzy memory, not data**, and the original
@@ -179,16 +186,15 @@ been shown to work:
   even roughly right, the threshold never fires and the designed stall
   protection has never functioned. **Re-measure; do not size from the
   recollection.**
-- **The resolution may not support a low threshold.** At 0.264 V/A a 0.7 A stall
-  is only ~185 mV above the 1.65 V quiescent — a small signal on a 12-bit ADC
-  with WiFi running. Confirm the noise floor during the resistive-load
-  calibration. If it is marginal, per-channel current sense (item 2) stops being
-  a nice-to-have.
+- **Resolution — CONFIRMED ADEQUATE 2026-10-11.** Noise is ±10 mV ≈ ±0.04 A
+  (5-sample average) idle and under 1.83 A, so a 0.7 A stall (~185 mV) is ~30×
+  the noise floor. Per-channel sense is not needed for *accuracy*; it remains
+  an item-2 option for fault *attribution*.
 - **One rail-level sensor cannot attribute a fault to a channel**, nor see a
   single channel stall while others run. See item 2.
 
-**Next action, needs no motor:** prove the `/0.264` divisor against a known
-resistive load, and characterise the noise floor at the same time.
+**Hardware side is done.** What remains is choosing the threshold, which needs
+the real shade motors' measured stall current — no board change.
 
 ### 4. Hold-up for U1 so motor inrush cannot brown out the ESP32
 U1's only input reservoir is **C9, 22 uF** on `+12V_RAW`, and the ISO side has
@@ -200,8 +206,17 @@ That is not just an uptime problem: **each brownout shut the bridge off
 instantly with energy still in the windings, and the resulting flyback is what
 killed U8.** Preventing MCU brownout is driver protection.
 
-Proposed: a small series diode plus a local bulk cap on U1's input, so the
-DC-DC feeds from a reservoir the motor rail cannot pull down.
+**Quantified 2026-10-11 (status log Finding 11):** U1 (B1205S) is unregulated,
+so `+5V_ISO` = 0.42 × `+12V_RAW` (measured, idle and loaded). The ESP32 needs
+`+5V_ISO` > ~3.55 V, so it **browns out when `+12V_RAW` drops below ~8.5 V**.
+Shade motors should not pull a 3 A supply that low; a high-inrush motor will.
+So this matters together with item 2, not on its own.
+
+Options:
+- a small series diode plus a local bulk cap on U1's input, so the DC-DC feeds
+  from a reservoir the motor rail cannot pull down; or
+- a **regulated** isolated converter in U1's footprint, which holds 5 V across
+  a wide input range and makes the reservoir far more effective.
 
 ### 5. Add test points on `+12V` and `+3.3V_MOTOR`, and label ALL test points with their net name
 The two rails most worth probing during bring-up both currently require
@@ -216,6 +231,17 @@ Also worth a labelled pad at C33/C34: probing **J1 pin 1 -> GND_MOTOR reads
 open even on a board with a hard 12 V short**, because `Net-(D1-A)` shows D1 is
 a *series* reverse-polarity diode between J1 and `+12V_RAW`, so the meter sees
 its blocking direction. That cost real debugging time on 2026-09-03.
+
+### 6. U7 (AMS1117, 12 V → `+3.3V_MOTOR`) is the board's hot spot — nice-to-have
+Measured 2026-10-11 (status log Finding 12): U7 runs **+19 °F over ambient at
+idle**, the hottest part on the board, and it heats the ACS725 and the TMP235
+next to it — so "Board Temperature" reads U7, not board air. Within the part's
+rating; not a reason to spin on its own.
+
+Options: a small 12 V → 3.3 V buck in U7's place, or a series dropper resistor
+ahead of U7 sized for the worst-case motor-side logic current. **Not** "feed it
+from 5 V" — the only 5 V is `+5V_ISO`, across the isolation barrier. If the
+TMP235 is meant to report enclosure air, move it away from U7 at the same time.
 
 ---
 
@@ -278,9 +304,11 @@ GND (pins 1, 40, 41) and 3V3 (pin 2) not listed above.
 ### Firmware:
 - [ ] **Soft-start PWM ramp on every motor start** — never energise a bridge at 100 % duty from rest. Inrush equals stall current, and on Rev 1.3 that is what browned out the ESP32 and killed board 1's U8 (Rev 1.4 item 2). Needed in the bring-up, production ESPHome and Tasmota configs.
 - [ ] **Apply the SHADEn channel swap** in the production ESPHome config and in Tasmota until the Rev 1.4 net rename ships — see "Rev 1.4 PCB Changes" item 1 for the GPIO table.
-- [ ] Test and validate Tasmota firmware on Rev 1.2 board
-- [ ] Validate Berry script motor control
-- [ ] Validate Shutter module with 4 shades
+- [ ] **Switch debounce in every config** — none has one. ESPHome `delayed_on_off: 50ms` on all 8 inputs; Tasmota `SwitchDebounce`. Bounce seen on the bench 2026-10-11.
+- [x] **Tasmota: all 4 shutters verified on Rev 1.3** (2026-10-11, resistive loads). Template-based, no Berry — see `tasmota-setup-commands.txt`.
+- [ ] Tasmota: add the 8 switch inputs to the template as **Switch** (internal pull-up, not Switch_n), plus debounce and shutter button/switch mode.
+- [ ] Tasmota: stall detection on the ACS725 (GPIO5, ADC) and soft-start — Tasmota switches the bridge straight to 100 %.
+- [ ] Validate Shutter module with 4 real shades (timing calibration)
 - [ ] Test Bluetooth onboarding via Tasmota app
 - [ ] Test Home Assistant auto-discovery via MQTT
 - [ ] Document open/close duration calibration procedure for end users
@@ -289,7 +317,7 @@ GND (pins 1, 40, 41) and 3V3 (pin 2) not listed above.
 - [ ] Set up firmware.vesprio.io hosting for OTA binary
 
 ### Hardware:
-- [ ] Finalize Rev 1.3 PCB with auto-reset circuit (required for end-user flashing/recovery)
+- [x] Finalize Rev 1.3 PCB with auto-reset circuit — shipped; full motor-less bench bring-up passed 2026-10-11
 - [ ] Enclosure Rev 3 redesign (see below)
 - [ ] Source production enclosure (3D print vs injection mold vs off-shelf)
 - [ ] Decide on packaging
