@@ -1,0 +1,492 @@
+# =============================================================================
+# Barn Shades -- production ESPHome config for the Rev 1.3 board
+# =============================================================================
+# Two units in the barn, one file each: barn-overhead.yaml (overhead/skylight
+# shades) and barn-windows.yaml (window shades). They differ ONLY in the
+# substitutions block below.
+#
+# Port of barn-shades-pcb.yaml (which stays as-is: it is the Rev 1.2 board's
+# config and uses Rev 1.2 pins). DO NOT flash barn-shades-pcb.yaml onto a
+# Rev 1.3 board -- its "STBY" pin is Rev 1.3's Shade 2 CLOSE, its current
+# sensor pin is now a switch input, and it never drives the PWM pins.
+#
+# Rev 1.3 specifics, all verified on hardware 2026-10-11 (see
+# vsp-wsc4-rev13-bringup-status.md):
+#   - Channel swap: GPIO -> J4 terminal per the table in CLAUDE.md. The ids
+#     below are named for the PHYSICAL J4 terminal, not the ISO_SHn_* nets.
+#   - PWM pins must be driven; PWM low = short brake (the shade never moves).
+#   - ACS725 on GPIO5: amps = (V - 1.65) / 0.264 (proven within +2.5 %).
+#   - 8 switch inputs, internal pull-ups, no external ones; debounced here.
+#
+# Build: paste into the ESPHome Docker dashboard (see the bring-up status log,
+# Finding 9). Secrets come from the container's secrets.yaml and must include
+# wifi_ssid, wifi_password, api_key, ota_password, ap_password.
+# =============================================================================
+
+substitutions:
+  # ---- THE ONLY BLOCK THAT DIFFERS between barn-overhead.yaml and
+  # ---- barn-windows.yaml. Everything below it must stay identical in both
+  # ---- files -- edit one, copy the change to the other, and diff them.
+  device_name: barn-windows
+  friendly_name: Barn Window Shades
+  # Shade N = J4 SHADE N terminal pair (7/17, 8/18, 9/19, 10/20) and wall
+  # switch N (J4 1/11, 3/13, 4/14, 6/16).
+  shade1_name: "Bar"
+  shade2_name: "Back"
+  shade3_name: "Front"
+  shade4_name: "Workshop"
+  # ---- end of per-unit block ----
+
+  # Stall threshold in amps, on the rail-level ACS725 (all channels summed).
+  # PLACEHOLDER carried over from Rev 1.2 -- the shade motors' real stall
+  # current has never been recorded. Measure it, then set this between the
+  # running current and the stall current. Rev 1.4 item 3 in vsp-wsc4-todo.md.
+  stall_amps: "1.4"
+
+  # Soft-start: PWM ramps 0 -> 100 % in ramp_steps x ramp_step_ms.
+  # Never energise a bridge at 100 % from rest -- inrush = stall current, and
+  # that is what browned out the ESP32 and killed board 1's U8.
+  ramp_steps: "10"
+  ramp_step_ms: "30ms"
+
+esphome:
+  name: ${device_name}
+  friendly_name: ${friendly_name}
+  on_boot:
+    priority: 600
+    then:
+      # Production behaviour: drivers armed permanently. Direction pins all
+      # start LOW (= high-Z stop), so nothing moves until a cover is commanded.
+      - output.turn_on: motor_stby
+      - output.set_level: { id: sh1_pwm, level: 0 }
+      - output.set_level: { id: sh2_pwm, level: 0 }
+      - output.set_level: { id: sh3_pwm, level: 0 }
+      - output.set_level: { id: sh4_pwm, level: 0 }
+
+esp32:
+  board: esp32-s3-devkitc-1
+  # ESP32-S3-WROOM-1-N4 = 4 MB flash, NO PSRAM. The devkitc-1 definition
+  # assumes 8 MB; without this override the partition table does not fit.
+  flash_size: 4MB
+  framework:
+    type: esp-idf
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: "${friendly_name} Fallback"
+    password: !secret ap_password
+
+captive_portal:
+
+api:
+  encryption:
+    key: !secret api_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+logger:
+  # Native USB (J2, GPIO19/20). J3/UART0 carries the ROM boot messages only.
+  hardware_uart: USB_SERIAL_JTAG
+
+# Local control page at http://<device IP>/ -- works without Home Assistant.
+# LAN-only device; add `auth:` with secrets if the network is not trusted.
+web_server:
+  port: 80
+  version: 3
+
+# D3 red status LED. D4 (white, GPIO6) and D5 (blue, GPIO7) are left
+# unconfigured on purpose: they are hardware-default-ON power indicators.
+light:
+  - platform: status_led
+    name: "Status LED"
+    pin: GPIO16
+
+# =============================================================================
+# MOTOR OUTPUTS
+# =============================================================================
+output:
+  # TB6612FNG standby, both drivers (through isolator U6)
+  - platform: gpio
+    pin: GPIO35
+    id: motor_stby
+
+  # Shade 1 = J4 pins 7/17
+  - platform: gpio
+    pin: GPIO48
+    id: sh1_open
+  - platform: gpio
+    pin: GPIO47
+    id: sh1_close
+  - platform: ledc
+    pin: GPIO21
+    id: sh1_pwm
+    frequency: 20000Hz
+
+  # Shade 2 = J4 pins 8/18
+  - platform: gpio
+    pin: GPIO36
+    id: sh2_open
+  - platform: gpio
+    pin: GPIO37
+    id: sh2_close
+  - platform: ledc
+    pin: GPIO38
+    id: sh2_pwm
+    frequency: 20000Hz
+
+  # Shade 3 = J4 pins 9/19
+  - platform: gpio
+    pin: GPIO41
+    id: sh3_open
+  - platform: gpio
+    pin: GPIO40
+    id: sh3_close
+  - platform: ledc
+    pin: GPIO39
+    id: sh3_pwm
+    frequency: 20000Hz
+
+  # Shade 4 = J4 pins 10/20
+  - platform: gpio
+    pin: GPIO42
+    id: sh4_open
+  - platform: gpio
+    pin: GPIO2
+    id: sh4_close
+  - platform: ledc
+    pin: GPIO1
+    id: sh4_pwm
+    frequency: 20000Hz
+
+# Soft-start ramps. mode: restart so a direction change re-ramps from zero.
+script:
+  - id: ramp_sh1
+    mode: restart
+    then:
+      - repeat:
+          count: ${ramp_steps}
+          then:
+            - output.set_level:
+                id: sh1_pwm
+                level: !lambda "return (iteration + 1) / (float) ${ramp_steps};"
+            - delay: ${ramp_step_ms}
+  - id: ramp_sh2
+    mode: restart
+    then:
+      - repeat:
+          count: ${ramp_steps}
+          then:
+            - output.set_level:
+                id: sh2_pwm
+                level: !lambda "return (iteration + 1) / (float) ${ramp_steps};"
+            - delay: ${ramp_step_ms}
+  - id: ramp_sh3
+    mode: restart
+    then:
+      - repeat:
+          count: ${ramp_steps}
+          then:
+            - output.set_level:
+                id: sh3_pwm
+                level: !lambda "return (iteration + 1) / (float) ${ramp_steps};"
+            - delay: ${ramp_step_ms}
+  - id: ramp_sh4
+    mode: restart
+    then:
+      - repeat:
+          count: ${ramp_steps}
+          then:
+            - output.set_level:
+                id: sh4_pwm
+                level: !lambda "return (iteration + 1) / (float) ${ramp_steps};"
+            - delay: ${ramp_step_ms}
+
+# =============================================================================
+# COVERS
+# =============================================================================
+# Start sequence: PWM to 0 first (brake), then set direction, then ramp.
+# Stop: both direction pins LOW = high-Z stop on the TB6612FNG.
+cover:
+  - platform: time_based
+    name: "${shade1_name}"
+    id: shade_1
+    open_duration: 60s
+    close_duration: 60s
+    open_action:
+      - script.stop: ramp_sh1
+      - output.set_level: { id: sh1_pwm, level: 0 }
+      - output.turn_off: sh1_close
+      - output.turn_on: sh1_open
+      - script.execute: ramp_sh1
+    close_action:
+      - script.stop: ramp_sh1
+      - output.set_level: { id: sh1_pwm, level: 0 }
+      - output.turn_off: sh1_open
+      - output.turn_on: sh1_close
+      - script.execute: ramp_sh1
+    stop_action:
+      - script.stop: ramp_sh1
+      - output.turn_off: sh1_open
+      - output.turn_off: sh1_close
+      - output.set_level: { id: sh1_pwm, level: 0 }
+
+  - platform: time_based
+    name: "${shade2_name}"
+    id: shade_2
+    open_duration: 60s
+    close_duration: 60s
+    open_action:
+      - script.stop: ramp_sh2
+      - output.set_level: { id: sh2_pwm, level: 0 }
+      - output.turn_off: sh2_close
+      - output.turn_on: sh2_open
+      - script.execute: ramp_sh2
+    close_action:
+      - script.stop: ramp_sh2
+      - output.set_level: { id: sh2_pwm, level: 0 }
+      - output.turn_off: sh2_open
+      - output.turn_on: sh2_close
+      - script.execute: ramp_sh2
+    stop_action:
+      - script.stop: ramp_sh2
+      - output.turn_off: sh2_open
+      - output.turn_off: sh2_close
+      - output.set_level: { id: sh2_pwm, level: 0 }
+
+  - platform: time_based
+    name: "${shade3_name}"
+    id: shade_3
+    open_duration: 60s
+    close_duration: 60s
+    open_action:
+      - script.stop: ramp_sh3
+      - output.set_level: { id: sh3_pwm, level: 0 }
+      - output.turn_off: sh3_close
+      - output.turn_on: sh3_open
+      - script.execute: ramp_sh3
+    close_action:
+      - script.stop: ramp_sh3
+      - output.set_level: { id: sh3_pwm, level: 0 }
+      - output.turn_off: sh3_open
+      - output.turn_on: sh3_close
+      - script.execute: ramp_sh3
+    stop_action:
+      - script.stop: ramp_sh3
+      - output.turn_off: sh3_open
+      - output.turn_off: sh3_close
+      - output.set_level: { id: sh3_pwm, level: 0 }
+
+  - platform: time_based
+    name: "${shade4_name}"
+    id: shade_4
+    open_duration: 60s
+    close_duration: 60s
+    open_action:
+      - script.stop: ramp_sh4
+      - output.set_level: { id: sh4_pwm, level: 0 }
+      - output.turn_off: sh4_close
+      - output.turn_on: sh4_open
+      - script.execute: ramp_sh4
+    close_action:
+      - script.stop: ramp_sh4
+      - output.set_level: { id: sh4_pwm, level: 0 }
+      - output.turn_off: sh4_open
+      - output.turn_on: sh4_close
+      - script.execute: ramp_sh4
+    stop_action:
+      - script.stop: ramp_sh4
+      - output.turn_off: sh4_open
+      - output.turn_off: sh4_close
+      - output.set_level: { id: sh4_pwm, level: 0 }
+
+# =============================================================================
+# WALL SWITCH INPUTS (J4 pins 1-6 / 11-16, switch to GND_ISO)
+# =============================================================================
+# Momentary up/down switches: press UP -> open, press DOWN -> close; pressing
+# either while that shade is moving stops it. 50 ms debounce -- bounce was
+# seen on the bench (status log Finding 13).
+binary_sensor:
+  - platform: gpio
+    name: "${shade1_name} Wall Switch Up"
+    pin: { number: GPIO46, mode: { input: true, pullup: true }, inverted: true }
+    filters: [ delayed_on_off: 50ms ]
+    on_press:
+      - if:
+          condition: { lambda: "return id(shade_1).current_operation != cover::COVER_OPERATION_IDLE;" }
+          then: [ cover.stop: shade_1 ]
+          else: [ cover.open: shade_1 ]
+  - platform: gpio
+    name: "${shade1_name} Wall Switch Down"
+    pin: { number: GPIO3, mode: { input: true, pullup: true }, inverted: true }
+    filters: [ delayed_on_off: 50ms ]
+    on_press:
+      - if:
+          condition: { lambda: "return id(shade_1).current_operation != cover::COVER_OPERATION_IDLE;" }
+          then: [ cover.stop: shade_1 ]
+          else: [ cover.close: shade_1 ]
+
+  - platform: gpio
+    name: "${shade2_name} Wall Switch Up"
+    pin: { number: GPIO10, mode: { input: true, pullup: true }, inverted: true }
+    filters: [ delayed_on_off: 50ms ]
+    on_press:
+      - if:
+          condition: { lambda: "return id(shade_2).current_operation != cover::COVER_OPERATION_IDLE;" }
+          then: [ cover.stop: shade_2 ]
+          else: [ cover.open: shade_2 ]
+  - platform: gpio
+    name: "${shade2_name} Wall Switch Down"
+    pin: { number: GPIO9, mode: { input: true, pullup: true }, inverted: true }
+    filters: [ delayed_on_off: 50ms ]
+    on_press:
+      - if:
+          condition: { lambda: "return id(shade_2).current_operation != cover::COVER_OPERATION_IDLE;" }
+          then: [ cover.stop: shade_2 ]
+          else: [ cover.close: shade_2 ]
+
+  - platform: gpio
+    name: "${shade3_name} Wall Switch Up"
+    pin: { number: GPIO12, mode: { input: true, pullup: true }, inverted: true }
+    filters: [ delayed_on_off: 50ms ]
+    on_press:
+      - if:
+          condition: { lambda: "return id(shade_3).current_operation != cover::COVER_OPERATION_IDLE;" }
+          then: [ cover.stop: shade_3 ]
+          else: [ cover.open: shade_3 ]
+  - platform: gpio
+    name: "${shade3_name} Wall Switch Down"
+    pin: { number: GPIO11, mode: { input: true, pullup: true }, inverted: true }
+    filters: [ delayed_on_off: 50ms ]
+    on_press:
+      - if:
+          condition: { lambda: "return id(shade_3).current_operation != cover::COVER_OPERATION_IDLE;" }
+          then: [ cover.stop: shade_3 ]
+          else: [ cover.close: shade_3 ]
+
+  - platform: gpio
+    name: "${shade4_name} Wall Switch Up"
+    pin: { number: GPIO14, mode: { input: true, pullup: true }, inverted: true }
+    filters: [ delayed_on_off: 50ms ]
+    on_press:
+      - if:
+          condition: { lambda: "return id(shade_4).current_operation != cover::COVER_OPERATION_IDLE;" }
+          then: [ cover.stop: shade_4 ]
+          else: [ cover.open: shade_4 ]
+  - platform: gpio
+    name: "${shade4_name} Wall Switch Down"
+    pin: { number: GPIO13, mode: { input: true, pullup: true }, inverted: true }
+    filters: [ delayed_on_off: 50ms ]
+    on_press:
+      - if:
+          condition: { lambda: "return id(shade_4).current_operation != cover::COVER_OPERATION_IDLE;" }
+          then: [ cover.stop: shade_4 ]
+          else: [ cover.close: shade_4 ]
+
+# =============================================================================
+# GROUP BUTTONS
+# =============================================================================
+button:
+  - platform: template
+    name: "All Shades Open"
+    on_press:
+      - cover.control: { id: shade_1, position: 1.0 }
+      - delay: 200ms
+      - cover.control: { id: shade_2, position: 1.0 }
+      - delay: 200ms
+      - cover.control: { id: shade_3, position: 1.0 }
+      - delay: 200ms
+      - cover.control: { id: shade_4, position: 1.0 }
+
+  - platform: template
+    name: "All Shades Close"
+    on_press:
+      - cover.control: { id: shade_1, position: 0.0 }
+      - delay: 200ms
+      - cover.control: { id: shade_2, position: 0.0 }
+      - delay: 200ms
+      - cover.control: { id: shade_3, position: 0.0 }
+      - delay: 200ms
+      - cover.control: { id: shade_4, position: 0.0 }
+
+  - platform: template
+    name: "All Shades Stop"
+    on_press:
+      - cover.stop: shade_1
+      - cover.stop: shade_2
+      - cover.stop: shade_3
+      - cover.stop: shade_4
+
+# =============================================================================
+# SENSORS
+# =============================================================================
+sensor:
+  # ACS725 rail current (ADC1, GPIO5). One sensor for all four channels.
+  # 5-sample average every 100 ms = a reading every 0.5 s, which also blanks
+  # the brief soft-started inrush.
+  - platform: adc
+    pin: GPIO5
+    name: "Motor Current"
+    id: motor_current
+    update_interval: 100ms
+    attenuation: 12db
+    unit_of_measurement: "A"
+    device_class: current
+    accuracy_decimals: 2
+    filters:
+      - sliding_window_moving_average:
+          window_size: 5
+          send_every: 5
+      - lambda: "return (x - 1.65) / 0.264;"
+    on_value:
+      then:
+        - if:
+            condition:
+              lambda: "return x > ${stall_amps};"
+            then:
+              - logger.log:
+                  level: WARN
+                  format: "Stall/overcurrent %.2f A -- stopping all shades"
+                  args: [ x ]
+              - cover.stop: shade_1
+              - cover.stop: shade_2
+              - cover.stop: shade_3
+              - cover.stop: shade_4
+
+  # TMP235 (ADC1, GPIO4). Sits beside U7, the board's hottest part, so this
+  # reads U7's local hot spot, not enclosure air (status log Finding 12).
+  - platform: adc
+    pin: GPIO4
+    name: "Controller Temperature"
+    id: controller_temp
+    update_interval: 10s
+    attenuation: 12db
+    unit_of_measurement: "°C"
+    device_class: temperature
+    accuracy_decimals: 1
+    filters:
+      # TMP235: 500 mV at 0 °C, 10 mV/°C
+      - lambda: "return (x - 0.5) / 0.01;"
+
+  - platform: internal_temperature
+    name: "ESP32 Die Temperature"
+    update_interval: 60s
+
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 60s
+
+  - platform: uptime
+    name: "Uptime"
+
+text_sensor:
+  # Distinguishes a brownout from a crash without attaching USB.
+  - platform: debug
+    reset_reason:
+      name: "Reset Reason"
+
+debug:
+  update_interval: 60s

@@ -18,17 +18,37 @@ controller use case — **verdict: no Rev 1.4 needed for the next order; reorder
 Rev 1.3 as-is if more boards are needed.** Rev 1.4 is only justified if the
 product goes general-purpose (Rev 1.4 items 2 + 4 together, a real design cycle).
 
-What is left needs the **real shade motors** (they are on the job site):
-1. Measure each shade motor's **inrush and stall current** — with a clamp meter
-   or a bench supply, NOT through a board first. This sets the stall threshold
-   and confirms the motors are inside the TB6612FNG's 1.2 A / 3.2 A rating.
-2. Then run one real shade motor on board 2 under control, watching Reset Reason
-   for brownout (Rev 1.4 item 4: the ESP32 drops out below ~8.5 V on `+12V_RAW`).
-3. Confirm which physical direction "OPEN" drives.
+**Both barn units are flashed and on the bench network (2026-10-11):**
 
-**Still the rule: no motor on any board until step 1 is done.** A non-shade
-motor destroyed board 1's U8. Resistive load for anything else: **20-33 ohm,
-10 W cement** (never below 20 ohm on an output).
+| Unit | Board | Config | Web page (bench LAN) | Shades on J4 7/17, 8/18, 9/19, 10/20 |
+|---|---|---|---|---|
+| `barn-overhead` | 2 | `barn-overhead.yaml` | http://10.10.0.101/ | Front, Middle, Back, Workshop |
+| `barn-windows` | 3 | `barn-windows.yaml` | http://10.10.0.141/ | Bar, Back, Front, Workshop |
+
+At the barn they join the barn WiFi (container secrets) and get new IPs; the
+fallback AP is "Barn Overhead Shades Fallback" / "Barn Window Shades
+Fallback" (password = `ap_password`). Both web pages answered on the bench
+with Reset Reason `power-on event`; **neither has had the resistive bench check
+through the production firmware yet**, and covers read 50 % until their first
+full run.
+
+### Barn motor test — in this order
+1. **Measure each shade motor's inrush and stall current OFF-board first**
+   (clamp meter, or a bench supply with a current readout, motor held stalled
+   for 1-2 s). Pass: stall well under the TB6612FNG's **3.2 A peak**, running
+   current under its **1.2 A continuous**. If any motor exceeds that, stop —
+   it does not go on these boards.
+2. **Set `stall_amps`** in both configs between the highest running current
+   and the lowest stall current (it is a 1.4 A placeholder), rebuild, flash.
+3. **One motor on one channel first**, on the 12 V supply the boards will run
+   from. Command Open from the web page and watch **Reset Reason** — anything
+   other than `power-on event` / `software` (especially `brownout`) means motor
+   inrush is pulling `+12V_RAW` below ~8.5 V (Finding 11). Note which way
+   "Open" physically moves the shade; fix any reversed shade in software.
+4. Then the wall switches (press = start, press again = stop), then all four
+   motors, then the "All Shades" group buttons.
+5. **Calibrate `open_duration` / `close_duration`** per shade (60 s
+   placeholder) and rebuild.
 
 Firmware items found today (not board items): switch debounce in all configs,
 soft-start, Tasmota switch inputs + stall detection. See the Product Track list
@@ -41,8 +61,9 @@ in `vsp-wsc4-todo.md`.
 | Board | State | Notes |
 |---|---|---|
 | **1** | **FAULTY — U8 destroyed** | VM and 3 of 4 output legs shorted to PGND. Repairable: replace U8 (SSOP-24), confirm VM->PGND open before applying 12 V. Nothing else on it is damaged. |
-| **2** | Healthy — **now running Tasmota 15.6.0.3** | Full resistance baseline taken 2026-09-03 — every reading open. **Use board 2 as the reference when a board is suspect.** Reflashed from ESPHome to Tasmota 2026-10-11 (serial, via J3); to go back to the bring-up config it needs a serial/USB flash again. |
-| 3-5 | Unopened | |
+| **2** | Healthy — **`barn-overhead`** (ESPHome, production) | Full resistance baseline taken 2026-09-03 — every reading open. **Use board 2 as the reference when a board is suspect.** 2026-10-11: ran Tasmota for the shutter test, then flashed `barn-overhead` over J3. |
+| **3** | Healthy — **`barn-windows`** (ESPHome, production) | First powered 2026-10-11. esptool: ESP32-S3 QFN56 v0.2, 4 MB, eFuse quad = **N4 confirmed**. Flashed over J3. Not yet resistive-load tested |
+| 4-5 | Unopened | |
 
 ---
 
@@ -335,6 +356,25 @@ Related: with `name_add_mac_suffix: true` the mDNS name is
 `wsc4-bringup-xxxxxx.local`, so the dashboard's `wsc4-bringup.local` lookup
 always times out — use the IP. And a 40 s gap in the API log mid-test was the
 board **roaming to a stronger WiFi AP**, not a reset (Uptime kept counting).
+
+---
+
+### 16. Powered from the USB-TTL adapter = brownout loop at WiFi start (2026-10-11)
+With the 12 V supply unplugged, board 2 ran off the FTDI adapter's 3.3 V
+through **J3 pin 3 (`+3.3V_ISO`)**. It boots, then browns out the moment WiFi
+starts (`E BOD: Brownout detector was triggered`, then `rst:0x3
+RTC_SW_SYS_RST`), about once a second, under **any** firmware — Tasmota
+safeboot looped the same way. Looks exactly like a firmware crash. An FT232R's
+3.3 V output is good for ~50 mA; WiFi start needs several hundred.
+- **Always have 12 V connected when flashing or running over J3**, and leave
+  **J3 pin 3 unconnected** (only pin 1 → adapter RX, 2 → TX, 4 → GND).
+- Diagnosis trick that found it: this config logs to USB-Serial-JTAG, so with
+  no USB cable a crash is invisible. A throwaway build with
+  `logger: hardware_uart: UART0` put the app log on J3 and showed the brownout
+  in one boot.
+- In a fast reset loop, download mode is easier to catch by holding BOOT
+  through RESET and ~2 s after it. esptool's "Invalid head of packet (0x45)"
+  = it read the `E` of `ESP-ROM` — the chip was rebooting, not in download mode.
 
 ---
 
