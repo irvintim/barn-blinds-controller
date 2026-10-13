@@ -57,10 +57,10 @@ All measured on 2026-10-12, from the as-fabbed PCB and the board STEP:
   test-fit it with the actual cable.
 - **Keyholes are closed from inside**, as in Rev 2: a 0.6 mm cap (`kh_cap_t`)
   covers each head channel, so a wall screw or nail head can't reach the board
-  underside. The head slides in a closed channel **1.3 mm tall** (Rev 2: 0.9)
+  underside. The head slides in a closed channel **1.8 mm tall** (Rev 2: 0.9)
   and up to 7.5 mm across (the entry hole). The floor under the channel is
-  2.0 mm, so set the screw with its head 2.0–2.2 mm off the wall, and use a
-  head no taller than about 1.2 mm (a low wafer head or a flat nail). The checker probes both keyholes
+  1.5 mm (`kh_recess` 1.0), so set the screw with its head 1.5–1.8 mm off the
+  wall, and use a head no taller than about 1.7 mm (a low pan or wafer head). The checker probes both keyholes
   and fails if either is open from inside. (The first fit print, sliced
   before this change, has open keyholes.)
 - **DIN clip screws** get 4 mm of engagement (2.5 floor + 1.5 boss). Length =

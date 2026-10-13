@@ -109,7 +109,7 @@ DEFAULTS = [
     ('kh_plate_t', 0.8, 'Plate thickness'),
     ('kh_win_w', 10.0, 'Head channel width'),
     ('kh_win_l', 18.0, 'Head channel length'),
-    ('kh_recess', 0.5, 'Head channel depth into the floor'),
+    ('kh_recess', 1.0, 'Head channel depth into the floor (leaves 1.5 mm of floor under it)'),
     ('kh_cap_t', 0.6, 'Cap over the head channel: closes the keyhole from inside (Rev 2 used 0.4)'),
     ('kh_cap_lip', 2.0, 'Cap overlap past the head channel, each side'),
     ('DIN rail clips: 2x Phoenix USA 10 (1201578) or generic 42.6 x 10 equivalent', None),
