@@ -1,7 +1,7 @@
 # ADR-019: Enclosure Rev 3: wall keyholes and DIN rail from one box, sized for Rev 1.3
 
 **Date:** 2026-06-29 (recorded retroactively 2026-10-12)
-**Status:** Accepted
+**Status:** Accepted (DIN hole spacing and Z-height requirement corrected by ADR-021)
 
 ## Context
 

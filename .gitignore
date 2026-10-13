@@ -43,3 +43,6 @@ tasmota32s3.factory.bin
 # Python venv for esphome/esptool
 venv/
 .venv/
+
+# Python bytecode (freecadcmd imports scripts as modules)
+__pycache__/

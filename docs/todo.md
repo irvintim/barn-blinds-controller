@@ -324,34 +324,26 @@ GND (pins 1, 40, 41) and 3V3 (pin 2) not listed above.
 
 ---
 
-## Enclosure Rev 3 TODO (decided 2026-06-29)
+## Enclosure Rev 3 TODO (decided 2026-06-29, built 2026-10-12)
 
-**The Rev 1.3 board is physically larger than the one the current enclosure was
-designed around, so the box has to be reworked regardless.** Do that work here,
-not on the PCB list.
+Model: `enclosure/rev3/` (spreadsheet-driven, generated; ADR-019 + ADR-021).
+Supports wall mount (keyholes) and DIN rail (Phoenix USA 10, 1201578) from one box.
 
-- [ ] Resize for the Rev 1.3 board outline (65.004 x 73.935 mm).
-- [ ] **Thermal check, not a redesign — ventilation already exists in the current
-      small enclosure.** Just confirm it still works once the box grows: the
-      ESP32-S3-WROOM-1-N4 is rated to 85 °C *ambient around the module*, and a
-      sealed printed box in an attic runs hotter inside than the attic air
-      because of the board's own dissipation (LDO drop, DC-DC losses, driver
-      quiescent, LEDs). Also worth not mounting at the peak-heat ridge line.
-
-
-Goal: support two mounting options from one enclosure — wall mount (keyholes) and DIN rail mount.
-
-**DIN rail clip:** Phoenix Contact USA 10 (1201578) — ordered 2026-06-29
-- Snaps onto 35mm TS 35 rail, attaches to enclosure back with 3× M3 self-cutting screws
-- Hole pattern: Ø2.75mm, 25mm center-to-center spacing (50mm total span), 3 holes in a line
-- Clip is 43mm L × 27.5mm H × 7.4mm deep — adds only 7.4mm to enclosure depth
-
-**FreeCAD changes needed in enclosure/rev2/project-case-rev2.FCStd:**
-- [ ] Increase Z height to accommodate 26.75mm mated terminal block (header 13.5mm + plug 13.25mm)
-- [ ] Move USB (now Micro-USB, not USB-C — see Rev 1.3 schematic changes above) cutout from DIN-rail-side wall to top or bottom edge
-- [ ] Move status LED cutouts accordingly
-- [ ] Add 3× Ø2.75mm boss holes on back plate for DIN clip (25mm spacing)
-- [ ] Keep existing wall-mount keyholes on back plate
+- [x] Resize for the Rev 1.3 board outline (65.004 x 73.935 mm): outside 70.5 x 79.4 x 24.1 mm.
+- [x] Terminal block, barrel jack, USB, D3/D4 and D5 cutouts placed from the as-fabbed board STEP.
+- [x] DIN clip: 3x Ø2.75 holes at **12.5 mm pitch** (25 mm across the outer two; the old
+      "25 mm c-c / 50 mm span" note was wrong, ADR-021), with inside bosses.
+- [x] Wall-mount keyholes kept, moved clear of the board's underside parts.
+- [x] Z height: **no increase needed.** J4 is right-angle; header + plug top out 13.65 mm
+      above the board underside, under the 15.94 mm ceiling (ADR-021).
+- [ ] Test print 1: board fit, screw bosses, tongue/groove, lid closes over J4 with the plug in.
+- [ ] Test-fit a real Micro-USB cable through the recess (plug reach is the tightest margin).
+- [ ] Test-fit the DIN clip screws and the keyhole screw heads.
+- [ ] **Thermal check, not a redesign.** Top vents sit over the drivers as in Rev 2; confirm
+      in the larger box. The N4 is rated 85 °C *ambient around the module*; a printed box
+      in an attic runs hotter inside than the attic air. U7 (AMS1117) is the hot spot,
+      at y +29..+35 just past the top vents' last slot: consider `tv_n` = 7. Don't mount at
+      the ridge line.
 
 ### Documentation:
 - [ ] Quick start guide (hardware install + app onboarding)
