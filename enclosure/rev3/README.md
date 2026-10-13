@@ -63,3 +63,46 @@ All measured on 2026-10-12, from the as-fabbed PCB and the board STEP:
   rail by less than the clip's 19.3 mm height (the rail sits inside the clip).
 - **Not carried over from Rev 2:** the side and top text, which didn't print
   legibly per the Rev 2 notes.
+
+## Test print (fit check)
+
+Bambu Studio settings for a fit-test print. The goal is true dimensions with
+minimal filament, since the part gets thrown away.
+
+**Filament.** The two parts are about 41 cm³ solid, roughly 35–45 g at these
+settings. Check the slicer's gram estimate against the AMS slot's remaining %.
+If the spool is tight, print from another slot: colour doesn't matter for a
+fit test. AMS filament backup (auto-refill) only switches to a slot it treats
+as the *same* filament, meaning the same type and colour set on the slot (and
+on some firmware, the same brand). Don't rely on it unattended unless the
+backup slot's settings match.
+
+| Setting | Value | Why |
+|---|---|---|
+| Process | 0.20 mm Standard | 0.28 draft distorts the 0.5 mm tongue / 0.9 mm groove |
+| Wall loops | 3 | realistic screw bosses and posts |
+| Sparse infill | 10 % gyroid or grid | fit doesn't depend on infill |
+| Supports | off | not needed with the orientation below |
+| X-Y hole / contour compensation | 0 | measure the model as-is; fix sizes in the spreadsheet, not the slicer |
+| Elephant-foot compensation | default (0.15) | |
+| Speed | Standard | Sport/Ludicrous cost accuracy |
+| Brim | off | |
+
+**Orientation.**
+- `project-case-rev3-bottom.stl`: as imported, floor on the bed.
+- `project-case-rev3-lid.stl`: **flipped**, outer top face on the bed ("Lay on face"), so the rim, groove and posts print upright.
+
+Before leaving it running: scrub the slice preview at the tray's top layers
+and the lid rim (tongue and groove visible, no support warnings), and turn on
+first-layer inspection, spaghetti detection and runout detection.
+
+**Check, in this order:**
+1. Board seats on the four corner standoffs.
+2. Lid closes. Tongue and groove engage without force; J4 (with the plug in) and J1 sit in their openings.
+3. M3 screws: the tray holes clear them, and the lid posts self-tap without splitting.
+4. A Micro-USB cable plugs fully through the recess (tightest margin).
+5. DIN clips: screws go in; measure the clip base thickness and its stand-off with a rail in it.
+6. LED windows line up with D3/D4 and D5.
+
+Record what's tight or loose (and by how much). Then change the **Params**
+spreadsheet and re-run `check_case_rev3.py`.
