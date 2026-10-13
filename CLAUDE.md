@@ -12,7 +12,7 @@ pcb/main-board/          KiCad 10 project (open barn-blinds-controller.kicad_pro
   lib/                   project symbols, footprints, 3D models (${KIPRJMOD}/lib/...)
   fab/vsp-wsc4-rev1.x/   the exact files each JLCPCB order was built from
   jlcpcb-export-steps.md how to generate and archive a fab set
-enclosure/               FreeCAD case: rev2/ (current, fits Rev 1.2), archive/rev1/, reference/
+enclosure/               FreeCAD case: rev3/ (current, Rev 1.3; build + fit-check scripts), rev2/, archive/, reference/
 firmware/esphome/        barn-overhead.yaml, barn-windows.yaml, bring-up, standalone; legacy/ = Rev 1.2
 firmware/tasmota/        tasmota-setup-commands.txt (template-based, no Berry)
 docs/architecture.md     LIVING current state: power tree, GPIO/J4 map, firmware rules, tooling
@@ -29,8 +29,9 @@ docs/handover-rev1.2.md  historical Rev 1.2 snapshot
   board 1 is out of service (U8 destroyed by a non-shade test motor).
 - **Next hardware step: the barn motor test.** Order and pass criteria are in
   `docs/bringup/vsp-wsc4-rev13-bringup-status.md`, "THE NEXT THING TO DO".
-- **Next design job: Enclosure Rev 3** for the Rev 1.3 board (ADR-019,
-  `enclosure/README.md`, `docs/todo.md` "Enclosure Rev 3 TODO").
+- **Enclosure Rev 3** (`enclosure/rev3/`, ADR-021/022) is modelled and passes its
+  fit checker; first test print is under way. Fit results go into the Params
+  spreadsheet, then re-run `check_case_rev3.py` (see `enclosure/rev3/README.md`).
 - Rev 1.4 is open on `main`, but only needed to go general-purpose (ADR-018).
 
 ## Branches

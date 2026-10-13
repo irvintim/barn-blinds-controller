@@ -13,4 +13,5 @@ FreeCAD, 3D printed, two-piece (bottom tray + top lid).
 - `reference/1597DIN2GY.stp`: DIN-rail enclosure reference model.
 
 Rev 3 requirements: ADR-019, with two numbers corrected by ADR-021 (DIN
-holes 12.5 mm pitch; no extra Z height needed).
+holes 12.5 mm pitch; no extra Z height needed). DIN mounting: ADR-022 (two
+clips on the back, or one on the −X side).
