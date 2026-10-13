@@ -46,8 +46,9 @@ All measured on 2026-10-12, from the as-fabbed PCB and the board STEP:
 | J1 barrel jack | 9.3 wide in the wall, centre y −24.06 | 9.7 × 10.8 cutout (Rev 2's 9.0 was narrower than the jack) |
 | J2 Micro-USB | shell 7.4 × 2.31, centre y −24.96, z 2.745 | 8.4 × 3.3 slot plus a 13 × 8 outer recess, 1.5 deep |
 | D3 / D4 / D5 | y +18.59 / +27.41 (−X), −16.53 (+X) | Ø3 windows, 1 mm above the board top |
+| Side mount | −X wall (lid), terminal block faces out | 1 clip, holes along Y at y +5, z 10, bosses inside (ADR-022) |
 | Underside parts | deepest −2.50 (U1 pins), floor at −3.15 | keyholes and DIN bosses placed in clear areas |
-| DIN clip USA 10 | 3 holes, 12.5 pitch (25 across the outer two) | Ø2.75 through 2.5 floor + 1.5 boss |
+| DIN clips (2×) | USA 10 or generic 42.6 × 10 copy: 3 holes, 12.5 pitch (25 across the outer two) | Ø2.75 through 2.5 floor + 1.5 boss; clips at y −8 and +31 (ADR-022) |
 
 ## Known limits
 
@@ -57,7 +58,8 @@ All measured on 2026-10-12, from the as-fabbed PCB and the board STEP:
 - **Keyhole screw heads** ride inside the case, in the head channel. The space
   above the channel floor is clear up to the board underside (3.65 mm): there
   are no underside parts over the head's travel. Even so, use a low pan head.
-- **DIN clip screws** get 4 mm of engagement (2.5 floor + 1.5 boss). Use the
-  shortest self-cutting M3 that passes through the clip.
+- **DIN clip screws** get 4 mm of engagement (2.5 floor + 1.5 boss). Length =
+  clip base thickness + up to 4 mm; measure the clip. The case stands off the
+  rail by less than the clip's 19.3 mm height (the rail sits inside the clip).
 - **Not carried over from Rev 2:** the side and top text, which didn't print
   legibly per the Rev 2 notes.

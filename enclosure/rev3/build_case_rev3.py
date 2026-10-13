@@ -110,13 +110,17 @@ DEFAULTS = [
     ('kh_win_w', 10.0, 'Head channel width'),
     ('kh_win_l', 18.0, 'Head channel length'),
     ('kh_recess', 0.5, 'Head channel depth into the floor'),
-    ('DIN rail clip (Phoenix USA 10, 1201578)', None),
-    ('din_cx', 0.0, 'Clip centre X'),
-    ('din_cy', -8.0, 'Clip centre Y (rail runs along Y)'),
+    ('DIN rail clips: 2x Phoenix USA 10 (1201578) or generic 42.6 x 10 equivalent', None),
+    ('din_cx', 0.0, 'Clip centre X (clips run across the rail, along X)'),
+    ('din_cy', 11.5, 'Midpoint between the two clips, Y (rail runs along Y)'),
+    ('din_spacing', 39.0, 'Clip centre to clip centre, Y; straddles the keyholes'),
     ('din_pitch', 12.5, 'Hole pitch (25 mm across the outer two holes)'),
     ('din_hole_d', 2.75, 'Self-cutting M3 pilot'),
     ('din_boss_d', 6.0, 'Inside boss diameter'),
     ('din_boss_h', 1.5, 'Inside boss height above floor'),
+    ('Side mount: 1 DIN clip on the -X wall (terminal block facing out)', None),
+    ('side_cy', 5.0, 'Clip centre Y on the -X wall (holes run along Y)'),
+    ('side_cz', 10.0, 'Hole line Z, above board underside (lid wall; clear of USB recess and LEDs)'),
 ]
 P = {r[0]: r[1] for r in DEFAULTS if r[1] is not None}
 
@@ -382,13 +386,16 @@ for kx in KH:
 pocket(bot, 'KeyholeSlot', sk, None, reversed=True)
 
 DIN = ('{din_cx} - {din_pitch}', '{din_cx}', '{din_cx} + {din_pitch}')
+DIN_Y = ('{din_cy} - {din_spacing}/2', '{din_cy} + {din_spacing}/2')   # two clips
 sk = sketch(bot, 'Sk_DinBosses', 'XY', Z_FLOOR_TOP)
-for dx in DIN:
-    circle(sk, dx, '{din_cy}', '{din_boss_d}')
+for dy in DIN_Y:
+    for dx in DIN:
+        circle(sk, dx, dy, '{din_boss_d}')
 pad(bot, 'DinBosses', sk, '{din_boss_h}')
 sk = sketch(bot, 'Sk_DinHoles', 'XY', Z_FLOOR_BOT)
-for dx in DIN:
-    circle(sk, dx, '{din_cy}', '{din_hole_d}')
+for dy in DIN_Y:
+    for dx in DIN:
+        circle(sk, dx, dy, '{din_hole_d}')
 pocket(bot, 'DinHoles', sk, None, reversed=True)
 
 LED_Z = '({board_t} + {led_dz})'
@@ -447,6 +454,17 @@ wall_x(lid, 'LedWindowD5', 1, led_p)
 wall_x(lid, 'LedWindowsD3D4', -1, leds_m)
 wall_x(lid, 'UsbSlot', -1, usb_slot)
 usb_recess(lid, 'UsbRecess')
+
+# Side mount: one DIN clip on the -X wall, holes along Y, bosses inside the lid.
+SIDE = ('{side_cy} - {din_pitch}', '{side_cy}', '{side_cy} + {din_pitch}')
+sk = sketch(lid, 'Sk_SideClipBosses', 'YZ', '-%s/2' % IW)       # inner face of -X wall
+for sy in SIDE:
+    circle(sk, sy, '{side_cz}', '{din_boss_d}')
+pad(lid, 'SideClipBosses', sk, '{din_boss_h}')                   # YZ normal is +X: inward
+sk = sketch(lid, 'Sk_SideClipHoles', 'YZ', '(-%s/2 - 1)' % OW)
+for sy in SIDE:
+    circle(sk, sy, '{side_cz}', '{din_hole_d}')
+pocket(lid, 'SideClipHoles', sk, '1 + {wall} + {din_boss_h}', reversed=True)
 
 # Side vents: one slot cut through each Y wall, then patterned along +X.
 SV_Z = '({board_t} + {sv_z0} + {sv_len}/2)'

@@ -1,7 +1,7 @@
 # ADR-021: Enclosure Rev 3 is a generated, spreadsheet-driven model; two ADR-019 numbers corrected
 
 **Date:** 2026-10-12
-**Status:** Accepted (corrects ADR-019's DIN hole spacing and Z-height requirement)
+**Status:** Accepted (corrects ADR-019's DIN hole spacing and Z-height requirement; point 5's single DIN clip superseded by ADR-022)
 
 ## Context
 

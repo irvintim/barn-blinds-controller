@@ -127,7 +127,7 @@ for c, l, s in sorted(dist, key=lambda t: t[0]):
 print('== 3. parameter robustness')
 sheet = doc.getObject('Params')
 trials = [{'board_l': 80.0}, {'wall': 3.0, 'edge_r': 1.5}, {'kh_dx': 12.0, 'tv_n': 7, 'sv_n': 5},
-          {'headroom': 16.0, 'r_out': 4.0}]
+          {'headroom': 16.0, 'r_out': 4.0}, {'din_spacing': 36.0, 'side_cy': 3.0}]
 original = {k: sheet.get(k) for t in trials for k in t}
 for t in trials:
     for k, v in t.items():
@@ -186,6 +186,7 @@ try:
     render([(lid, '#d8a07a', 1), (bot, '#7aa6d8', 1)], 'assembled-minusX.png', 15, -160, 'Rev 3 assembled, -X wall (USB, D3/D4)')
     render([(bot, '#7aa6d8', 1), (board, '#3a8a4a', 1)], 'tray-with-board.png', 40, -60, 'Tray with Rev 1.3 board')
     render([(bot, '#7aa6d8', 1)], 'tray-inside.png', 60, -60, 'Tray, inside')
+    render([(lid, '#d8a07a', 1), (bot, '#7aa6d8', 1)], 'side-mount-minusX.png', 5, 180, 'Side mount face (-X): DIN clip holes above USB / LEDs')
     render([(bot, '#7aa6d8', 1)], 'tray-underside.png', -89, -90, 'Tray underside (keyholes, DIN clip holes)')
     render([(lid, '#d8a07a', 1)], 'lid-underside.png', -50, -60, 'Lid from below (posts, groove)')
 except ImportError as e:

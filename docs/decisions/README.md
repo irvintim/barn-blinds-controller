@@ -43,7 +43,8 @@ decision was made.
 | [ADR-018](adr-018-rev14-outputs-survive-unknown-load.md) | Rev 1.4's governing requirement: the outputs survive an unknown load | Accepted (design direction; no driver chosen yet) | 2026-09-03 |
 | [ADR-019](adr-019-enclosure-rev3-wall-and-din.md) | Enclosure Rev 3: wall keyholes and DIN rail from one box, sized for Rev 1.3 | Accepted (DIN hole spacing and Z-height requirement corrected by ADR-021) | 2026-06-29 |
 | [ADR-020](adr-020-repo-layout-and-branch-roles.md) | Repository layout, and main as the next-revision line | Accepted (extends ADR-016) | 2026-10-12 |
-| [ADR-021](adr-021-enclosure-rev3-parametric.md) | Enclosure Rev 3 is a generated, spreadsheet-driven model; two ADR-019 numbers corrected | Accepted (corrects ADR-019's DIN hole spacing and Z-height requirement) | 2026-10-12 |
+| [ADR-021](adr-021-enclosure-rev3-parametric.md) | Enclosure Rev 3 is a generated, spreadsheet-driven model; two ADR-019 numbers corrected | Accepted (corrects ADR-019's DIN hole spacing and Z-height requirement; point 5's single DIN clip superseded by ADR-022) | 2026-10-12 |
+| [ADR-022](adr-022-two-din-clips.md) | DIN mounting: two clips on the back, or one on the -X side | Accepted (supersedes ADR-021 decision point 5's single DIN clip) | 2026-10-12 |
 
 ## Template
 
