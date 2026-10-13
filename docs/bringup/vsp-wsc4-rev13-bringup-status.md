@@ -32,6 +32,12 @@ with Reset Reason `power-on event`; **neither has had the resistive bench check
 through the production firmware yet**, and covers read 50 % until their first
 full run.
 
+**D3 (red) slow-blinking is expected at the barn, not a fault.** It's ESPHome's
+`status_led`. A slow blink (one short flash every 1.5 s) is a *warning*: WiFi
+down, or no Home Assistant client on the API, which is the normal state while
+the barn has no network. A fast blink (4×/s) is an *error* (a component failed
+setup) and is worth investigating. Off = all OK.
+
 ### Barn motor test — in this order
 1. **Measure each shade motor's inrush and stall current OFF-board first**
    (clamp meter, or a bench supply with a current readout, motor held stalled
