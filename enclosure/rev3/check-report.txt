@@ -1,13 +1,16 @@
 == 1. features
-  Bottom valid=True solids=1  70.5 x 79.4 x 7.8 mm
+  Bottom valid=True solids=1  70.5 x 79.4 x 8.8 mm
   Lid    valid=True solids=1  70.5 x 79.4 x 16.8 mm
+  markings whole and on flat faces: yes
+  inlays: brand 114 mm3 (26 pieces), labels 99 mm3 (62 pieces)
+  vent slots open: 19 of 19
   keyholes closed from inside: yes, head channel 1.80 mm tall
 == 2. fit against the Rev 1.3 board
   29 of 109 parts can reach the case; testing those
   interference: none
   closest approach (mm):
       0.09  PCB                                      x[-32.5,32.5] y[-37.0,37.0] z[0.00,1.51]  <-- tight
-      0.11  BarrelJack_Horizontal006                 x[21.9,36.1] y[-28.7,-19.4] z[-2.31,12.29]  <-- tight
+      0.11  BarrelJack_Horizontal001                 x[21.9,36.1] y[-28.7,-19.4] z[-2.31,12.29]  <-- tight
       0.23  USB_Micro-B_XKB_U254-051T-4BH83-F1S      x[-33.0,-28.0] y[-28.7,-21.3] z[0.79,3.90]
       0.29  1786918                                  x[23.7,35.3] y[-11.2,24.6] z[-0.40,12.40]
       0.31  C_0805_2012Metric007                     x[0.4,2.4] y[32.3,33.6] z[-1.33,-0.08]
@@ -41,6 +44,8 @@
 == 4. exports
    exports/project-case-rev3-bottom.stl
    exports/project-case-rev3-lid.stl
+   exports/project-case-rev3-lid-inlay-brand.stl
+   exports/project-case-rev3-lid-inlay-labels.stl
    renders/assembled-plusX.png
    renders/assembled-minusX.png
    renders/tray-with-board.png
@@ -48,4 +53,6 @@
    renders/side-mount-minusX.png
    renders/tray-underside.png
    renders/lid-underside.png
+   renders/lid-top-markings.png
+   renders/tray-underside-markings.png
 == result: PASS

@@ -58,12 +58,12 @@ DEFAULTS = [
     ('post_d', 6.0, 'Lid post outer diameter'),
     ('post_hole_d', 2.8, 'Lid post hole (M3 self-tap); 2.8 is what Rev 2 printed with'),
     ('Tongue and groove', None),
-    ('ridge_inset', 0.825, 'Ridge outer face, inset from outer wall'),
-    ('ridge_w', 0.55, 'Ridge width'),
-    ('ridge_h', 0.5, 'Ridge height'),
-    ('ridge_chamfer', 0.25, 'Ridge top chamfer, 45 deg, both edges (as Rev 2; keep > 0)'),
-    ('groove_clear', 0.125, 'Groove clearance each side of ridge'),
-    ('groove_depth', 0.9, 'Groove depth into the lid rim'),
+    ('ridge_inset', 0.8, 'Ridge outer face, inset from outer wall (0.8 centres a 0.9 ridge in the 2.5 wall)'),
+    ('ridge_w', 0.9, 'Ridge width (2 extrusion lines; fit print 1 had 0.55 and it barely engaged)'),
+    ('ridge_h', 1.5, 'Ridge height (fit print 1 had 0.5)'),
+    ('ridge_chamfer', 0.3, 'Ridge top chamfer, 45 deg, both edges (lead-in; keep > 0)'),
+    ('groove_clear', 0.15, 'Groove clearance each side of ridge'),
+    ('groove_depth', 1.7, 'Groove depth into the lid rim (ridge_h + 0.2)'),
     ('-X wall: USB and LEDs', None),
     ('usb_cy', -24.96, 'J2 Micro-USB centre Y'),
     ('usb_cz', 2.745, 'J2 opening centre Z'),
@@ -85,15 +85,17 @@ DEFAULTS = [
     ('jack_top', 12.4, 'J1 cutout top, above board underside'),
     ('led5_y', -16.53, 'D5 blue Y, +X wall'),
     ('Vents', None),
-    ('tv_x0', 2.0, 'Top vents: slot start X'),
-    ('tv_len', 10.0, 'Top vents: slot length (X)'),
+    ('tv_x0', -15.0, 'Top vents: slot start X (both bands)'),
+    ('tv_len', 30.0, 'Top vents: slot length (X)'),
     ('tv_w', 1.0, 'Top vents: slot width'),
-    ('tv_y0', 2.47, 'Top vents: first slot centre Y'),
-    ('tv_pitch', 5.2, 'Top vents: pitch'),
-    ('tv_n', 6, 'Top vents: count'),
+    ('tv_y0', 27.0, 'Top vents, upper band (over U7/U11/U8): first slot centre Y'),
+    ('tv_pitch', 2.6, 'Top vents: pitch (both bands)'),
+    ('tv_n', 4, 'Top vents, upper band: count'),
+    ('tvb_y0', -33.5, 'Top vents, lower band (over U1): first slot centre Y'),
+    ('tvb_n', 3, 'Top vents, lower band: count'),
     ('sv_w', 1.0, 'Side vents: slot width'),
     ('sv_len', 10.0, 'Side vents: slot height'),
-    ('sv_z0', 1.75, 'Side vents: bottom, above board top'),
+    ('sv_z0', 2.5, 'Side vents: bottom, above board top (must clear the groove: > groove_depth + 0.5)'),
     ('sv_pitch', 5.2, 'Side vents: pitch'),
     ('sv_n', 6, 'Side vents: count per wall'),
     ('svp_x0', -4.5, '+Y wall vents: first slot centre X'),
@@ -123,6 +125,19 @@ DEFAULTS = [
     ('Side mount: 1 DIN clip on the -X wall (terminal block facing out)', None),
     ('side_cy', 5.0, 'Clip centre Y on the -X wall (holes run along Y)'),
     ('side_cz', 10.0, 'Hole line Z, above board underside (lid wall; clear of USB recess and LEDs)'),
+    ('Markings: positions update on Recompute; text, sizes and mark_d need a re-run of the builder', None),
+    ('mark_d', 0.6, 'Inlay depth (lid top) and deboss depth (tray underside): 3 layers at 0.2'),
+    ('logo_w', 40.0, 'Vesprio lockup width, lid top (brand inlay)'),
+    ('logo_cy', 9.0, 'Vesprio lockup centre Y'),
+    ('tag_w', 40.0, 'SHADE CONTROLLER line width (brand inlay)'),
+    ('tag_cy', -20.0, 'SHADE CONTROLLER line centre Y'),
+    ('lbl_h', 2.5, 'J4 and power label cap height (label inlay)'),
+    ('lbl_in', 3.25, 'Label right edge, in from the +X outer wall'),
+    ('j4_pitch', 3.5, 'J4 column pitch; pin 1/11 column is term_cy - 4.5 pitches (the jack end)'),
+    ('icon_in', 6.5, 'LED / USB icon centre, in from the outer wall'),
+    ('mono_w', 12.0, 'Monogram size, tray underside between the keyholes (deboss)'),
+    ('mono_cy', 14.0, 'Monogram centre Y'),
+    ('under_cy', -19.5, 'Underside text, first line centre Y'),
 ]
 P = {r[0]: r[1] for r in DEFAULTS if r[1] is not None}
 
@@ -291,6 +306,10 @@ def pattern(body, name, feature, sk, axis, n, pitch, reversed=False):
     f.Length = ev('(%s - 1) * %s' % (n, pitch))
     f.setExpression('Length', X('(%s - 1) * %s' % (n, pitch)))
     f.Refine = True
+    # FreeCAD 1.1 doesn't move the Tip to a new LinearPattern: without this the
+    # body (and its STL) stops before the pattern, and the next feature is
+    # inserted ahead of it. Fit print 1 came out with one vent slot per row.
+    body.Tip = f
     return f
 
 
@@ -421,7 +440,7 @@ def usb_recess(body, name):
 def notch(sk, cy, w):
     # z from 0.3 below the rim (parts overhanging the board edge dip slightly
     # below the board top) up past the ridge
-    rect(sk, cy, '{board_t} + 0.85', w, '2.3')
+    rect(sk, cy, '{board_t} + {ridge_h}/2 + 0.1', w, '{ridge_h} + 0.8')
 wall_x(bot, 'RidgeNotchTerminal', 1, lambda s: notch(s, '{term_cy}', '{term_w}'))
 wall_x(bot, 'RidgeNotchJack', 1, lambda s: notch(s, '{jack_cy}', '{jack_w}'))
 
@@ -488,6 +507,199 @@ sk = sketch(lid, 'Sk_VentsTop', 'XY', '%s - 1' % Z_CEIL)
 rect(sk, '{tv_x0} + {tv_len}/2', '{tv_y0}', '{tv_len}', '{tv_w}')
 v = pocket(lid, 'VentTop', sk, '{lid_t} + 2', reversed=True)
 pattern(lid, 'VentsTop', v, sk, 'V_Axis', '{tv_n}', '{tv_pitch}')
+sk = sketch(lid, 'Sk_VentsTopLower', 'XY', '%s - 1' % Z_CEIL)
+rect(sk, '{tv_x0} + {tv_len}/2', '{tvb_y0}', '{tv_len}', '{tv_w}')
+v = pocket(lid, 'VentTopLower', sk, '{lid_t} + 2', reversed=True)
+pattern(lid, 'VentsTopLower', v, sk, 'V_Axis', '{tvb_n}', '{tv_pitch}')
+
+# ---------------------------------------------------------------- markings
+# Lid top: flush inlays printed in a second and third filament. The lid prints
+# top-down, so they are the first mark_d of layers on the build plate, the
+# sharpest surface an FDM print has. Tray underside: debosses (also bed side).
+# Each mark is a Part::Feature built around its own origin; its Placement is
+# an expression on Params, so moving it is a spreadsheet edit. The final
+# printable shapes are Part::Cut / Part::Common of the bodies with the marks.
+sys.path.insert(0, HERE)
+import svgpaths  # noqa: E402
+
+FONTS = os.path.join(HERE, 'fonts')
+ART = os.path.join(HERE, 'art')
+F_LABEL = os.path.join(FONTS, 'DejaVuSansCondensed-Bold.ttf')
+F_TAG = os.path.join(FONTS, 'DejaVuSansMono-Bold.ttf')
+F_UNDER = os.path.join(FONTS, 'DejaVuSans-Bold.ttf')
+TAGLINE = 'SHADE CONTROLLER \u2022 4'
+UNDER_LINES = (('VSP-WSC-4', 4.0), ('Rev 1.3', 3.2), ('\u00a9 2026 Vesprio.io', 2.4))
+# J4 columns, pin 1/11 first (jack end, -Y). Top row (pins 1-10) is UP.
+J4_LABELS = ('SW1', 'GND', 'SW2', 'SW3', 'GND', 'SW4', 'SH1', 'SH2', 'SH3', 'SH4')
+MD = ev('{mark_d}')
+
+
+def faces_of(shape):
+    return Part.makeCompound(shape.Faces)
+
+
+def text(s, font, cap, halign='c', grow=0.0):
+    """Text as flat faces: cap height `cap`, capitals centred on y = 0,
+    x anchored at its centre ('c'), right end ('r') or left end ('l').
+    `grow` emboldens every outline by that much per side (thin strokes)."""
+    H = Part.makeWireString('H', font, 10.0, 0)[0]
+    k = cap / Part.makeCompound(H).BoundBox.YLength
+    faces = [Part.makeFace(ch, 'Part::FaceMakerBullseye')
+             for ch in Part.makeWireString(s, font, 10.0, 0) if ch]
+    c = Part.makeCompound(faces); c.scale(k)
+    if grow:
+        c = Part.makeCompound([f.makeOffset2D(grow) for f in c.Faces])
+    b = c.BoundBox
+    dx = {'c': -(b.XMin + b.XMax) / 2, 'r': -b.XMax, 'l': -b.XMin}[halign]
+    c.translate(V(dx, -cap / 2, 0))
+    return c
+
+
+def svg_faces(path, width):
+    """SVG outlines as faces `width` wide, centred on the origin, y up."""
+    cs = svgpaths.contours(path)
+    x0, y0, x1, y1 = svgpaths.bbox(cs)
+    k = width / (x1 - x0)
+    P = lambda p: V((p[0] - (x0 + x1) / 2) * k, -(p[1] - (y0 + y1) / 2) * k, 0)
+    wires = []
+    for cnt in cs:
+        edges = []
+        for sg in cnt:
+            pts = [P(p) for p in sg[1:]]
+            if sg[0] == 'L':
+                edges.append(Part.LineSegment(pts[0], pts[1]).toShape())
+            else:
+                bz = Part.BezierCurve(); bz.setPoles(pts); edges.append(bz.toShape())
+        wires.append(Part.Wire(edges))
+    return Part.makeFace(wires, 'Part::FaceMakerBullseye')
+
+
+def poly(pts):
+    return Part.Face(Part.makePolygon([V(x, y, 0) for x, y in pts] + [V(*pts[0], 0)]))
+
+
+def stroke(pts, w):
+    """An open polyline thickened to width w, as a face."""
+    wire = Part.makePolygon([V(x, y, 0) for x, y in pts])
+    return Part.Face(wire.makeOffset2D(w / 2, 0, False, False, False))
+
+
+def disc(x, y, r):
+    return Part.Face(Part.Wire(Part.makeCircle(r, V(x, y, 0))))
+
+
+def union(*faces):
+    u = faces[0]
+    for f in faces[1:]:
+        u = u.fuse(f)
+    return faces_of(u.removeSplitter())
+
+
+def icon_power():          # D4: logic power (IEC 5009 standby symbol)
+    ring = disc(0, -0.2, 2.0).cut(disc(0, -0.2, 1.35))
+    ring = ring.cut(poly([(-0.9, 0.2), (0.9, 0.2), (0.9, 3), (-0.9, 3)]))
+    return union(ring, poly([(-0.33, -0.4), (0.33, -0.4), (0.33, 2.2), (-0.33, 2.2)]))
+
+
+def icon_bolt():           # D5: 12 V motor power
+    return union(poly([(0.9, 2.3), (-1.3, -0.25), (-0.05, -0.25), (-0.9, -2.3),
+                       (1.3, 0.45), (0.05, 0.45)]))
+
+
+def icon_status():         # D3: status / fault (warning triangle, "!" cut out)
+    t = poly([(-2.6, -2.1), (2.6, -2.1), (0, 2.4)])
+    t = t.cut(poly([(-0.32, -0.6), (0.32, -0.6), (0.32, 1.1), (-0.32, 1.1)]))
+    t = t.cut(poly([(-0.32, -1.6), (0.32, -1.6), (0.32, -1.0), (-0.32, -1.0)]))
+    return faces_of(t)
+
+
+def icon_usb():            # J2: USB trident, pointing out of the case (-X)
+    f = union(disc(2.9, 0, 0.75),
+              poly([(2.9, -0.3), (-2.4, -0.3), (-2.4, 0.3), (2.9, 0.3)]),
+              poly([(-2.2, -0.85), (-2.2, 0.85), (-3.6, 0)]),
+              stroke([(1.2, 0), (0.1, 1.35), (-1.0, 1.35)], 0.6), disc(-1.25, 1.35, 0.55),
+              stroke([(0.6, 0), (-0.4, -1.3), (-1.4, -1.3)], 0.6),
+              poly([(-1.4, -1.8), (-2.4, -1.8), (-2.4, -0.8), (-1.4, -0.8)]))
+    return f
+
+
+def legend_j4():
+    """J4 column labels (right-aligned, pin-1 column at y = 0) plus the row
+    key above them and the power label for J1 below."""
+    parts = [text(t, F_LABEL, ev('{lbl_h}'), 'r').translate(V(0, i * ev('{j4_pitch}'), 0))
+             for i, t in enumerate(J4_LABELS)]
+    top = (len(J4_LABELS) - 1) * ev('{j4_pitch}')
+    # 2.0 mm caps make the '=' bars 0.32 mm, under a 0.4 nozzle's line: grow them.
+    parts += [text('TOP=UP', F_LABEL, 2.0, 'r', grow=0.06).translate(V(0, top + 8.6, 0)),
+              text('BTM=DN', F_LABEL, 2.0, 'r', grow=0.06).translate(V(0, top + 5.2, 0))]
+    return Part.makeCompound([f for p in parts for f in p.Faces])
+
+
+def legend_power():
+    return Part.makeCompound(text('12V', F_LABEL, ev('{lbl_h}'), 'r').Faces
+                             + text('3A', F_LABEL, ev('{lbl_h}'), 'r').translate(V(0, -3.6, 0)).Faces)
+
+
+def prism(faces, top):
+    """top=True: lid-top inlay, from mark_d below the surface (local z=0) to
+    0.5 above it. top=False: underside deboss, 0.5 below to mark_d above."""
+    z0, h = (-MD, MD + 0.5) if top else (-0.5, MD + 0.5)
+    return Part.makeCompound([f.translate(V(0, 0, z0)).extrude(V(0, 0, h)) for f in faces.Faces])
+
+
+Z_TOP = '(%s + {lid_t})' % Z_CEIL
+EDGE_PX = '(%s/2)' % OW                    # outer +X wall
+
+
+def mark(name, faces, x, y, top=True, mirror=False):
+    if mirror:                             # read from outside the underside
+        faces = faces.mirror(V(0, 0, 0), V(1, 0, 0))
+    o = doc.addObject('Part::Feature', name)
+    o.Shape = prism(faces, top)
+    for ax, e in (('x', x), ('y', y), ('z', Z_TOP if top else Z_FLOOR_BOT)):
+        setattr(o.Placement.Base, ax, ev(e))
+        o.setExpression('.Placement.Base.' + ax, X(e))
+    o.Visibility = False
+    return o
+
+
+tl = text(TAGLINE, F_TAG, 1.0); tl.scale(ev('{tag_w}') / tl.BoundBox.XLength)   # fit to tag_w
+brand = [mark('MarkLogo', svg_faces(os.path.join(ART, 'vesprio-lockup-stacked-notag.svg'), ev('{logo_w}')),
+              '0', '{logo_cy}'),
+         mark('MarkTagline', tl, '0', '{tag_cy}')]
+labels = [mark('MarkJ4', legend_j4(), '%s - {lbl_in}' % EDGE_PX, '{term_cy} - 4.5*{j4_pitch}'),
+          mark('MarkPower', legend_power(), '%s - {lbl_in}' % EDGE_PX, '{jack_cy} + 1.8'),
+          mark('MarkD5', icon_bolt(), '%s - {icon_in}' % EDGE_PX, '{led5_y}'),
+          mark('MarkD3', icon_status(), '-%s + {icon_in}' % EDGE_PX, '{led3_y}'),
+          mark('MarkD4', icon_power(), '-%s + {icon_in}' % EDGE_PX, '{led4_y}'),
+          mark('MarkUsb', icon_usb(), '-%s + {icon_in}' % EDGE_PX, '{usb_cy}')]
+ul, y = [], 0.0
+for i, (t, h) in enumerate(UNDER_LINES):
+    if i:
+        y -= UNDER_LINES[i - 1][1] / 2 + 1.9 + h / 2
+    ul += text(t, F_UNDER, h).translate(V(0, y, 0)).Faces
+under = [mark('MarkMonogram', svg_faces(os.path.join(ART, 'vesprio-monogram.svg'), ev('{mono_w}')),
+              '0', '{mono_cy}', top=False, mirror=True),
+         mark('MarkUnderText', Part.makeCompound(ul), '0', '{under_cy}', top=False, mirror=True)]
+
+
+def group(name, objs):
+    g = doc.addObject('Part::Compound', name); g.Links = objs; g.Visibility = False
+    return g
+
+
+def boolean(kind, name, base, tool):
+    o = doc.addObject('Part::' + kind, name); o.Base = base; o.Tool = tool
+    o.Refine = True
+    return o
+
+
+g_brand, g_labels, g_under = group('MarksBrand', brand), group('MarksLabels', labels), group('MarksUnder', under)
+boolean('Cut', 'LidPrint', lid, group('MarksTop', [g_brand, g_labels]))
+boolean('Common', 'InlayBrand', lid, g_brand)
+boolean('Common', 'InlayLabels', lid, g_labels)
+boolean('Cut', 'TrayPrint', bot, g_under)
+lid.Visibility = bot.Visibility = False
 
 # ---------------------------------------------------------------- reference board
 if os.path.exists(BOARD_STEP):
@@ -500,7 +712,7 @@ if os.path.exists(BOARD_STEP):
 
 doc.recompute()
 bad = [o.Name for o in doc.Objects if 'Invalid' in o.State or 'Error' in str(o.State)]
-for body in (bot, lid):
+for body in (bot, lid, doc.TrayPrint, doc.LidPrint, doc.InlayBrand, doc.InlayLabels):
     s = body.Shape
     print('%-7s valid=%s solids=%d volume=%.0f mm3 bbox=%s'
           % (body.Name, s.isValid(), len(s.Solids), s.Volume, s.BoundBox))

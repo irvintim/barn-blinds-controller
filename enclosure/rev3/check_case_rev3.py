@@ -5,13 +5,16 @@ Run headless (FreeCAD 1.1):
 
 Reads the model as it is now, including any spreadsheet edits, so run it
 after changing parameters. It:
-  1. recomputes, and reports any feature that errors or changes no material
+  1. recomputes, and reports any feature that errors or changes no material,
+     a body whose Tip isn't its last feature, a blocked vent slot, an open
+     keyhole, and a marking that runs off the flat face or into a vent
   2. checks the case for interference with every board part, and lists the
      closest approach for the parts that matter (connectors, tall and
      underside parts)
   3. re-solves with deliberately changed parameters to prove the model
      survives edits (in memory; the file is not modified)
-  4. exports STLs to exports/ and preview PNGs to renders/
+  4. exports STLs (tray, lid, and the lid's two inlays) to exports/ and
+     preview PNGs to renders/
 The output is also written to check-report.txt.
 """
 import os
@@ -38,6 +41,8 @@ def print(*a, **k):                # freecadcmd buffers stdout; keep a live repo
 doc = App.openDocument(FCSTD)
 doc.recompute()
 bodies = [doc.getObject('Bottom'), doc.getObject('Lid')]
+prints = [doc.getObject('TrayPrint'), doc.getObject('LidPrint')]     # bodies minus markings
+inlays = [doc.getObject('InlayBrand'), doc.getObject('InlayLabels')]
 
 print('== 1. features')
 for body in bodies:
@@ -57,6 +62,10 @@ for body in bodies:
             if dof != 0 or f.MalformedConstraints or f.ConflictingConstraints:
                 problems.append('%s.%s solve=%s malformed=%s conflicting=%s'
                                 % (body.Name, f.Name, dof, f.MalformedConstraints, f.ConflictingConstraints))
+    solid = [f for f in body.Group if f.TypeId.startswith('PartDesign::') and f.TypeId != 'PartDesign::Body']
+    if body.Tip != solid[-1]:
+        problems.append('%s Tip is %s, not the last feature %s: the body stops early'
+                        % (body.Name, body.Tip.Name, solid[-1].Name))
     s = body.Shape
     print('  %-6s valid=%s solids=%d  %.1f x %.1f x %.1f mm' % (
         body.Name, s.isValid(), len(s.Solids), s.BoundBox.XLength, s.BoundBox.YLength, s.BoundBox.ZLength))
@@ -70,13 +79,60 @@ def keyholes_closed():
     for kx in (-g('kh_dx'), g('kh_dx')):
         for y in (g('kh_y'), g('kh_y') + g('kh_slot_len') - g('kh_slot_w') / 2):
             line = Part.makeLine(V(kx, y, -20), V(kx, y, 0))
-            segs = sorted((e.BoundBox.ZMin, e.BoundBox.ZMax) for e in bodies[0].Shape.common(line).Edges)
+            segs = sorted((e.BoundBox.ZMin, e.BoundBox.ZMax) for e in prints[0].Shape.common(line).Edges)
             if len(segs) != 1:
                 bad.append('keyhole at x=%.1f y=%.1f: solid above it %s (want one cap)' % (kx, y, segs))
             else:
                 ch = -g('standoff_h') - g('board_play') - g('kh_recess')
                 gap = segs[0][0] - ch
     return bad, gap
+
+def vents_open():
+    """Probe the centre of every vent slot with a line through the lid wall or
+    top; each must pass clean through. Returns the list of blocked slots."""
+    g = lambda k: float(doc.getObject('Params').get(k))
+    lid = prints[1].Shape
+    ow = g('board_w') / 2 + g('board_gap') + g('wall'); ol = g('board_l') / 2 + g('board_gap') + g('wall')
+    zc = g('board_t') + g('headroom')
+    probes = []
+    for y0, n in ((g('tv_y0'), g('tv_n')), (g('tvb_y0'), g('tvb_n'))):
+        for i in range(int(n)):
+            x, y = g('tv_x0') + g('tv_len') / 2, y0 + i * g('tv_pitch')
+            probes.append(('top y=%.1f' % y, V(x, y, zc - 1), V(x, y, zc + g('lid_t') + 1)))
+    svz = g('board_t') + g('sv_z0') + g('sv_len') / 2
+    for i in range(int(g('sv_n'))):
+        for side, x0 in ((1, g('svp_x0')), (-1, g('svm_x0'))):
+            x = x0 + i * g('sv_pitch')
+            probes.append(('%sY x=%.1f' % ('+' if side > 0 else '-', x),
+                           V(x, side * (ol - g('wall') - 0.5), svz), V(x, side * (ol + 1), svz)))
+    return [n for n, a, b in probes if lid.common(Part.makeLine(a, b)).Edges], len(probes)
+
+def marks_whole():
+    """Every mark must sit entirely in solid material, mark_d deep: an inlay
+    that runs into a vent, off the flat face onto the edge fillet, or past the
+    wall comes out smaller than the mark's own area x depth."""
+    md = float(doc.getObject('Params').get('mark_d'))
+    bad = []
+    for grp, body in (('MarksBrand', bodies[1]), ('MarksLabels', bodies[1]), ('MarksUnder', bodies[0])):
+        for m in doc.getObject(grp).Links:
+            if abs(m.Shape.BoundBox.ZLength - (md + 0.5)) > 1e-3:
+                bad.append('%s depth is stale: re-run build_case_rev3.py after changing mark_d' % m.Name)
+                continue
+            want = m.Shape.Volume * md / (md + 0.5)
+            got = body.Shape.common(m.Shape).Volume
+            if abs(got - want) > 0.005 * want:
+                bad.append('%s is only %.1f%% inside solid material' % (m.Name, 100 * got / want))
+    return bad
+
+mb = marks_whole()
+problems += mb
+print('  markings whole and on flat faces: %s' % ('yes' if not mb else 'NO'))
+print('  inlays: brand %.0f mm3 (%d pieces), labels %.0f mm3 (%d pieces)'
+      % (inlays[0].Shape.Volume, len(inlays[0].Shape.Solids), inlays[1].Shape.Volume, len(inlays[1].Shape.Solids)))
+
+vb, vn = vents_open()
+problems += ['vent slot blocked: ' + n for n in vb]
+print('  vent slots open: %d of %d' % (vn - len(vb), vn))
 
 kb, kgap = keyholes_closed()
 problems += kb
@@ -99,7 +155,7 @@ for o in root.Group:                # one App::Part per placed component
 pcb = [o for o in bdoc.Objects if o.TypeId == 'Part::Feature' and o.Label.endswith('_PCB')]
 if pcb:
     s = pcb[0].Shape.copy(); s.Placement = move.multiply(s.Placement); parts.append(('PCB', s))
-case = [b.Shape for b in bodies]
+case = [b.Shape for b in prints]
 live = [(l, s) for l, s in parts if not l.startswith(DNP)]
 
 # Spatial pre-filter. The case is a shell, so a part can only touch it if it
@@ -124,7 +180,7 @@ def candidate(s):
 cands = [(l, s) for l, s in live if candidate(s)]
 print('  %d of %d parts can reach the case; testing those' % (len(cands), len(live)))
 hits = []
-for b, cs in zip(bodies, case):
+for b, cs in zip(prints, case):
     for label, s in cands:
         if s.BoundBox.intersect(cs.BoundBox):
             com = cs.common(s)
@@ -157,7 +213,9 @@ for t in trials:
     doc.recompute()
     bad = [f.Name for b in bodies for f in b.Group if f.State and any(s in ('Invalid', 'Error') for s in f.State)]
     bad += keyholes_closed()[0]
-    ok = all(b.Shape.isValid() and len(b.Shape.Solids) == 1 for b in bodies) and not bad
+    bad += ['vent ' + n for n in vents_open()[0]]
+    bad += marks_whole()
+    ok = all(b.Shape.isValid() and len(b.Shape.Solids) == 1 for b in prints) and not bad
     print('  %-45s %s' % (t, 'ok' if ok else 'FAILED %s' % bad))
     if not ok:
         problems.append('robustness %s: %s' % (t, bad))
@@ -167,9 +225,9 @@ for t in trials:
 
 print('== 4. exports')
 os.makedirs(os.path.join(HERE, 'exports'), exist_ok=True)
-for b in bodies:
-    path = os.path.join(HERE, 'exports', 'project-case-rev3-%s.stl' % b.Name.lower())
-    Mesh.export([b], path)
+for o, name in zip(prints + inlays, ('bottom', 'lid', 'lid-inlay-brand', 'lid-inlay-labels')):
+    path = os.path.join(HERE, 'exports', 'project-case-rev3-%s.stl' % name)
+    Mesh.export([o], path)
     print('  ', os.path.relpath(path, HERE))
 
 try:
@@ -212,6 +270,36 @@ try:
     render([(lid, '#d8a07a', 1), (bot, '#7aa6d8', 1)], 'side-mount-minusX.png', 5, 180, 'Side mount face (-X): DIN clip holes above USB / LEDs')
     render([(bot, '#7aa6d8', 1)], 'tray-underside.png', -89, -90, 'Tray underside (keyholes, DIN clip holes)')
     render([(lid, '#d8a07a', 1)], 'lid-underside.png', -50, -60, 'Lid from below (posts, groove)')
+
+    from matplotlib.collections import PolyCollection
+
+    def face_on(items, name, title, mirror=False):
+        """Flat view of one outer face: faces pointing at the viewer (n.z
+        sign `nz`) within a z band, drawn in the order given."""
+        fig, ax = plt.subplots(figsize=(8, 9), dpi=110); ax.set_facecolor('#c8d4c0')
+        for shape, nz, zlo, zhi, color in items:
+            v, f = shape.tessellate(0.05)
+            v = np.array([[p.x, p.y, p.z] for p in v]); tri = v[np.array(f)]
+            n = np.cross(tri[:, 1] - tri[:, 0], tri[:, 2] - tri[:, 0])
+            zc = tri[:, :, 2].mean(1)
+            tri = tri[(n[:, 2] * nz > 0) & (zc > zlo) & (zc < zhi)][:, :, :2]
+            if mirror:
+                tri[:, :, 0] *= -1
+            ax.add_collection(PolyCollection(tri, facecolor=color, edgecolor=color, linewidth=0.2))
+        b = lid.BoundBox
+        ax.set_xlim(b.XMin - 1, b.XMax + 1); ax.set_ylim(b.YMin - 1, b.YMax + 1)
+        ax.set_aspect('equal'); ax.set_title(title)
+        plt.tight_layout(); fig.savefig(os.path.join(HERE, 'renders', name)); plt.close(fig)
+        print('  ', 'renders/' + name)
+
+    zt, zb = lid.BoundBox.ZMax, bot.BoundBox.ZMin
+    md = float(sheet.get('mark_d'))
+    face_on([(lid, 1, zt - md - 0.1, zt + 1, '#1a1a1a'),
+             (inlays[0].Shape, 1, zt - 0.01, zt + 1, '#2f6fd0'),
+             (inlays[1].Shape, 1, zt - 0.01, zt + 1, '#f4f4f4')],
+            'lid-top-markings.png', 'Lid top from outside, +Y up (case black, brand blue, labels white)')
+    face_on([(bot, -1, zb - 1, zb + 0.05, '#1a1a1a'), (bot, -1, zb + md - 0.05, zb + md + 0.05, '#9a9a9a')],
+            'tray-underside-markings.png', 'Tray underside from outside, +Y up (debossed in grey)', mirror=True)
 except ImportError as e:
     print('  renders skipped:', e)
 
