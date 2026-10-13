@@ -110,6 +110,8 @@ DEFAULTS = [
     ('kh_win_w', 10.0, 'Head channel width'),
     ('kh_win_l', 18.0, 'Head channel length'),
     ('kh_recess', 0.5, 'Head channel depth into the floor'),
+    ('kh_cap_t', 0.6, 'Cap over the head channel: closes the keyhole from inside (Rev 2 used 0.4)'),
+    ('kh_cap_lip', 2.0, 'Cap overlap past the head channel, each side'),
     ('DIN rail clips: 2x Phoenix USA 10 (1201578) or generic 42.6 x 10 equivalent', None),
     ('din_cx', 0.0, 'Clip centre X (clips run across the rail, along X)'),
     ('din_cy', 11.5, 'Midpoint between the two clips, Y (rail runs along Y)'),
@@ -365,7 +367,9 @@ f = pocket(bot, 'RidgeChamferInner', sk, '{ridge_chamfer}', reversed=True)
 f.TaperAngle = 45
 
 # Keyholes: entry hole + slot through the floor; inside, a reinforcing plate
-# with a head channel recessed into the floor around each keyhole.
+# with a head channel recessed into the floor around each keyhole, and a cap
+# over the channel. The cap keeps the wall screw or nail head off the board
+# underside, as in Rev 2; the head slides in the closed channel beneath it.
 KH = (('-{kh_dx}'), ('{kh_dx}'))
 sk = sketch(bot, 'Sk_KeyholePlate', 'XY', Z_FLOOR_TOP)
 rect(sk, '0', '{kh_y} + {kh_plate_l}/2 - 9', '{kh_plate_w}', '{kh_plate_l}')
@@ -384,6 +388,10 @@ sk = sketch(bot, 'Sk_KeyholeSlot', 'XY', Z_FLOOR_BOT)
 for kx in KH:
     rect(sk, kx, '{kh_y} + {kh_slot_len}/2', '{kh_slot_w}', '{kh_slot_len}')
 pocket(bot, 'KeyholeSlot', sk, None, reversed=True)
+sk = sketch(bot, 'Sk_KeyholeCap', 'XY', Z_FLOOR_TOP + ' + {kh_plate_t}')
+for kx in KH:
+    rect(sk, kx, '{kh_y} + {kh_win_l}/2 - 6', '{kh_win_w} + 2*{kh_cap_lip}', '{kh_win_l} + 2*{kh_cap_lip}')
+pad(bot, 'KeyholeCap', sk, '{kh_cap_t}')
 
 DIN = ('{din_cx} - {din_pitch}', '{din_cx}', '{din_cx} + {din_pitch}')
 DIN_Y = ('{din_cy} - {din_spacing}/2', '{din_cy} + {din_spacing}/2')   # two clips

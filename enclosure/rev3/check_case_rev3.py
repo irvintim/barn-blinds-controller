@@ -61,6 +61,28 @@ for body in bodies:
     print('  %-6s valid=%s solids=%d  %.1f x %.1f x %.1f mm' % (
         body.Name, s.isValid(), len(s.Solids), s.BoundBox.XLength, s.BoundBox.YLength, s.BoundBox.ZLength))
 
+
+def keyholes_closed():
+    """Probe each keyhole (entry hole and slot) with a vertical line: open from
+    below, closed by the cap from inside. Returns (problems, head channel height)."""
+    g = lambda k: float(doc.getObject('Params').get(k))
+    bad, gap = [], None
+    for kx in (-g('kh_dx'), g('kh_dx')):
+        for y in (g('kh_y'), g('kh_y') + g('kh_slot_len') - g('kh_slot_w') / 2):
+            line = Part.makeLine(V(kx, y, -20), V(kx, y, 0))
+            segs = sorted((e.BoundBox.ZMin, e.BoundBox.ZMax) for e in bodies[0].Shape.common(line).Edges)
+            if len(segs) != 1:
+                bad.append('keyhole at x=%.1f y=%.1f: solid above it %s (want one cap)' % (kx, y, segs))
+            else:
+                ch = -g('standoff_h') - g('board_play') - g('kh_recess')
+                gap = segs[0][0] - ch
+    return bad, gap
+
+kb, kgap = keyholes_closed()
+problems += kb
+print('  keyholes closed from inside: %s, head channel %.2f mm tall'
+      % ('yes' if not kb else 'NO', kgap or 0))
+
 print('== 2. fit against the Rev 1.3 board')
 bdoc = App.newDocument('board')
 import Import
@@ -87,7 +109,7 @@ live = [(l, s) for l, s in parts if not l.startswith(DNP)]
 v = lambda k: float(sheet.get(k))
 sheet = doc.getObject('Params')
 iw = v('board_w') / 2 + v('board_gap'); il = v('board_l') / 2 + v('board_gap')
-floor_feat = -v('standoff_h') - v('board_play') + max(v('din_boss_h'), v('kh_plate_t'))
+floor_feat = -v('standoff_h') - v('board_play') + max(v('din_boss_h'), v('kh_plate_t') + v('kh_cap_t'))
 ceiling = v('board_t') + v('headroom')
 holes = [(v(a), v(b)) for a in ('hole_xl', 'hole_xr') for b in ('hole_yb', 'hole_yt')]
 reach = v('standoff_d') / 2 + 1.5
@@ -134,6 +156,7 @@ for t in trials:
         sheet.set(sheet.getCellFromAlias(k), str(v))
     doc.recompute()
     bad = [f.Name for b in bodies for f in b.Group if f.State and any(s in ('Invalid', 'Error') for s in f.State)]
+    bad += keyholes_closed()[0]
     ok = all(b.Shape.isValid() and len(b.Shape.Solids) == 1 for b in bodies) and not bad
     print('  %-45s %s' % (t, 'ok' if ok else 'FAILED %s' % bad))
     if not ok:
