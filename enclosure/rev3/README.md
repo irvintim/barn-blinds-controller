@@ -39,6 +39,7 @@ All measured on 2026-10-12, from the as-fabbed PCB and the board STEP:
 |---|---|---|
 | Board | 65.004 × 73.935 mm, R3 corners | inner cavity +0.25 mm each side |
 | Lid post holes | Ø2.8, what Rev 2 printed with (its notes said 2.9; 2.8 is right) | Ø2.8 |
+| Tongue (ridge) | 0.55 wide, 0.5 tall, 0.25 × 45° chamfer both top edges (as Rev 2) | `ridge_chamfer` |
 | Mounting holes | x −28.913 / +29.034, y +33.370 / −33.401 | posts and standoffs on the holes |
 | J4 header | crosses the +X wall at y −11.20…+24.60, z up to 12.40 | cutout 36.6 wide, to z 12.8 |
 | J4 plug (1790182) | outside the wall; tops out at z 13.65 | clears the 15.94 ceiling |

@@ -61,6 +61,7 @@ DEFAULTS = [
     ('ridge_inset', 0.825, 'Ridge outer face, inset from outer wall'),
     ('ridge_w', 0.55, 'Ridge width'),
     ('ridge_h', 0.5, 'Ridge height'),
+    ('ridge_chamfer', 0.25, 'Ridge top chamfer, 45 deg, both edges (as Rev 2; keep > 0)'),
     ('groove_clear', 0.125, 'Groove clearance each side of ridge'),
     ('groove_depth', 0.9, 'Groove depth into the lid rim'),
     ('-X wall: USB and LEDs', None),
@@ -343,7 +344,21 @@ sk = sketch(bot, 'Sk_Ridge', 'XY', Z_SPLIT)
 rrect(sk, '0', '0', '%s - 2*{ridge_inset}' % OW, '%s - 2*{ridge_inset}' % OL, '{r_out} - {ridge_inset}')
 rrect(sk, '0', '0', '%s - 2*({ridge_inset} + {ridge_w})' % OW,
       '%s - 2*({ridge_inset} + {ridge_w})' % OL, '{r_out} - {ridge_inset} - {ridge_w}')
-pad(bot, 'Ridge', sk, '{ridge_h}')
+pad(bot, 'Ridge', sk, '{ridge_h} - {ridge_chamfer}')
+# Top of the ridge, chamfered 45 degrees on both edges without referencing
+# edges by name (so it survives parameter edits): a solid cap over the outer
+# outline tapered inward, then a pocket of the inner outline tapered outward
+# going up, which hollows the cap back out to a ring.
+Z_CH = '%s + {ridge_h} - {ridge_chamfer}' % Z_SPLIT
+sk = sketch(bot, 'Sk_RidgeChamferOuter', 'XY', Z_CH)
+rrect(sk, '0', '0', '%s - 2*{ridge_inset}' % OW, '%s - 2*{ridge_inset}' % OL, '{r_out} - {ridge_inset}')
+f = pad(bot, 'RidgeChamferOuter', sk, '{ridge_chamfer}')
+f.TaperAngle = -45
+sk = sketch(bot, 'Sk_RidgeChamferInner', 'XY', Z_CH)
+rrect(sk, '0', '0', '%s - 2*({ridge_inset} + {ridge_w})' % OW,
+      '%s - 2*({ridge_inset} + {ridge_w})' % OL, '{r_out} - {ridge_inset} - {ridge_w}')
+f = pocket(bot, 'RidgeChamferInner', sk, '{ridge_chamfer}', reversed=True)
+f.TaperAngle = 45
 
 # Keyholes: entry hole + slot through the floor; inside, a reinforcing plate
 # with a head channel recessed into the floor around each keyhole.
