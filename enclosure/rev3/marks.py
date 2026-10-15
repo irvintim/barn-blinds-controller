@@ -300,6 +300,20 @@ def mono_text(s, cap, halign='c', w=0.64, gap=0.6):
             glyphs.append(Part.makeCompound([disc(x + 0.55, cap / 2, 0.55)]))
             x += 1.1 + gap
             continue
+        if ch == '\u00a9':                # copyright: a C in a ring, centred on the caps
+            # Smallest that holds the limits: the C's opening needs its
+            # centre-line radius 0.8 (ends 48 deg off the axis are a gap
+            # apart), then a gap and the ring: 4.6 mm across, taller than the caps.
+            rc, gp = 0.8, gap - 0.05
+            rr = rc + w + gp
+            cx, cy = x + rr + w / 2, cap / 2
+            g = union(*[f for p in (_ell(cx, cy, rr, rr, 0, 360, 72), _ell(cx, cy, rc, rc, 48, 312, 36))
+                        for sh in _stroke(p, w) for f in sh.Faces])
+            glyphs.append(Part.makeCompound([Part.makeFace([Part.makePolygon(wi.discretize(Deflection=0.01), True)
+                                                            for wi in f.Wires], 'Part::FaceMakerBullseye')
+                                             for f in g.Faces]))
+            x += 2 * rr + w + gap
+            continue
         k, lines = _glyph(ch, a, b)
         if lines:
             g = union(*[f for p in lines for sh in _stroke(p, w) for f in sh.Faces])

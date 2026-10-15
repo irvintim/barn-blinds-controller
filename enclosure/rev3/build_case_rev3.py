@@ -546,7 +546,7 @@ from marks import (groups_of, icon_bolt, icon_power, icon_status, icon_usb,  # n
 # printer's limits (tile v2, README "Inlay test tile"). Upper case only.
 ART = os.path.join(HERE, 'art')
 TAGLINE = 'SHADE CONTROLLER \u2022 4'
-UNDER_LINES = (('VSP-WSC-4', 4.0), ('REV 1.3', 3.2), ('(C) 2026 VESPRIO.IO', 3.0))
+UNDER_LINES = (('VSP-WSC-4', 4.0), ('REV 1.3', 3.2), ('\u00a9 2026 VESPRIO.IO', 3.0))
 # J4 columns, pin 1/11 first (jack end, -Y). Top row (pins 1-10) is UP.
 J4_LABELS = ('SW1', 'GND', 'SW2', 'SW3', 'GND', 'SW4', 'SH1', 'SH2', 'SH3', 'SH4')
 MD = ev('{mark_d}')

@@ -138,8 +138,9 @@ the row nearer the floor (11–20) is DOWN (ADR-011).
 
 **Tray underside**: 0.6 mm debosses, single colour, mirrored so they read from outside:
 the monogram between the keyholes, and `VSP-WSC-4` / `REV 1.3` /
-`(C) 2026 VESPRIO.IO` (monoline; a © can't be drawn within the printer's
-limits at this size) below the lower DIN clip. Change the revision text in
+`© 2026 VESPRIO.IO` (monoline) below the lower DIN clip. The © is 4.6 mm
+across, bigger than the 3 mm letters: that's the smallest C-in-a-ring whose
+opening, counter and ring gap all hold the printer's limits. Change the revision text in
 `UNDER_LINES` in the builder.
 
 **Top vents** are two bands of 30 × 1 mm slots, to clear the centre for the
