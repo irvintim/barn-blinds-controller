@@ -7,7 +7,8 @@ Reads the model as it is now, including any spreadsheet edits, so run it
 after changing parameters. It:
   1. recomputes, and reports any feature that errors or changes no material,
      a body whose Tip isn't its last feature, a blocked vent slot, an open
-     keyhole, a marking that runs off the flat face or into a vent, and a
+     keyhole, a marking that runs off the flat face or into a vent, a
+     marking finer than the printer resolves (marks.printability), and a
      side tag that isn't flush and fully supported in its pocket
   2. checks the case for interference with every board part, and lists the
      closest approach for the parts that matter (connectors, tall and
@@ -113,7 +114,7 @@ def marks_whole():
     """Every mark must sit entirely in solid material, mark_d deep: an inlay
     that runs into a vent, off the flat face onto the edge fillet, or past the
     wall comes out smaller than the mark's own area x depth. And no two lid
-    marks may overlap, or two inlays would claim the same plastic."""
+    marks may overlap or come within MIN_GAP of each other."""
     md = float(doc.getObject('Params').get('mark_d'))
     bad = []
     for grp, body in (('MarksBrand', bodies[1]), ('MarksLabels', bodies[1]), ('MarksUnder', bodies[0])):
@@ -125,11 +126,17 @@ def marks_whole():
             got = body.Shape.common(m.Shape).Volume
             if abs(got - want) > 0.005 * want:
                 bad.append('%s is only %.1f%% inside solid material' % (m.Name, 100 * got / want))
+    sys.path.insert(0, HERE)
+    from marks import MIN_GAP
     top = doc.getObject('MarksBrand').Links + doc.getObject('MarksLabels').Links
-    for i, a in enumerate(top):        # overlapping marks: two colours in one place
+    for i, a in enumerate(top):        # marks too close: the black between them closes up
         for b in top[i + 1:]:
-            if a.Shape.BoundBox.intersect(b.Shape.BoundBox) and a.Shape.common(b.Shape).Volume > 1e-3:
-                bad.append('%s overlaps %s' % (a.Name, b.Name))
+            ba = App.BoundBox(a.Shape.BoundBox); ba.enlarge(MIN_GAP)
+            if not ba.intersect(b.Shape.BoundBox):
+                continue
+            d = a.Shape.distToShape(b.Shape)[0]
+            if d < MIN_GAP - 1e-6:
+                bad.append('%s is %.2f mm from %s (overlaps or closer than %.1f)' % (a.Name, d, b.Name, MIN_GAP))
     return bad
 
 def tag_seated():
@@ -150,9 +157,28 @@ def tag_seated():
         bad.append('side tag pocket floor is only %.1f%% solid' % (100 * floor / area))
     return bad
 
+def marks_printable():
+    """Every mark against what the printer resolves on the bed face (tile v2:
+    a 0.6 mm line prints clean, a 0.5 mm gap stays open): no stroke a 0.6 mm
+    pen can't draw, no gap between letters or parts a 0.5 mm pen can't enter."""
+    sys.path.insert(0, HERE)
+    from marks import MIN_GAP, MIN_STROKE, printability
+    bad = []
+    for grp in ('MarksBrand', 'MarksLabels', 'MarksUnder'):
+        for m in doc.getObject(grp).Links:
+            thin, narrow = printability(m.Shape)
+            bad += ['%s: stroke under %.1f mm, %.2f mm of it, at x %.1f y %.1f' % (m.Name, MIN_STROKE, d, x, y)
+                    for d, (x, y) in thin]
+            bad += ['%s: gap under %.1f mm, %.2f mm of it, at x %.1f y %.1f' % (m.Name, MIN_GAP, d, x, y)
+                    for d, (x, y) in narrow]
+    return bad
+
 mb = marks_whole()
 problems += mb
 print('  markings whole and on flat faces: %s' % ('yes' if not mb else 'NO'))
+pb = marks_printable()
+problems += pb
+print('  markings printable (strokes >= 0.6, gaps >= 0.5): %s' % ('yes' if not pb else 'NO, %d spots' % len(pb)))
 print('  inlays: brand %.0f mm3 (%d pieces), labels %.0f mm3 (%d pieces)'
       % (inlays[0].Shape.Volume, len(inlays[0].Shape.Solids), inlays[1].Shape.Volume, len(inlays[1].Shape.Solids)))
 

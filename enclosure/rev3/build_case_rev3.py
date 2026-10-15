@@ -129,19 +129,20 @@ DEFAULTS = [
     ('mark_d', 0.6, 'Inlay depth (lid top) and deboss depth (tray underside): 3 layers at 0.2'),
     ('logo_w', 40.0, 'Vesprio lockup width, lid top (brand inlay)'),
     ('logo_cy', 10.5, 'Vesprio lockup centre Y'),
-    ('tag_w', 40.0, 'SHADE CONTROLLER line width (brand inlay)'),
-    ('tag_cy', -23.5, 'SHADE CONTROLLER line centre Y'),
-    ('lbl_h', 2.5, 'J4 and power label cap height (label inlay)'),
+    ('tag_h', 3.0, 'SHADE CONTROLLER line cap height (brand inlay, monoline)'),
+    ('tag_cy', -18.5, 'SHADE CONTROLLER line centre Y (its 4 must clear 12V by 0.5)'),
+    ('lbl_h', 3.0, 'J4 and power label cap height (label inlay, monoline): 3.5 pitch leaves a 0.5 gap between rows'),
     ('lbl_in', 3.25, 'Label right edge, in from the +X outer wall'),
     ('j4_pitch', 3.5, 'J4 column pitch; pin 1/11 column is term_cy - 4.5 pitches (the jack end)'),
-    ('icon_in', 6.5, 'LED / USB icon centre, in from the outer wall'),
+    ('icon_in', 7.5, 'LED / USB icon centre, in from the outer wall'),
+    ('icon_k', 1.4, 'Icon scale (tile v2: 1.4x read well; 1.0x blurred)'),
     ('mono_w', 12.0, 'Monogram size, tray underside between the keyholes (deboss)'),
     ('mono_cy', 14.0, 'Monogram centre Y'),
     ('under_cy', -19.5, 'Underside text, first line centre Y'),
     ('Write-on panels: white, for a marker (what the unit drives)', None),
     ('note_w', 40.0, 'Lid top panel width (labels inlay, white): readable on a wall or flat on a rail'),
-    ('note_h', 14.0, 'Lid top panel height'),
-    ('note_cy', -12.0, 'Lid top panel centre Y (between the logo and the SHADE CONTROLLER line)'),
+    ('note_h', 11.0, 'Lid top panel height'),
+    ('note_cy', -10.0, 'Lid top panel centre Y (between the logo and the SHADE CONTROLLER line)'),
     ('note_r', 1.5, 'Lid top panel corner radius'),
     ('stag_w', 9.6, 'Side tag width (Y): separate white plate glued into a pocket in the +X wall, which faces out on a side mount'),
     ('stag_h', 11.6, 'Side tag height (Z)'),
@@ -538,43 +539,51 @@ pocket(lid, 'SideTagPocket', sk, '1 + {stag_t}')
 # an expression on Params, so moving it is a spreadsheet edit. The final
 # printable shapes are Part::Cut / Part::Common of the bodies with the marks.
 sys.path.insert(0, HERE)
-from marks import (icon_bolt, icon_power, icon_status, icon_usb, rounded_rect,  # noqa: E402
-                   svg_faces, text)
+from marks import (groups_of, icon_bolt, icon_power, icon_status, icon_usb,  # noqa: E402
+                   mono_text, rounded_rect, svg_faces)
 
-FONTS = os.path.join(HERE, 'fonts')
+# All text is monoline (marks.mono_text): DejaVu at these sizes broke the
+# printer's limits (tile v2, README "Inlay test tile"). Upper case only.
 ART = os.path.join(HERE, 'art')
-F_LABEL = os.path.join(FONTS, 'DejaVuSansCondensed-Bold.ttf')
-F_TAG = os.path.join(FONTS, 'DejaVuSansMono-Bold.ttf')
-F_UNDER = os.path.join(FONTS, 'DejaVuSans-Bold.ttf')
 TAGLINE = 'SHADE CONTROLLER \u2022 4'
-UNDER_LINES = (('VSP-WSC-4', 4.0), ('Rev 1.3', 3.2), ('\u00a9 2026 Vesprio.io', 2.4))
+UNDER_LINES = (('VSP-WSC-4', 4.0), ('REV 1.3', 3.2), ('(C) 2026 VESPRIO.IO', 3.0))
 # J4 columns, pin 1/11 first (jack end, -Y). Top row (pins 1-10) is UP.
 J4_LABELS = ('SW1', 'GND', 'SW2', 'SW3', 'GND', 'SW4', 'SH1', 'SH2', 'SH3', 'SH4')
 MD = ev('{mark_d}')
 
 
+def lines(rows, halign='r'):
+    """Monoline rows [(text, cap, y)] as one compound of letters."""
+    return Part.makeCompound([g for t, cap, y in rows
+                              for g in mono_text(t, cap, halign).translate(V(0, y, 0)).childShapes()])
+
+
 def legend_j4():
     """J4 column labels (right-aligned, pin-1 column at y = 0) plus the row
-    key above them and the power label for J1 below."""
-    parts = [text(t, F_LABEL, ev('{lbl_h}'), 'r').translate(V(0, i * ev('{j4_pitch}'), 0))
-             for i, t in enumerate(J4_LABELS)]
-    top = (len(J4_LABELS) - 1) * ev('{j4_pitch}')
-    # 2.0 mm caps make the '=' bars 0.32 mm, under a 0.4 nozzle's line: grow them.
-    parts += [text('TOP=UP', F_LABEL, 2.0, 'r', grow=0.06).translate(V(0, top + 8.6, 0)),
-              text('BTM=DN', F_LABEL, 2.0, 'r', grow=0.06).translate(V(0, top + 5.2, 0))]
-    return Part.makeCompound([f for p in parts for f in p.Faces])
+    key above them."""
+    h, p = ev('{lbl_h}'), ev('{j4_pitch}')
+    top = (len(J4_LABELS) - 1) * p
+    return lines([(t, h, i * p) for i, t in enumerate(J4_LABELS)]
+                 + [('TOP=UP', h, top + 9.0), ('BTM=DN', h, top + 5.0)])
 
 
 def legend_power():
-    return Part.makeCompound(text('12V', F_LABEL, ev('{lbl_h}'), 'r').Faces
-                             + text('3A', F_LABEL, ev('{lbl_h}'), 'r').translate(V(0, -3.6, 0)).Faces)
+    h = ev('{lbl_h}')
+    return lines([('12V', h, 0.0), ('3A', h, -(h + 0.6))])
+
+
+def icon(fn):
+    f = fn().copy(); f.scale(ev('{icon_k}'))
+    return f
 
 
 def prism(faces, top):
     """top=True: lid-top inlay, from mark_d below the surface (local z=0) to
-    0.5 above it. top=False: underside deboss, 0.5 below to mark_d above."""
+    0.5 above it. top=False: underside deboss, 0.5 below to mark_d above.
+    Each letter / part stays its own sub-compound for printability()."""
     z0, h = (-MD, MD + 0.5) if top else (-0.5, MD + 0.5)
-    return Part.makeCompound([f.translate(V(0, 0, z0)).extrude(V(0, 0, h)) for f in faces.Faces])
+    return Part.makeCompound([Part.makeCompound([f.translate(V(0, 0, z0)).extrude(V(0, 0, h)) for f in g.Faces])
+                              for g in groups_of(faces)])
 
 
 Z_TOP = '(%s + {lid_t})' % Z_CEIL
@@ -593,25 +602,24 @@ def mark(name, faces, x, y, top=True, mirror=False):
     return o
 
 
-tl = text(TAGLINE, F_TAG, 1.0); tl.scale(ev('{tag_w}') / tl.BoundBox.XLength)   # fit to tag_w
 brand = [mark('MarkLogo', svg_faces(os.path.join(ART, 'vesprio-lockup-stacked-notag.svg'), ev('{logo_w}')),
               '0', '{logo_cy}'),
-         mark('MarkTagline', tl, '0', '{tag_cy}')]
+         mark('MarkTagline', mono_text(TAGLINE, ev('{tag_h}')), '0', '{tag_cy}')]
 labels = [mark('MarkJ4', legend_j4(), '%s - {lbl_in}' % EDGE_PX, '{term_cy} - 4.5*{j4_pitch}'),
           mark('MarkPower', legend_power(), '%s - {lbl_in}' % EDGE_PX, '{jack_cy} + 1.8'),
-          mark('MarkD5', icon_bolt(), '%s - {icon_in}' % EDGE_PX, '{led5_y}'),
-          mark('MarkD3', icon_status(), '-%s + {icon_in}' % EDGE_PX, '{led3_y}'),
-          mark('MarkD4', icon_power(), '-%s + {icon_in}' % EDGE_PX, '{led4_y}'),
-          mark('MarkUsb', icon_usb(), '-%s + {icon_in}' % EDGE_PX, '{usb_cy}'),
+          mark('MarkD5', icon(icon_bolt), '%s - {icon_in}' % EDGE_PX, '{led5_y}'),
+          mark('MarkD3', icon(icon_status), '-%s + {icon_in}' % EDGE_PX, '{led3_y}'),
+          mark('MarkD4', icon(icon_power), '-%s + {icon_in}' % EDGE_PX, '{led4_y}'),
+          mark('MarkUsb', icon(icon_usb), '-%s + {icon_in}' % EDGE_PX, '{usb_cy}'),
           mark('MarkNote', rounded_rect(ev('{note_w}'), ev('{note_h}'), ev('{note_r}')), '0', '{note_cy}')]
 ul, y = [], 0.0
 for i, (t, h) in enumerate(UNDER_LINES):
     if i:
         y -= UNDER_LINES[i - 1][1] / 2 + 1.9 + h / 2
-    ul += text(t, F_UNDER, h).translate(V(0, y, 0)).Faces
+    ul.append((t, h, y))
 under = [mark('MarkMonogram', svg_faces(os.path.join(ART, 'vesprio-monogram.svg'), ev('{mono_w}')),
               '0', '{mono_cy}', top=False, mirror=True),
-         mark('MarkUnderText', Part.makeCompound(ul), '0', '{under_cy}', top=False, mirror=True)]
+         mark('MarkUnderText', lines(ul, 'c'), '0', '{under_cy}', top=False, mirror=True)]
 
 
 def group(name, objs):

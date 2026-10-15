@@ -2,7 +2,8 @@
   Bottom valid=True solids=1  70.5 x 79.4 x 8.8 mm
   Lid    valid=True solids=1  70.5 x 79.4 x 16.8 mm
   markings whole and on flat faces: yes
-  inlays: brand 114 mm3 (26 pieces), labels 434 mm3 (55 pieces)
+  markings printable (strokes >= 0.6, gaps >= 0.5): yes
+  inlays: brand 129 mm3 (26 pieces), labels 412 mm3 (55 pieces)
   vent slots open: 19 of 19
   side tag seated flush in its pocket: yes
   keyholes closed from inside: yes, head channel 1.80 mm tall
