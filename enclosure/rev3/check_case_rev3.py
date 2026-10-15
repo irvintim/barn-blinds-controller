@@ -7,14 +7,15 @@ Reads the model as it is now, including any spreadsheet edits, so run it
 after changing parameters. It:
   1. recomputes, and reports any feature that errors or changes no material,
      a body whose Tip isn't its last feature, a blocked vent slot, an open
-     keyhole, and a marking that runs off the flat face or into a vent
+     keyhole, a marking that runs off the flat face or into a vent, and a
+     side tag that isn't flush and fully supported in its pocket
   2. checks the case for interference with every board part, and lists the
      closest approach for the parts that matter (connectors, tall and
      underside parts)
   3. re-solves with deliberately changed parameters to prove the model
      survives edits (in memory; the file is not modified)
-  4. exports STLs (tray, lid, and the lid's two inlays) to exports/ and
-     preview PNGs to renders/
+  4. exports STLs (tray, lid, the lid's two inlays, the side tag) to exports/, checks
+     each is a closed, manifold mesh, and writes preview PNGs to renders/
 The output is also written to check-report.txt.
 """
 import os
@@ -43,6 +44,7 @@ doc.recompute()
 bodies = [doc.getObject('Bottom'), doc.getObject('Lid')]
 prints = [doc.getObject('TrayPrint'), doc.getObject('LidPrint')]     # bodies minus markings
 inlays = [doc.getObject('InlayBrand'), doc.getObject('InlayLabels')]
+side_tag = doc.getObject('SideTag')                                  # separate white plate
 
 print('== 1. features')
 for body in bodies:
@@ -110,7 +112,8 @@ def vents_open():
 def marks_whole():
     """Every mark must sit entirely in solid material, mark_d deep: an inlay
     that runs into a vent, off the flat face onto the edge fillet, or past the
-    wall comes out smaller than the mark's own area x depth."""
+    wall comes out smaller than the mark's own area x depth. And no two lid
+    marks may overlap, or two inlays would claim the same plastic."""
     md = float(doc.getObject('Params').get('mark_d'))
     bad = []
     for grp, body in (('MarksBrand', bodies[1]), ('MarksLabels', bodies[1]), ('MarksUnder', bodies[0])):
@@ -122,6 +125,29 @@ def marks_whole():
             got = body.Shape.common(m.Shape).Volume
             if abs(got - want) > 0.005 * want:
                 bad.append('%s is only %.1f%% inside solid material' % (m.Name, 100 * got / want))
+    top = doc.getObject('MarksBrand').Links + doc.getObject('MarksLabels').Links
+    for i, a in enumerate(top):        # overlapping marks: two colours in one place
+        for b in top[i + 1:]:
+            if a.Shape.BoundBox.intersect(b.Shape.BoundBox) and a.Shape.common(b.Shape).Volume > 1e-3:
+                bad.append('%s overlaps %s' % (a.Name, b.Name))
+    return bad
+
+def tag_seated():
+    """The side tag must sit in its pocket flush with the wall, touching no
+    material, over a solid pocket floor (not over the J4 opening, a fillet or
+    the corner): pushed 0.05 into the floor it must overlap by its full area."""
+    g = lambda k: float(doc.getObject('Params').get(k))
+    t, lid = side_tag.Shape, prints[1].Shape
+    bad = []
+    ow = g('board_w') / 2 + g('board_gap') + g('wall')
+    if abs(t.BoundBox.XMax - ow) > 1e-3:
+        bad.append('side tag face is at x %.3f, not flush with the wall at %.3f' % (t.BoundBox.XMax, ow))
+    if lid.common(t).Volume > 1e-3:
+        bad.append('side tag collides with the lid (pocket too small)')
+    area = t.Volume / g('stag_t')
+    floor = lid.common(t.translated(V(-0.05, 0, 0))).Volume / 0.05
+    if floor < 0.995 * area:
+        bad.append('side tag pocket floor is only %.1f%% solid' % (100 * floor / area))
     return bad
 
 mb = marks_whole()
@@ -133,6 +159,10 @@ print('  inlays: brand %.0f mm3 (%d pieces), labels %.0f mm3 (%d pieces)'
 vb, vn = vents_open()
 problems += ['vent slot blocked: ' + n for n in vb]
 print('  vent slots open: %d of %d' % (vn - len(vb), vn))
+
+tb = tag_seated()
+problems += tb
+print('  side tag seated flush in its pocket: %s' % ('yes' if not tb else 'NO'))
 
 kb, kgap = keyholes_closed()
 problems += kb
@@ -225,10 +255,13 @@ for t in trials:
 
 print('== 4. exports')
 os.makedirs(os.path.join(HERE, 'exports'), exist_ok=True)
-for o, name in zip(prints + inlays, ('bottom', 'lid', 'lid-inlay-brand', 'lid-inlay-labels')):
+for o, name in zip(prints + inlays + [side_tag], ('bottom', 'lid', 'lid-inlay-brand', 'lid-inlay-labels', 'side-tag')):
     path = os.path.join(HERE, 'exports', 'project-case-rev3-%s.stl' % name)
     Mesh.export([o], path)
-    print('  ', os.path.relpath(path, HERE))
+    m = Mesh.Mesh(path)
+    print('  ', os.path.relpath(path, HERE), 'closed' if m.isSolid() and not m.hasNonManifolds() else 'NOT CLOSED')
+    if not m.isSolid() or m.hasNonManifolds():
+        problems.append('%s: open or non-manifold mesh (slicers repair it, or fail)' % os.path.basename(path))
 
 try:
     import matplotlib
@@ -295,11 +328,31 @@ try:
     zt, zb = lid.BoundBox.ZMax, bot.BoundBox.ZMin
     md = float(sheet.get('mark_d'))
     face_on([(lid, 1, zt - md - 0.1, zt + 1, '#1a1a1a'),
-             (inlays[0].Shape, 1, zt - 0.01, zt + 1, '#2f6fd0'),
+             (inlays[0].Shape, 1, zt - 0.01, zt + 1, '#01c7fc'),
              (inlays[1].Shape, 1, zt - 0.01, zt + 1, '#f4f4f4')],
             'lid-top-markings.png', 'Lid top from outside, +Y up (case black, brand blue, labels white)')
     face_on([(bot, -1, zb - 1, zb + 0.05, '#1a1a1a'), (bot, -1, zb + md - 0.05, zb + md + 0.05, '#9a9a9a')],
             'tray-underside-markings.png', 'Tray underside from outside, +Y up (debossed in grey)', mirror=True)
+
+    # +X wall seen straight on (the face out on a side mount): faces pointing
+    # +X, drawn back to front so the J4 / J1 openings and the tag show.
+    fig, ax = plt.subplots(figsize=(9, 4), dpi=110); ax.set_facecolor('#c8d4c0')
+    tris = []
+    for shape, color in ((bot, '#1a1a1a'), (lid, '#1a1a1a'), (side_tag.Shape, '#f4f4f4')):
+        v, f = shape.tessellate(0.05)
+        v = np.array([[p.x, p.y, p.z] for p in v]); tri = v[np.array(f)]
+        n = np.cross(tri[:, 1] - tri[:, 0], tri[:, 2] - tri[:, 0])
+        keep = (n[:, 0] > 1e-9) & (tri[:, :, 0].mean(1) > lid.BoundBox.XMax - 1.0)
+        tris += [(t[:, 0].mean(), t[:, 1:], color) for t in tri[keep]]
+    tris.sort(key=lambda t: t[0])
+    ax.add_collection(PolyCollection([t[1] for t in tris], facecolor=[t[2] for t in tris],
+                                     edgecolor=[t[2] for t in tris], linewidth=0.2))
+    ax.set_xlim(lid.BoundBox.YMin - 1, lid.BoundBox.YMax + 1)
+    ax.set_ylim(bot.BoundBox.ZMin - 1, lid.BoundBox.ZMax + 1)
+    ax.set_aspect('equal'); ax.set_xlabel('Y'); ax.set_ylabel('Z')
+    ax.set_title('+X wall from outside: J1, J4 (plug goes here), side tag (white)')
+    plt.tight_layout(); fig.savefig(os.path.join(HERE, 'renders', 'side-tag-plusX.png')); plt.close(fig)
+    print('   renders/side-tag-plusX.png')
 except ImportError as e:
     print('  renders skipped:', e)
 

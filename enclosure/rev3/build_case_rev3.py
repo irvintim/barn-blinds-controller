@@ -128,9 +128,9 @@ DEFAULTS = [
     ('Markings: positions update on Recompute; text, sizes and mark_d need a re-run of the builder', None),
     ('mark_d', 0.6, 'Inlay depth (lid top) and deboss depth (tray underside): 3 layers at 0.2'),
     ('logo_w', 40.0, 'Vesprio lockup width, lid top (brand inlay)'),
-    ('logo_cy', 9.0, 'Vesprio lockup centre Y'),
+    ('logo_cy', 10.5, 'Vesprio lockup centre Y'),
     ('tag_w', 40.0, 'SHADE CONTROLLER line width (brand inlay)'),
-    ('tag_cy', -20.0, 'SHADE CONTROLLER line centre Y'),
+    ('tag_cy', -23.5, 'SHADE CONTROLLER line centre Y'),
     ('lbl_h', 2.5, 'J4 and power label cap height (label inlay)'),
     ('lbl_in', 3.25, 'Label right edge, in from the +X outer wall'),
     ('j4_pitch', 3.5, 'J4 column pitch; pin 1/11 column is term_cy - 4.5 pitches (the jack end)'),
@@ -138,6 +138,18 @@ DEFAULTS = [
     ('mono_w', 12.0, 'Monogram size, tray underside between the keyholes (deboss)'),
     ('mono_cy', 14.0, 'Monogram centre Y'),
     ('under_cy', -19.5, 'Underside text, first line centre Y'),
+    ('Write-on panels: white, for a marker (what the unit drives)', None),
+    ('note_w', 40.0, 'Lid top panel width (labels inlay, white): readable on a wall or flat on a rail'),
+    ('note_h', 14.0, 'Lid top panel height'),
+    ('note_cy', -12.0, 'Lid top panel centre Y (between the logo and the SHADE CONTROLLER line)'),
+    ('note_r', 1.5, 'Lid top panel corner radius'),
+    ('stag_w', 9.6, 'Side tag width (Y): separate white plate glued into a pocket in the +X wall, which faces out on a side mount'),
+    ('stag_h', 11.6, 'Side tag height (Z)'),
+    ('stag_t', 0.6, 'Side tag thickness = pocket depth (3 layers, inside the lid job\'s colour layers)'),
+    ('stag_r', 1.0, 'Side tag corner radius'),
+    ('stag_clear', 0.1, 'Pocket clearance around the tag, each side'),
+    ('stag_cy', 31.1, 'Side tag centre Y: between the J4 plug (ends y 24.74) and the corner radius'),
+    ('stag_cz', 10.0, 'Side tag centre Z, above board underside (clear of the groove and the top fillet)'),
 ]
 P = {r[0]: r[1] for r in DEFAULTS if r[1] is not None}
 
@@ -512,6 +524,12 @@ rect(sk, '{tv_x0} + {tv_len}/2', '{tvb_y0}', '{tv_len}', '{tv_w}')
 v = pocket(lid, 'VentTopLower', sk, '{lid_t} + 2', reversed=True)
 pattern(lid, 'VentsTopLower', v, sk, 'V_Axis', '{tvb_n}', '{tv_pitch}')
 
+# Side tag pocket in the +X wall, beside J4 (YZ normal is +X: pocket goes inward).
+sk = sketch(lid, 'Sk_SideTagPocket', 'YZ', '(%s/2 + 1)' % OW)
+rrect(sk, '{stag_cy}', '{stag_cz}', '{stag_w} + 2*{stag_clear}', '{stag_h} + 2*{stag_clear}',
+      '{stag_r} + {stag_clear}')
+pocket(lid, 'SideTagPocket', sk, '1 + {stag_t}')
+
 # ---------------------------------------------------------------- markings
 # Lid top: flush inlays printed in a second and third filament. The lid prints
 # top-down, so they are the first mark_d of layers on the build plate, the
@@ -520,7 +538,8 @@ pattern(lid, 'VentsTopLower', v, sk, 'V_Axis', '{tvb_n}', '{tv_pitch}')
 # an expression on Params, so moving it is a spreadsheet edit. The final
 # printable shapes are Part::Cut / Part::Common of the bodies with the marks.
 sys.path.insert(0, HERE)
-import svgpaths  # noqa: E402
+from marks import (icon_bolt, icon_power, icon_status, icon_usb, rounded_rect,  # noqa: E402
+                   svg_faces, text)
 
 FONTS = os.path.join(HERE, 'fonts')
 ART = os.path.join(HERE, 'art')
@@ -532,95 +551,6 @@ UNDER_LINES = (('VSP-WSC-4', 4.0), ('Rev 1.3', 3.2), ('\u00a9 2026 Vesprio.io', 
 # J4 columns, pin 1/11 first (jack end, -Y). Top row (pins 1-10) is UP.
 J4_LABELS = ('SW1', 'GND', 'SW2', 'SW3', 'GND', 'SW4', 'SH1', 'SH2', 'SH3', 'SH4')
 MD = ev('{mark_d}')
-
-
-def faces_of(shape):
-    return Part.makeCompound(shape.Faces)
-
-
-def text(s, font, cap, halign='c', grow=0.0):
-    """Text as flat faces: cap height `cap`, capitals centred on y = 0,
-    x anchored at its centre ('c'), right end ('r') or left end ('l').
-    `grow` emboldens every outline by that much per side (thin strokes)."""
-    H = Part.makeWireString('H', font, 10.0, 0)[0]
-    k = cap / Part.makeCompound(H).BoundBox.YLength
-    faces = [Part.makeFace(ch, 'Part::FaceMakerBullseye')
-             for ch in Part.makeWireString(s, font, 10.0, 0) if ch]
-    c = Part.makeCompound(faces); c.scale(k)
-    if grow:
-        c = Part.makeCompound([f.makeOffset2D(grow) for f in c.Faces])
-    b = c.BoundBox
-    dx = {'c': -(b.XMin + b.XMax) / 2, 'r': -b.XMax, 'l': -b.XMin}[halign]
-    c.translate(V(dx, -cap / 2, 0))
-    return c
-
-
-def svg_faces(path, width):
-    """SVG outlines as faces `width` wide, centred on the origin, y up."""
-    cs = svgpaths.contours(path)
-    x0, y0, x1, y1 = svgpaths.bbox(cs)
-    k = width / (x1 - x0)
-    P = lambda p: V((p[0] - (x0 + x1) / 2) * k, -(p[1] - (y0 + y1) / 2) * k, 0)
-    wires = []
-    for cnt in cs:
-        edges = []
-        for sg in cnt:
-            pts = [P(p) for p in sg[1:]]
-            if sg[0] == 'L':
-                edges.append(Part.LineSegment(pts[0], pts[1]).toShape())
-            else:
-                bz = Part.BezierCurve(); bz.setPoles(pts); edges.append(bz.toShape())
-        wires.append(Part.Wire(edges))
-    return Part.makeFace(wires, 'Part::FaceMakerBullseye')
-
-
-def poly(pts):
-    return Part.Face(Part.makePolygon([V(x, y, 0) for x, y in pts] + [V(*pts[0], 0)]))
-
-
-def stroke(pts, w):
-    """An open polyline thickened to width w, as a face."""
-    wire = Part.makePolygon([V(x, y, 0) for x, y in pts])
-    return Part.Face(wire.makeOffset2D(w / 2, 0, False, False, False))
-
-
-def disc(x, y, r):
-    return Part.Face(Part.Wire(Part.makeCircle(r, V(x, y, 0))))
-
-
-def union(*faces):
-    u = faces[0]
-    for f in faces[1:]:
-        u = u.fuse(f)
-    return faces_of(u.removeSplitter())
-
-
-def icon_power():          # D4: logic power (IEC 5009 standby symbol)
-    ring = disc(0, -0.2, 2.0).cut(disc(0, -0.2, 1.35))
-    ring = ring.cut(poly([(-0.9, 0.2), (0.9, 0.2), (0.9, 3), (-0.9, 3)]))
-    return union(ring, poly([(-0.33, -0.4), (0.33, -0.4), (0.33, 2.2), (-0.33, 2.2)]))
-
-
-def icon_bolt():           # D5: 12 V motor power
-    return union(poly([(0.9, 2.3), (-1.3, -0.25), (-0.05, -0.25), (-0.9, -2.3),
-                       (1.3, 0.45), (0.05, 0.45)]))
-
-
-def icon_status():         # D3: status / fault (warning triangle, "!" cut out)
-    t = poly([(-2.6, -2.1), (2.6, -2.1), (0, 2.4)])
-    t = t.cut(poly([(-0.32, -0.6), (0.32, -0.6), (0.32, 1.1), (-0.32, 1.1)]))
-    t = t.cut(poly([(-0.32, -1.6), (0.32, -1.6), (0.32, -1.0), (-0.32, -1.0)]))
-    return faces_of(t)
-
-
-def icon_usb():            # J2: USB trident, pointing out of the case (-X)
-    f = union(disc(2.9, 0, 0.75),
-              poly([(2.9, -0.3), (-2.4, -0.3), (-2.4, 0.3), (2.9, 0.3)]),
-              poly([(-2.2, -0.85), (-2.2, 0.85), (-3.6, 0)]),
-              stroke([(1.2, 0), (0.1, 1.35), (-1.0, 1.35)], 0.6), disc(-1.25, 1.35, 0.55),
-              stroke([(0.6, 0), (-0.4, -1.3), (-1.4, -1.3)], 0.6),
-              poly([(-1.4, -1.8), (-2.4, -1.8), (-2.4, -0.8), (-1.4, -0.8)]))
-    return f
 
 
 def legend_j4():
@@ -672,7 +602,8 @@ labels = [mark('MarkJ4', legend_j4(), '%s - {lbl_in}' % EDGE_PX, '{term_cy} - 4.
           mark('MarkD5', icon_bolt(), '%s - {icon_in}' % EDGE_PX, '{led5_y}'),
           mark('MarkD3', icon_status(), '-%s + {icon_in}' % EDGE_PX, '{led3_y}'),
           mark('MarkD4', icon_power(), '-%s + {icon_in}' % EDGE_PX, '{led4_y}'),
-          mark('MarkUsb', icon_usb(), '-%s + {icon_in}' % EDGE_PX, '{usb_cy}')]
+          mark('MarkUsb', icon_usb(), '-%s + {icon_in}' % EDGE_PX, '{usb_cy}'),
+          mark('MarkNote', rounded_rect(ev('{note_w}'), ev('{note_h}'), ev('{note_r}')), '0', '{note_cy}')]
 ul, y = [], 0.0
 for i, (t, h) in enumerate(UNDER_LINES):
     if i:
@@ -701,6 +632,16 @@ boolean('Common', 'InlayLabels', lid, g_labels)
 boolean('Cut', 'TrayPrint', bot, g_under)
 lid.Visibility = bot.Visibility = False
 
+# The side tag, shown seated in its pocket: built in XY, then turned so its
+# local x, y, z run along Y, Z, X (a 120 degree turn about (1, 1, 1)).
+tag = doc.addObject('Part::Feature', 'SideTag')
+tag.Shape = rounded_rect(ev('{stag_w}'), ev('{stag_h}'), ev('{stag_r}')).extrude(V(0, 0, ev('{stag_t}')))
+tag.Placement.Rotation = Rotation(V(1, 1, 1), 120)
+for ax, e in (('x', '%s - {stag_t}' % EDGE_PX), ('y', '{stag_cy}'), ('z', '{stag_cz}')):
+    setattr(tag.Placement.Base, ax, ev(e))
+    tag.setExpression('.Placement.Base.' + ax, X(e))
+tag.Label = 'SideTag (print flat, white; glue into the +X wall pocket)'
+
 # ---------------------------------------------------------------- reference board
 if os.path.exists(BOARD_STEP):
     shape = Part.read(BOARD_STEP)
@@ -712,7 +653,7 @@ if os.path.exists(BOARD_STEP):
 
 doc.recompute()
 bad = [o.Name for o in doc.Objects if 'Invalid' in o.State or 'Error' in str(o.State)]
-for body in (bot, lid, doc.TrayPrint, doc.LidPrint, doc.InlayBrand, doc.InlayLabels):
+for body in (bot, lid, doc.TrayPrint, doc.LidPrint, doc.InlayBrand, doc.InlayLabels, doc.SideTag):
     s = body.Shape
     print('%-7s valid=%s solids=%d volume=%.0f mm3 bbox=%s'
           % (body.Name, s.isValid(), len(s.Solids), s.Volume, s.BoundBox))

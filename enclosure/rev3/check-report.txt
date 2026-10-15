@@ -2,8 +2,9 @@
   Bottom valid=True solids=1  70.5 x 79.4 x 8.8 mm
   Lid    valid=True solids=1  70.5 x 79.4 x 16.8 mm
   markings whole and on flat faces: yes
-  inlays: brand 114 mm3 (26 pieces), labels 99 mm3 (62 pieces)
+  inlays: brand 114 mm3 (26 pieces), labels 434 mm3 (55 pieces)
   vent slots open: 19 of 19
+  side tag seated flush in its pocket: yes
   keyholes closed from inside: yes, head channel 1.80 mm tall
 == 2. fit against the Rev 1.3 board
   29 of 109 parts can reach the case; testing those
@@ -42,10 +43,11 @@
   {'headroom': 16.0, 'r_out': 4.0}              ok
   {'din_spacing': 36.0, 'side_cy': 3.0}         ok
 == 4. exports
-   exports/project-case-rev3-bottom.stl
-   exports/project-case-rev3-lid.stl
-   exports/project-case-rev3-lid-inlay-brand.stl
-   exports/project-case-rev3-lid-inlay-labels.stl
+   exports/project-case-rev3-bottom.stl closed
+   exports/project-case-rev3-lid.stl closed
+   exports/project-case-rev3-lid-inlay-brand.stl closed
+   exports/project-case-rev3-lid-inlay-labels.stl closed
+   exports/project-case-rev3-side-tag.stl closed
    renders/assembled-plusX.png
    renders/assembled-minusX.png
    renders/tray-with-board.png
@@ -55,4 +57,5 @@
    renders/lid-underside.png
    renders/lid-top-markings.png
    renders/tray-underside-markings.png
+   renders/side-tag-plusX.png
 == result: PASS
