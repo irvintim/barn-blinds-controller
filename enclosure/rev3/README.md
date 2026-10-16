@@ -226,6 +226,34 @@ on the marked face.
 
 ![Lid proof](renders/lid-proof.png)
 
+**Lid proof 1 results (2026-10-16)**, textured PEI plate, Elephant foot
+compensation 0, Arachne:
+- Good: the logo (crisp), the write-on panel, the icons, the vents, `12V 3A`.
+- Not professional enough yet: the white labels are blurry. The small closed
+  counters fill in, so `BTM=DN` reads almost as `DTM=ON` (B and D lose their
+  holes), and the H in `SH` looks lumpy. The blue `SHADE CONTROLLER • 4` is
+  patchy, with parts of strokes missing.
+- Why the checker passed it: `MIN_GAP` 0.5 came from a *long* slot on tile v2.
+  A short, closed counter (about 0.5 × 0.7 mm in a 3 mm B) fills in far more
+  easily, so the gap rule is too loose for counters. The plate's texture
+  grain is also about the size of a 0.6 mm stroke and roughs every edge.
+
+**Next (paused until the user has a smooth plate, week of 2026-10-19):**
+1. Reprint this same proof, unchanged, on a **smooth PEI** plate, with a thin
+   layer of **glue stick** as a release layer (PETG can fuse to smooth PEI and
+   tear it). That shows how much of the blur is the textured plate. Expect a
+   glossy marked face; a Sharpie still works on it but takes a few seconds to dry.
+2. Depending on that result, possible design changes (none started):
+   - J4 legend: a large digit or ground symbol per pin (`1 ⏚ 2 3 ⏚ 4 1 2 3 4`),
+     with `SWITCH` and `SHADE` running sideways along the two groups at about
+     4.5 mm; arrows (`▲ UP` / `▼ DN`) for the row key. No small counters left.
+   - Tagline: a heavier stroke (0.64 → 0.75 mm, two clean extrusion lines), or
+     two stacked lines so the letters can be taller.
+   - A tighter rule for closed counters in `printability()`.
+   - If FDM still isn't crisp enough: keep the logo, icons and write-on panel
+     as inlays, and put the fine text on a printed or laser label in a shallow
+     recess.
+
 ## Fit print 1 results (2026-10-13)
 
 - **Board fit: perfect.** No dimension changes.
