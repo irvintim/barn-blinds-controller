@@ -46,3 +46,11 @@ venv/
 
 # Python bytecode (freecadcmd imports scripts as modules)
 __pycache__/
+
+# ESPHome build cache wherever esphome gets run from
+.esphome/
+
+# Local downloads and scratch at the repo root (not project source)
+/*.zip
+/espressif-kicad-library/
+/production/
